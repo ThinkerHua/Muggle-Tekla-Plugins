@@ -31,7 +31,6 @@ namespace MuggleTeklaPlugins.MG1001
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMG1001));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.OkApplyModifyGetOnOffCancel = new Tekla.Structures.Dialog.UIControls.OkApplyModifyGetOnOffCancel();
@@ -136,7 +135,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.imageListComboBox_type_STIF_Web = new Tekla.Structures.Dialog.UIControls.ImageListComboBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList();
             this.saveLoad = new Tekla.Structures.Dialog.UIControls.SaveLoad();
             this.tableLayoutPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -1691,6 +1690,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormMG1001";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "门刚边柱与梁竖向连接";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
