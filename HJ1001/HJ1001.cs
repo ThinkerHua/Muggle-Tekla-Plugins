@@ -21,7 +21,7 @@ using MuggleTeklaPlugins.ModelExtension;
 using MuggleTeklaPlugins.ModelExtension.UIExtension;
 using MuggleTeklaPlugins.Internal;
 
-namespace HJ1001 {
+namespace MuggleTeklaPlugins.HJ1001 {
     public class PluginData {
         #region Fields
         [StructuresField("endPlateTHK")]

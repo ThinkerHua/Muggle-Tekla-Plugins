@@ -1,6 +1,6 @@
 using System;
 
-namespace HJ1001 {
+namespace MuggleTeklaPlugins.HJ1001 {
     public partial class FormHJ1001 : Tekla.Structures.Dialog.PluginFormBase {
         public FormHJ1001() {
             InitializeComponent();

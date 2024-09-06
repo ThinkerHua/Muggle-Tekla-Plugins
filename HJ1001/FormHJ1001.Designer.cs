@@ -1,5 +1,5 @@
 
-namespace HJ1001 {
+namespace MuggleTeklaPlugins.HJ1001 {
     partial class FormHJ1001 {
         /// <summary>
         /// Required designer variable.
@@ -911,6 +911,7 @@ namespace HJ1001 {
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormHJ1001";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ô²¹Ü¶Ô½Ó";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
