@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TEP Version="2.0">
+  <Product Id="HJ1001" UpgradeCode="208e49fb-67a3-6518-8ada-da1f7382ccab" Version="1.0" Language="1033" 
+		Name="HJ1001" Manufacturer="Trimble Solutions Corporation" Description=" " 
+		IconPath="%InstallerFolder%\Extension.ico">
+    <TeklaVersions>
+      <TeklaVersion Name="2021.0" />
+      <MinTeklaVersion Name="2019.0" />
+      <MaxTeklaVersion Name="2099.1" />
+    </TeklaVersions>
+  </Product>
+  <SourcePathVariables>
+    <SourcePathVariable Id="TepOutputFolder" Value="%TEPDEFINITIONFILEFOLDER%" Comment="This provides the location where the package builder is to save the package." />
+    <SourcePathVariable Id="InstallerFolder" Value="%TEPDEFINITIONFILEFOLDER%"/>
+  </SourcePathVariables>
+	<TargetPathVariables>
+		<PathVariable Id="ExtensionsDir" Value="%commonEnvFolder%\extensions"/>
+		<PathVariable Id="Macro" Value="%ENVDIR%\common\macros\modeling" />
+		<PathVariable Id="BinariesTargetDir" Value="%ExtensionsDir%\HJ1001"/>
+	</TargetPathVariables>
+  <Component Id="TheExtensionComponent" Guid="9b50e165-b052-4ae1-8c08-2cb1f4f9453d">
+    <File Id="LibraryFile" Source="%InstallerFolder%\BuildDrop\net48\HJ1001.dll" Target="%BinariesTargetDir%"/>
+  </Component>
+  <Feature Id="TheExtensionFeature" Title="ExtensionFeature">
+  <ComponentRef ReferenceId="TheExtensionComponent" />
+ </Feature>
+</TEP>

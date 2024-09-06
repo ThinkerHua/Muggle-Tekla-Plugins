@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MG1001": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
