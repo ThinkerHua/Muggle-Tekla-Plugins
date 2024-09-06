@@ -306,7 +306,7 @@ namespace HJ1001 {
             dis2 = TSG.Distance.PointToPoint(origin, secEndPoint);
             secDiameter = dis1 < dis2 ? secProfile.d1 : secProfile.d2;
 
-            var rotationAngel = 2 * Math.PI / quantity;
+            var rotationAngel = quantity == 0 ? 0 : 2 * Math.PI / quantity;
             #endregion
 
             Point p1, p2, p3, p4;
@@ -357,6 +357,8 @@ namespace HJ1001 {
             ModelOperation.CreatWeld(prim, endplate1);
             ModelOperation.CreatWeld(sec, endplate2);
             #endregion
+
+            if (quantity == 0) return;
 
             #region 创建加劲板并焊接
             var height = (endPlateDIAM - primDiameter) * 0.5 - margin;
@@ -410,7 +412,7 @@ namespace HJ1001 {
 
             #region 创建螺栓
             if (creatBolt == 0) goto skipBolt;
-            p2 = new Point(0, 100, 0);
+            p2 = new Point(0, 0, 100);
             var rM = MatrixFactory.Rotate(rotationAngel * 0.5, axisX);
             p2 = rM.Transform(p2);
             ModelOperation.CreatBoltCircle(endplate1, endplate2, null,
