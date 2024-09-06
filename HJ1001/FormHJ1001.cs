@@ -58,9 +58,9 @@ namespace HJ1001 {
                 filter_margin.Enabled = false;
 
                 if (cBox_creatBolt.SelectedIndex == 0) {
-                    tBox_quantify.Text = "";
-                    tBox_quantify.Enabled = false;
-                    filter_quantify.Enabled = false;
+                    tBox_quantity.Text = "";
+                    tBox_quantity.Enabled = false;
+                    filter_quantity.Enabled = false;
                 }
             } else {
                 tBox_stifTHK.Enabled = true;
@@ -74,8 +74,8 @@ namespace HJ1001 {
                 filter_chamY.Enabled = true;
                 filter_margin.Enabled = true;
 
-                tBox_quantify.Enabled = true;
-                filter_quantify.Enabled = true;
+                tBox_quantity.Enabled = true;
+                filter_quantity.Enabled = true;
             }
         }
 
@@ -92,9 +92,9 @@ namespace HJ1001 {
                 filter_boltCircleDiameter.Enabled = false;
 
                 if(cBox_creatPrimStif.SelectedIndex == 0 && cBox_creatSecStif.SelectedIndex == 0) {
-                    tBox_quantify.Text = "";
-                    tBox_quantify.Enabled = false;
-                    filter_quantify.Enabled = false;
+                    tBox_quantity.Text = "";
+                    tBox_quantity.Enabled = false;
+                    filter_quantity.Enabled = false;
                 }
             } else {
                 boltCatalogStandard1.Enabled = true;
@@ -104,8 +104,8 @@ namespace HJ1001 {
                 filter_boltSize.Enabled = true;
                 filter_boltCircleDiameter.Enabled = true;
 
-                tBox_quantify.Enabled = true;
-                filter_quantify.Enabled = true;
+                tBox_quantity.Enabled = true;
+                filter_quantity.Enabled = true;
             }
         }
     }

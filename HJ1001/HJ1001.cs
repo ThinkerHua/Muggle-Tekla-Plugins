@@ -142,30 +142,30 @@ namespace HJ1001 {
         /// Gets the values from the dialog and sets the default values if needed
         /// </summary>
         private void GetValuesFromDialog() {
-            endPlateTHK = Data.endPlateTHK;
-            endPlateDIAM = Data.endPlateDIAM;
-            creatPrimStif = Data.creatPrimStif;
-            creatSecStif = Data.creatSecStif;
-            stifTHK = Data.stifTHK;
-            stifWidth = Data.stifWidth;
-            chamX = Data.chamX;
-            chamY = Data.chamY;
-            margin = Data.margin;
-            quantity = Data.quantity;
-            creatBolt = Data.creatBolt;
-            boltStandard = Data.boltStandard;
-            boltSize = Data.boltSize;
-            boltCircleDiameter = Data.boltCircleDiameter;
-            material = Data.material;
-            group_no = Data.group_no;
+            endPlateTHK = _Data.endPlateTHK;
+            endPlateDIAM = _Data.endPlateDIAM;
+            creatPrimStif = _Data.creatPrimStif;
+            creatSecStif = _Data.creatSecStif;
+            stifTHK = _Data.stifTHK;
+            stifWidth = _Data.stifWidth;
+            chamX = _Data.chamX;
+            chamY = _Data.chamY;
+            margin = _Data.margin;
+            quantity = _Data.quantity;
+            creatBolt = _Data.creatBolt;
+            boltStandard = _Data.boltStandard;
+            boltSize = _Data.boltSize;
+            boltCircleDiameter = _Data.boltCircleDiameter;
+            material = _Data.material;
+            group_no = _Data.group_no;
 
             if (IsDefaultValue(endPlateTHK))
                 endPlateTHK = 20;
             if (IsDefaultValue(endPlateDIAM))
                 endPlateDIAM = 554;
-            if (IsDefaultValue(creatPrimStif))
+            if (IsDefaultValue(creatPrimStif) || creatPrimStif < 0)
                 creatPrimStif = 1;
-            if (IsDefaultValue(creatSecStif))
+            if (IsDefaultValue(creatSecStif) || creatSecStif < 0)
                 creatSecStif = 1;
             if (IsDefaultValue(stifTHK))
                 stifTHK = 10;
@@ -179,7 +179,7 @@ namespace HJ1001 {
                 margin = 0;
             if (IsDefaultValue(quantity))
                 quantity = 16;
-            if (IsDefaultValue(creatBolt))
+            if (IsDefaultValue(creatBolt) || creatBolt < 0)
                 creatBolt = 1;
             if (IsDefaultValue(boltStandard))
                 boltStandard = "HS10.9";

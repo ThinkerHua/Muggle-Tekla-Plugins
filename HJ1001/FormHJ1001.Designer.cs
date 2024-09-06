@@ -35,7 +35,7 @@ namespace HJ1001 {
             this.filter_boltSize = new System.Windows.Forms.CheckBox();
             this.filter_boltStandard = new System.Windows.Forms.CheckBox();
             this.filter_creatBolt = new System.Windows.Forms.CheckBox();
-            this.filter_quantify = new System.Windows.Forms.CheckBox();
+            this.filter_quantity = new System.Windows.Forms.CheckBox();
             this.filter_margin = new System.Windows.Forms.CheckBox();
             this.filter_chamY = new System.Windows.Forms.CheckBox();
             this.filter_chamX = new System.Windows.Forms.CheckBox();
@@ -46,6 +46,9 @@ namespace HJ1001 {
             this.filter_endPlateDIAM = new System.Windows.Forms.CheckBox();
             this.filter_endPlateTHK = new System.Windows.Forms.CheckBox();
             this.materialCatalog1 = new Tekla.Structures.Dialog.UIControls.MaterialCatalog();
+            this.cBox_creatBolt = new System.Windows.Forms.ComboBox();
+            this.cBox_creatSecStif = new System.Windows.Forms.ComboBox();
+            this.cBox_creatPrimStif = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -62,7 +65,7 @@ namespace HJ1001 {
             this.label5 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.tBox_quantify = new System.Windows.Forms.TextBox();
+            this.tBox_quantity = new System.Windows.Forms.TextBox();
             this.tBox_boltCircleDiameter = new System.Windows.Forms.TextBox();
             this.tBox_margin = new System.Windows.Forms.TextBox();
             this.tBox_chamY = new System.Windows.Forms.TextBox();
@@ -79,9 +82,6 @@ namespace HJ1001 {
             this.boltCatalogStandard1 = new Tekla.Structures.Dialog.UIControls.BoltCatalogStandard();
             this.boltCatalogSize1 = new Tekla.Structures.Dialog.UIControls.BoltCatalogSize();
             this.saveLoad = new Tekla.Structures.Dialog.UIControls.SaveLoad();
-            this.cBox_creatBolt = new System.Windows.Forms.ComboBox();
-            this.cBox_creatSecStif = new System.Windows.Forms.ComboBox();
-            this.cBox_creatPrimStif = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.ParametersTabPage.SuspendLayout();
@@ -150,7 +150,7 @@ namespace HJ1001 {
             this.ParametersTabPage.Controls.Add(this.filter_boltSize);
             this.ParametersTabPage.Controls.Add(this.filter_boltStandard);
             this.ParametersTabPage.Controls.Add(this.filter_creatBolt);
-            this.ParametersTabPage.Controls.Add(this.filter_quantify);
+            this.ParametersTabPage.Controls.Add(this.filter_quantity);
             this.ParametersTabPage.Controls.Add(this.filter_margin);
             this.ParametersTabPage.Controls.Add(this.filter_chamY);
             this.ParametersTabPage.Controls.Add(this.filter_chamX);
@@ -180,7 +180,7 @@ namespace HJ1001 {
             this.ParametersTabPage.Controls.Add(this.label5);
             this.ParametersTabPage.Controls.Add(this.label18);
             this.ParametersTabPage.Controls.Add(this.label4);
-            this.ParametersTabPage.Controls.Add(this.tBox_quantify);
+            this.ParametersTabPage.Controls.Add(this.tBox_quantity);
             this.ParametersTabPage.Controls.Add(this.tBox_boltCircleDiameter);
             this.ParametersTabPage.Controls.Add(this.tBox_margin);
             this.ParametersTabPage.Controls.Add(this.tBox_chamY);
@@ -294,20 +294,20 @@ namespace HJ1001 {
             this.filter_creatBolt.TabIndex = 21;
             this.filter_creatBolt.UseVisualStyleBackColor = true;
             // 
-            // filter_quantify
+            // filter_quantity
             // 
-            this.structuresExtender.SetAttributeName(this.filter_quantify, "quantify");
-            this.structuresExtender.SetAttributeTypeName(this.filter_quantify, null);
-            this.filter_quantify.AutoSize = true;
-            this.structuresExtender.SetBindPropertyName(this.filter_quantify, "Checked");
-            this.filter_quantify.Checked = true;
-            this.filter_quantify.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.structuresExtender.SetIsFilter(this.filter_quantify, true);
-            this.filter_quantify.Location = new System.Drawing.Point(435, 250);
-            this.filter_quantify.Name = "filter_quantify";
-            this.filter_quantify.Size = new System.Drawing.Size(15, 14);
-            this.filter_quantify.TabIndex = 19;
-            this.filter_quantify.UseVisualStyleBackColor = true;
+            this.structuresExtender.SetAttributeName(this.filter_quantity, "quantity");
+            this.structuresExtender.SetAttributeTypeName(this.filter_quantity, null);
+            this.filter_quantity.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.filter_quantity, "Checked");
+            this.filter_quantity.Checked = true;
+            this.filter_quantity.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.structuresExtender.SetIsFilter(this.filter_quantity, true);
+            this.filter_quantity.Location = new System.Drawing.Point(435, 250);
+            this.filter_quantity.Name = "filter_quantity";
+            this.filter_quantity.Size = new System.Drawing.Size(15, 14);
+            this.filter_quantity.TabIndex = 19;
+            this.filter_quantity.UseVisualStyleBackColor = true;
             // 
             // filter_margin
             // 
@@ -450,7 +450,7 @@ namespace HJ1001 {
             this.structuresExtender.SetAttributeTypeName(this.materialCatalog1, null);
             this.materialCatalog1.BackColor = System.Drawing.Color.Transparent;
             this.structuresExtender.SetBindPropertyName(this.materialCatalog1, null);
-            this.materialCatalog1.ButtonText = "albl_Select__";
+            this.materialCatalog1.ButtonText = "Select...";
             this.materialCatalog1.Location = new System.Drawing.Point(216, 322);
             this.materialCatalog1.Name = "materialCatalog1";
             this.materialCatalog1.SelectedMaterial = "";
@@ -458,6 +458,51 @@ namespace HJ1001 {
             this.materialCatalog1.TabIndex = 31;
             this.materialCatalog1.SelectClicked += new System.EventHandler(this.materialCatalog1_SelectClicked);
             this.materialCatalog1.SelectionDone += new System.EventHandler(this.materialCatalog1_SelectionDone);
+            // 
+            // cBox_creatBolt
+            // 
+            this.structuresExtender.SetAttributeName(this.cBox_creatBolt, "creatBolt");
+            this.structuresExtender.SetAttributeTypeName(this.cBox_creatBolt, "Integer");
+            this.structuresExtender.SetBindPropertyName(this.cBox_creatBolt, "SelectedIndex");
+            this.cBox_creatBolt.FormattingEnabled = true;
+            this.cBox_creatBolt.Items.AddRange(new object[] {
+            "否",
+            "是"});
+            this.cBox_creatBolt.Location = new System.Drawing.Point(456, 274);
+            this.cBox_creatBolt.Name = "cBox_creatBolt";
+            this.cBox_creatBolt.Size = new System.Drawing.Size(100, 20);
+            this.cBox_creatBolt.TabIndex = 22;
+            this.cBox_creatBolt.SelectedIndexChanged += new System.EventHandler(this.IfCreatBolt);
+            // 
+            // cBox_creatSecStif
+            // 
+            this.structuresExtender.SetAttributeName(this.cBox_creatSecStif, "creatSecStif");
+            this.structuresExtender.SetAttributeTypeName(this.cBox_creatSecStif, "Integer");
+            this.structuresExtender.SetBindPropertyName(this.cBox_creatSecStif, "SelectedIndex");
+            this.cBox_creatSecStif.FormattingEnabled = true;
+            this.cBox_creatSecStif.Items.AddRange(new object[] {
+            "否",
+            "是"});
+            this.cBox_creatSecStif.Location = new System.Drawing.Point(456, 86);
+            this.cBox_creatSecStif.Name = "cBox_creatSecStif";
+            this.cBox_creatSecStif.Size = new System.Drawing.Size(100, 20);
+            this.cBox_creatSecStif.TabIndex = 8;
+            this.cBox_creatSecStif.SelectedIndexChanged += new System.EventHandler(this.IfCreatStif);
+            // 
+            // cBox_creatPrimStif
+            // 
+            this.structuresExtender.SetAttributeName(this.cBox_creatPrimStif, "creatPrimStif");
+            this.structuresExtender.SetAttributeTypeName(this.cBox_creatPrimStif, "Integer");
+            this.structuresExtender.SetBindPropertyName(this.cBox_creatPrimStif, "SelectedIndex");
+            this.cBox_creatPrimStif.FormattingEnabled = true;
+            this.cBox_creatPrimStif.Items.AddRange(new object[] {
+            "否",
+            "是"});
+            this.cBox_creatPrimStif.Location = new System.Drawing.Point(456, 60);
+            this.cBox_creatPrimStif.Name = "cBox_creatPrimStif";
+            this.cBox_creatPrimStif.Size = new System.Drawing.Size(100, 20);
+            this.cBox_creatPrimStif.TabIndex = 6;
+            this.cBox_creatPrimStif.SelectedIndexChanged += new System.EventHandler(this.IfCreatStif);
             // 
             // label13
             // 
@@ -667,15 +712,15 @@ namespace HJ1001 {
             this.label4.TabIndex = 14;
             this.label4.Text = "端板 厚度  ";
             // 
-            // tBox_quantify
+            // tBox_quantity
             // 
-            this.structuresExtender.SetAttributeName(this.tBox_quantify, "quantify");
-            this.structuresExtender.SetAttributeTypeName(this.tBox_quantify, "Integer");
-            this.structuresExtender.SetBindPropertyName(this.tBox_quantify, "Text");
-            this.tBox_quantify.Location = new System.Drawing.Point(456, 247);
-            this.tBox_quantify.Name = "tBox_quantify";
-            this.tBox_quantify.Size = new System.Drawing.Size(100, 21);
-            this.tBox_quantify.TabIndex = 20;
+            this.structuresExtender.SetAttributeName(this.tBox_quantity, "quantity");
+            this.structuresExtender.SetAttributeTypeName(this.tBox_quantity, "Integer");
+            this.structuresExtender.SetBindPropertyName(this.tBox_quantity, "Text");
+            this.tBox_quantity.Location = new System.Drawing.Point(456, 247);
+            this.tBox_quantity.Name = "tBox_quantity";
+            this.tBox_quantity.Size = new System.Drawing.Size(100, 21);
+            this.tBox_quantity.TabIndex = 20;
             // 
             // tBox_boltCircleDiameter
             // 
@@ -853,51 +898,6 @@ namespace HJ1001 {
             this.saveLoad.TabIndex = 0;
             this.saveLoad.UserDefinedHelpFilePath = null;
             // 
-            // cBox_creatBolt
-            // 
-            this.structuresExtender.SetAttributeName(this.cBox_creatBolt, "creatBolt");
-            this.structuresExtender.SetAttributeTypeName(this.cBox_creatBolt, "Integer");
-            this.structuresExtender.SetBindPropertyName(this.cBox_creatBolt, "SelectedIndex");
-            this.cBox_creatBolt.FormattingEnabled = true;
-            this.cBox_creatBolt.Items.AddRange(new object[] {
-            "否",
-            "是"});
-            this.cBox_creatBolt.Location = new System.Drawing.Point(456, 274);
-            this.cBox_creatBolt.Name = "cBox_creatBolt";
-            this.cBox_creatBolt.Size = new System.Drawing.Size(100, 20);
-            this.cBox_creatBolt.TabIndex = 22;
-            this.cBox_creatBolt.SelectedIndexChanged += new System.EventHandler(this.IfCreatBolt);
-            // 
-            // cBox_creatSecStif
-            // 
-            this.structuresExtender.SetAttributeName(this.cBox_creatSecStif, "creatSecStif");
-            this.structuresExtender.SetAttributeTypeName(this.cBox_creatSecStif, "Integer");
-            this.structuresExtender.SetBindPropertyName(this.cBox_creatSecStif, "SelectedIndex");
-            this.cBox_creatSecStif.FormattingEnabled = true;
-            this.cBox_creatSecStif.Items.AddRange(new object[] {
-            "否",
-            "是"});
-            this.cBox_creatSecStif.Location = new System.Drawing.Point(456, 86);
-            this.cBox_creatSecStif.Name = "cBox_creatSecStif";
-            this.cBox_creatSecStif.Size = new System.Drawing.Size(100, 20);
-            this.cBox_creatSecStif.TabIndex = 8;
-            this.cBox_creatSecStif.SelectedIndexChanged += new System.EventHandler(this.IfCreatStif);
-            // 
-            // cBox_creatPrimStif
-            // 
-            this.structuresExtender.SetAttributeName(this.cBox_creatPrimStif, "creatPrimStif");
-            this.structuresExtender.SetAttributeTypeName(this.cBox_creatPrimStif, "Integer");
-            this.structuresExtender.SetBindPropertyName(this.cBox_creatPrimStif, "SelectedIndex");
-            this.cBox_creatPrimStif.FormattingEnabled = true;
-            this.cBox_creatPrimStif.Items.AddRange(new object[] {
-            "否",
-            "是"});
-            this.cBox_creatPrimStif.Location = new System.Drawing.Point(456, 60);
-            this.cBox_creatPrimStif.Name = "cBox_creatPrimStif";
-            this.cBox_creatPrimStif.Size = new System.Drawing.Size(100, 20);
-            this.cBox_creatPrimStif.TabIndex = 6;
-            this.cBox_creatPrimStif.SelectedIndexChanged += new System.EventHandler(this.IfCreatStif);
-            // 
             // FormHJ1001
             // 
             this.structuresExtender.SetAttributeName(this, null);
@@ -950,7 +950,7 @@ namespace HJ1001 {
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox tBox_quantify;
+        private System.Windows.Forms.TextBox tBox_quantity;
         private System.Windows.Forms.TextBox tBox_boltCircleDiameter;
         private System.Windows.Forms.TextBox tBox_margin;
         private System.Windows.Forms.TextBox tBox_chamY;
@@ -966,7 +966,7 @@ namespace HJ1001 {
         private System.Windows.Forms.CheckBox filter_boltSize;
         private System.Windows.Forms.CheckBox filter_boltStandard;
         private System.Windows.Forms.CheckBox filter_creatBolt;
-        private System.Windows.Forms.CheckBox filter_quantify;
+        private System.Windows.Forms.CheckBox filter_quantity;
         private System.Windows.Forms.CheckBox filter_margin;
         private System.Windows.Forms.CheckBox filter_chamY;
         private System.Windows.Forms.CheckBox filter_chamX;
