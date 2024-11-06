@@ -84,5 +84,13 @@ namespace MuggleTeklaPlugins.MG1001 {
                 break;
             }
         }
+
+        private void materialCatalog1_SelectClicked(object sender, EventArgs e) {
+            materialCatalog1.SelectedMaterial = textBox_materialStr.Text;
+        }
+
+        private void materialCatalog1_SelectionDone(object sender, EventArgs e) {
+            SetAttributeValue(textBox_materialStr, materialCatalog1.SelectedMaterial);
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -10,6 +9,9 @@ using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 
 namespace MuggleTeklaPlugins.Common {
+    /// <summary>
+    /// 不支持的截面或不支持的截面参数
+    /// </summary>
     public class UnAcceptableProfile : Exception {
         private readonly string _message;
         public UnAcceptableProfile() { }
@@ -20,6 +22,9 @@ namespace MuggleTeklaPlugins.Common {
             return $"不支持此类型截面 或 不支持此类型截面的当前参数：\n{_message}";
         }
     }
+    /// <summary>
+    /// 匹配模式集合
+    /// </summary>
     public static class PatternCollection {
         /// <summary>
         /// 前置标识符为 H 或 HP 或 HW 或 HM 或 HN 或 HT 或 WH，后续参数形式为 h1[~h2]*b1[/b2]*s*t1[/t2]。
@@ -78,6 +83,9 @@ namespace MuggleTeklaPlugins.Common {
         public static string CIRC_5 => @"^((CFCHS)|(CHS)|(EPD)|O|(PD)|(TUBE))(?<d1>\d+\.?\d*)\*(?<r1>\d+\.?\d*)"
                                         + @"\*(?<d2>\d+\.?\d*)\*(?<r2>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
     }
+    /// <summary>
+    /// 型材截面基类
+    /// </summary>
     public class ProfileBase {
         protected virtual void SetFieldsValues() { }
     }
@@ -358,32 +366,56 @@ namespace MuggleTeklaPlugins.Common {
             }
         }
     }
+    /// <summary>
+    /// 通用操作
+    /// </summary>
     public static class CommonOperation {
+        /// <summary>
+        /// 交换数据。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="a">要交换的数据</param>
+        /// <param name="b">要交换的数据</param>
         public static void Swap<T>(ref T a, ref T b) {
             T t;
             t = a;
             a = b;
             b = t;
         }
+        /// <summary>
+        /// 极值枚举
+        /// </summary>
         public enum ExtremeTypeEnum {
+            /// <summary>
+            /// 局部极小值
+            /// </summary>
             LocalMinimum,
+            /// <summary>
+            /// 局部极大值
+            /// </summary>
             LocalMaximum,
         }
         /// <summary>
-        /// 找出数据集合 <paramref name="data"/> 中的局部极小值或极大值，并返回其序号集合。
+        /// 找出数据集合 <paramref name="data"/> 中的局部极值，并返回其序号集合。
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data">给定数据集合。</param>
         /// <param name="type">极值类型。</param>
         /// <param name="interval">用来判断极值的最小区间，应当为3以上的奇数，输入偶数则向上进1。</param>
         /// <returns>可能的局部极值的序号集合。入参为null或不符合规则，则返回null。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public static List<int> GetLocalExtremeIndexes<T>(
             IList<T> data,
             ExtremeTypeEnum type,
             int interval = 3)
             where T : IComparable<T> {
 
-            if (data == null || data.Count == 0) return null;
+            if (data is null) {
+                throw new ArgumentNullException(nameof(data));
+            }
+            if (data.Count == 0)
+                throw new ArgumentException($"“{nameof(data)}”中项目数应大于0。");
 
             if (interval < 3) interval = 3;
             if (interval % 2 == 0) interval++;
@@ -448,6 +480,7 @@ namespace MuggleTeklaPlugins.Common {
         /// <param name="variations">给定数据集合。</param>
         /// <param name="type">极值类型。</param>
         /// <returns>是否符合极值类型 <paramref name="type"/> 。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
 
         //                                            +         
         //                          +               +   -       
@@ -457,8 +490,9 @@ namespace MuggleTeklaPlugins.Common {
         //          +       -               =                   
         //        +                                             
         private static bool MaybeExtreme(List<int> variations, ExtremeTypeEnum type) {
-
-            if (variations == null) return false;
+            if (variations is null) {
+                throw new ArgumentNullException(nameof(variations));
+            }
 
             int cnt = variations.Count;
             int half = cnt / 2;

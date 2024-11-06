@@ -31,6 +31,7 @@ namespace MuggleTeklaPlugins.MG1001
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMG1001));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.OkApplyModifyGetOnOffCancel = new Tekla.Structures.Dialog.UIControls.OkApplyModifyGetOnOffCancel();
@@ -135,8 +136,12 @@ namespace MuggleTeklaPlugins.MG1001
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.imageListComboBox_type_STIF_Web = new Tekla.Structures.Dialog.UIControls.ImageListComboBox();
-            this.imageList1 = new System.Windows.Forms.ImageList();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.saveLoad = new Tekla.Structures.Dialog.UIControls.SaveLoad();
+            this.textBox_materialStr = new System.Windows.Forms.TextBox();
+            this.filter_materialStr = new System.Windows.Forms.CheckBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.materialCatalog1 = new Tekla.Structures.Dialog.UIControls.MaterialCatalog();
             this.tableLayoutPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.ParametersTabPage1.SuspendLayout();
@@ -960,6 +965,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.ParametersTabPage2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ParametersTabPage2.BackgroundImage")));
             this.ParametersTabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.structuresExtender.SetBindPropertyName(this.ParametersTabPage2, null);
+            this.ParametersTabPage2.Controls.Add(this.materialCatalog1);
             this.ParametersTabPage2.Controls.Add(this.boltCatalogStandard1);
             this.ParametersTabPage2.Controls.Add(this.boltCatalogSize1);
             this.ParametersTabPage2.Controls.Add(this.filter_chamfer_STIF_in);
@@ -978,6 +984,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.ParametersTabPage2.Controls.Add(this.filter_prfStr_STIF_Web);
             this.ParametersTabPage2.Controls.Add(this.filter_prfStr_STIF_FLNG);
             this.ParametersTabPage2.Controls.Add(this.filter_prfStr_EndPlate2);
+            this.ParametersTabPage2.Controls.Add(this.filter_materialStr);
             this.ParametersTabPage2.Controls.Add(this.filter_group_no);
             this.ParametersTabPage2.Controls.Add(this.filter_prfStr_EndPlate1);
             this.ParametersTabPage2.Controls.Add(this.textBox_disLstStr_STIF_Web);
@@ -987,6 +994,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.ParametersTabPage2.Controls.Add(this.textBox_prfStr_STIF_Web);
             this.ParametersTabPage2.Controls.Add(this.textBox_prfStr_STIF_FLNG);
             this.ParametersTabPage2.Controls.Add(this.textBox_prfStr_EndPlate2);
+            this.ParametersTabPage2.Controls.Add(this.textBox_materialStr);
             this.ParametersTabPage2.Controls.Add(this.textBox_group_no);
             this.ParametersTabPage2.Controls.Add(this.textBox_prfStr_EndPlate1);
             this.ParametersTabPage2.Controls.Add(this.label31);
@@ -998,6 +1006,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.ParametersTabPage2.Controls.Add(this.label25);
             this.ParametersTabPage2.Controls.Add(this.label24);
             this.ParametersTabPage2.Controls.Add(this.label23);
+            this.ParametersTabPage2.Controls.Add(this.label42);
             this.ParametersTabPage2.Controls.Add(this.label28);
             this.ParametersTabPage2.Controls.Add(this.label22);
             this.ParametersTabPage2.Controls.Add(this.label21);
@@ -1282,7 +1291,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.filter_group_no.Location = new System.Drawing.Point(489, 334);
             this.filter_group_no.Name = "filter_group_no";
             this.filter_group_no.Size = new System.Drawing.Size(15, 14);
-            this.filter_group_no.TabIndex = 27;
+            this.filter_group_no.TabIndex = 30;
             this.filter_group_no.UseVisualStyleBackColor = true;
             // 
             // filter_prfStr_EndPlate1
@@ -1378,7 +1387,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.textBox_group_no.Location = new System.Drawing.Point(510, 331);
             this.textBox_group_no.Name = "textBox_group_no";
             this.textBox_group_no.Size = new System.Drawing.Size(100, 21);
-            this.textBox_group_no.TabIndex = 28;
+            this.textBox_group_no.TabIndex = 31;
             // 
             // textBox_prfStr_EndPlate1
             // 
@@ -1649,7 +1658,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.imageListComboBox_type_STIF_Web.SelectedIndex = 0;
             this.imageListComboBox_type_STIF_Web.SelectedItem = ((object)(resources.GetObject("imageListComboBox_type_STIF_Web.SelectedItem")));
             this.imageListComboBox_type_STIF_Web.Size = new System.Drawing.Size(80, 71);
-            this.imageListComboBox_type_STIF_Web.TabIndex = 29;
+            this.imageListComboBox_type_STIF_Web.TabIndex = 32;
             this.imageListComboBox_type_STIF_Web.ToolTipText = "";
             this.imageListComboBox_type_STIF_Web.ImageListComboBoxSelectedIndexChanged += new System.EventHandler(this.imageListComboBox_type_STIF_Web_ImageListComboBoxSelectedIndexChanged);
             // 
@@ -1676,6 +1685,62 @@ namespace MuggleTeklaPlugins.MG1001
             this.saveLoad.Size = new System.Drawing.Size(768, 40);
             this.saveLoad.TabIndex = 0;
             this.saveLoad.UserDefinedHelpFilePath = null;
+            // 
+            // textBox_materialStr
+            // 
+            this.structuresExtender.SetAttributeName(this.textBox_materialStr, "materialStr");
+            this.structuresExtender.SetAttributeTypeName(this.textBox_materialStr, "String");
+            this.structuresExtender.SetBindPropertyName(this.textBox_materialStr, "Text");
+            this.textBox_materialStr.Location = new System.Drawing.Point(510, 304);
+            this.textBox_materialStr.Name = "textBox_materialStr";
+            this.textBox_materialStr.Size = new System.Drawing.Size(100, 21);
+            this.textBox_materialStr.TabIndex = 28;
+            // 
+            // filter_materialStr
+            // 
+            this.structuresExtender.SetAttributeName(this.filter_materialStr, "materialStr");
+            this.structuresExtender.SetAttributeTypeName(this.filter_materialStr, null);
+            this.filter_materialStr.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.filter_materialStr, "Checked");
+            this.filter_materialStr.Checked = true;
+            this.filter_materialStr.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.structuresExtender.SetIsFilter(this.filter_materialStr, true);
+            this.filter_materialStr.Location = new System.Drawing.Point(489, 307);
+            this.filter_materialStr.Name = "filter_materialStr";
+            this.filter_materialStr.Size = new System.Drawing.Size(15, 14);
+            this.filter_materialStr.TabIndex = 27;
+            this.filter_materialStr.UseVisualStyleBackColor = true;
+            // 
+            // label42
+            // 
+            this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.structuresExtender.SetAttributeName(this.label42, null);
+            this.structuresExtender.SetAttributeTypeName(this.label42, null);
+            this.label42.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.label42, null);
+            this.label42.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label42.Location = new System.Drawing.Point(376, 307);
+            this.label42.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(105, 14);
+            this.label42.TabIndex = 9;
+            this.label42.Text = "节点零件材质  ";
+            // 
+            // materialCatalog1
+            // 
+            this.structuresExtender.SetAttributeName(this.materialCatalog1, null);
+            this.structuresExtender.SetAttributeTypeName(this.materialCatalog1, null);
+            this.materialCatalog1.BackColor = System.Drawing.Color.Transparent;
+            this.structuresExtender.SetBindPropertyName(this.materialCatalog1, null);
+            this.materialCatalog1.ButtonText = "albl_Select__";
+            this.materialCatalog1.Location = new System.Drawing.Point(616, 305);
+            this.materialCatalog1.Name = "materialCatalog1";
+            this.materialCatalog1.SelectedMaterial = "";
+            this.materialCatalog1.Size = new System.Drawing.Size(88, 20);
+            this.materialCatalog1.TabIndex = 29;
+            this.materialCatalog1.SelectClicked += new System.EventHandler(this.materialCatalog1_SelectClicked);
+            this.materialCatalog1.SelectionDone += new System.EventHandler(this.materialCatalog1_SelectionDone);
             // 
             // FormMG1001
             // 
@@ -1809,5 +1874,9 @@ namespace MuggleTeklaPlugins.MG1001
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.CheckBox filter_materialStr;
+        private System.Windows.Forms.TextBox textBox_materialStr;
+        private System.Windows.Forms.Label label42;
+        private Tekla.Structures.Dialog.UIControls.MaterialCatalog materialCatalog1;
     }
 }

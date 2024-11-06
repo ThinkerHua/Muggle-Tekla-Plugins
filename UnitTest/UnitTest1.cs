@@ -8,12 +8,14 @@ using Tekla.Structures.Model.UI;
 using Tekla.Structures.Model.Operations;
 using Tekla.Structures.ModelInternal;
 using Tekla.Structures.Geometry3d;
+using Tekla.Structures.Catalogs;
 
 using MuggleTeklaPlugins.Common;
 using MuggleTeklaPlugins.Geometry3dExtension;
 using MuggleTeklaPlugins.ModelExtension;
 using MuggleTeklaPlugins.ModelExtension.UIExtension;
 using MuggleTeklaPlugins.Internal;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 
 namespace UnitTest {
     [TestClass]
@@ -44,14 +46,29 @@ namespace UnitTest {
             model.CommitChanges();
         }
         [TestMethod]
+        public void TestDistance() {
+            var line1 = new Line(new Point(236, 457, 7981), new Vector(0, 1, 0));
+            var line2 = new Line();
+
+            Console.WriteLine($"Line1:\n\tOrigin - {line1.Origin}\n\tDirection - {line1.Direction}");
+            Console.WriteLine($"Line2:\n\tOrigin - {line2.Origin}\n\tDirection - {line2.Direction}");
+            Console.WriteLine(DistanceExtension.LineToLine(line1, line2));
+
+            line2.Direction = new Vector(349, 87, 908);
+            Console.WriteLine($"Line1:\n\tOrigin - {line1.Origin}\n\tDirection - {line1.Direction}");
+            Console.WriteLine($"Line2:\n\tOrigin - {line2.Origin}\n\tDirection - {line2.Direction}");
+            Console.WriteLine(DistanceExtension.LineToLine(line1, line2));
+
+        }
+        [TestMethod]
         public void TestLineSegmentLength() {
             var lineSeg = new LineSegment();
-            Console.WriteLine("The length of the LineSegment constructed by the default constructor:\n\t" + lineSeg.Length());
+            Console.WriteLine("无参构造函数构造的LineSegment的长度：\n\t" + lineSeg.Length());
 
             var line1 = new Line(new Point(1, 2, 0), new Vector(1.1, 2.2, 0));
             var line2 = new Line(new Point(11, 12, 0), new Vector(2, 3, 0));
-            lineSeg = Tekla.Structures.Geometry3d.Intersection.LineToLine(line1, line2);
-            Console.WriteLine("The length of the LineSegmemt constructed by method Intersection.LineToLine:\n\t" + lineSeg.Length());
+            lineSeg = Intersection.LineToLine(line1, line2);
+            Console.WriteLine($"Intersection.LineToLine方法构造的LineSegment的长度：\n\t{lineSeg.Length()}");
             Console.WriteLine($"If lineSeg.Length() == 0.0:\n\t{lineSeg.Length() == 0.0}");
             Console.WriteLine($"lineSeg.StartPoint:\n\t{lineSeg.StartPoint}");
             Console.WriteLine($"lineSeg.EndPoint:\n\t{lineSeg.EndPoint}");
@@ -83,10 +100,14 @@ namespace UnitTest {
             point1.Translate(point2);
             Console.WriteLine(point1);
 
-            var tp1 = new TransformationPlane(new Point(0, 0, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
-            var tp2 = new TransformationPlane(new Point(10, 10, 10), new Vector(1, 0, 0), new Vector(0, 1, 0));
-            point1.Transform(tp1, tp2);
-            Console.WriteLine(point1);
+            try {
+                var tp1 = new TransformationPlane(new Point(0, 0, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
+                var tp2 = new TransformationPlane(new Point(10, 10, 10), new Vector(1, 0, 0), new Vector(0, 1, 0));
+                point1.Transform(tp1, tp2);
+                Console.WriteLine(point1);
+            } catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
 
             var sourceCS = new CoordinateSystem(new Point(10, 10, 10), new Vector(0, 1, 0), new Vector(0, 0, 1));
             var targetCS = new CoordinateSystem(new Point(100, 200, 300), new Vector(1, 1, 0), new Vector(0, 1, 1));
@@ -118,6 +139,11 @@ namespace UnitTest {
             int a = 1, b = 2;
             CommonOperation.Swap(ref a, ref b);
             Console.WriteLine($"a = {a}, b = {b}");
+            int c = a, d = b;
+            (c, d) = (d, c);
+            Console.WriteLine($"a = {a}, b = {b}");
+            Console.WriteLine($"c = {c}, d = {d}");
+
 
             Point point1, point2;
             point1 = new Point(1, 2, 3);
@@ -125,6 +151,13 @@ namespace UnitTest {
             CommonOperation.Swap(ref point1, ref point2);
             Console.WriteLine($"point1 = {point1}");
             Console.WriteLine($"point2 = {point2}");
+            var p3 = point1; var p4 = point2;
+            (p3, p4) = (p4, p3);
+            Console.WriteLine($"point1 = {point1}");
+            Console.WriteLine($"point2 = {point2}");
+            Console.WriteLine($"point3 = {p3}");
+            Console.WriteLine($"point4 = {p4}");
+
         }
         [TestMethod]
         public void TestMatrix() {
@@ -152,7 +185,7 @@ namespace UnitTest {
             var targetCS3 = new CoordinateSystem(new Point(100, 200, 300), new Vector(-1, 0, 0), new Vector(0, -1, 0));
             var targetCS4 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, -1, 0), new Vector(1, 0, 0));
             var targetCS5 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, 1, 0), new Vector(1, 0, 0));
-            var rotationMatrix = Tekla.Structures.Geometry3d.MatrixFactory.Rotate(Math.PI * 0.5, new Vector(0, 0, 1));
+            var rotationMatrix = MatrixFactory.Rotate(Math.PI * 0.5, new Vector(0, 0, 1));
             var translationMatrix = new Matrix();
             translationMatrix[0, 0] = 1; translationMatrix[0, 1] = 0; translationMatrix[0, 2] = 0;
             translationMatrix[1, 0] = 0; translationMatrix[1, 1] = 1; translationMatrix[1, 2] = 0;
@@ -169,15 +202,15 @@ namespace UnitTest {
             Console.WriteLine($"Translation matrix multiply rotation matrix:\n{translationMatrix * rotationMatrix}");
             Console.WriteLine("矩阵乘法一般不满足交换律！");
             Console.WriteLine($"Rotated and translated point:\n\t{(rotationMatrix * translationMatrix).Transform(point)}");
-            matrix = Tekla.Structures.Geometry3d.MatrixFactory.ByCoordinateSystems(globalCS, targetCS1);
+            matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS1);
             Console.WriteLine($"Matrix 1:\n{matrix}");
-            matrix = Tekla.Structures.Geometry3d.MatrixFactory.ByCoordinateSystems(globalCS, targetCS2);
+            matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS2);
             Console.WriteLine($"Matrix 2:\n{matrix}");
-            matrix = Tekla.Structures.Geometry3d.MatrixFactory.ByCoordinateSystems(globalCS, targetCS3);
+            matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS3);
             Console.WriteLine($"Matrix 3:\n{matrix}");
-            matrix = Tekla.Structures.Geometry3d.MatrixFactory.ByCoordinateSystems(globalCS, targetCS4);
+            matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS4);
             Console.WriteLine($"Matrix 4:\n{matrix}");
-            matrix = Tekla.Structures.Geometry3d.MatrixFactory.ByCoordinateSystems(globalCS, targetCS5);
+            matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS5);
             Console.WriteLine($"Matrix 5:\n{matrix}");
 
         }
@@ -187,7 +220,7 @@ namespace UnitTest {
             var v1 = new Vector(1, 0, 0);
             var v2 = new Vector(0, 1, 0);
             var v3 = new Vector(0, 0, 1);
-            var rM = Tekla.Structures.Geometry3d.MatrixFactory.Rotate(-10 * Math.PI / 180, v3);
+            var rM = MatrixFactory.Rotate(-10 * Math.PI / 180, v3);
             var v4 = new Vector(rM.Transform(v2));
             Console.WriteLine(v1.GetAngleBetween(v4) * 180 / Math.PI);// 输出结果为100
 
@@ -195,15 +228,15 @@ namespace UnitTest {
             var targetCS = new CoordinateSystem {
                 Origin = new Point(100, 200, 300)
             };
-            var tM = Tekla.Structures.Geometry3d.MatrixFactory.ByCoordinateSystems(currentCS, targetCS);
+            var tM = MatrixFactory.ByCoordinateSystems(currentCS, targetCS);
             var point = new Point();
             Console.WriteLine(tM.Transform(point));//输出结果(-100.000, -200.000, -300.000)
 
-            Console.WriteLine($"Current coordinatesystem:\n{currentCS.GetInfo()}");
+            Console.WriteLine($"Current coordinatesystem:\n{CoordinateSystemExtension.ToString(currentCS)}");
             Console.WriteLine();
-            Console.WriteLine($"Target coordinatesystem:\n{targetCS.GetInfo()}");
+            Console.WriteLine($"Target coordinatesystem:\n{CoordinateSystemExtension.ToString(targetCS)}");
             Console.WriteLine();
-            Console.WriteLine($"Transformed coordinatesystem:\n{(rM * tM).Transform(currentCS).GetInfo()}");
+            Console.WriteLine($"Transformed coordinatesystem:\n{CoordinateSystemExtension.ToString((rM * tM).Transform(currentCS))}");
             //  应当输出为：
             //  AxisX:(1084.8078, 26.3518, 300)
             //  AxisY:(273.6482, 1184.8078, 300)
@@ -295,6 +328,7 @@ namespace UnitTest {
         }
         [TestMethod]
         public void TestReferencetype() {
+            if (!new Model().GetConnectionStatus()) return;
             Picker picker = new Picker();
             var obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART);
             var type = obj.GetType();
@@ -336,16 +370,26 @@ namespace UnitTest {
             Console.WriteLine(line.Direction);
         }
         [TestMethod]
-        public void TestVectorCross() {
+        public void TestVectorCrossDot() {
             var v1 = new Vector(1, 0, 0);
             var v2 = v1;
             var zeroVector = new Vector();
 
             Console.WriteLine(Vector.Cross(v1, v2) == zeroVector);
             Console.WriteLine(v1.Cross(zeroVector).ToString());
+            Console.WriteLine(v1.Dot(zeroVector));
+            try {
+                Console.WriteLine(v1.Cross(null).ToString());
+            } catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
+
+            var v3 = new Vector(235.505, 9365.872, -8923.8461);
+            Console.WriteLine(Vector.Dot(v3, v3));
+            Console.WriteLine(v3.GetLength());
         }
         [TestMethod]
-        public void TestVectorGetAngle() {
+        public void TestVectorGetAngleWithDirection() {
             var v1 = new Vector(1, 0, 0);
             var v2 = new Vector(0, 1, 0);
             var v3 = new Vector(0, 0, 1);
@@ -357,12 +401,43 @@ namespace UnitTest {
             Console.WriteLine(v1.GetAngleBetween_WithDirection(v2, v4) * 180 / Math.PI);
             Console.WriteLine(v1.GetAngleBetween_WithDirection(v2, zeroVector) * 180 / Math.PI);
 
-            var rM = Tekla.Structures.Geometry3d.MatrixFactory.Rotate(-10 * Math.PI / 180, v3);
+            var rM = MatrixFactory.Rotate(-10 * Math.PI / 180, v3);
             var v5 = new Vector(rM.Transform(v2));
             Console.WriteLine(v1.GetAngleBetween(v5) * 180 / Math.PI);
             Console.WriteLine(v1.GetAngleBetween_WithDirection(v5, v3) * 180 / Math.PI);
             Console.WriteLine(v5.GetAngleBetween(v1) * 180 / Math.PI);
             Console.WriteLine(v5.GetAngleBetween_WithDirection(v1, v3) * 180 / Math.PI);
+        }
+        [TestMethod]
+        public void TestVectorGetAngleBetween() {
+            var v1 = new Vector(1, 0, 0);
+            var v2 = new Vector(999.99999882477846, -0.048481368091977083, 0);
+
+            Console.WriteLine(v1.GetAngleBetween(v2));
+            var dot = v1.Dot(v2);
+            var angel = Math.Acos(dot / (v1.GetLength() * v2.GetLength()));
+            Console.WriteLine(angel);
+
+            var v3 = new Vector(-1, 0, 0);
+            Console.WriteLine(v1.GetAngleBetween(v3));
+            Console.WriteLine(v1.GetAngleBetween_Precisely(v3));
+
+            var v0 = new Vector();
+            Console.WriteLine(v0.GetAngleBetween(v3));
+            Console.WriteLine(v0.GetAngleBetween_Precisely(v3));
+            Console.WriteLine(v0.GetAngleBetween(v0));
+            try {
+                Console.WriteLine(v0.GetAngleBetween(null));
+                Console.WriteLine(v0.GetAngleBetween_Precisely(null));
+            } catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
+        }
+        [TestMethod]
+        public void TestVectorNormalize() {
+            var v = new Vector();
+            v.Normalize(100);
+            Console.WriteLine(v);
         }
         [TestMethod]
         public void TestArcGetPoints() {
@@ -390,12 +465,87 @@ namespace UnitTest {
             var point = new Point(1000, 1000, 1000);
             var line = new Line();
 
-            Console.WriteLine(line.Direction.ToString());
-            var p = Tekla.Structures.Geometry3d.Projection.PointToLine(point, line);
+            Console.WriteLine(line.Direction);
+            var p = Projection.PointToLine(point, line);
             Console.WriteLine(p.ToString());
         }
         [TestMethod]
-        public void TestCasesOfTheShortestDistanceOfCircleAndLine() {
+        public void TestIntersectionExtensionLineToLine() {
+            var line1 = new Line(new Point(100, 100, 0), new Vector());
+            var line2 = new Line(new Point(0, 100, 100), new Vector());
+
+            var lineSeg = Intersection.LineToLine(line1, line2);
+            try {
+                Console.WriteLine("官方实现：");
+                Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+                Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+                Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+            } catch {
+
+            }
+            lineSeg = IntersectionExtension.LineToLine(line1, line2);
+            Console.WriteLine("扩展实现：");
+            Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+            Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+            Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+
+            line1.Direction.X = 1;
+            line2.Direction.Y = 1;
+            lineSeg = Intersection.LineToLine(line1, line2);
+            Console.WriteLine();
+            Console.WriteLine("官方实现：");
+            Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+            Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+            Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+            lineSeg = IntersectionExtension.LineToLine(line1, line2);
+            Console.WriteLine("扩展实现：");
+            Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+            Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+            Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+
+            var line3 = new Line(new Point(), new Vector(0, 1, 0));
+            lineSeg = Intersection.LineToLine(line1, line3);
+            Console.WriteLine();
+            Console.WriteLine("官方实现：");
+            Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+            Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+            Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+            lineSeg = IntersectionExtension.LineToLine(line1, line3);
+            Console.WriteLine("扩展实现：");
+            Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+            Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+            Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+
+            var line4 = new Line(new Point(1, 2, 0), new Vector(1.1, 2.2, 0));
+            var line5 = new Line(new Point(11, 12, 0), new Vector(2, 3, 0));
+            lineSeg = Intersection.LineToLine(line4, line5);
+            Console.WriteLine();
+            Console.WriteLine("官方实现：");
+            Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+            Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+            Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+            Console.WriteLine("扩展实现：");
+            lineSeg = IntersectionExtension.LineToLine(line4, line5);
+            Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+            Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+            Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+
+            line4.Direction.Z = 1;
+            line5.Direction.Z = 2;
+            lineSeg = Intersection.LineToLine(line4, line5);
+            Console.WriteLine();
+            Console.WriteLine("官方实现：");
+            Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+            Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+            Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+            Console.WriteLine("扩展实现：");
+            lineSeg = IntersectionExtension.LineToLine(line4, line5);
+            Console.WriteLine($"LineSegment.StartPoint:\n\t{lineSeg.StartPoint}");
+            Console.WriteLine($"LineSegment.EndPoint:\n\t{lineSeg.EndPoint}");
+            Console.WriteLine($"LineSegment.Length():\n\t{lineSeg.Length()}");
+        }
+        [TestMethod]
+        public void TestCircleToLine() {
             Model model = new Model();
             if (!model.GetConnectionStatus()) return;
             var currentTP = model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
@@ -411,9 +561,10 @@ namespace UnitTest {
                 ViewHandler.RedrawView(viewEnum.Current);
             }
 
+            Func<Arc, Line, double, double, List<LineSegment>> func = IntersectionExtension.CircleToLine;
 
             //  ====================================    1    ====================================
-            workTP = new TransformationPlane(new Point(0, 18000, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
+            workTP = new TransformationPlane(new Point(0, 12000, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
             drawer.DrawText(new Point(-1500, -2000, 0), "第1种情形：圆半径为0", new Color());
             //  此构造函数无法构造半径为0的圆弧
@@ -421,7 +572,7 @@ namespace UnitTest {
             //  此构造函数可以构造半径为0的圆弧
             arc = new Arc(new Point(), new Vector(1, 0, 0), new Vector(0, 1, 0), 0, 2 * Math.PI);
             line = new Line(new Point(500, 500, 500), new Point(-500, 800, 500));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
 
 
             //  ====================================   2.1   ====================================
@@ -430,84 +581,93 @@ namespace UnitTest {
             drawer.DrawText(new Point(-1500, -2000, 0), "第2.1种情形：直线垂直穿过圆中心", new Color());
             arc = new Arc(new Point(), new Point(1000, 0, 0), new Vector(0, 0, 1), 2 * Math.PI);
             line = new Line(new Point(), new Point(0, 0, 500));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
 
 
             //  ====================================   2.2   ====================================
             workTP = new TransformationPlane(new Point(0, 6000, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
             drawer.DrawText(new Point(-1500, -2000, 0), "第2.2种情形：直线垂直穿过圆平面（不过圆中心）", new Color());
-            arc = new Arc(new Point(), new Point(1000, 0, 0), new Vector(0, 0, 1), 2 * Math.PI);
             line = new Line(new Point(200, 200, 0), new Point(200, 200, 500));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
 
 
             //  ====================================   3.1   ====================================
             workTP = new TransformationPlane(new Point(7200, -6000, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
             drawer.DrawText(new Point(-1500, -2000, 0), "第3.1种情形：直线平行于圆平面，其投影在圆外或与圆相切", new Color());
-            arc = new Arc(new Point(), new Point(1000, 0, 0), new Vector(0, 0, 1), 2 * Math.PI);
             line = new Line(new Point(1500, 200, 800), new Point(1500, 400, 800));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
             line = new Line(new Point(-1000, 200, 800), new Point(-1000, 400, 800));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
 
 
             //  ====================================   3.2   ====================================
             workTP = new TransformationPlane(new Point(0, 6000, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
             drawer.DrawText(new Point(-1500, -2000, 0), "第3.2种情形：直线平行于圆平面，其投影穿过圆", new Color());
-            arc = new Arc(new Point(), new Point(1000, 0, 0), new Vector(0, 0, 1), 2 * Math.PI);
             line = new Line(new Point(800, 200, 800), new Point(600, 400, 800));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
 
 
             //  ====================================   4.1   ====================================
             workTP = new TransformationPlane(new Point(7200, -6000, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
             drawer.DrawText(new Point(-1500, -2000, 0), "第4.1种情形：直线与圆平面既不垂直也不平行，但与其穿过的圆直径所在直线垂直", new Color());
-            arc = new Arc(new Point(), new Point(1000, 0, 0), new Vector(0, 0, 1), 2 * Math.PI);
             line = new Line(new Point(800, 0, 0), new Point(800, 400, -200));
-            var angle = line.Direction.GetAngleBetween(arc.Normal);
-            var dis = arc.Radius * (1 - Math.Pow(Math.Cos(angle), 2)) / (1 + Math.Pow(Math.Cos(angle), 2));
-            var point = Tekla.Structures.Geometry3d.Intersection.LineToPlane(line, new GeometricPlane(arc.CenterPoint, arc.Normal));
-            var vector = new Vector(point - arc.CenterPoint);
-            vector.Normalize(dis);
-            line.Origin = new Point(arc.CenterPoint);
-            line.Origin.Translate(vector);
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
             line = new Line(new Point(-200, 0, 0), new Point(-200, 400, -200));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
             line = new Line(new Point(-1800, 0, 0), new Point(-1800, 400, -200));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
 
 
             //  ====================================   4.2   ====================================
             workTP = new TransformationPlane(new Point(0, 6000, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
             drawer.DrawText(new Point(-1500, -2000, 0), "第4.2种情形：直线与圆平面既不垂直也不平等，且与其穿过的圆直径所在直线也不垂直", new Color());
-            arc = new Arc(new Point(), new Point(1000, 0, 0), new Vector(0, 0, 1), 2 * Math.PI);
             line = new Line(new Point(800, 0, 0), new Point(300, 400, -200));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
             line = new Line(new Point(-1800, 0, 0), new Point(-1500, 200, -200));
-            DrawCases(arc, line);
+            DrawCases(arc, line, func);
 
 
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(currentTP);
         }
-        private void DrawCases(Arc arc, Line line) {
+        private void DrawCases(Arc arc, Line line, Func<Arc, Line, double, double, List<LineSegment>> func) {
+            if (!new Model().GetConnectionStatus()) return;
             var drawer = new GraphicsDrawer();
             List<LineSegment> segments;
-            segments = MuggleTeklaPlugins.Geometry3dExtension.IntersectionExtension.CircleToLine(arc, line);
+            segments = func(arc, line, 0, GeometryConstants.DISTANCE_EPSILON);
             drawer.DrawArc(arc, color: ColorExtension.DeepSkyBlue);
             drawer.DrawLine(line, color: ColorExtension.GreenYellow);
             if (segments != null) {
                 foreach (LineSegment segment in segments) {
                     drawer.DrawLineSegment(segment, ColorExtension.OrangeRed);
+                    //Console.WriteLine($"LineSegment.StartPoint:\n\t{segment.StartPoint}\nLineSegment.EndPoint:\n\t{segment.EndPoint}");
+                    drawer.DrawText(segment.StartPoint, segment.Length().ToString(), ColorExtension.OrangeRed);
                     drawer.DrawPoint(segment.StartPoint, color: ColorExtension.Orange, size: 25);
                     drawer.DrawPoint(segment.EndPoint, color: ColorExtension.Orange, size: 25);
                 }
             }
+        }
+        [TestMethod]
+        public void TestArcToLine() {
+            var arc = new Arc(new Point(0, 0, 0), new Point(1000, 0, 0), new Vector(0, 0, 1), 2 * Math.PI);
+            var line = new Line(new Point(800, 0, 0), new Point(800, 400, -200));
+            var angle = line.Direction.GetAngleBetween(arc.Normal);
+            var dis = arc.Radius * (1 - Math.Pow(Math.Cos(angle), 2)) / (1 + Math.Pow(Math.Cos(angle), 2));
+            var point = Intersection.LineToPlane(line, new GeometricPlane(arc.CenterPoint, arc.Normal));
+            var vector = new Vector(point - arc.CenterPoint);
+            vector.Normalize(dis);
+            line.Origin = new Point(arc.CenterPoint);
+            line.Origin.Translate(vector);
+            Console.WriteLine($"Line.Origin:\n\t{line.Origin}\nLine.Direction:\n\t{line.Direction}");
+            DrawCases(arc, line, IntersectionExtension.ArcToLine);
+            line = new Line(new Point(-200, 0, 0), new Point(-200, 400, -200));
+            DrawCases(arc, line, IntersectionExtension.ArcToLine);
+            line = new Line(new Point(-1800, 0, 0), new Point(-1800, 400, -200));
+            DrawCases(arc, line, IntersectionExtension.ArcToLine);
         }
         [TestMethod]
         public void TestGetLocalExtreme() {
@@ -676,9 +836,174 @@ namespace UnitTest {
             var p1 = new Point();
             var p2 = new Point(100, 0, 0);
             var p3 = new Point(200, 0, 0);
-            var arc = new Arc(p1, p3, p2);
+            try {
+                var arc = new Arc(p1, p3, p2);
+                Console.WriteLine($"Radius:\n{arc.Radius}");
+            } catch (Exception ex) {
+                Console.WriteLine(ex);
+            }
+        }
+        [TestMethod]
+        public void TestPointsIntervalGetValueAndPoint() {
+            try {
+                var itvl = new PointsInterval {
+                    Origin = new Point(2436.482, 96.548, 4136.183),
+                    Direction = new Vector(284.851, 2948.615, 893.513),
+                    Start = double.NegativeInfinity,
+                    End = double.PositiveInfinity,
+                };
 
-            Console.WriteLine($"Radius:\n{arc.Radius}");
+                var value = 961.492;
+                var point = itvl.GetPoint(value);
+                Console.WriteLine(value);
+                Console.WriteLine(PointExtension.ToString(point));
+                for (int i = 0; i < 10000; i++) {
+                    value = itvl.GetValue(point);
+                    point = itvl.GetPoint(value);
+                }
+                Console.WriteLine();
+                Console.WriteLine(value);
+                Console.WriteLine(PointExtension.ToString(point));
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+        }
+        [TestMethod]
+        public void TestPointsIntervalContains() {
+            /* “point = (16400, 9045.71823334187, 0)”不在区间
+             * “Origin = (16400, 9200, 0), 
+             * Direction = (0, -1, 0), 
+             * Start = 154.281766658129, 
+             * End = 955.436861635746, 
+             * StartPoint = (16400, 9045.71823334187, 0), 
+             * EndPoint = (16400, 8244.56313836425, 0)”内。*/
+            var itvl = new PointsInterval {
+                Origin = new Point(16400, 9200, 0),
+                Direction = new Vector(0, -1, 0),
+                Start = 154.281766658129,
+                End = 955.436861635746,
+            };
+            var point = new Point(16400, 9045.71823334187, 0);
+            var value = itvl.GetValue(point);
+            Console.WriteLine(value);
+            Console.WriteLine(itvl.Contains(point));
+        }
+        [TestMethod]
+        public void TestPositionOfTriangleOnLines() {
+            /*var line1 = new Line {
+                Origin = new Point {
+                    X = 6018.3122115426,
+                    Y = -79.5701806502621,
+                    Z = 0
+                },
+                Direction = new Vector {
+                    X = 5990.01247658099,
+                    Y = 499.750468074976,
+                    Z = 0
+                },
+            };
+            var line2 = new Line {
+                Origin = new Point {
+                    X = -5980.35851658643,
+                    Y = -679.503717657217,
+                    Z = 0
+                },
+                Direction = new Vector {
+                    X = -6009.98752340033,
+                    Y = -100.249532525383,
+                    Z = 0
+                },
+            };
+            var line3 = new Line {
+                Origin = new Point {
+                    X = 0,
+                    Y = -7800.00000060075,
+                    Z = 0
+                },
+                Direction = new Vector {
+                    X = 0,
+                    Y = 7800.00000060075,
+                    Z = 0
+                },
+            };*/
+            var line1 = new Line {
+                Origin = new Point(16463.9147592418, 8641.7048158889, 0),
+                Direction = new Vector(-2030.38042685396, 109.147295669016, 0)
+            };
+            var line2 = new Line {
+                Origin = new Point(16463.914759266, 8641.70481589111, 0),
+                Direction = new Vector(2203.02100951981, 341.120543598396, 0)
+            };
+            var line3 = new Line {
+                Origin = new Point(16400, 9200, 0),
+                Direction = new Vector(0, -1881.45235694476, 0)
+            };
+            var e1 = Math.Sqrt(122900);
+            try {
+                var position = Geometry3dOperation.PositionOfTriangleOnLines(
+                    (line1, line2, line3), (e1, e1, 700));
+                if (position is null) {
+                    Console.WriteLine("\nNo solution!");
+                } else {
+                    var model = new Model();
+                    var gdrawer = new GraphicsDrawer();
+                    var doDraw = model.GetConnectionStatus();
+                    if (doDraw) {
+                        gdrawer.DrawLine(line1, color: ColorExtension.Orange, length: 50000);
+                        gdrawer.DrawLine(line2, color: ColorExtension.Orange, length: 50000);
+                        gdrawer.DrawLine(line3, color: ColorExtension.Orange, length: 50000);
+                    }
+                    var num = 0;
+                    var color = new Color[] {
+                        ColorExtension.Blue,
+                        ColorExtension.Lime,
+                        ColorExtension.MediumOrchid,
+                        ColorExtension.Red,
+                    };
+                    var i = 0;
+                    foreach (var (P1, P2, P3) in position) {
+                        num++;
+                        Console.WriteLine();
+                        Console.WriteLine($"Solution #{num}:");
+                        Console.WriteLine($"P1 = {P1}, P2 = {P2}, P3 = {P3}");
+                        Console.WriteLine(
+                            $"E1 = {Distance.PointToPoint(P1, P3)}, " +
+                            $"E2 = {Distance.PointToPoint(P2, P3)}, " +
+                            $"E3 = {Distance.PointToPoint(P1, P2)}");
+                        if (doDraw) {
+                            gdrawer.DrawLineSegment(P1, P2, color[i]);
+                            gdrawer.DrawLineSegment(P1, P3, color[i]);
+                            gdrawer.DrawLineSegment(P2, P3, color[i]);
+                            i++;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+        }
+        [TestMethod]
+        public void TestEpsilon() {
+            Console.WriteLine(string.Format("{0:f13}", 1e-12));
+
+            var point = new Point(0.0, -930.36814213834532, 0.0);
+            var line = new Line {
+                Origin = new Point(-5980.35851658643, -679.503717657217, 0.0),
+                Direction = new Vector(-6009.98752340033, -100.249532525383, 0.0)
+            };
+            var (X1, X2) = IntersectionExtension.CircleToLine_2D(point, 350.57096285916208, line);
+
+            var itvl = new PointsInterval(line);
+            Console.WriteLine($"X1 = {X1}, value = {itvl.GetValue(X1)}");
+            Console.WriteLine($"X2 = {X2}, value = {itvl.GetValue(X2)}");
+        }
+        [TestMethod]
+        public void TestColorToString() {
+            var color = ColorExtension.AliceBlue;
+            Console.WriteLine(color.ToString());
+            Console.WriteLine(color.ToString(null));
+            Console.WriteLine(color.ToString("f3"));
+            Console.WriteLine(ColorExtension.ToString(color));
         }
     }
 }

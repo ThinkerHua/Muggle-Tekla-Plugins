@@ -52,6 +52,7 @@ namespace MuggleTeklaPlugins.MG1001 {
     /// <para>disLstStr_Bolt_Y:螺栓间距Y</para>
     /// <para>bolt_Standard:螺栓标准</para>
     /// <para>bolt_Size:螺栓尺寸</para>
+    /// <para>materialStr:节点零件材质</para>
     /// <para>grou_no:节点等级</para>
     /// </summary>
     public class MG1001Data {
@@ -111,6 +112,8 @@ namespace MuggleTeklaPlugins.MG1001 {
         public string bolt_Standard;
         [StructuresField("bolt_Size")]
         public double bolt_Size;
+        [StructuresField("materialStr")]
+        public string materialStr;
         [StructuresField("grou_no")]
         public int @class;
     }
@@ -158,6 +161,7 @@ namespace MuggleTeklaPlugins.MG1001 {
         private DistanceList disLst_Bolt_Y;
         private string bolt_Standard;
         private double bolt_Size;
+        private string materialStr;
         private int @class;
 
         private TransformationPlane originTP, workTP;
@@ -229,6 +233,7 @@ namespace MuggleTeklaPlugins.MG1001 {
             disLstStr_Bolt_Y = _data.disLstStr_Bolt_Y;
             bolt_Standard = _data.bolt_Standard;
             bolt_Size = _data.bolt_Size;
+            materialStr = _data.materialStr;
             @class = _data.@class;
 
             if (IsDefaultValue(prfStr_TOP))
@@ -287,6 +292,8 @@ namespace MuggleTeklaPlugins.MG1001 {
                 bolt_Standard = "HS10.9";
             if (IsDefaultValue(bolt_Size) || bolt_Size == 0)
                 bolt_Size = 20;
+            if (IsDefaultValue(materialStr) || materialStr == string.Empty)
+                materialStr = "Q345B";
             if (IsDefaultValue(@class))
                 @class = 99;
 
@@ -422,7 +429,6 @@ namespace MuggleTeklaPlugins.MG1001 {
 
             ProfileH prf_PRIM, prf_SEC;                                         //主次零件规格
             NumberingSeries PRIM_ASMNUM, SEC_ASMNUM;                            //主次零件构件编号
-            string materialStr;                                                 //主零件材质
 
             ProfilePlate prf_End1, prf_End2, prf_TOP, prf_HOR, prf_DIAG;        //节点零件规格
             ProfilePlate prf_STIF_FLNG, prf_STIF_Web;
@@ -449,7 +455,6 @@ namespace MuggleTeklaPlugins.MG1001 {
             prf_PRIM = new ProfileH(PRIMPart.Profile.ProfileString);
             prf_SEC = new ProfileH(SECPart.Profile.ProfileString);
 
-            materialStr = PRIMPart.Material.MaterialString;
             PRIM_ASMNUM = PRIMPart.AssemblyNumber;
             SEC_ASMNUM = SECPart.AssemblyNumber;
 

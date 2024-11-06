@@ -1,565 +1,630 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
 using MuggleTeklaPlugins.Geometry3dExtension;
-using System.Diagnostics;
 
 namespace MuggleTeklaPlugins.ModelExtension.UIExtension {
     /// <summary>
     /// <see cref="Tekla.Structures.Model.UI"/>.<see cref="Color"/> 的扩展。
+    /// <para>
+    ///     参见"颜色码对照表.png"。
+    ///     表中RGB值是通常定义的0~255整数，但官方文档定义取值范围为0.0~1.0，所以代码中的实际值做了转换，保留4位小数。
+    /// </para>
     /// </summary>
     public static class ColorExtension {
+        #region 预设属性
         /// <summary>
         /// 纯黑
         /// </summary>
-        public static Color Black => new Color(0.00000000, 0.00000000, 0.00000000);
+        public static Color Black => new Color(0.0000, 0.0000, 0.0000);
         /// <summary>
         /// 海军蓝
         /// </summary>
-        public static Color Navy => new Color(0.00000000, 0.00000000, 0.50196078);
+        public static Color Navy => new Color(0.0000, 0.0000, 0.5020);
         /// <summary>
         /// 深蓝色
         /// </summary>
-        public static Color DarkBlue => new Color(0.00000000, 0.00000000, 0.54509804);
+        public static Color DarkBlue => new Color(0.0000, 0.0000, 0.5451);
         /// <summary>
         /// 适中的蓝色
         /// </summary>
-        public static Color MediumBlue => new Color(0.00000000, 0.00000000, 0.80392157);
+        public static Color MediumBlue => new Color(0.0000, 0.0000, 0.8039);
         /// <summary>
         /// 纯蓝
         /// </summary>
-        public static Color Blue => new Color(0.00000000, 0.00000000, 1.00000000);
+        public static Color Blue => new Color(0.0000, 0.0000, 1.0000);
         /// <summary>
         /// 深绿色
         /// </summary>
-        public static Color DarkGreen => new Color(0.00000000, 0.39215686, 0.00000000);
+        public static Color DarkGreen => new Color(0.0000, 0.3922, 0.0000);
         /// <summary>
         /// 纯绿
         /// </summary>
-        public static Color Green => new Color(0.00000000, 0.50196078, 0.00000000);
+        public static Color Green => new Color(0.0000, 0.5020, 0.0000);
         /// <summary>
         /// 水鸭色
         /// </summary>
-        public static Color Teal => new Color(0.00000000, 0.50196078, 0.50196078);
+        public static Color Teal => new Color(0.0000, 0.5020, 0.5020);
         /// <summary>
         /// 深青色
         /// </summary>
-        public static Color DarkCyan => new Color(0.00000000, 0.54509804, 0.54509804);
+        public static Color DarkCyan => new Color(0.0000, 0.5451, 0.5451);
         /// <summary>
         /// 深天蓝
         /// </summary>
-        public static Color DeepSkyBlue => new Color(0.00000000, 0.74901961, 1.00000000);
+        public static Color DeepSkyBlue => new Color(0.0000, 0.7490, 1.0000);
         /// <summary>
         /// 深绿宝石
         /// </summary>
-        public static Color DarkTurquoise => new Color(0.00000000, 0.80784314, 0.81960784);
+        public static Color DarkTurquoise => new Color(0.0000, 0.8078, 0.8196);
         /// <summary>
         /// 适中的碧绿色
         /// </summary>
-        public static Color MediumAquamarine => new Color(0.00000000, 0.98039216, 0.60392157);
+        public static Color MediumAquamarine => new Color(0.0000, 0.9804, 0.6039);
         /// <summary>
         /// 酸橙色
         /// </summary>
-        public static Color Lime => new Color(0.00000000, 1.00000000, 0.00000000);
+        public static Color Lime => new Color(0.0000, 1.0000, 0.0000);
         /// <summary>
         /// 适中的春天的绿色
         /// </summary>
-        public static Color MediumSpringGreen => new Color(0.00000000, 1.00000000, 0.49803922);
+        public static Color MediumSpringGreen => new Color(0.0000, 1.0000, 0.4980);
         /// <summary>
         /// 青色
         /// </summary>
-        public static Color Cyan => new Color(0.00000000, 1.00000000, 1.00000000);
+        public static Color Cyan => new Color(0.0000, 1.0000, 1.0000);
         /// <summary>
         /// 午夜的蓝色
         /// </summary>
-        public static Color MidnightBlue => new Color(0.09803922, 0.09803922, 0.43921569);
+        public static Color MidnightBlue => new Color(0.0980, 0.0980, 0.4392);
         /// <summary>
         /// 道奇蓝
         /// </summary>
-        public static Color DoderBlue => new Color(0.11764706, 0.56470588, 1.00000000);
+        public static Color DoderBlue => new Color(0.1176, 0.5647, 1.0000);
         /// <summary>
         /// 浅海洋绿
         /// </summary>
-        public static Color LightSeaGreen => new Color(0.12549020, 0.69803922, 0.66666667);
+        public static Color LightSeaGreen => new Color(0.1255, 0.6980, 0.6667);
         /// <summary>
         /// 森林绿
         /// </summary>
-        public static Color ForestGreen => new Color(0.13333333, 0.54509804, 0.13333333);
+        public static Color ForestGreen => new Color(0.1333, 0.5451, 0.1333);
         /// <summary>
         /// 海洋绿
         /// </summary>
-        public static Color SeaGreen => new Color(0.18039216, 0.54509804, 0.34117647);
+        public static Color SeaGreen => new Color(0.1804, 0.5451, 0.3412);
         /// <summary>
         /// 深石板灰
         /// </summary>
-        public static Color DarkSlateGray => new Color(0.18431373, 0.30980392, 0.30980392);
+        public static Color DarkSlateGray => new Color(0.1843, 0.3098, 0.3098);
         /// <summary>
         /// 酸橙绿
         /// </summary>
-        public static Color LimeGreen => new Color(0.19607843, 0.80392157, 0.19607843);
+        public static Color LimeGreen => new Color(0.1961, 0.8039, 0.1961);
         /// <summary>
         /// 春天的绿色
         /// </summary>
-        public static Color SpringGreen => new Color(0.23529412, 0.70196078, 0.44313725);
+        public static Color SpringGreen => new Color(0.2353, 0.7020, 0.4431);
         /// <summary>
         /// 绿宝石
         /// </summary>
-        public static Color Turquoise => new Color(0.25098039, 0.87843137, 0.81568627);
+        public static Color Turquoise => new Color(0.2510, 0.8784, 0.8157);
         /// <summary>
         /// 皇家蓝
         /// </summary>
-        public static Color RoyalBlue => new Color(0.25490196, 0.41176471, 0.88235294);
+        public static Color RoyalBlue => new Color(0.2549, 0.4118, 0.8824);
         /// <summary>
         /// 钢蓝
         /// </summary>
-        public static Color SteelBlue => new Color(0.27450980, 0.50980392, 0.70588235);
+        public static Color SteelBlue => new Color(0.2745, 0.5098, 0.7059);
         /// <summary>
         /// 深岩暗蓝灰色
         /// </summary>
-        public static Color DarkSlateBlue => new Color(0.28235294, 0.23921569, 0.54509804);
+        public static Color DarkSlateBlue => new Color(0.2824, 0.2392, 0.5451);
         /// <summary>
         /// 适中的绿宝石
         /// </summary>
-        public static Color MediumTurquoise => new Color(0.28235294, 0.81960784, 0.80000000);
+        public static Color MediumTurquoise => new Color(0.2824, 0.8196, 0.8000);
         /// <summary>
         /// 靛青
         /// </summary>
-        public static Color Indigo => new Color(0.29411765, 0.00000000, 0.50980392);
+        public static Color Indigo => new Color(0.2941, 0.0000, 0.5098);
         /// <summary>
         /// 橄榄土褐色
         /// </summary>
-        public static Color OliveDrab => new Color(0.33333333, 0.41960784, 0.18431373);
+        public static Color OliveDrab => new Color(0.3333, 0.4196, 0.1843);
         /// <summary>
         /// 军校蓝
         /// </summary>
-        public static Color CadetBlue => new Color(0.37254902, 0.61960784, 0.62745098);
+        public static Color CadetBlue => new Color(0.3725, 0.6196, 0.6275);
         /// <summary>
         /// 矢车菊的蓝色
         /// </summary>
-        public static Color CornflowerBlue => new Color(0.39215686, 0.58431373, 0.92941176);
+        public static Color CornflowerBlue => new Color(0.3922, 0.5843, 0.9294);
         /// <summary>
         /// 暗淡的灰色
         /// </summary>
-        public static Color DimGray => new Color(0.41176471, 0.41176471, 0.41176471);
+        public static Color DimGray => new Color(0.4118, 0.4118, 0.4118);
         /// <summary>
         /// 板岩暗蓝灰色
         /// </summary>
-        public static Color SlateBlue => new Color(0.41568627, 0.35294118, 0.80392157);
+        public static Color SlateBlue => new Color(0.4157, 0.3529, 0.8039);
         /// <summary>
         /// 石板灰
         /// </summary>
-        public static Color SlateGray => new Color(0.43921569, 0.50196078, 0.56470588);
+        public static Color SlateGray => new Color(0.4392, 0.5020, 0.5647);
         /// <summary>
         /// 浅石板灰
         /// </summary>
-        public static Color LightSlateGray => new Color(0.46666667, 0.53333333, 0.60000000);
+        public static Color LightSlateGray => new Color(0.4667, 0.5333, 0.6000);
         /// <summary>
         /// 适中的板岩暗蓝灰色
         /// </summary>
-        public static Color MediumSlateBlue => new Color(0.48235294, 0.40784314, 0.93333333);
+        public static Color MediumSlateBlue => new Color(0.4824, 0.4078, 0.9333);
         /// <summary>
         /// 草坪绿
         /// </summary>
-        public static Color LawnGreen => new Color(0.48627451, 0.98823529, 0.00000000);
+        public static Color LawnGreen => new Color(0.4863, 0.9882, 0.0000);
         /// <summary>
         /// 查特酒绿
         /// </summary>
-        public static Color Chartreuse => new Color(0.49803922, 1.00000000, 0.00000000);
+        public static Color Chartreuse => new Color(0.4980, 1.0000, 0.0000);
         /// <summary>
         /// 绿玉\碧绿色
         /// </summary>
-        public static Color Auqamarin => new Color(0.49803922, 1.00000000, 0.66666667);
+        public static Color Auqamarin => new Color(0.4980, 1.0000, 0.6667);
         /// <summary>
         /// 栗色
         /// </summary>
-        public static Color Maroon => new Color(0.50196078, 0.00000000, 0.00000000);
+        public static Color Maroon => new Color(0.5020, 0.0000, 0.0000);
         /// <summary>
         /// 紫色
         /// </summary>
-        public static Color Purple => new Color(0.50196078, 0.00000000, 0.50196078);
+        public static Color Purple => new Color(0.5020, 0.0000, 0.5020);
         /// <summary>
         /// 橄榄
         /// </summary>
-        public static Color Olive => new Color(0.50196078, 0.50196078, 0.00000000);
+        public static Color Olive => new Color(0.5020, 0.5020, 0.0000);
         /// <summary>
         /// 灰色
         /// </summary>
-        public static Color Gray => new Color(0.50196078, 0.50196078, 0.50196078);
+        public static Color Gray => new Color(0.5020, 0.5020, 0.5020);
         /// <summary>
         /// 天蓝色
         /// </summary>
-        public static Color SkyBlue => new Color(0.52941176, 0.80784314, 0.92156863);
+        public static Color SkyBlue => new Color(0.5294, 0.8078, 0.9216);
         /// <summary>
         /// 淡蓝色
         /// </summary>
-        public static Color LightSkyBlue => new Color(0.52941176, 0.80784314, 0.98039216);
+        public static Color LightSkyBlue => new Color(0.5294, 0.8078, 0.9804);
         /// <summary>
         /// 深紫罗兰的蓝色
         /// </summary>
-        public static Color BlueViolet => new Color(0.54117647, 0.16862745, 0.88627451);
+        public static Color BlueViolet => new Color(0.5412, 0.1686, 0.8863);
         /// <summary>
         /// 深红色
         /// </summary>
-        public static Color DarkRed => new Color(0.54509804, 0.00000000, 0.00000000);
+        public static Color DarkRed => new Color(0.5451, 0.0000, 0.0000);
         /// <summary>
         /// 深洋红色
         /// </summary>
-        public static Color DarkMagenta => new Color(0.54509804, 0.00000000, 0.54509804);
+        public static Color DarkMagenta => new Color(0.5451, 0.0000, 0.5451);
         /// <summary>
         /// 马鞍棕色
         /// </summary>
-        public static Color SaddleBrown => new Color(0.54509804, 0.27058824, 0.07450980);
+        public static Color SaddleBrown => new Color(0.5451, 0.2706, 0.0745);
         /// <summary>
         /// 深海洋绿
         /// </summary>
-        public static Color DarkSeaGreen => new Color(0.56078431, 0.73725490, 0.56078431);
+        public static Color DarkSeaGreen => new Color(0.5608, 0.7373, 0.5608);
         /// <summary>
         /// 淡绿色
         /// </summary>
-        public static Color LightGreen => new Color(0.56470588, 0.93333333, 0.56470588);
+        public static Color LightGreen => new Color(0.5647, 0.9333, 0.5647);
         /// <summary>
         /// 适中的紫色
         /// </summary>
-        public static Color MediumPurple => new Color(0.57647059, 0.43921569, 0.85882353);
+        public static Color MediumPurple => new Color(0.5765, 0.4392, 0.8588);
         /// <summary>
         /// 深紫罗兰色
         /// </summary>
-        public static Color DarkVoilet => new Color(0.58039216, 0.00000000, 0.82745098);
+        public static Color DarkVoilet => new Color(0.5804, 0.0000, 0.8275);
         /// <summary>
         /// 苍白的绿色
         /// </summary>
-        public static Color PaleGreen => new Color(0.59607843, 0.98431373, 0.59607843);
+        public static Color PaleGreen => new Color(0.5961, 0.9843, 0.5961);
         /// <summary>
         /// 深兰花紫
         /// </summary>
-        public static Color DarkOrchid => new Color(0.60000000, 0.19607843, 0.80000000);
+        public static Color DarkOrchid => new Color(0.6000, 0.1961, 0.8000);
         /// <summary>
         /// 黄土赭色
         /// </summary>
-        public static Color Sienna => new Color(0.62745098, 0.32156863, 0.17647059);
+        public static Color Sienna => new Color(0.6275, 0.3216, 0.1765);
         /// <summary>
         /// 棕色
         /// </summary>
-        public static Color Brown => new Color(0.64705882, 0.16470588, 0.16470588);
+        public static Color Brown => new Color(0.6471, 0.1647, 0.1647);
         /// <summary>
         /// 深灰色
         /// </summary>
-        public static Color DarkGray => new Color(0.66274510, 0.66274510, 0.66274510);
+        public static Color DarkGray => new Color(0.6627, 0.6627, 0.6627);
         /// <summary>
         /// 淡蓝
         /// </summary>
-        public static Color LightBLue => new Color(0.67843137, 0.84705882, 0.90196078);
+        public static Color LightBLue => new Color(0.6784, 0.8471, 0.9020);
         /// <summary>
         /// 绿黄色
         /// </summary>
-        public static Color GreenYellow => new Color(0.67843137, 1.00000000, 0.18431373);
+        public static Color GreenYellow => new Color(0.6784, 1.0000, 0.1843);
         /// <summary>
         /// 苍白的绿宝石
         /// </summary>
-        public static Color PaleTurquoise => new Color(0.68627451, 0.93333333, 0.93333333);
+        public static Color PaleTurquoise => new Color(0.6863, 0.9333, 0.9333);
         /// <summary>
         /// 淡钢蓝
         /// </summary>
-        public static Color LightSteelBlue => new Color(0.69019608, 0.76862745, 0.87058824);
+        public static Color LightSteelBlue => new Color(0.6902, 0.7686, 0.8706);
         /// <summary>
         /// 火药蓝
         /// </summary>
-        public static Color PowDerBlue => new Color(0.69019608, 0.87843137, 0.90196078);
+        public static Color PowDerBlue => new Color(0.6902, 0.8784, 0.9020);
         /// <summary>
         /// 耐火砖
         /// </summary>
-        public static Color FireBrick => new Color(0.69803922, 0.13333333, 0.13333333);
+        public static Color FireBrick => new Color(0.6980, 0.1333, 0.1333);
         /// <summary>
         /// 适中的兰花紫
         /// </summary>
-        public static Color MediumOrchid => new Color(0.72941176, 0.33333333, 0.82745098);
+        public static Color MediumOrchid => new Color(0.7294, 0.3333, 0.8275);
         /// <summary>
         /// 玫瑰棕色
         /// </summary>
-        public static Color RosyBrown => new Color(0.73725490, 0.56078431, 0.56078431);
+        public static Color RosyBrown => new Color(0.7373, 0.5608, 0.5608);
         /// <summary>
         /// 深卡其布
         /// </summary>
-        public static Color DarkKhaki => new Color(0.74117647, 0.71764706, 0.41960784);
+        public static Color DarkKhaki => new Color(0.7412, 0.7176, 0.4196);
         /// <summary>
         /// 银白色
         /// </summary>
-        public static Color Silver => new Color(0.75294118, 0.75294118, 0.75294118);
+        public static Color Silver => new Color(0.7529, 0.7529, 0.7529);
         /// <summary>
         /// 适中的紫罗兰红色
         /// </summary>
-        public static Color MediumVioletRed => new Color(0.78039216, 0.08235294, 0.52156863);
+        public static Color MediumVioletRed => new Color(0.7804, 0.0824, 0.5216);
         /// <summary>
         /// 印度红
         /// </summary>
-        public static Color IndianRed => new Color(0.80392157, 0.36078431, 0.36078431);
+        public static Color IndianRed => new Color(0.8039, 0.3608, 0.3608);
         /// <summary>
         /// 秘鲁
         /// </summary>
-        public static Color Peru => new Color(0.80392157, 0.52156863, 0.24705882);
+        public static Color Peru => new Color(0.8039, 0.5216, 0.2471);
         /// <summary>
         /// 巧克力
         /// </summary>
-        public static Color Chocolate => new Color(0.82352941, 0.41176471, 0.11764706);
+        public static Color Chocolate => new Color(0.8235, 0.4118, 0.1176);
         /// <summary>
         /// 晒黑
         /// </summary>
-        public static Color Tan => new Color(0.82352941, 0.70588235, 0.54901961);
+        public static Color Tan => new Color(0.8235, 0.7059, 0.5490);
         /// <summary>
         /// 浅灰色
         /// </summary>
-        public static Color LightGrey => new Color(0.82745098, 0.82745098, 0.82745098);
+        public static Color LightGrey => new Color(0.8275, 0.8275, 0.8275);
         /// <summary>
         /// 水绿色
         /// </summary>
-        public static Color Aqua => new Color(0.83137255, 0.94901961, 0.90588235);
+        public static Color Aqua => new Color(0.8314, 0.9490, 0.9059);
         /// <summary>
         /// 蓟
         /// </summary>
-        public static Color Thistle => new Color(0.84705882, 0.74901961, 0.84705882);
+        public static Color Thistle => new Color(0.8471, 0.7490, 0.8471);
         /// <summary>
         /// 兰花的紫色
         /// </summary>
-        public static Color Orchid => new Color(0.85490196, 0.43921569, 0.83921569);
+        public static Color Orchid => new Color(0.8549, 0.4392, 0.8392);
         /// <summary>
         /// 秋麒麟
         /// </summary>
-        public static Color GoldEnrod => new Color(0.85490196, 0.64705882, 0.12549020);
+        public static Color GoldEnrod => new Color(0.8549, 0.6471, 0.1255);
         /// <summary>
         /// 苍白的紫罗兰红色
         /// </summary>
-        public static Color PaleVioletRed => new Color(0.85882353, 0.43921569, 0.57647059);
+        public static Color PaleVioletRed => new Color(0.8588, 0.4392, 0.5765);
         /// <summary>
         /// 猩红
         /// </summary>
-        public static Color Crimson => new Color(0.86274510, 0.07843137, 0.23529412);
+        public static Color Crimson => new Color(0.8627, 0.0784, 0.2353);
         /// <summary>
         /// 亮灰色
         /// </summary>
-        public static Color Gainsboro => new Color(0.86274510, 0.86274510, 0.86274510);
+        public static Color Gainsboro => new Color(0.8627, 0.8627, 0.8627);
         /// <summary>
         /// 李子
         /// </summary>
-        public static Color Plum => new Color(0.86666667, 0.62745098, 0.86666667);
+        public static Color Plum => new Color(0.8667, 0.6275, 0.8667);
         /// <summary>
         /// 结实的树
         /// </summary>
-        public static Color BrulyWood => new Color(0.87058824, 0.72156863, 0.52941176);
+        public static Color BrulyWood => new Color(0.8706, 0.7216, 0.5294);
         /// <summary>
         /// 淡青色
         /// </summary>
-        public static Color LightCyan => new Color(0.88235294, 1.00000000, 1.00000000);
+        public static Color LightCyan => new Color(0.8824, 1.0000, 1.0000);
         /// <summary>
         /// 熏衣草花的淡紫色
         /// </summary>
-        public static Color Lavender => new Color(0.90196078, 0.90196078, 0.98039216);
+        public static Color Lavender => new Color(0.9020, 0.9020, 0.9804);
         /// <summary>
         /// 深鲜肉(鲑鱼)色
         /// </summary>
-        public static Color DarkSalmon => new Color(0.91372549, 0.58823529, 0.47843137);
+        public static Color DarkSalmon => new Color(0.9137, 0.5882, 0.4784);
         /// <summary>
         /// 紫罗兰
         /// </summary>
-        public static Color Violet => new Color(0.93333333, 0.50980392, 0.93333333);
+        public static Color Violet => new Color(0.9333, 0.5098, 0.9333);
         /// <summary>
         /// 灰秋麒麟
         /// </summary>
-        public static Color PaleGodenrod => new Color(0.93333333, 0.90980392, 0.66666667);
+        public static Color PaleGodenrod => new Color(0.9333, 0.9098, 0.6667);
         /// <summary>
         /// 淡珊瑚色
         /// </summary>
-        public static Color LightCoral => new Color(0.94117647, 0.50196078, 0.50196078);
+        public static Color LightCoral => new Color(0.9412, 0.5020, 0.5020);
         /// <summary>
         /// 卡其布
         /// </summary>
-        public static Color Khaki => new Color(0.94117647, 0.90196078, 0.54901961);
+        public static Color Khaki => new Color(0.9412, 0.9020, 0.5490);
         /// <summary>
         /// 爱丽丝蓝
         /// </summary>
-        public static Color AliceBlue => new Color(0.94117647, 0.97254902, 1.00000000);
+        public static Color AliceBlue => new Color(0.9412, 0.9725, 1.0000);
         /// <summary>
         /// 蜂蜜
         /// </summary>
-        public static Color Honeydew => new Color(0.94117647, 1.00000000, 0.94117647);
+        public static Color Honeydew => new Color(0.9412, 1.0000, 0.9412);
         /// <summary>
         /// 蔚蓝色
         /// </summary>
-        public static Color Azure => new Color(0.94117647, 1.00000000, 1.00000000);
+        public static Color Azure => new Color(0.9412, 1.0000, 1.0000);
         /// <summary>
         /// 沙棕色
         /// </summary>
-        public static Color SandyBrown => new Color(0.95686275, 0.64313725, 0.37647059);
+        public static Color SandyBrown => new Color(0.9569, 0.6431, 0.3765);
         /// <summary>
         /// 小麦色
         /// </summary>
-        public static Color Wheat => new Color(0.96078431, 0.87058824, 0.70196078);
+        public static Color Wheat => new Color(0.9608, 0.8706, 0.7020);
         /// <summary>
         /// 米色(浅褐色)
         /// </summary>
-        public static Color Beige => new Color(0.96078431, 0.96078431, 0.86274510);
+        public static Color Beige => new Color(0.9608, 0.9608, 0.8627);
         /// <summary>
         /// 白烟
         /// </summary>
-        public static Color WhiteSmoke => new Color(0.96078431, 0.96078431, 0.96078431);
+        public static Color WhiteSmoke => new Color(0.9608, 0.9608, 0.9608);
         /// <summary>
         /// 薄荷奶油
         /// </summary>
-        public static Color MintCream => new Color(0.96078431, 1.00000000, 0.98039216);
+        public static Color MintCream => new Color(0.9608, 1.0000, 0.9804);
         /// <summary>
         /// 幽灵的白色
         /// </summary>
-        public static Color GhostWhite => new Color(0.97254902, 0.97254902, 1.00000000);
+        public static Color GhostWhite => new Color(0.9725, 0.9725, 1.0000);
         /// <summary>
         /// 鲜肉(鲑鱼)色
         /// </summary>
-        public static Color Salmon => new Color(0.98039216, 0.50196078, 0.44705882);
+        public static Color Salmon => new Color(0.9804, 0.5020, 0.4471);
         /// <summary>
         /// 古代的白色
         /// </summary>
-        public static Color AntiqueWhite => new Color(0.98039216, 0.92156863, 0.84313725);
+        public static Color AntiqueWhite => new Color(0.9804, 0.9216, 0.8431);
         /// <summary>
         /// 亚麻布
         /// </summary>
-        public static Color Linen => new Color(0.98039216, 0.94117647, 0.90196078);
+        public static Color Linen => new Color(0.9804, 0.9412, 0.9020);
         /// <summary>
         /// 浅秋麒麟黄
         /// </summary>
-        public static Color LightGoldenrodYellow => new Color(0.98039216, 0.98039216, 0.82352941);
+        public static Color LightGoldenrodYellow => new Color(0.9804, 0.9804, 0.8235);
         /// <summary>
         /// 老饰带
         /// </summary>
-        public static Color OldLace => new Color(0.99215686, 0.96078431, 0.90196078);
+        public static Color OldLace => new Color(0.9922, 0.9608, 0.9020);
         /// <summary>
         /// 纯红
         /// </summary>
-        public static Color Red => new Color(1.00000000, 0.00000000, 0.00000000);
+        public static Color Red => new Color(1.0000, 0.0000, 0.0000);
         /// <summary>
         /// 洋红
         /// </summary>
-        public static Color Magenta => new Color(1.00000000, 0.00000000, 1.00000000);
+        public static Color Magenta => new Color(1.0000, 0.0000, 1.0000);
         /// <summary>
         /// 灯笼海棠(紫红色)
         /// </summary>
-        public static Color Fuchsia => new Color(1.00000000, 0.00000000, 1.00000000);
+        public static Color Fuchsia => new Color(1.0000, 0.0000, 1.0000);
         /// <summary>
         /// 深粉色
         /// </summary>
-        public static Color DeepPink => new Color(1.00000000, 0.07843137, 0.57647059);
+        public static Color DeepPink => new Color(1.0000, 0.0784, 0.5765);
         /// <summary>
         /// 橙红色
         /// </summary>
-        public static Color OrangeRed => new Color(1.00000000, 0.27058824, 0.00000000);
+        public static Color OrangeRed => new Color(1.0000, 0.2706, 0.0000);
         /// <summary>
         /// 番茄
         /// </summary>
-        public static Color Tomato => new Color(1.00000000, 0.38823529, 0.27843137);
+        public static Color Tomato => new Color(1.0000, 0.3882, 0.2784);
         /// <summary>
         /// 热情的粉红
         /// </summary>
-        public static Color HotPink => new Color(1.00000000, 0.41176471, 0.70588235);
+        public static Color HotPink => new Color(1.0000, 0.4118, 0.7059);
         /// <summary>
         /// 珊瑚
         /// </summary>
-        public static Color Coral => new Color(1.00000000, 0.49803922, 0.31372549);
+        public static Color Coral => new Color(1.0000, 0.4980, 0.3137);
         /// <summary>
         /// 深橙色
         /// </summary>
-        public static Color DarkOrange => new Color(1.00000000, 0.54901961, 0.00000000);
+        public static Color DarkOrange => new Color(1.0000, 0.5490, 0.0000);
         /// <summary>
         /// 浅鲜肉(鲑鱼)色
         /// </summary>
-        public static Color LightSalmon => new Color(1.00000000, 0.62745098, 0.47843137);
+        public static Color LightSalmon => new Color(1.0000, 0.6275, 0.4784);
         /// <summary>
         /// 橙色
         /// </summary>
-        public static Color Orange => new Color(1.00000000, 0.64705882, 0.00000000);
+        public static Color Orange => new Color(1.0000, 0.6471, 0.0000);
         /// <summary>
         /// 浅粉红
         /// </summary>
-        public static Color LightPink => new Color(1.00000000, 0.71372549, 0.75686275);
+        public static Color LightPink => new Color(1.0000, 0.7137, 0.7569);
         /// <summary>
         /// 粉红
         /// </summary>
-        public static Color Pink => new Color(1.00000000, 0.75294118, 0.79607843);
+        public static Color Pink => new Color(1.0000, 0.7529, 0.7961);
         /// <summary>
         /// 金
         /// </summary>
-        public static Color Gold => new Color(1.00000000, 0.84313725, 0.00000000);
+        public static Color Gold => new Color(1.0000, 0.8431, 0.0000);
         /// <summary>
         /// 桃色
         /// </summary>
-        public static Color PeachPuff => new Color(1.00000000, 0.85490196, 0.72549020);
+        public static Color PeachPuff => new Color(1.0000, 0.8549, 0.7255);
         /// <summary>
         /// 纳瓦霍白
         /// </summary>
-        public static Color NavajoWhite => new Color(1.00000000, 0.87058824, 0.67843137);
+        public static Color NavajoWhite => new Color(1.0000, 0.8706, 0.6784);
         /// <summary>
         /// 鹿皮鞋
         /// </summary>
-        public static Color Moccasin => new Color(1.00000000, 0.89411765, 0.70980392);
+        public static Color Moccasin => new Color(1.0000, 0.8941, 0.7098);
         /// <summary>
         /// (浓汤)乳脂,番茄等
         /// </summary>
-        public static Color Bisque => new Color(1.00000000, 0.89411765, 0.76862745);
+        public static Color Bisque => new Color(1.0000, 0.8941, 0.7686);
         /// <summary>
         /// 薄雾玫瑰
         /// </summary>
-        public static Color MistyRose => new Color(1.00000000, 0.89411765, 0.88235294);
+        public static Color MistyRose => new Color(1.0000, 0.8941, 0.8824);
         /// <summary>
         /// 漂白的杏仁
         /// </summary>
-        public static Color BlanchedAlmond => new Color(1.00000000, 0.92156863, 0.80392157);
+        public static Color BlanchedAlmond => new Color(1.0000, 0.9216, 0.8039);
         /// <summary>
         /// 番木瓜
         /// </summary>
-        public static Color PapayaWhip => new Color(1.00000000, 0.93725490, 0.83529412);
+        public static Color PapayaWhip => new Color(1.0000, 0.9373, 0.8353);
         /// <summary>
         /// 脸红的淡紫色
         /// </summary>
-        public static Color LavenderBlush => new Color(1.00000000, 0.94117647, 0.96078431);
+        public static Color LavenderBlush => new Color(1.0000, 0.9412, 0.9608);
         /// <summary>
         /// 海贝壳
         /// </summary>
-        public static Color SeaShell => new Color(1.00000000, 0.96078431, 0.93333333);
+        public static Color SeaShell => new Color(1.0000, 0.9608, 0.9333);
         /// <summary>
         /// 玉米色
         /// </summary>
-        public static Color Cornislk => new Color(1.00000000, 0.97254902, 0.86274510);
+        public static Color Cornislk => new Color(1.0000, 0.9725, 0.8627);
         /// <summary>
         /// 柠檬薄纱
         /// </summary>
-        public static Color LemonChiffon => new Color(1.00000000, 0.98039216, 0.80392157);
+        public static Color LemonChiffon => new Color(1.0000, 0.9804, 0.8039);
         /// <summary>
         /// 花的白色
         /// </summary>
-        public static Color FloralWhite => new Color(1.00000000, 0.98039216, 0.94117647);
+        public static Color FloralWhite => new Color(1.0000, 0.9804, 0.9412);
         /// <summary>
         /// 雪
         /// </summary>
-        public static Color Snow => new Color(1.00000000, 0.98039216, 0.98039216);
+        public static Color Snow => new Color(1.0000, 0.9804, 0.9804);
         /// <summary>
         /// 纯黄
         /// </summary>
-        public static Color Yellow => new Color(1.00000000, 1.00000000, 0.00000000);
+        public static Color Yellow => new Color(1.0000, 1.0000, 0.0000);
         /// <summary>
         /// 浅黄色
         /// </summary>
-        public static Color LightYellow => new Color(1.00000000, 1.00000000, 0.87843137);
+        public static Color LightYellow => new Color(1.0000, 1.0000, 0.8784);
         /// <summary>
         /// 象牙
         /// </summary>
-        public static Color Ivory => new Color(1.00000000, 1.00000000, 0.94117647);
+        public static Color Ivory => new Color(1.0000, 1.0000, 0.9412);
         /// <summary>
         /// 纯白
         /// </summary>
-        public static Color White => new Color(1.00000000, 1.00000000, 1.00000000);
+        public static Color White => new Color(1.0000, 1.0000, 1.0000);
+        #endregion
+        /// <summary>
+        /// 获取颜色的字符串表示形式。
+        /// </summary>
+        /// <param name="color">当前颜色</param>
+        /// <param name="format">复合格式字符串。默认值 null。</param>
+        /// <returns>颜色的字符串表示形式。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static string ToString(this Color color, string format = default) {
+            if (color is null) {
+                throw new ArgumentNullException(nameof(color));
+            }
+
+            return $"({color.Red.ToString(format)}, " +
+                $"{color.Green.ToString(format)}, " +
+                $"{color.Blue.ToString(format)}, " +
+                $"{color.Transparency.ToString(format)})";
+        }
+        /// <summary>
+        /// 用给定颜色对当前颜色进行偏移。
+        /// </summary>
+        /// <param name="color">当前颜色</param>
+        /// <param name="shifter">给定颜色</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static void Shift (this Color color, Color shifter) {
+            if (color is null) {
+                throw new ArgumentNullException(nameof(color));
+            }
+
+            if (shifter is null) {
+                throw new ArgumentNullException(nameof(shifter));
+            }
+
+            double value;
+            value = color.Red + shifter.Red;
+            color.Red = value > 1.0 ? value - 1.0 : value;
+            value = color.Green + shifter.Green;
+            color.Green = value > 1.0 ? value - 1.0 : value;
+            value = color.Blue + shifter.Blue;
+            color.Blue = value > 1.0 ? value - 1.0 : value;
+            value = color.Transparency + shifter.Transparency;
+            color.Transparency = value > 1.0 ? value - 1.0 : value;
+        }
+        /// <summary>
+        /// 获取用给定颜色对当前颜色进行偏移后的新颜色。
+        /// </summary>
+        /// <param name="color">当前颜色</param>
+        /// <param name="shifter">给定颜色</param>
+        /// <returns>偏移后的新颜色。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static Color GetShifted(this Color color, Color shifter) {
+            if (color is null) {
+                throw new ArgumentNullException(nameof(color));
+            }
+
+            if (shifter is null) {
+                throw new ArgumentNullException(nameof(shifter));
+            }
+
+            var newColor = new Color(color.Red, color.Green, color.Blue, color.Transparency);
+            newColor.Shift(shifter);
+
+            return newColor;
+        }
     }
     /// <summary>
     /// <see cref="Tekla.Structures.Model.UI"/>.<see cref="GraphicsDrawer"/> 的扩展。
@@ -568,20 +633,33 @@ namespace MuggleTeklaPlugins.ModelExtension.UIExtension {
         /// <summary>
         /// 在视图中画一个圆弧（用碎线条拟合，线条越短越接近圆形）。
         /// </summary>
-        /// <param name="drawer"></param>
+        /// <param name="drawer">当前绘图器。</param>
         /// <param name="arc">要画出的圆弧。</param>
         /// <param name="color">线条颜色，默认黑色。</param>
-        /// <param name="width">线条宽度，默认1。</param>
+        /// <param name="width">线条宽度，默认1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
         /// <param name="type">线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
         /// <param name="accuracy">模拟圆弧的精细程度，即每多少弧长画一条直线，默认10。不建议设置为太小的数，会十分影响性能。</param>
-        public static void DrawArc(this GraphicsDrawer drawer, 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static void DrawArc(this GraphicsDrawer drawer,
             Arc arc,
-            Color color = default, 
-            int width = 1, 
+            Color color = default,
+            int width = 1,
             GraphicPolyLine.LineType type = GraphicPolyLine.LineType.Solid,
             double accuracy = 10) {
+            if (drawer is null) {
+                throw new ArgumentNullException(nameof(drawer));
+            }
 
-            if (arc == null || accuracy <= 0) return;
+            if (arc is null) {
+                throw new ArgumentNullException(nameof(arc));
+            }
+
+            if (width != 1 && width != 2 && width != 4)
+                throw new ArgumentException($"根据官方文档，“{nameof(width)}”有效值仅为 1 或 2 或 4。");
+
+            if (accuracy <= 0)
+                throw new ArgumentException($"“{nameof(accuracy)}”不应小于等于0.0。");
 
             var points = arc.GetPointsMeasure(accuracy);
             //必须包含圆弧终点，避免产生缺口
@@ -595,20 +673,33 @@ namespace MuggleTeklaPlugins.ModelExtension.UIExtension {
         /// <summary>
         /// 在视图中画一个点。
         /// </summary>
-        /// <param name="drawer"></param>
+        /// <param name="drawer">当前绘图器。</param>
         /// <param name="point">要画出的点。</param>
         /// <param name="color">线条颜色，默认黑色。</param>
-        /// <param name="width">线条宽度，默认1。</param>
+        /// <param name="width">线条宽度，默认1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
         /// <param name="type">线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
         /// <param name="size">点大小，默认50。</param>
-        public static void DrawPoint(this GraphicsDrawer drawer, 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static void DrawPoint(this GraphicsDrawer drawer,
             Point point,
-            Color color = default, 
-            int width = 1, 
+            Color color = default,
+            int width = 1,
             GraphicPolyLine.LineType type = GraphicPolyLine.LineType.Solid,
             double size = 50) {
+            if (drawer is null) {
+                throw new ArgumentNullException(nameof(drawer));
+            }
 
-            if (point == null || size <= 0) return;
+            if (point is null) {
+                throw new ArgumentNullException(nameof(point));
+            }
+
+            if (width != 1 && width != 2 && width != 4)
+                throw new ArgumentException($"根据官方文档，“{nameof(width)}”有效值仅为 1 或 2 或 4。");
+
+            if (size <= 0)
+                throw new ArgumentException($"“{nameof(size)}”不应小于等于0.0。");
 
             Point outLT = new Point(-size, size, 0), outRT = new Point(size, size, 0);
             Point outLB = new Point(-size, -size, 0), outRB = new Point(size, -size, 0);
@@ -637,22 +728,38 @@ namespace MuggleTeklaPlugins.ModelExtension.UIExtension {
         /// 在视图中画一条直线。由于直线是延伸到无限远的，所以此方法仅画出其一部分长度
         /// （以 <paramref name="point"/> 在直线上的投影点为基准，沿直线向前后共 <paramref name="length"/> 长度）。
         /// </summary>
-        /// <param name="drawer"></param>
+        /// <param name="drawer">当前绘图器。</param>
         /// <param name="line">要画的直线。</param>
         /// <param name="color">线条颜色，默认黑色。</param>
-        /// <param name="width">线条宽度，默认1。</param>
+        /// <param name="width">线条宽度，默认1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
         /// <param name="type">线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
         /// <param name="point">基准控制点，默认为直线原点。</param>
         /// <param name="length">要画出的长度，默认5000。</param>
-        public static void DrawLine(this GraphicsDrawer drawer, 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static void DrawLine(this GraphicsDrawer drawer,
             Line line,
-            Color color = default, 
-            int width = 1, 
+            Color color = default,
+            int width = 1,
             GraphicPolyLine.LineType type = GraphicPolyLine.LineType.Solid,
-            Point point = default, 
+            Point point = default,
             double length = 5000) {
+            if (drawer is null) {
+                throw new ArgumentNullException(nameof(drawer));
+            }
 
-            if (line == null || line.Direction == new Vector() || length <= 0) return;
+            if (line is null) {
+                throw new ArgumentNullException(nameof(line));
+            }
+
+            if (line.Direction.IsZero())
+                throw new ArgumentException($"“{nameof(line)}”.Direction 不应为零向量。");
+
+            if (length <= 0)
+                throw new ArgumentException($"“{nameof(length)}”不应小于等于0.0。");
+
+            if (width != 1 && width != 2 && width != 4)
+                throw new ArgumentException($"根据官方文档，“{nameof(width)}”有效值仅为 1 或 2 或 4。");
 
             if (point == default) point = line.Origin;
             var p1 = Projection.PointToLine(point, line);

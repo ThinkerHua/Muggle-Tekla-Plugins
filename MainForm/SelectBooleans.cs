@@ -28,6 +28,8 @@ namespace MuggleTeklaPlugins.MainForm {
         }
 
         private void StartSelect(object sender, EventArgs e) {
+            WindowState = FormWindowState.Minimized;
+
             var model = new Model();
             if (!model.GetConnectionStatus()) return;
 
@@ -42,36 +44,50 @@ namespace MuggleTeklaPlugins.MainForm {
                 type = item.GetType();
                 if (filter_BooleanAdd.Checked &&
                     type == typeof(BooleanPart) &&
-                    ((BooleanPart) item).Type == BooleanPart.BooleanTypeEnum.BOOLEAN_ADD)
+                    ((BooleanPart) item).Type == BooleanPart.BooleanTypeEnum.BOOLEAN_ADD) {
                     objects.Add(item);
+                    continue;
+                }
 
                 if (filter_BooleanCut.Checked &&
                     type == typeof(BooleanPart) &&
-                    ((BooleanPart) item).Type == BooleanPart.BooleanTypeEnum.BOOLEAN_CUT)
+                    ((BooleanPart) item).Type == BooleanPart.BooleanTypeEnum.BOOLEAN_CUT) {
                     objects.Add(item);
+                    continue;
+                }
 
                 if (filter_BooleanWeldPrep.Checked &&
                     type == typeof(BooleanPart) &&
-                    ((BooleanPart) item).Type == BooleanPart.BooleanTypeEnum.BOOLEAN_WELDPREP)
+                    ((BooleanPart) item).Type == BooleanPart.BooleanTypeEnum.BOOLEAN_WELDPREP) {
                     objects.Add(item);
+                    continue;
+                }
 
                 if (filter_CutPlane.Checked &&
-                    type == typeof(CutPlane))
+                    type == typeof(CutPlane)) {
                     objects.Add(item);
+                    continue;
+                }
 
                 if (filter_EdgeChamfer.Checked &&
-                    type == typeof(EdgeChamfer))
+                    type == typeof(EdgeChamfer)) {
                     objects.Add(item);
+                    continue;
+                }
 
                 if (filter_Fitting.Checked &&
-                    type == typeof(Fitting))
+                    type == typeof(Fitting)) {
                     objects.Add(item);
+                    continue;
+                }
             }
 
             var ms = new Tekla.Structures.Model.UI.ModelObjectSelector();
             ms.Select(objects, false);
 
             model.CommitChanges();
+
+            WindowState = FormWindowState.Normal;
         }
     }
 }

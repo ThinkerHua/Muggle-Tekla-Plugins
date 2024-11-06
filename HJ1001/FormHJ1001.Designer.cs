@@ -141,7 +141,7 @@ namespace MuggleTeklaPlugins.HJ1001 {
             // 
             this.structuresExtender.SetAttributeName(this.ParametersTabPage, null);
             this.structuresExtender.SetAttributeTypeName(this.ParametersTabPage, null);
-            this.ParametersTabPage.BackgroundImage = global::HJ1001.Properties.Resources._2;
+            this.ParametersTabPage.BackgroundImage = global::MuggleTeklaPlugins.HJ1001.Properties.Resources._2;
             this.ParametersTabPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.structuresExtender.SetBindPropertyName(this.ParametersTabPage, null);
             this.ParametersTabPage.Controls.Add(this.filter_group_no);
@@ -705,12 +705,12 @@ namespace MuggleTeklaPlugins.HJ1001 {
             this.structuresExtender.SetAttributeTypeName(this.label4, null);
             this.label4.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label4, null);
-            this.label4.Location = new System.Drawing.Point(358, 9);
+            this.label4.Location = new System.Drawing.Point(364, 9);
             this.label4.Margin = new System.Windows.Forms.Padding(3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 12);
+            this.label4.Size = new System.Drawing.Size(65, 12);
             this.label4.TabIndex = 14;
-            this.label4.Text = "¶Ë°å ºñ¶È  ";
+            this.label4.Text = "¶Ë°åºñ¶È  ";
             // 
             // tBox_quantity
             // 

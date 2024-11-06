@@ -60,7 +60,7 @@ namespace MuggleTeklaPlugins.HJ1001 {
     }
 
     [Plugin("HJ1001")]
-    [PluginUserInterface("HJ1001.FormHJ1001")]
+    [PluginUserInterface("MuggleTeklaPlugins.HJ1001.FormHJ1001")]
     [InputObjectType(InputObjectType.INPUTOBJECT_PART)]
     [SecondaryType(SecondaryType.SECONDARYTYPE_ONE)]
     [PositionType(PositionTypeEnum.END_END_PLANE)]
