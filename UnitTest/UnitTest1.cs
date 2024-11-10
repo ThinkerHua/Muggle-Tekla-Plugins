@@ -250,27 +250,29 @@ namespace UnitTest {
             Console.WriteLine($"Transposed combined matrix:\n{(rM * tM).GetTranspose()}");
         }
         [TestMethod]
+        public void TestPointMirror() {
+            var point = new Point(1, 2, 3);
+            var plane = new GeometricPlane(new Point(), new Vector(1, 0, 0));
+            Console.WriteLine(Geometry3dOperation.Mirror(point, plane));
+        }
+        [TestMethod]
         public void TestContourPointsMirror() {
             var model = new Model();
             if (!model.GetConnectionStatus()) return;
 
             var picker = new Picker();
-            var beam = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select a PolyBeam");
-            var type = beam.GetType();
-            while (type != typeof(PolyBeam)) {
+            ModelObject beam;
+            do {
                 beam = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select a PolyBeam");
-                type = beam.GetType();
-            }
+            } while (!(beam is PolyBeam));
             var polyBeam = (PolyBeam) Tekla.Structures.Model.Operations.Operation.CopyObject(beam, new Vector());
 
-            var origin = picker.PickPoint();
-            var axisX = picker.PickPoint();
+            var origin = picker.PickPoint("Select the first point of mirror line:");
+            var axisX = picker.PickPoint("Select the second point of mirror line:");
             var plane = new GeometricPlane(origin, new Vector(axisX - origin), new Vector(0, 0, 1));
 
-            ArrayList contourPoints = polyBeam.Contour.ContourPoints;
-            contourPoints = Geometry3dOperation.Mirror(contourPoints, plane);
-            polyBeam.Contour.ContourPoints = contourPoints;
-            //Position属性需编辑
+            polyBeam.Contour.ContourPoints = Geometry3dOperation.Mirror(polyBeam.Contour.ContourPoints, plane);
+            //某些情况下，Position属性需编辑，否则不是正确的镜像对象
             polyBeam.Modify();
 
             model.CommitChanges();

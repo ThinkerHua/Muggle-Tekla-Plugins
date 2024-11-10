@@ -38,15 +38,19 @@ namespace MuggleTeklaPlugins.ModelExtension {
     /// </summary>
     public static class ModelOperation {
         /// <summary>
-        /// 创建布尔操作多边形。
+        /// 用给定轮廓点集合创建布尔操作多边形。
         /// </summary>
         /// <param name="contourPoints">轮廓点</param>
         /// <param name="thickness">厚度</param>
-        /// <returns>布尔操作多边形</returns>
+        /// <returns>布尔操作多边形。</returns>
         /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="thickness"/>不能是 double.NaN，也不应小于等于0.0。</exception>
         public static ContourPlate CreatBooleanOperationPolygon(ArrayList contourPoints, double thickness) {
             if (contourPoints is null) {
                 throw new ArgumentNullException(nameof(contourPoints));
+            }
+            if (double.IsNaN(thickness) || thickness <= 0) {
+                throw new ArgumentOutOfRangeException($"“{nameof(thickness)}”不能是 double.NaN，也不应小于等于0.0。");
             }
 
             ContourPlate contourPlate = new ContourPlate {
@@ -60,7 +64,39 @@ namespace MuggleTeklaPlugins.ModelExtension {
             return contourPlate;
         }
         /// <summary>
-        /// 创建布尔操作多边形。
+        /// 用给定点集合创建布尔操作多边形。倒角为 <see cref="Chamfer.ChamferTypeEnum.CHAMFER_NONE"/>。
+        /// </summary>
+        /// <param name="points">点集合</param>
+        /// <param name="thickness">厚度</param>
+        /// <returns>布尔操作多边形。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="thickness"/>不能是 double.NaN，也不应小于等于0.0。</exception>
+        public static ContourPlate CreatBooleanOperationPolygon(IEnumerable<Point> points, double thickness) {
+            if (points is null) {
+                throw new ArgumentNullException(nameof(points));
+            }
+            if (double.IsNaN(thickness) || thickness <= 0) {
+                throw new ArgumentOutOfRangeException($"“{nameof(thickness)}”不能是 double.NaN，也不应小于等于0.0。");
+            }
+
+            var chamfer = new Chamfer();
+            ArrayList contourPoints = new ArrayList();
+            foreach (var point in points) {
+                contourPoints.Add(new ContourPoint(point, chamfer));
+            }
+
+            var contourPlate = new ContourPlate {
+                Contour = { ContourPoints = contourPoints },
+                Profile = { ProfileString = "PL" + thickness },
+                Material = { MaterialString = "ANTIMATERIAL" },
+                Class = BooleanPart.BooleanOperativeClassName,
+            };
+            contourPlate.Insert();
+
+            return contourPlate;
+        }
+        /// <summary>
+        /// 用给定多边形板创建布尔操作多边形。
         /// </summary>
         /// <param name="sourceContourPlate">用作布尔操作的多边形板</param>
         /// <returns>布尔操作多边形</returns>
@@ -85,11 +121,14 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// </summary>
         /// <param name="father">被布尔操作的对象</param>
         /// <param name="operativePart">布尔操作对象</param>
-        /// <param name="typeEnum">布尔操作类型，默认值<see cref="Tekla.Structures.Model.BooleanPart.BooleanTypeEnum.BOOLEAN_CUT"/></param>
+        /// <param name="typeEnum">布尔操作类型，默认值<see cref="BooleanPart.BooleanTypeEnum.BOOLEAN_CUT"/></param>
         /// <returns>布尔操作是否成功</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static bool ApplyBooleanOperation(ModelObject father, Part operativePart,
+        public static bool ApplyBooleanOperation(
+            ModelObject father,
+            Part operativePart,
             BooleanPart.BooleanTypeEnum typeEnum = BooleanPart.BooleanTypeEnum.BOOLEAN_CUT) {
+
             if (father is null) {
                 throw new ArgumentNullException(nameof(father));
             }
@@ -118,12 +157,14 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// <param name="assemblyStartNumber">梁构件编号起始编号，默认值1</param>
         /// <param name="partPrefix">梁零件编号前缀，默认值P</param>
         /// <param name="partStartNumber">梁零件编号起始编号，默认值1</param>
-        /// <param name="planeEnum">位置属性的平面类型，默认值<see cref="Tekla.Structures.Model.Position.PlaneEnum.MIDDLE"/></param>
-        /// <param name="depthEnum">位置属性的深度类型，默认值<see cref="Tekla.Structures.Model.Position.DepthEnum.MIDDLE"/></param>
-        /// <param name="rotationEnum">位置属性的旋转类型，默认值<see cref="Tekla.Structures.Model.Position.RotationEnum.FRONT"/></param>
+        /// <param name="planeEnum">位置属性的平面类型，默认值<see cref="Position.PlaneEnum.MIDDLE"/></param>
+        /// <param name="depthEnum">位置属性的深度类型，默认值<see cref="Position.DepthEnum.MIDDLE"/></param>
+        /// <param name="rotationEnum">位置属性的旋转类型，默认值<see cref="Position.RotationEnum.FRONT"/></param>
         /// <returns>创建的梁</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static Beam CreatBeam(Point startPoint, Point endPoint,
+        public static Beam CreatBeam(
+            Point startPoint,
+            Point endPoint,
             string name = "BEAM",
             string profileStr = "HM244*175*7*11",
             string materialStr = "Q345B",
@@ -133,6 +174,7 @@ namespace MuggleTeklaPlugins.ModelExtension {
             Position.PlaneEnum planeEnum = Position.PlaneEnum.MIDDLE,
             Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE,
             Position.RotationEnum rotationEnum = Position.RotationEnum.FRONT) {
+
             if (startPoint is null) {
                 throw new ArgumentNullException(nameof(startPoint));
             }
@@ -186,7 +228,7 @@ namespace MuggleTeklaPlugins.ModelExtension {
             return beam;
         }
         /// <summary>
-        /// 创建多边形板。
+        /// 用给定轮廓点集合创建多边形板。
         /// </summary>
         /// <param name="contourPoints">板轮廓点</param>
         /// <param name="name">名称，默认值PLATE</param>
@@ -196,11 +238,12 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// <param name="assemblyStartNumber">构件编号起始编号，默认值1</param>
         /// <param name="partPrefix">零件编号前缀，默认值P</param>
         /// <param name="partStartNumber">零件编号起始编号，默认值1</param>
-        /// <param name="depthEnum">位置属性的深度类型，默认值<see cref="Tekla.Structures.Model.Position.DepthEnum.MIDDLE"/></param>
-        /// <returns>创建的多边形</returns>
+        /// <param name="depthEnum">位置属性的深度类型，默认值<see cref="Position.DepthEnum.MIDDLE"/></param>
+        /// <returns>创建的多边形板。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static ContourPlate CreatContourPlate(ArrayList contourPoints,
+        public static ContourPlate CreatContourPlate(
+            ArrayList contourPoints,
             string name = "PLATE",
             string profileStr = "PL10",
             string materialStr = "Q345B",
@@ -210,12 +253,13 @@ namespace MuggleTeklaPlugins.ModelExtension {
             int partStartNumber = 1,
             string @class = "99",
             Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE) {
+
             if (contourPoints is null) {
                 throw new ArgumentNullException(nameof(contourPoints));
             }
 
             if (contourPoints.Count == 0) {
-                throw new ArgumentException($"“{nameof(contourPoints)}”中项目数应大于0。");
+                throw new ArgumentException($"“{nameof(contourPoints)}”元素数量不应为 0。");
             }
 
             if (string.IsNullOrEmpty(name)) {
@@ -257,6 +301,84 @@ namespace MuggleTeklaPlugins.ModelExtension {
             return contourPlate;
         }
         /// <summary>
+        /// 用给定点集合创建多边形板。倒角为 <see cref="Chamfer.ChamferTypeEnum.CHAMFER_NONE"/>。
+        /// </summary>
+        /// <param name="points">点集合</param>
+        /// <param name="name">名称，默认值PLATE</param>
+        /// <param name="profileStr">截面，默认值PL10</param>
+        /// <param name="materialStr">材质，默认值Q345B</param>
+        /// <param name="assemblyPrefix">构件编号前缀，默认值PLATE</param>
+        /// <param name="assemblyStartNumber">构件编号起始编号，默认值1</param>
+        /// <param name="partPrefix">零件编号前缀，默认值P</param>
+        /// <param name="partStartNumber">零件编号起始编号，默认值1</param>
+        /// <param name="depthEnum">位置属性的深度类型，默认值<see cref="Position.DepthEnum.MIDDLE"/></param>
+        /// <returns>创建的多边形板。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static ContourPlate CreatContourPlate(
+            IEnumerable<Point> points,
+            string name = "PLATE",
+            string profileStr = "PL10",
+            string materialStr = "Q345B",
+            string assemblyPrefix = "PLATE",
+            int assemblyStartNumber = 1,
+            string partPrefix = "P",
+            int partStartNumber = 1,
+            string @class = "99",
+            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE) {
+
+            if (points is null) {
+                throw new ArgumentNullException(nameof(points));
+            }
+
+            if (string.IsNullOrEmpty(name)) {
+                throw new ArgumentException($"“{nameof(name)}”不能为 null 或空。", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(profileStr)) {
+                throw new ArgumentException($"“{nameof(profileStr)}”不能为 null 或空。", nameof(profileStr));
+            }
+
+            if (string.IsNullOrEmpty(materialStr)) {
+                throw new ArgumentException($"“{nameof(materialStr)}”不能为 null 或空。", nameof(materialStr));
+            }
+
+            if (string.IsNullOrEmpty(assemblyPrefix)) {
+                throw new ArgumentException($"“{nameof(assemblyPrefix)}”不能为 null 或空。", nameof(assemblyPrefix));
+            }
+
+            if (string.IsNullOrEmpty(partPrefix)) {
+                throw new ArgumentException($"“{nameof(partPrefix)}”不能为 null 或空。", nameof(partPrefix));
+            }
+
+            if (string.IsNullOrEmpty(@class)) {
+                throw new ArgumentException($"“{nameof(@class)}”不能为 null 或空。", nameof(@class));
+            }
+
+            var contourPoints = new ArrayList();
+            var chamfer = new Chamfer();
+            foreach (var point in points) {
+                contourPoints.Add(new ContourPoint(point, chamfer));
+            }
+            if (contourPoints.Count == 0) {
+                throw new ArgumentException($"“{nameof(points)}”元素数量不应为 0。");
+            }
+
+            ContourPlate contourPlate = new ContourPlate {
+                Contour = { ContourPoints = contourPoints },
+                Name = string.Copy(name),
+                Profile = { ProfileString = string.Copy(profileStr) },
+                Material = { MaterialString = string.Copy(materialStr) },
+                AssemblyNumber = { Prefix = string.Copy(assemblyPrefix), StartNumber = assemblyStartNumber },
+                PartNumber = { Prefix = string.Copy(partPrefix), StartNumber = partStartNumber },
+                Class = string.Copy(@class),
+                Position = { Depth = depthEnum },
+            };
+            contourPlate.Insert();
+
+            return contourPlate;
+        }
+        /// <summary>
         /// 创建焊缝。
         /// </summary>
         /// <param name="mainObject">焊接到对象</param>
@@ -265,8 +387,11 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// <param name="shopWeld">车间焊接(true)或现场焊接(false)，默认值true</param>
         /// <returns>创建的焊缝</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static Weld CreatWeld(ModelObject mainObject, ModelObject secondaryObject,
+        public static Weld CreatWeld(
+            ModelObject mainObject,
+            ModelObject secondaryObject,
             bool arroundWeld = true, bool shopWeld = true) {
+
             if (mainObject is null) {
                 throw new ArgumentNullException(nameof(mainObject));
             }
@@ -294,8 +419,13 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// <param name="arroundWeld">环焊缝(true)或边缘焊缝(false)，默认值true</param>
         /// <param name="shopWeld">车间焊接(true)或现场焊接(false)，默认值true</param>
         /// <returns>创建的多边形焊缝</returns>
-        public static PolygonWeld CreatWeld(ModelObject mainObject, ModelObject secondaryObject, Polygon polygon,
-            bool arroundWeld = false, bool shopWeld = true) {
+        public static PolygonWeld CreatPolygonWeld(
+            ModelObject mainObject,
+            ModelObject secondaryObject,
+            Polygon polygon,
+            bool arroundWeld = false,
+            bool shopWeld = true) {
+
             if (mainObject is null) {
                 throw new ArgumentNullException(nameof(mainObject));
             }
@@ -327,7 +457,7 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// <param name="otherBeBolted">其他要栓接的零件集合</param>
         /// <param name="firstPosition">第一点位置</param>
         /// <param name="secondPosition">第二点位置</param>
-        /// <param name="bolt_dist_X">X方向距离列(第一个值为起点偏移)</param>
+        /// <param name="bolt_dist_X">X方向距离列(<b>* 第一个值为起点偏移</b>)</param>
         /// <param name="bolt_dist_Y">Y方向距离列</param>
         /// <param name="position">螺栓组定位，默认值旋转定位Top，平面定位0，深度定位0</param>
         /// <param name="bolt_standard">螺栓等级，默认值HS10.9</param>
@@ -344,15 +474,25 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
         public static BoltArray CreatBoltArray(
-            Part boltTo, Part beBolted, List<Part> otherBeBolted,
-            Point firstPosition, Point secondPosition,
-            DistanceList bolt_dist_X, DistanceList bolt_dist_Y,
+            Part boltTo,
+            Part beBolted,
+            IEnumerable<Part> otherBeBolted,
+            Point firstPosition,
+            Point secondPosition,
+            DistanceList bolt_dist_X,
+            DistanceList bolt_dist_Y,
             Position position = default,
-            string bolt_standard = "HS10.9", double bolt_size = 20,
+            string bolt_standard = "HS10.9",
+            double bolt_size = 20,
             BoltGroup.BoltTypeEnum bolttype = BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE,
-            double tolerance = 2, bool bolt = true,
-            bool washer1 = true, bool washer2 = true, bool washer3 = true,
-            bool nut1 = true, bool nut2 = true) {
+            double tolerance = 2,
+            bool bolt = true,
+            bool washer1 = true,
+            bool washer2 = true,
+            bool washer3 = true,
+            bool nut1 = true,
+            bool nut2 = true) {
+
             if (boltTo is null) {
                 throw new ArgumentNullException(nameof(boltTo));
             }
@@ -395,8 +535,9 @@ namespace MuggleTeklaPlugins.ModelExtension {
                 Nut2 = nut2,
             };
             if (otherBeBolted != null) {
-                for (int i = 0; i < otherBeBolted.Count; i++)
-                    boltArray.AddOtherPartToBolt(otherBeBolted[i]);
+                foreach (var part in otherBeBolted) {
+                    boltArray.AddOtherPartToBolt(part);
+                }
             }
 
             boltArray.StartPointOffset.Dx = bolt_dist_X[0].Value;
@@ -436,15 +577,25 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// <returns>创建的环形螺栓组。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static BoltCircle CreatBoltCircle(
-            Part boltTo, Part beBolted, List<Part> otherBeBolted,
-            Point firstPosition, Point secondPosition,
-            int num = 8, double diameter = 200,
+            Part boltTo,
+            Part beBolted,
+            IEnumerable<Part> otherBeBolted,
+            Point firstPosition,
+            Point secondPosition,
+            int num = 8,
+            double diameter = 200,
             Position position = default,
-            string bolt_standard = "HS10.9", double bolt_size = 20,
+            string bolt_standard = "HS10.9",
+            double bolt_size = 20,
             BoltGroup.BoltTypeEnum bolttype = BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE,
-            double tolerance = 2, bool bolt = true,
-            bool washer1 = true, bool washer2 = true, bool washer3 = true,
-            bool nut1 = true, bool nut2 = true) {
+            double tolerance = 2,
+            bool bolt = true,
+            bool washer1 = true,
+            bool washer2 = true,
+            bool washer3 = true,
+            bool nut1 = true,
+            bool nut2 = true) {
+
             if (boltTo is null) {
                 throw new ArgumentNullException(nameof(boltTo));
             }
@@ -483,8 +634,8 @@ namespace MuggleTeklaPlugins.ModelExtension {
             };
 
             if (otherBeBolted != null) {
-                for (int i = 0; i < otherBeBolted.Count; i++) {
-                    boltCircle.AddOtherPartToBolt(otherBeBolted[i]);
+                foreach (var part in otherBeBolted) {
+                    boltCircle.AddOtherPartToBolt(part);
                 }
             }
 
@@ -498,12 +649,18 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// <param name="obj">要旋转复制的对象</param>
         /// <param name="Axis_Origin">旋转轴起点</param>
         /// <param name="Axis_Direction">旋转轴方向</param>
-        /// <param name="angle">旋转角度，弧度制</param>
+        /// <param name="radians">旋转角度，弧度制</param>
         /// <param name="num">要复制的数量，默认值1</param>
         /// <returns>成功旋转复制的对象集合（不包括初始对象）。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static List<ModelObject> Copy_Rotate(ModelObject obj, Point Axis_Origin, Vector Axis_Direction, double angle, int num = 1) {
+        public static List<ModelObject> Copy_Rotate(
+            ModelObject obj,
+            Point Axis_Origin,
+            Vector Axis_Direction,
+            double radians,
+            int num = 1) {
+
             if (obj is null) {
                 throw new ArgumentNullException(nameof(obj));
             }
@@ -524,7 +681,7 @@ namespace MuggleTeklaPlugins.ModelExtension {
 
             for (int i = 1; i <= num; i++) {
                 copy = Operation.CopyObject(obj, new Vector());
-                if (Move_Rotate(copy, Axis_Origin, Axis_Direction, angle * i)) objs.Add(copy);
+                if (Move_Rotate(copy, Axis_Origin, Axis_Direction, radians * i)) objs.Add(copy);
             }
 
             return objs;
@@ -538,7 +695,12 @@ namespace MuggleTeklaPlugins.ModelExtension {
         /// <param name="angle">旋转角度，弧度制</param>
         /// <returns>成功返回 True，失败返回 False。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static bool Move_Rotate(ModelObject obj, Point Axis_Origin, Vector Axis_Direction, double angle) {
+        public static bool Move_Rotate(
+            ModelObject obj,
+            Point Axis_Origin,
+            Vector Axis_Direction,
+            double angle) {
+
             if (obj is null) {
                 throw new ArgumentNullException(nameof(obj));
             }

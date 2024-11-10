@@ -841,7 +841,7 @@ namespace MuggleTeklaPlugins.MG1001 {
             stifWeb_PRIM = new List<ContourPlate>();
             stifWeb_SEC = new List<ContourPlate>();
 
-            point1 = TSG3d.Intersection.LineToLine(SEC_TOP_Line,
+            point1 = Intersection.LineToLine(SEC_TOP_Line,
                 ENDPlate_Line.Offset(prf_End2.t, OffsetDirectionEnum.LEFT)).StartPoint;
             point1.Z = prf_SEC.s * 0.5;
             point2 = new Point(point1);
@@ -1139,13 +1139,13 @@ namespace MuggleTeklaPlugins.MG1001 {
                     point5.Z = point1.Z;
                     polygon.Points.Add(point5);
                 }
-                _ = ModelOperation.CreatWeld(PRIMPart, thkedPlate, polygon);
+                _ = ModelOperation.CreatPolygonWeld(PRIMPart, thkedPlate, polygon);
 
                 polygon = polygon.Clone();
                 foreach (Point point in polygon.Points) {
                     point.Z *= -1;
                 }
-                _ = ModelOperation.CreatWeld(PRIMPart, thkedPlate, polygon);
+                _ = ModelOperation.CreatPolygonWeld(PRIMPart, thkedPlate, polygon);
 
 
                 ModelOperation.CreatWeld(thkedPlate, endPlate1);

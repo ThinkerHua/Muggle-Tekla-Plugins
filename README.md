@@ -12,6 +12,10 @@
 特点是可以根据端板高度自动适配调整柱高度。参数化组件做不到这点，打完节点后还要手动调整柱高。
 
 ![MG1001](https://github.com/ThinkerHua/Muggle-Tekla-Plugins/blob/master/Resources/Introduction_MG1001.gif)
+## MG1002(门刚系列节点 - 门刚中柱与梁横向连接)
+没什么特点，不过在编写过程中对端板定位的问题费了点脑筋。
+
+![MG1002](https://github.com/ThinkerHua/Muggle-Tekla-Plugins/blob/master/Resources/Introduction_MG1002.gif)
 ## HJ1001(桁架系列节点 - 圆管对接)
 特点是对曲线梁(用CurvedBeam(曲梁)或PolyBeam(多边形梁)绘制)也适用。参数化组件只能用于直线梁对接，对于曲线梁无法胜任。
 

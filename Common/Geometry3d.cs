@@ -125,6 +125,39 @@ namespace MuggleTeklaPlugins.Geometry3dExtension {
                 return false;
         }
         /// <summary>
+        /// 点与标量的乘法。
+        /// </summary>
+        /// <param name="p">当前点</param>
+        /// <param name="multiplier">乘数</param>
+        /// <returns>点与标量的乘积。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static Point Multiplication(this Point p, double multiplier) {
+            if (p is null) {
+                throw new ArgumentNullException(nameof(p));
+            }
+
+            return new Point(p.X * multiplier, p.Y * multiplier, p.Z * multiplier);
+        }
+        /// <summary>
+        /// 点与标量的除法。
+        /// </summary>
+        /// <param name="p">当前点</param>
+        /// <param name="divisor">除数</param>
+        /// <returns>点与标量的商。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException">除数 <paramref name="divisor"/> 不应为 0.0。</exception>
+        public static Point Division(this Point p, double divisor) {
+            if (p is null) {
+                throw new ArgumentNullException(nameof(p));
+            }
+
+            if (divisor == 0.0) {
+                throw new ArgumentException($"除数“{nameof(divisor)}”不应为 0.0。");
+            }
+
+            return new Point(p.X / divisor, p.Y / divisor, p.Z / divisor);
+        }
+        /// <summary>
         /// 从给定点复制字段值。
         /// </summary>
         /// <param name="p">当前点</param>
@@ -866,7 +899,7 @@ namespace MuggleTeklaPlugins.Geometry3dExtension {
         ///     本实现旨在解决在两直线相交的情况下，官方实现求得的线段长度不等于0的问题。
         ///     同时也实现了求直线退化成点，即 <see cref="Line.Direction"/> 为零向量时的解。
         /// </para>
-        /// <para>主要求解过程如下：</para>
+        /// <para>主要求解公式推导过程如下(<a href="https://math.stackexchange.com/a/4764188">参考</a>)：</para>
         /// <para>L1上的点方程：P=P1+s*V1, L2上的点方程：P=P2+t*V2，最短线段所在直线上的方程：P=P3+r*V3</para>
         /// <para>由于最短线段两端分别落在L1、L2上，则有：(P2+t*V2)+r*V3=P1+s*V1</para>
         /// <para>可令V3=(P2+t*V2)-(P1+s*V1)，代入上述方程，则有：</para>
@@ -879,7 +912,6 @@ namespace MuggleTeklaPlugins.Geometry3dExtension {
         /// <para>再将s代入步骤(1)方程即可求解出：</para>
         /// <para>(4) t=(s*V1-(P2-P1))∙V2/(V2∙V2) - 由于向量没有除法，所以此处需用点积形式做除法</para>
         /// <para>据此即可算出最短线段的两个端点。</para>
-        /// <para>参考链接<a href="https://math.stackexchange.com/a/4764188">见此</a>。</para>
         /// <para>
         ///     上述方程中，P1、P2可分别取值为L1、L2的 <see cref="Line.Origin"/> 属性，
         ///     V1、V2分别为L1、L2的 <see cref="Line.Direction"/> 属性。
@@ -1780,7 +1812,7 @@ namespace MuggleTeklaPlugins.Geometry3dExtension {
         /// </summary>
         /// <param name="point">要镜像的点</param>
         /// <param name="byPlane">镜像平面</param>
-        /// <returns>镜像后的点</returns>
+        /// <returns>镜像后的点。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static Point Mirror(Point point, GeometricPlane byPlane) {
             if (point is null) {
@@ -1793,10 +1825,30 @@ namespace MuggleTeklaPlugins.Geometry3dExtension {
 
             var p = Projection.PointToPlane(point, byPlane);
             var v = new Vector(p - point);
-            v *= 2;
             p.Translate(v);
 
             return p;
+        }
+        /// <summary>
+        /// 对轮廓点进行镜像。
+        /// </summary>
+        /// <param name="contourPoint">要镜像的轮廓点</param>
+        /// <param name="byPlane">镜像平面</param>
+        /// <returns>镜像后的轮廓点。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static ContourPoint Mirror(ContourPoint contourPoint, GeometricPlane byPlane) {
+            if (contourPoint is null) {
+                throw new ArgumentNullException(nameof(contourPoint));
+            }
+
+            if (byPlane is null) {
+                throw new ArgumentNullException(nameof(byPlane));
+            }
+
+            var point = new Point(contourPoint.X, contourPoint.Y, contourPoint.Z);
+            point = Mirror(point, byPlane);
+
+            return new ContourPoint(point, contourPoint.Chamfer);
         }
         /// <summary>
         /// 对 ContourPoints 进行镜像。
@@ -1816,17 +1868,9 @@ namespace MuggleTeklaPlugins.Geometry3dExtension {
 
             ArrayList arrayList;
             try {
-                arrayList = new ArrayList(contourPoints);
-                Point point;
-                ContourPoint contourPoint;
-                for (int i = 0; i < arrayList.Count; i++) {
-                    contourPoint = (ContourPoint) arrayList[i];
-                    point = new Point(contourPoint.X, contourPoint.Y, contourPoint.Z);
-                    point = Mirror(point, byPlane);
-                    contourPoint.X = point.X;
-                    contourPoint.Y = point.Y;
-                    contourPoint.Z = point.Z;
-                    //arrayList[i] = contourPoint;
+                arrayList = new ArrayList();
+                foreach (ContourPoint cp in contourPoints) {
+                    arrayList.Add(Mirror(cp, byPlane));
                 }
             } catch {
                 arrayList = null;

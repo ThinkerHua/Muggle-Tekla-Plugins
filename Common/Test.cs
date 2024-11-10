@@ -16,7 +16,7 @@ namespace MuggleTeklaPlugins.Internal {
             }
 
             var model = new Model();
-            if (!model.GetConnectionStatus()) return;
+            if (!model.GetConnectionStatus()) throw new Exception("Tekla Structures 不在运行。");
             var currentTP = model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
 
             var origin = new Point(0, 0, 0);
@@ -40,7 +40,7 @@ namespace MuggleTeklaPlugins.Internal {
             }
 
             var model = new Model();
-            if (!model.GetConnectionStatus()) return;
+            if (!model.GetConnectionStatus()) throw new Exception("Tekla Structures 不在运行。");
 
             var axisX = new Vector(cs.AxisX);
             var axisY = new Vector(cs.AxisY);

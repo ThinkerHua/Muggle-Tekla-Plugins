@@ -1,4 +1,6 @@
 
+using System.Drawing;
+
 namespace MuggleTeklaPlugins.HJ1001 {
     partial class FormHJ1001 {
         /// <summary>
@@ -141,7 +143,9 @@ namespace MuggleTeklaPlugins.HJ1001 {
             // 
             this.structuresExtender.SetAttributeName(this.ParametersTabPage, null);
             this.structuresExtender.SetAttributeTypeName(this.ParametersTabPage, null);
-            this.ParametersTabPage.BackgroundImage = global::MuggleTeklaPlugins.HJ1001.Properties.Resources._2;
+            var bitmap = new Bitmap(global::MuggleTeklaPlugins.HJ1001.Properties.Resources._2);
+            bitmap.MakeTransparent(Color.White);
+            this.ParametersTabPage.BackgroundImage = bitmap;
             this.ParametersTabPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.structuresExtender.SetBindPropertyName(this.ParametersTabPage, null);
             this.ParametersTabPage.Controls.Add(this.filter_group_no);
