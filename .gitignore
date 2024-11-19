@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /WK1001/Installer
+/HJ1001/Installer
+/MG1001/Installer/BuildDrop/net48
+/MG1002/Installer
