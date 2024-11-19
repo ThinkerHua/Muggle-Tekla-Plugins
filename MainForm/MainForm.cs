@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 using System.Windows.Forms;
-
-using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
-using Tekla.Structures.Model.Operations;
-
-using MuggleTeklaPlugins.Internal;
+using MuggleTeklaPlugins.Common.Internal;
+using MuggleTeklaPlugins.MainForm.Tools;
+using MuggleTeklaPlugins.MainForm.Plugins;
 
 namespace MuggleTeklaPlugins.MainForm {
     public partial class MainForm : Form {
@@ -21,7 +14,7 @@ namespace MuggleTeklaPlugins.MainForm {
             InitializeComponent();
         }
 
-        private void ButtonSelectBooleans_Click(object sender, EventArgs e) {
+        private void SelectBooleans(object sender, EventArgs e) {
             if (formSelectBooleans == null || formSelectBooleans.IsDisposed) {
                 formSelectBooleans = new SelectBooleans();
             }
@@ -29,24 +22,21 @@ namespace MuggleTeklaPlugins.MainForm {
             formSelectBooleans.Activate();
         }
 
-        private void ShowModelObjectCoordinateSystem(object sender, EventArgs e) {
+        private void Run_ShowModelObjectCoordinateSystem(object sender, EventArgs e) {
             WindowState = FormWindowState.Minimized;
+            ShowModelObjectCoordinateSystem.Run();
+            WindowState = FormWindowState.Normal;
+        }
 
-            var model = new Model();
-            if (!model.GetConnectionStatus()) return;
+        private void Run_SelectWeldedObjects(object sender, EventArgs e) {
+            WindowState = FormWindowState.Minimized;
+            SelectWeldedObjects.Run();
+            WindowState = FormWindowState.Normal;
+        }
 
-            var picker = new Picker();
-            ModelObject obj;
-            try {
-                obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT);
-                while (obj != null) {
-                    Test.ShowCoordinateSystem(obj.GetCoordinateSystem());
-                    obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT);
-                }
-            } catch {
-
-            }
-
+        private void Run_WK1001(object sender, EventArgs e) {
+            WindowState = FormWindowState.Minimized;
+            WK1001_Outer.Run();
             WindowState = FormWindowState.Normal;
         }
     }

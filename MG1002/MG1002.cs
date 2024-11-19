@@ -1,25 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-
+using Tekla.Structures;
 using Tekla.Structures.Datatype;
 using Tekla.Structures.Geometry3d;
-using TSG3d = Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
-using Tekla.Structures.Model.UI;
 using Tekla.Structures.Plugins;
-
-using MuggleTeklaPlugins.Common;
-using MuggleTeklaPlugins.Geometry3dExtension;
-using MuggleTeklaPlugins.Internal;
-using MuggleTeklaPlugins.ModelExtension;
-using MuggleTeklaPlugins.ModelExtension.UIExtension;
-using System.Windows.Documents;
-using Tekla.Structures;
+using TSG3d = Tekla.Structures.Geometry3d;
+using MuggleTeklaPlugins.Common.Geometry3d;
+using MuggleTeklaPlugins.Common.Model;
+using MuggleTeklaPlugins.Common.Profile;
 
 namespace MuggleTeklaPlugins.MG1002 {
     public class MG1002Data {
@@ -62,7 +53,7 @@ namespace MuggleTeklaPlugins.MG1002 {
     [Plugin("MG1002")]
     [PluginUserInterface("MuggleTeklaPlugins.MG1002.FormMG1002")]
     [SecondaryType(SecondaryType.SECONDARYTYPE_TWO)]
-    [AutoDirectionType(Tekla.Structures.AutoDirectionTypeEnum.AUTODIR_BASIC)]
+    [AutoDirectionType(AutoDirectionTypeEnum.AUTODIR_BASIC)]
     public class MG1002 : ConnectionBase {
         #region Fields
         private Model _model;
@@ -314,24 +305,20 @@ namespace MuggleTeklaPlugins.MG1002 {
             point2 = (Point) centerline[1];
             prim_CLine = new Line(point1, point2);
 
-            point3 = new Point(point1);
-            point4 = new Point(point2);
-            point3.TransformTo(primCS);
-            point4.TransformTo(primCS);
+            point3 = new Point(point1).TransformTo(primCS);
+            point4 = new Point(point2).TransformTo(primCS);
             point3.Translate(0, prfPrim.h1 * -0.5, 0);
             point4.Translate(0, prfPrim.h2 * -0.5, 0);
-            point3.TransformFrom(primCS);
-            point4.TransformFrom(primCS);
+            point3 = point3.TransformFrom(primCS);
+            point4 = point4.TransformFrom(primCS);
             prim_LLine = new Line(point3, point4);
 
-            point5 = new Point(point1);
-            point6 = new Point(point2);
-            point5.TransformTo(primCS);
-            point6.TransformTo(primCS);
+            point5 = new Point(point1).TransformTo(primCS);
+            point6 = new Point(point2).TransformTo(primCS);
             point5.Translate(0, prfPrim.h1 * 0.5, 0);
             point6.Translate(0, prfPrim.h2 * 0.5, 0);
-            point5.TransformFrom(primCS);
-            point6.TransformFrom(primCS);
+            point5 = point5.TransformFrom(primCS);
+            point6 = point6.TransformFrom(primCS);
             prim_RLine = new Line(point5, point6);
 
             if (axisY.Dot(primCS.AxisX) < 0) {
@@ -345,10 +332,8 @@ namespace MuggleTeklaPlugins.MG1002 {
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
-            point1 = new Point((Point) centerline[0]);
-            point2 = new Point((Point) centerline[1]);
-            point1.TransformTo(secLCS);
-            point2.TransformTo(secLCS);
+            point1 = new Point((Point) centerline[0]).TransformTo(secLCS);
+            point2 = new Point((Point) centerline[1]).TransformTo(secLCS);
             point3 = new Point(point1);
             point4 = new Point(point2);
 
@@ -357,10 +342,10 @@ namespace MuggleTeklaPlugins.MG1002 {
             point2.Translate(0, prfSecL.h2 * -0.5, 0);
             point3.Translate(0, prfSecL.h1 - prfSecL.h2 * 0.5, 0);
             point4.Translate(0, prfSecL.h2 * 0.5, 0);
-            point1.TransformFrom(secLCS);
-            point2.TransformFrom(secLCS);
-            point3.TransformFrom(secLCS);
-            point4.TransformFrom(secLCS);
+            point1 = point1.TransformFrom(secLCS);
+            point2 = point2.TransformFrom(secLCS);
+            point3 = point3.TransformFrom(secLCS);
+            point4 = point4.TransformFrom(secLCS);
 
             secL_TLine = new Line(point1, point2);
             secL_BLine = new Line(point3, point4);
@@ -375,10 +360,8 @@ namespace MuggleTeklaPlugins.MG1002 {
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
-            point1 = new Point((Point) centerline[0]);
-            point2 = new Point((Point) centerline[1]);
-            point1.TransformTo(secRCS);
-            point2.TransformTo(secRCS);
+            point1 = new Point((Point) centerline[0]).TransformTo(secRCS);
+            point2 = new Point((Point) centerline[1]).TransformTo(secRCS);
             point3 = new Point(point1);
             point4 = new Point(point2);
 
@@ -386,10 +369,10 @@ namespace MuggleTeklaPlugins.MG1002 {
             point2.Translate(0, prfSecR.h2 * -0.5, 0);
             point3.Translate(0, prfSecR.h1 - prfSecR.h2 * 0.5, 0);
             point4.Translate(0, prfSecR.h2 * 0.5, 0);
-            point1.TransformFrom(secRCS);
-            point2.TransformFrom(secRCS);
-            point3.TransformFrom(secRCS);
-            point4.TransformFrom(secRCS);
+            point1 = point1.TransformFrom(secRCS);
+            point2 = point2.TransformFrom(secRCS);
+            point3 = point3.TransformFrom(secRCS);
+            point4 = point4.TransformFrom(secRCS);
 
             secR_TLine = new Line(point1, point2);
             secR_BLine = new Line(point3, point4);
@@ -403,21 +386,20 @@ namespace MuggleTeklaPlugins.MG1002 {
 
             #region 创建端板
             var e1 = Math.Sqrt(Math.Pow(prfEndPlate.t, 2) + Math.Pow(prfEndPlate.l * 0.5, 2));
-            var secL_BLine_inside = secL_BLine.Offset(prfSecL.t2, OffsetDirectionEnum.LEFT);
-            var secR_BLine_inside = secR_BLine.Offset(prfSecR.t2, OffsetDirectionEnum.RIGHT);
+            var secL_BLine_inside = secL_BLine.Offset(prfSecL.t2, LineExtension.OffsetDirectionEnum.LEFT);
+            var secR_BLine_inside = secR_BLine.Offset(prfSecR.t2, LineExtension.OffsetDirectionEnum.RIGHT);
 
-            Line endPlateLine = null;
-            Beam endPlate1 = null, endPlate2 = null;
+            Line endPlateLine;
+            Beam endPlate1, endPlate2;
             Vector translateVector = null;
             var xPoint = IntersectionExtension.LineToLine(secL_BLine_inside, secR_BLine_inside).StartPoint;
-            var positionOfTriangle =
-                Geometry3dOperation.PositionOfTriangleOnLines(
-                (secL_BLine_inside, secR_BLine_inside, prim_CLine),
-                (e1, e1, prfEndPlate.l)) ?? throw new Exception("根据现有参数，端板无法放置，请检查并调整参数。");
+            var positionOfTriangle = Geometry3dOperation.PositionOfTriangleOnLines(
+                    (secL_BLine_inside, secR_BLine_inside, prim_CLine),
+                    (e1, e1, prfEndPlate.l)) ?? throw new Exception("根据现有参数，端板无法放置，请检查并调整参数。");
             foreach (var (P1, P2, P3) in positionOfTriangle) {
 
                 //  抛弃P3在上方的组合
-                translateVector = new Vector(P3 - (P1 + P2).Multiplication(0.5));
+                translateVector = new Vector(P3 - (P1 + P2).Multiply(0.5));
                 if (Vector.Dot(translateVector, axisY) >= 0)
                     continue;
                 //  抛弃P1在延长线上的组合
@@ -428,32 +410,32 @@ namespace MuggleTeklaPlugins.MG1002 {
                     continue;
 
                 //  最多可能仍有2组解，不做区分，直接使用第1组解
-                point1 = new Point(P1);
-                point2 = new Point(P2);
-                point3 = new Point(P3);
-                point1.Translate(translateVector);
-                point2.Translate(translateVector);
-                point3.Translate(translateVector);
-
-                endPlateLine = new Line(point1, point2);
-
-                endPlate1 =
-                    ModelOperation.CreatBeam(
-                    point1, point2,
-                    profileStr: $"PL{prfEndPlate.t}*{prfEndPlate.b}",
-                    materialStr: materialStr,
-                    planeEnum: Position.PlaneEnum.LEFT,
-                    rotationEnum: Position.RotationEnum.TOP);
-                endPlate2 =
-                    ModelOperation.CreatBeam(
-                    point1, point2,
-                    profileStr: $"PL{prfEndPlate.t}*{prfEndPlate.b}",
-                    materialStr: materialStr,
-                    planeEnum: Position.PlaneEnum.RIGHT,
-                    rotationEnum: Position.RotationEnum.TOP);
+                point1 = P1;
+                point2 = P2;
+                point3 = P3;
 
                 break;//  跳过可能存在的第2组解
             }
+            point1.Translate(translateVector);
+            point2.Translate(translateVector);
+            point3.Translate(translateVector);
+
+            endPlateLine = new Line(point1, point2);
+
+            endPlate1 =
+                ModelOperation.CreatBeam(
+                point1, point2,
+                profileStr: $"PL{prfEndPlate.t}*{prfEndPlate.b}",
+                materialStr: materialStr,
+                planeEnum: Position.PlaneEnum.LEFT,
+                rotationEnum: Position.RotationEnum.TOP);
+            endPlate2 =
+                ModelOperation.CreatBeam(
+                point1, point2,
+                profileStr: $"PL{prfEndPlate.t}*{prfEndPlate.b}",
+                materialStr: materialStr,
+                planeEnum: Position.PlaneEnum.RIGHT,
+                rotationEnum: Position.RotationEnum.TOP);
             #endregion
 
             #region 柱末端对齐，梁末端对齐、切割
@@ -510,8 +492,8 @@ namespace MuggleTeklaPlugins.MG1002 {
 
             if (prfVert.b == 0.0) prfVert.b = (prfPrim.b1 - prfSecL.s) * 0.5;
 
-            var secL_TLine_inside = secL_TLine.Offset(prfSecL.t1, OffsetDirectionEnum.RIGHT);
-            var secR_TLine_inside = secR_TLine.Offset(prfSecR.t1, OffsetDirectionEnum.LEFT);
+            var secL_TLine_inside = secL_TLine.Offset(prfSecL.t1, LineExtension.OffsetDirectionEnum.RIGHT);
+            var secR_TLine_inside = secR_TLine.Offset(prfSecR.t1, LineExtension.OffsetDirectionEnum.LEFT);
             var vert_LLine = new Line {
                 Origin = IntersectionExtension.LineToLine(prim_LLine, endPlate_BLine).StartPoint,
                 Direction = new Vector(axisY),
@@ -523,8 +505,8 @@ namespace MuggleTeklaPlugins.MG1002 {
 
             point1 = IntersectionExtension.LineToLine(vert_LLine, secL_TLine_inside).StartPoint;
             point2 = IntersectionExtension.LineToLine(vert_LLine, endPlate_TLine).StartPoint;
-            point3 = IntersectionExtension.LineToLine(vert_LLine.Offset(prfVert.t, OffsetDirectionEnum.RIGHT), secL_TLine_inside).StartPoint;
-            point4 = IntersectionExtension.LineToLine(vert_LLine.Offset(prfVert.t, OffsetDirectionEnum.RIGHT), endPlate_TLine).StartPoint;
+            point3 = IntersectionExtension.LineToLine(vert_LLine.Offset(prfVert.t, LineExtension.OffsetDirectionEnum.RIGHT), secL_TLine_inside).StartPoint;
+            point4 = IntersectionExtension.LineToLine(vert_LLine.Offset(prfVert.t, LineExtension.OffsetDirectionEnum.RIGHT), endPlate_TLine).StartPoint;
 
             point1.Y = point1.Y < point3.Y ? point1.Y : point3.Y;
             point2.Y = point2.Y > point4.Y ? point2.Y : point4.Y;
@@ -550,8 +532,8 @@ namespace MuggleTeklaPlugins.MG1002 {
 
             point1 = IntersectionExtension.LineToLine(vert_RLine, secR_TLine_inside).StartPoint;
             point2 = IntersectionExtension.LineToLine(vert_RLine, endPlate_TLine).StartPoint;
-            point3 = IntersectionExtension.LineToLine(vert_RLine.Offset(prfVert.t, OffsetDirectionEnum.LEFT), secR_TLine_inside).StartPoint;
-            point4 = IntersectionExtension.LineToLine(vert_RLine.Offset(prfVert.t, OffsetDirectionEnum.LEFT), endPlate_TLine).StartPoint;
+            point3 = IntersectionExtension.LineToLine(vert_RLine.Offset(prfVert.t, LineExtension.OffsetDirectionEnum.LEFT), secR_TLine_inside).StartPoint;
+            point4 = IntersectionExtension.LineToLine(vert_RLine.Offset(prfVert.t, LineExtension.OffsetDirectionEnum.LEFT), endPlate_TLine).StartPoint;
 
             point1.Y = point1.Y < point3.Y ? point1.Y : point3.Y;
             point2.Y = point2.Y > point4.Y ? point2.Y : point4.Y;
@@ -587,28 +569,28 @@ namespace MuggleTeklaPlugins.MG1002 {
             var diagLine = new Line(
                 IntersectionExtension.LineToLine(
                     pos_DIAG1 < dis_vertL_to_primC ? secL_TLine_inside : secR_TLine_inside,
-                    vert_LLine.Offset(pos_DIAG1, OffsetDirectionEnum.RIGHT)).StartPoint,
+                    vert_LLine.Offset(pos_DIAG1, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint,
                 IntersectionExtension.LineToLine(
                     endPlate_TLine,
-                    vert_RLine.Offset(pos_DIAG2, OffsetDirectionEnum.LEFT)).StartPoint);
+                    vert_RLine.Offset(pos_DIAG2, LineExtension.OffsetDirectionEnum.LEFT)).StartPoint);
             point1 = pos_DIAG1 < dis_vertL_to_primC ?
                 IntersectionExtension.LineToLine(
                     secL_TLine_inside,
-                    diagLine.Offset(prfDiag.t * 0.5, OffsetDirectionEnum.LEFT)).StartPoint :
+                    diagLine.Offset(prfDiag.t * 0.5, LineExtension.OffsetDirectionEnum.LEFT)).StartPoint :
                 IntersectionExtension.LineToLine(
                     secR_TLine_inside,
-                    diagLine.Offset(prfDiag.t * 0.5, OffsetDirectionEnum.RIGHT)).StartPoint;
+                    diagLine.Offset(prfDiag.t * 0.5, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
             point2 = pos_DIAG1 < dis_vertL_to_primC ?
                 IntersectionExtension.LineToLine(
                     endPlate_TLine,
                     diagLine.Offset(
                         prfDiag.t * 0.5,
-                         OffsetDirectionEnum.RIGHT)).StartPoint :
+                         LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint :
                 IntersectionExtension.LineToLine(
                     endPlate_TLine,
                     diagLine.Offset(
                         prfDiag.t * 0.5,
-                        OffsetDirectionEnum.LEFT)).StartPoint;
+                        LineExtension.OffsetDirectionEnum.LEFT)).StartPoint;
             point1 = Projection.PointToLine(point1, diagLine);
             point2 = Projection.PointToLine(point2, diagLine);
             point1.Z = prfSecL.s > prfSecR.s ? prfSecL.s * 0.5 : prfSecR.s * 0.5;
@@ -636,9 +618,9 @@ namespace MuggleTeklaPlugins.MG1002 {
             point1 = IntersectionExtension.LineToLine(endPlate_BLine, prim_LLine).StartPoint;
             point2 = IntersectionExtension.LineToLine(
                 endPlate_BLine,
-                vert_LLine.Offset(prfStifFlange.b, OffsetDirectionEnum.LEFT)).StartPoint;
+                vert_LLine.Offset(prfStifFlange.b, LineExtension.OffsetDirectionEnum.LEFT)).StartPoint;
             point3 = IntersectionExtension.LineToLine(
-                endPlate_BLine.Offset(prfStifFlange.l, OffsetDirectionEnum.RIGHT),
+                endPlate_BLine.Offset(prfStifFlange.l, LineExtension.OffsetDirectionEnum.RIGHT),
                 prim_LLine).StartPoint;
 
             var stifFlange_L = ModelOperation.CreatContourPlate(
@@ -652,9 +634,9 @@ namespace MuggleTeklaPlugins.MG1002 {
             point1 = IntersectionExtension.LineToLine(endPlate_BLine, prim_RLine).StartPoint;
             point2 = IntersectionExtension.LineToLine(
                 endPlate_BLine,
-                vert_RLine.Offset(prfStifFlange.b, OffsetDirectionEnum.RIGHT)).StartPoint;
+                vert_RLine.Offset(prfStifFlange.b, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
             point3 = IntersectionExtension.LineToLine(
-                endPlate_BLine.Offset(prfStifFlange.l, OffsetDirectionEnum.RIGHT),
+                endPlate_BLine.Offset(prfStifFlange.l, LineExtension.OffsetDirectionEnum.RIGHT),
                 prim_RLine).StartPoint;
 
             var stifFlange_R = ModelOperation.CreatContourPlate(

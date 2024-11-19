@@ -1,21 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Reflection;
+using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
-using Tekla.Structures.Model.Operations;
-using Tekla.Structures.ModelInternal;
-using Tekla.Structures.Geometry3d;
-using Tekla.Structures.Catalogs;
-
-using MuggleTeklaPlugins.Common;
-using MuggleTeklaPlugins.Geometry3dExtension;
-using MuggleTeklaPlugins.ModelExtension;
-using MuggleTeklaPlugins.ModelExtension.UIExtension;
-using MuggleTeklaPlugins.Internal;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MuggleTeklaPlugins.Common.Geometry3d;
+using MuggleTeklaPlugins.Common.Internal;
+using MuggleTeklaPlugins.Common.Model;
+using MuggleTeklaPlugins.Common.ModelUI;
+using MuggleTeklaPlugins.Common.Operation;
+using MuggleTeklaPlugins.Common.Profile;
 
 namespace UnitTest {
     [TestClass]
@@ -90,7 +86,7 @@ namespace UnitTest {
             var obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "选择展示其零件坐标系的零件：");
             partTP = new TransformationPlane(obj.GetCoordinateSystem());
 
-            Test.ShowTransformationPlane(partTP);
+            Internal.ShowTransformationPlane(partTP);
 
         }
         [TestMethod]
@@ -103,20 +99,20 @@ namespace UnitTest {
             try {
                 var tp1 = new TransformationPlane(new Point(0, 0, 0), new Vector(1, 0, 0), new Vector(0, 1, 0));
                 var tp2 = new TransformationPlane(new Point(10, 10, 10), new Vector(1, 0, 0), new Vector(0, 1, 0));
-                point1.Transform(tp1, tp2);
+                point1 = point1.Transform(tp1, tp2);
                 Console.WriteLine(point1);
-            } catch (Exception ex) {
-                Console.WriteLine(ex);
+            } catch (Exception e) {
+                Console.WriteLine(e);
             }
 
             var sourceCS = new CoordinateSystem(new Point(10, 10, 10), new Vector(0, 1, 0), new Vector(0, 0, 1));
             var targetCS = new CoordinateSystem(new Point(100, 200, 300), new Vector(1, 1, 0), new Vector(0, 1, 1));
             var currentCS = new CoordinateSystem();
-            point1.Transform(currentCS, targetCS);
+            point1 = point1.Transform(currentCS, targetCS);
             Console.WriteLine(point1);
-            point1.TransformTo(sourceCS);
+            point1 = point1.TransformTo(sourceCS);
             Console.WriteLine(point1);
-            point1.TransformFrom(targetCS);
+            point1 = point1.TransformFrom(targetCS);
             Console.WriteLine(point1);
 
         }
@@ -180,11 +176,11 @@ namespace UnitTest {
 
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(globalTP);
             var globalCS = new CoordinateSystem();
-            var targetCS1 = new CoordinateSystem(new Point(100, 200, 300), new Vector(1, 0, 0), new Vector(0, 1, 0));
-            var targetCS2 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, 1, 0), new Vector(-1, 0, 0));
-            var targetCS3 = new CoordinateSystem(new Point(100, 200, 300), new Vector(-1, 0, 0), new Vector(0, -1, 0));
-            var targetCS4 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, -1, 0), new Vector(1, 0, 0));
-            var targetCS5 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, 1, 0), new Vector(1, 0, 0));
+            var targetCS1 = new CoordinateSystem(new Point(100, 200, 300), new Vector(1, 0, 0), new Vector(0, 1, 0));//平移
+            var targetCS2 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, 1, 0), new Vector(-1, 0, 0));//平移+绕Z轴旋转90度
+            var targetCS3 = new CoordinateSystem(new Point(100, 200, 300), new Vector(-1, 0, 0), new Vector(0, -1, 0));//平移+绕Z轴旋转180度
+            var targetCS4 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, -1, 0), new Vector(1, 0, 0));//平移+绕Z轴旋转270度
+            var targetCS5 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, 1, 0), new Vector(1, 0, 0));//平移+绕XY平面45度轴旋转180度
             var rotationMatrix = MatrixFactory.Rotate(Math.PI * 0.5, new Vector(0, 0, 1));
             var translationMatrix = new Matrix();
             translationMatrix[0, 0] = 1; translationMatrix[0, 1] = 0; translationMatrix[0, 2] = 0;
@@ -192,6 +188,7 @@ namespace UnitTest {
             translationMatrix[2, 0] = 0; translationMatrix[2, 1] = 0; translationMatrix[2, 2] = 1;
             translationMatrix[3, 0] = -100; translationMatrix[3, 1] = -200; translationMatrix[3, 2] = -300;
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(currentTP);
+
             Console.WriteLine($"Rotation matrix:\n{rotationMatrix}");
             Console.WriteLine($"Translation matrix:\n{translationMatrix}");
             var point = new Point(100, 200, 300);
@@ -232,15 +229,31 @@ namespace UnitTest {
             var point = new Point();
             Console.WriteLine(tM.Transform(point));//输出结果(-100.000, -200.000, -300.000)
 
-            Console.WriteLine($"Current coordinatesystem:\n{CoordinateSystemExtension.ToString(currentCS)}");
+            var rM2 = MatrixFactory.Rotate(0.2 * Math.PI, v1);
+            Console.WriteLine($"Current coordinatesystem:\n{currentCS.ToString("f4")}");
             Console.WriteLine();
-            Console.WriteLine($"Target coordinatesystem:\n{CoordinateSystemExtension.ToString(targetCS)}");
+            Console.WriteLine($"Target coordinatesystem:\n{targetCS.ToString("f4")}");
             Console.WriteLine();
-            Console.WriteLine($"Transformed coordinatesystem:\n{CoordinateSystemExtension.ToString((rM * tM).Transform(currentCS))}");
+            Console.WriteLine($"Transformed coordinatesystem:\n{(rM2 * rM * tM).Transform(currentCS).ToString("f4")}");
             //  应当输出为：
-            //  AxisX:(1084.8078, 26.3518, 300)
-            //  AxisY:(273.6482, 1184.8078, 300)
-            //  Origin:(100, 200, 300)
+            //  Origin = (100, 200, 300)
+            //  AxisX = (984.8078, -140.4843, -102.0678)
+            //  AxisY = (173.6482, 796.7262, 578.8555)
+            Console.WriteLine();
+            Console.WriteLine($"Transformed coordinatesystem:\n{(tM * rM2 * rM).Transform(currentCS).ToString("f4")}");
+            //  应当输出为：
+            //  Origin = (133.2104, -31.0388, 348.2694)
+            //  AxisX = (984.8078, -140.4843, -102.0678)
+            //  AxisY = (173.6482, 796.7262, 578.8555)
+            Console.WriteLine();
+            Console.WriteLine($"Transformed coordinatesystem:\n{(rM * rM2 * tM).Transform(currentCS).ToString("f4")}");
+            //  应当输出为：
+            //  Origin = (100, 200, 300)
+            //  AxisX = (984.8078, -173.6482, 0)
+            //  AxisY = (140.4843, 796.7262, 587.7853)
+            Console.WriteLine();
+            Console.WriteLine("多个矩阵组合，应用顺序为从右向左。\n" +
+                "平移操作在完成旋转操作后的新坐标系上进行平移。");
             Console.WriteLine();
 
             Console.WriteLine($"Rotation matrix:\n{rM}");
@@ -767,7 +780,7 @@ namespace UnitTest {
             var point = picker.PickPoint("Select the rotation axis's original point:");
             var direction = picker.PickPoint("Select the rotation axis's direction:");
 
-            ModelOperation.Copy_Rotate(obj, point, new Vector(direction - point), Math.PI);
+            ModelOperation.Copy_Rotate(obj, point, new Vector(direction - point), Math.PI * 0.25);
 
             model.CommitChanges();
         }
@@ -985,7 +998,7 @@ namespace UnitTest {
             }
         }
         [TestMethod]
-        public void TestEpsilon() {
+        public void TestCircleToLine_2D_Epsilon() {
             Console.WriteLine(string.Format("{0:f13}", 1e-12));
 
             var point = new Point(0.0, -930.36814213834532, 0.0);
@@ -1006,6 +1019,109 @@ namespace UnitTest {
             Console.WriteLine(color.ToString(null));
             Console.WriteLine(color.ToString("f3"));
             Console.WriteLine(ColorExtension.ToString(color));
+        }
+        [TestMethod]
+        public void TestInheritProperty() {
+            var prfbase = new ProfileRect("RHS400*300-350*250*14");
+            Console.WriteLine($"prfbase: h1 = {prfbase.h1}, h2 = {prfbase.h2}, " +
+                $"b1 = {prfbase.b1}, b2 = {prfbase.b2}, " +
+                $"s = {prfbase.s}, t = {prfbase.t}");
+
+            ProfileRect_Invariant prfinherit1 = null, prfinherit2 = null;
+            try {
+                prfinherit1 = new ProfileRect_Invariant("RHS400*300-350*250*14");
+                Console.WriteLine($"prfinherit1: h1 = {prfinherit1.h1}, h2 = {prfinherit1.h2}, " +
+                    $"b1 = {prfinherit1.b1}, b2 = {prfinherit1.b2}, " +
+                    $"s = {prfinherit1.s}, t = {prfinherit1.t}");
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+
+            try {
+                prfinherit2 = new ProfileRect_Invariant("RHS400*300-400*300*14");
+                Console.WriteLine($"prfinherit2: h1 = {prfinherit2.h1}, h2 = {prfinherit2.h2}, " +
+                    $"b1 = {prfinherit2.b1}, b2 = {prfinherit2.b2}, " +
+                    $"s = {prfinherit2.s}, t = {prfinherit2.t}");
+
+                prfinherit2.ProfileText = "RHS400*300-350*250*14";
+                Console.WriteLine($"prfinherit2: h1 = {prfinherit2.h1}, h2 = {prfinherit2.h2}, " +
+                    $"b1 = {prfinherit2.b1}, b2 = {prfinherit2.b2}, " +
+                    $"s = {prfinherit2.s}, t = {prfinherit2.t}");
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            } finally {
+                Console.WriteLine($"prfinherit2: h1 = {prfinherit2.h1}, h2 = {prfinherit2.h2}, " +
+                    $"b1 = {prfinherit2.b1}, b2 = {prfinherit2.b2}, " +
+                    $"s = {prfinherit2.s}, t = {prfinherit2.t}");
+            }
+        }
+        [TestMethod]
+        public void TestComponentReflection() {
+            if (!new Model().GetConnectionStatus()) return;
+
+            var picker = new Picker();
+            var obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT);
+            var type = obj.GetType();
+            Console.WriteLine($"Type is {type}");
+            var propertyInfo = type.GetProperties();
+            FieldInfo[] fieldInfo;
+            foreach (var property in propertyInfo) {
+                Console.WriteLine($"Property {property.Name}'s type is {property.PropertyType.Name}, value is {property.GetValue(obj)}");
+                if (property.Name == "UpVector") {
+                    fieldInfo = property.PropertyType.GetFields();
+                    foreach (var field in fieldInfo) {
+                        Console.WriteLine($"\tField {field.Name} = {field.GetValue(property.GetValue(obj))}");
+                    }
+                }
+            }
+            double x = 0, y = 0, z = 0;
+            if (type == typeof(Connection) && ((Connection) obj).Name == "WJ1001") {
+                if (((Connection) obj).GetAttribute("normal_x", ref x)
+                    && ((Connection) obj).GetAttribute("normal_y", ref y)
+                    && ((Connection) obj).GetAttribute("normal_z", ref z)) {
+                    Console.WriteLine($"Normal = ({x}, {y}, {z})");
+                } else {
+                    Console.WriteLine("GetAttribute failed.");
+                }
+
+            }
+        }
+        [TestMethod]
+        public void TestStringCompression() {
+            var rawString = "<188032>(-223.180370446127, -2796.25668730194, 12022.0182501074);" +
+                "<188317>(-2554.56716509891, -11230.1652854544, 56896.6903083333);";
+            var compressedString = StringCompression.Compress(rawString);
+            var decompressedString = StringCompression.Decompress(compressedString);
+
+            Console.WriteLine(compressedString);
+            Console.WriteLine(decompressedString);
+        }
+        [TestMethod]
+        public void TestByteConvert() {
+            try {
+                var dValue = -223.180370446127;
+                var bytes = Convert.ChangeType(dValue, typeof(byte[])) as byte[];
+
+                var str = string.Empty;
+                foreach (var item in bytes) {
+                    str += item;
+                }
+                Console.WriteLine(str);
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+
+            try {
+                var dValue = -2796.25668730194;
+                var bytes = BitConverter.GetBytes(dValue);
+                var str = Convert.ToBase64String(bytes);
+
+                Console.WriteLine(str);
+                Console.WriteLine(BitConverter.ToDouble(Convert.FromBase64String(str), 0));
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+                throw;
+            }
         }
     }
 }

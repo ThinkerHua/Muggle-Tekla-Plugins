@@ -2,25 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
-
 using Tekla.Structures;
-using TS = Tekla.Structures;
-using Tekla.Structures.Geometry3d;
-using TSG3d = Tekla.Structures.Geometry3d;
-using Tekla.Structures.Model;
-using TSModel = Tekla.Structures.Model;
-using Tekla.Structures.Model.UI;
-using TSUI = Tekla.Structures.Model.UI;
-using Tekla.Structures.Model.Operations;
-using TSOperations = Tekla.Structures.Model.Operations;
-using Tekla.Structures.Plugins;
-using TSPlugins = Tekla.Structures.Plugins;
 using Tekla.Structures.Datatype;
+using Tekla.Structures.Geometry3d;
+using Tekla.Structures.Model;
+using Tekla.Structures.Plugins;
 using TSDatatype = Tekla.Structures.Datatype;
-
-using MuggleTeklaPlugins.Common;
-using MuggleTeklaPlugins.Geometry3dExtension;
-using MuggleTeklaPlugins.ModelExtension;
+using TSG3d = Tekla.Structures.Geometry3d;
+using MuggleTeklaPlugins.Common.Geometry3d;
+using MuggleTeklaPlugins.Common.Model;
+using MuggleTeklaPlugins.Common.Profile;
 
 namespace MuggleTeklaPlugins.MG1001 {
     /// <summary>
@@ -466,10 +457,8 @@ namespace MuggleTeklaPlugins.MG1001 {
             #endregion
 
             #region 求主零件边线
-            point1 = new Point(PRIMPart.StartPoint);
-            point2 = new Point(PRIMPart.EndPoint);
-            point1.Transform(originTP, workTP);
-            point2.Transform(originTP, workTP);
+            point1 = new Point(PRIMPart.StartPoint).Transform(originTP, workTP);
+            point2 = new Point(PRIMPart.EndPoint).Transform(originTP, workTP);
 
             if (TSG3d.Distance.PointToPoint(origin, point1) > TSG3d.Distance.PointToPoint(origin, point2)) {
                 point1.Y += PRIMPart.StartPointOffset.Dx;
@@ -489,28 +478,24 @@ namespace MuggleTeklaPlugins.MG1001 {
             #endregion
 
             #region 求次零件边线
-            point1 = new Point(SECPart.StartPoint);
-            point2 = new Point(SECPart.EndPoint);
             TransformationPlane SECPart_TP = new TransformationPlane(SECPart.GetCoordinateSystem());
-            point1.Transform(originTP, SECPart_TP);
-            point2.Transform(originTP, SECPart_TP);
-            //point5 = new Point();
-            //point5.Transform(workTP, SECPart_TP);
+            point1 = new Point(SECPart.StartPoint).Transform(originTP, SECPart_TP);
+            point2 = new Point(SECPart.EndPoint).Transform(originTP, SECPart_TP);
             point1.X += SECPart.StartPointOffset.Dx;
             point2.X += SECPart.EndPointOffset.Dx;
             point3 = new Point(point1);
             point4 = new Point(point2);
 
-            point1.Transform(SECPart_TP, workTP);
-            point2.Transform(SECPart_TP, workTP);
+            point1 = point1.Transform(SECPart_TP, workTP);
+            point2 = point2.Transform(SECPart_TP, workTP);
 
             if (TSG3d.Distance.PointToPoint(origin, point1) > TSG3d.Distance.PointToPoint(origin, point2)) {
                 SEC_TOP_Line = new Line(point1, point2);
 
                 point3.Y += Math.Min(prf_SEC.h1, prf_SEC.h2);
                 point4.Y += Math.Max(prf_SEC.h1, prf_SEC.h2);
-                point3.Transform(SECPart_TP, workTP);
-                point4.Transform(SECPart_TP, workTP);
+                point3 = point3.Transform(SECPart_TP, workTP);
+                point4 = point4.Transform(SECPart_TP, workTP);
                 SEC_BTM_Line = new Line(point3, point4);
 
             } else {
@@ -518,8 +503,8 @@ namespace MuggleTeklaPlugins.MG1001 {
 
                 point3.Y += Math.Max(prf_SEC.h1, prf_SEC.h2);
                 point4.Y += Math.Min(prf_SEC.h1, prf_SEC.h2);
-                point3.Transform(SECPart_TP, workTP);
-                point4.Transform(SECPart_TP, workTP);
+                point3 = point3.Transform(SECPart_TP, workTP);
+                point4 = point4.Transform(SECPart_TP, workTP);
                 SEC_BTM_Line = new Line(point4, point3);
             }//统一为从远端指向近端
             #endregion
@@ -539,11 +524,11 @@ namespace MuggleTeklaPlugins.MG1001 {
             point2.Y -= prf_End1.l;
             endPlate1 = ModelOperation.CreatBeam(point1, point2, "MG1001", "PL" + prf_End1.t + "*" + prf_End1.b,
                 materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99",
-                Position.PlaneEnum.RIGHT, Position.DepthEnum.MIDDLE, Position.RotationEnum.TOP);
+                planeEnum: Position.PlaneEnum.RIGHT, depthEnum: Position.DepthEnum.MIDDLE, rotationEnum: Position.RotationEnum.TOP);
             point2.Y += prf_End1.l - prf_End2.l;
             endPlate2 = ModelOperation.CreatBeam(point1, point2, "MG1001", "PL" + prf_End2.t + "*" + prf_End2.b,
                 materialStr, SEC_ASMNUM.Prefix, SEC_ASMNUM.StartNumber, "P", 1, "99",
-                Position.PlaneEnum.LEFT, Position.DepthEnum.MIDDLE, Position.RotationEnum.TOP);
+                planeEnum: Position.PlaneEnum.LEFT, depthEnum: Position.DepthEnum.MIDDLE, rotationEnum: Position.RotationEnum.TOP);
 
             ENDPlate_Line = new Line(point1, point2);
             #endregion
@@ -576,7 +561,7 @@ namespace MuggleTeklaPlugins.MG1001 {
 
             topPlate = ModelOperation.CreatBeam(point1, point2, "MG1001", "PL" + prf_TOP.t + "*" + prf_TOP.b,
                 materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99",
-                Position.PlaneEnum.RIGHT, Position.DepthEnum.MIDDLE, Position.RotationEnum.TOP);
+                planeEnum: Position.PlaneEnum.RIGHT, depthEnum: Position.DepthEnum.MIDDLE, rotationEnum: Position.RotationEnum.TOP);
 
             Fitting fit_TopPlate_Start = new Fitting {
                 Father = topPlate,
@@ -611,9 +596,9 @@ namespace MuggleTeklaPlugins.MG1001 {
             }
 
             point1 = TSG3d.Intersection.LineToLine(PRIM_LEFT_Line,
-                TOPPlate_Line.Offset(prf_TOP.t, OffsetDirectionEnum.RIGHT)).StartPoint;
-            point2 = TSG3d.Intersection.LineToLine(PRIM_LEFT_Line.Offset(len_Eave, OffsetDirectionEnum.LEFT),
-                TOPPlate_Line.Offset(prf_TOP.t, OffsetDirectionEnum.RIGHT)).StartPoint;
+                TOPPlate_Line.Offset(prf_TOP.t, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
+            point2 = TSG3d.Intersection.LineToLine(PRIM_LEFT_Line.Offset(len_Eave, LineExtension.OffsetDirectionEnum.LEFT),
+                TOPPlate_Line.Offset(prf_TOP.t, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
             point3 = new Point(topPlate.StartPoint);
             point3.Y -= hgt_Eave;
             point4 = new Point(point3);
@@ -641,7 +626,7 @@ namespace MuggleTeklaPlugins.MG1001 {
                 prf_HOR.b = (prf_SEC.b1 - Math.Max(prf_PRIM.s, thk_THKED)) * 0.5;
             }
 
-            point2 = TSG3d.Intersection.LineToLine(ENDPlate_Line.Offset(prf_End2.t, OffsetDirectionEnum.LEFT),
+            point2 = TSG3d.Intersection.LineToLine(ENDPlate_Line.Offset(prf_End2.t, LineExtension.OffsetDirectionEnum.LEFT),
                 SEC_BTM_Line).StartPoint;
             point2.X -= prf_End1.t + prf_End2.t;
             point2.Z += Math.Max(prf_PRIM.s, thk_THKED) * 0.5;
@@ -685,19 +670,19 @@ namespace MuggleTeklaPlugins.MG1001 {
                 goto skip_THKED;
             }
 
-            point1 = TSG3d.Intersection.LineToLine(PRIM_LEFT_Line.Offset(prf_PRIM.t1, OffsetDirectionEnum.RIGHT),
-                TOPPlate_Line.Offset(prf_TOP.t, OffsetDirectionEnum.RIGHT)).StartPoint;
-            point2 = TSG3d.Intersection.LineToLine(PRIM_LEFT_Line.Offset(prf_PRIM.t1, OffsetDirectionEnum.RIGHT),
+            point1 = TSG3d.Intersection.LineToLine(PRIM_LEFT_Line.Offset(prf_PRIM.t1, LineExtension.OffsetDirectionEnum.RIGHT),
+                TOPPlate_Line.Offset(prf_TOP.t, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
+            point2 = TSG3d.Intersection.LineToLine(PRIM_LEFT_Line.Offset(prf_PRIM.t1, LineExtension.OffsetDirectionEnum.RIGHT),
                 HORPlate_Line).StartPoint;
             point2.Y -= pos_THKED;
-            point5 = TSG3d.Intersection.LineToLine(ENDPlate_Line.Offset(prf_End1.t, OffsetDirectionEnum.RIGHT),
-                TOPPlate_Line.Offset(prf_TOP.t, OffsetDirectionEnum.RIGHT)).StartPoint;
+            point5 = TSG3d.Intersection.LineToLine(ENDPlate_Line.Offset(prf_End1.t, LineExtension.OffsetDirectionEnum.RIGHT),
+                TOPPlate_Line.Offset(prf_TOP.t, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
             cp1 = new ContourPoint(point1, chamfer_None);
             cp2 = new ContourPoint(point2, chamfer_None);
             cp5 = new ContourPoint(point5, chamfer_None);
             if (point2.Y < endPlate1.EndPoint.Y) {
-                point3 = TSG3d.Intersection.LineToLine(PRIM_RIGHT_Line.Offset(prf_PRIM.t1, OffsetDirectionEnum.LEFT),
-                    HORPlate_Line.Offset(pos_THKED, OffsetDirectionEnum.RIGHT)).StartPoint;
+                point3 = TSG3d.Intersection.LineToLine(PRIM_RIGHT_Line.Offset(prf_PRIM.t1, LineExtension.OffsetDirectionEnum.LEFT),
+                    HORPlate_Line.Offset(pos_THKED, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
                 point4 = new Point(endPlate1.EndPoint);
                 point4.X -= prf_End1.t;
                 cp3 = new ContourPoint(point3, chamfer_None);
@@ -706,8 +691,8 @@ namespace MuggleTeklaPlugins.MG1001 {
                 thkedPlate = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3, cp4, cp5 }, "MG1001", "PL" + thk_THKED,
                     materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
             } else {
-                point4 = TSG3d.Intersection.LineToLine(ENDPlate_Line.Offset(prf_End1.t, OffsetDirectionEnum.RIGHT),
-                    HORPlate_Line.Offset(pos_THKED, OffsetDirectionEnum.RIGHT)).StartPoint;
+                point4 = TSG3d.Intersection.LineToLine(ENDPlate_Line.Offset(prf_End1.t, LineExtension.OffsetDirectionEnum.RIGHT),
+                    HORPlate_Line.Offset(pos_THKED, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
                 cp4 = new ContourPoint(point4, chamfer_None);
 
                 thkedPlate = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp4, cp5 }, "MG1001", "PL" + thk_THKED,
@@ -731,17 +716,17 @@ namespace MuggleTeklaPlugins.MG1001 {
                 prf_DIAG.b = (prf_SEC.b1 - Math.Max(prf_PRIM.s, thk_THKED)) * 0.5;
             }
 
-            point1 = TSG3d.Intersection.LineToLine(TOPPlate_Line.Offset(prf_TOP.t, OffsetDirectionEnum.RIGHT),
-                PRIM_LEFT_Line.Offset(prf_PRIM.t1 + pos_DIAG1, OffsetDirectionEnum.RIGHT)).StartPoint;
-            point2 = TSG3d.Intersection.LineToLine(HORPlate_Line.Offset(prf_HOR.t, OffsetDirectionEnum.LEFT),
-                ENDPlate_Line.Offset(prf_End1.t + pos_DIAG2, OffsetDirectionEnum.RIGHT)).StartPoint;
+            point1 = TSG3d.Intersection.LineToLine(TOPPlate_Line.Offset(prf_TOP.t, LineExtension.OffsetDirectionEnum.RIGHT),
+                PRIM_LEFT_Line.Offset(prf_PRIM.t1 + pos_DIAG1, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
+            point2 = TSG3d.Intersection.LineToLine(HORPlate_Line.Offset(prf_HOR.t, LineExtension.OffsetDirectionEnum.LEFT),
+                ENDPlate_Line.Offset(prf_End1.t + pos_DIAG2, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
 
             DIAGPlate_Line = new Line(point1, point2);
-            point1 = TSG3d.Intersection.LineToLine(TOPPlate_Line.Offset(prf_TOP.t, OffsetDirectionEnum.RIGHT),
-                DIAGPlate_Line.Offset(prf_DIAG.t * 0.5, OffsetDirectionEnum.LEFT)).StartPoint;
+            point1 = TSG3d.Intersection.LineToLine(TOPPlate_Line.Offset(prf_TOP.t, LineExtension.OffsetDirectionEnum.RIGHT),
+                DIAGPlate_Line.Offset(prf_DIAG.t * 0.5, LineExtension.OffsetDirectionEnum.LEFT)).StartPoint;
             point1 = TSG3d.Projection.PointToLine(point1, DIAGPlate_Line);
-            point2 = TSG3d.Intersection.LineToLine(HORPlate_Line.Offset(prf_HOR.t, OffsetDirectionEnum.LEFT),
-                DIAGPlate_Line.Offset(prf_DIAG.t * 0.5, OffsetDirectionEnum.RIGHT)).StartPoint;
+            point2 = TSG3d.Intersection.LineToLine(HORPlate_Line.Offset(prf_HOR.t, LineExtension.OffsetDirectionEnum.LEFT),
+                DIAGPlate_Line.Offset(prf_DIAG.t * 0.5, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
             point2 = TSG3d.Projection.PointToLine(point2, DIAGPlate_Line);
             point1.Z = Math.Max(prf_PRIM.s, thk_THKED) * 0.5;
             point2.Z = point1.Z;
@@ -784,11 +769,11 @@ namespace MuggleTeklaPlugins.MG1001 {
                 throw new UnAcceptableProfile();
             }
             point1 = TSG3d.Intersection.LineToLine(TOPPlate_Line,
-                ENDPlate_Line.Offset(prf_End1.t, OffsetDirectionEnum.RIGHT)).StartPoint;
+                ENDPlate_Line.Offset(prf_End1.t, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
             point2 = new Point(point1);
             point2.Y += prf_STIF_FLNG.l;
             point3 = TSG3d.Intersection.LineToLine(TOPPlate_Line,
-                ENDPlate_Line.Offset(prf_End1.t + prf_STIF_FLNG.b, OffsetDirectionEnum.RIGHT)).StartPoint;
+                ENDPlate_Line.Offset(prf_End1.t + prf_STIF_FLNG.b, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
 
             chamfer_Line = new Chamfer(chamfer_STIF_in, chamfer_STIF_in, Chamfer.ChamferTypeEnum.CHAMFER_LINE);
             cp1 = new ContourPoint(point1, chamfer_Line);
@@ -799,11 +784,11 @@ namespace MuggleTeklaPlugins.MG1001 {
                 materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
 
             point1 = TSG3d.Intersection.LineToLine(SEC_TOP_Line,
-                ENDPlate_Line.Offset(prf_End2.t, OffsetDirectionEnum.LEFT)).StartPoint;
+                ENDPlate_Line.Offset(prf_End2.t, LineExtension.OffsetDirectionEnum.LEFT)).StartPoint;
             point2 = new Point(point1);
             point2.Y += prf_STIF_FLNG.l;
             point3 = TSG3d.Intersection.LineToLine(SEC_TOP_Line,
-                ENDPlate_Line.Offset(prf_End2.t + prf_STIF_FLNG.b, OffsetDirectionEnum.LEFT)).StartPoint;
+                ENDPlate_Line.Offset(prf_End2.t + prf_STIF_FLNG.b, LineExtension.OffsetDirectionEnum.LEFT)).StartPoint;
 
             cp1 = new ContourPoint(point1, chamfer_Line);
             cp2 = new ContourPoint(point2, chamfer_None);
@@ -813,11 +798,11 @@ namespace MuggleTeklaPlugins.MG1001 {
                 materialStr, SEC_ASMNUM.Prefix, SEC_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
 
             point1 = TSG3d.Intersection.LineToLine(SEC_BTM_Line,
-                ENDPlate_Line.Offset(prf_End2.t, OffsetDirectionEnum.LEFT)).StartPoint;
+                ENDPlate_Line.Offset(prf_End2.t, LineExtension.OffsetDirectionEnum.LEFT)).StartPoint;
             point2 = new Point(point1);
             point2.Y -= prf_STIF_FLNG.l;
             point3 = TSG3d.Intersection.LineToLine(SEC_BTM_Line,
-                ENDPlate_Line.Offset(prf_End2.t + prf_STIF_FLNG.b, OffsetDirectionEnum.LEFT)).StartPoint;
+                ENDPlate_Line.Offset(prf_End2.t + prf_STIF_FLNG.b, LineExtension.OffsetDirectionEnum.LEFT)).StartPoint;
 
             cp1 = new ContourPoint(point1, chamfer_Line);
             cp2 = new ContourPoint(point2, chamfer_None);
@@ -842,7 +827,7 @@ namespace MuggleTeklaPlugins.MG1001 {
             stifWeb_SEC = new List<ContourPlate>();
 
             point1 = Intersection.LineToLine(SEC_TOP_Line,
-                ENDPlate_Line.Offset(prf_End2.t, OffsetDirectionEnum.LEFT)).StartPoint;
+                ENDPlate_Line.Offset(prf_End2.t, LineExtension.OffsetDirectionEnum.LEFT)).StartPoint;
             point1.Z = prf_SEC.s * 0.5;
             point2 = new Point(point1);
             point2.X += prf_STIF_Web.b;
@@ -1031,7 +1016,7 @@ namespace MuggleTeklaPlugins.MG1001 {
             #endregion
 
             #region 主零件对齐修剪
-            Line line = TOPPlate_Line.Offset(prf_TOP.t, OffsetDirectionEnum.RIGHT);
+            Line line = TOPPlate_Line.Offset(prf_TOP.t, LineExtension.OffsetDirectionEnum.RIGHT);
             line.Direction.Normalize(1);
             Fitting fit_PRIM = new Fitting {
                 Father = PRIMPart,
@@ -1045,7 +1030,7 @@ namespace MuggleTeklaPlugins.MG1001 {
             fit_PRIM.Insert();
 
             point1 = TSG3d.Intersection.LineToLine(line,
-                ENDPlate_Line.Offset(prf_End1.t, OffsetDirectionEnum.RIGHT)).StartPoint;
+                ENDPlate_Line.Offset(prf_End1.t, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
             point2 = new Point(endPlate1.EndPoint);
             point2.X -= prf_End1.t;
             point3 = TSG3d.Intersection.LineToLine(new Line(point2, axisX),
@@ -1193,8 +1178,8 @@ namespace MuggleTeklaPlugins.MG1001 {
             #endregion
 
             #region 创建螺栓
-            ModelOperation.CreatBoltArray(endPlate1, endPlate2, null, 
-                endPlate1.StartPoint, endPlate1.EndPoint, 
+            ModelOperation.CreatBoltArray(endPlate1, endPlate2, null,
+                endPlate1.StartPoint, endPlate1.EndPoint,
                 disLst_Bolt_X, disLst_Bolt_Y,
                 null,
                 bolt_Standard, bolt_Size);

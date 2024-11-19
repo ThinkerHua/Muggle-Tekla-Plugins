@@ -1,25 +1,12 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
 using Tekla.Structures;
-using Tekla.Structures.Datatype;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
-using Tekla.Structures.Model.UI;
 using Tekla.Structures.Plugins;
-using TSD = Tekla.Structures.Datatype;
 using TSG = Tekla.Structures.Geometry3d;
-using TSM = Tekla.Structures.Model;
-using TSMUI = Tekla.Structures.Model.UI;
-using TSP = Tekla.Structures.Plugins;
-
-using MuggleTeklaPlugins.Common;
-using MuggleTeklaPlugins.Geometry3dExtension;
-using MuggleTeklaPlugins.ModelExtension;
-using MuggleTeklaPlugins.ModelExtension.UIExtension;
-using MuggleTeklaPlugins.Internal;
+using MuggleTeklaPlugins.Common.Model;
+using MuggleTeklaPlugins.Common.Profile;
 
 namespace MuggleTeklaPlugins.HJ1001 {
     public class PluginData {

@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,13 +57,96 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common.cs" />
-    <Compile Include="Geometry3d.cs" />
-    <Compile Include="Model.cs" />
-    <Compile Include="ModelUI.cs" />
+    <Compile Include="Internal\Internal.cs" />
+    <Compile Include="Operation\CommonOperation.cs" />
+    <Compile Include="Geometry3d\ArcExtension.cs" />
+    <Compile Include="Geometry3d\CoordinateSystemExtension.cs" />
+    <Compile Include="Geometry3d\DistanceExtension.cs" />
+    <Compile Include="Geometry3d\GeometricPlaneFactory.cs" />
+    <Compile Include="Geometry3d\Geometry3dOperation.cs" />
+    <Compile Include="Geometry3d\IntersectionExtension.cs" />
+    <Compile Include="Geometry3d\LineExtension.cs" />
+    <Compile Include="Geometry3d\MatrixExtension.cs" />
+    <Compile Include="Geometry3d\MatrixFactoryExtension.cs" />
+    <Compile Include="Geometry3d\PointComparer.cs" />
+    <Compile Include="Geometry3d\PointExtension.cs" />
+    <Compile Include="Geometry3d\PointsInterval.cs" />
+    <Compile Include="Geometry3d\ProjectionExtension.cs" />
+    <Compile Include="Geometry3d\VectorExtension.cs" />
+    <Compile Include="ModelUI\ColorExtension.cs" />
+    <Compile Include="ModelUI\GraphicsDrawerExtension.cs" />
+    <Compile Include="Model\ModelOperation.cs" />
+    <Compile Include="Model\PolygonExtension.cs" />
+    <Compile Include="Operation\Compression.cs" />
+    <Compile Include="Profile\Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\ClassComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIControls\ComboBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\ClassComboBox.resx">
+      <DependentUpon>ClassComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_14.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_0.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_9.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_10.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_11.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_12.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\class_13.bmp" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).dll" "D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTeklaPlugins\" /Y /C /Q /R</PostBuildEvent>

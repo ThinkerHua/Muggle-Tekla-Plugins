@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Threading;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
-
+using System.Runtime.InteropServices;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
-
-using MuggleTeklaPlugins.Common;
-using MuggleTeklaPlugins.Geometry3dExtension;
-using MuggleTeklaPlugins.ModelExtension;
-using MuggleTeklaPlugins.ModelExtension.UIExtension;
-using MuggleTeklaPlugins.Internal;
-using System.Runtime.InteropServices;
+using MuggleTeklaPlugins.Common.Geometry3d;
+using MuggleTeklaPlugins.Common.ModelUI;
 
 namespace Test {
     internal class Test {
@@ -51,6 +44,7 @@ namespace Test {
 
             Console.WriteLine("在Tekla structures 中指定3条直线。");
             var picker = new Picker();
+            var gdrawer = new GraphicsDrawer();
             Point p1, p2;
             Line[] lines = new Line[3];
             try {
@@ -58,6 +52,7 @@ namespace Test {
                     p1 = picker.PickPoint($"为第{i + 1}条直线指定第1个控制点：");
                     p2 = picker.PickPoint($"为第{i + 1}条直线指定第2个控制点：");
                     lines[i] = new Line(p1, p2);
+                    gdrawer.DrawLineSegment(p1, p2, ColorExtension.Orange);
                 }
             } catch {
                 Console.WriteLine("无效输入。");
@@ -66,55 +61,51 @@ namespace Test {
 
             var hWnd = Process.GetCurrentProcess().MainWindowHandle;
             SetForegroundWindow(hWnd);
+
+            string str;
+            string[] inputs;
             double[] edges = new double[3];
-            for (int i = 0; i < 3; i++) {
-                while (true) {
-                    Console.WriteLine($"请输入第{i + 1}条边长：");
-                    if (double.TryParse(Console.ReadLine(), out edges[i])) {
-                        break;
-                    } else {
-                        Console.WriteLine("输入不正确，请重新输入。");
-                    }
+            bool flag = false;
+            do {
+                Console.WriteLine("请输入三条边长，以空格分隔：");
+                str = Console.ReadLine();
+                try {
+                    inputs = str.Split(' ');
+                    flag = double.TryParse(inputs[0], out edges[0]) &&
+                        double.TryParse(inputs[1], out edges[1]) &&
+                        double.TryParse(inputs[2], out edges[2]);
+                } catch {
+                    Console.WriteLine("无效输入。");
                 }
-            }
+            } while (!flag);
 
             try {
                 var position = Geometry3dOperation.PositionOfTriangleOnLines(
                     (lines[0], lines[1], lines[2]), (edges[0], edges[1], edges[2]));
                 if (position is null) {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\nNo solution!");
+                    Console.ForegroundColor = ConsoleColor.White;
                 } else {
-                    var model = new Model();
-                    var gdrawer = new GraphicsDrawer();
-                    var doDraw = model.GetConnectionStatus();
-                    if (doDraw) {
-                        gdrawer.DrawLine(lines[0], color: ColorExtension.Orange, length: 50000);
-                        gdrawer.DrawLine(lines[1], color: ColorExtension.Orange, length: 50000);
-                        gdrawer.DrawLine(lines[2], color: ColorExtension.Orange, length: 50000);
-                    }
-                    var num = 0;
                     var color = new Color[] {
                         ColorExtension.Blue,
                         ColorExtension.Lime,
                         ColorExtension.MediumOrchid,
                         ColorExtension.Red,
                     };
-                    var i = 0;
+                    var num = 0;
                     foreach (var (P1, P2, P3) in position) {
-                        num++;
                         Console.WriteLine();
-                        Console.WriteLine($"Solution #{num}:");
+                        Console.WriteLine($"Solution #{num + 1}:");
                         Console.WriteLine($"P1 = {P1}, P2 = {P2}, P3 = {P3}");
                         Console.WriteLine(
                             $"E1 = {Distance.PointToPoint(P1, P3)}, " +
                             $"E2 = {Distance.PointToPoint(P2, P3)}, " +
                             $"E3 = {Distance.PointToPoint(P1, P2)}");
-                        if (doDraw) {
-                            gdrawer.DrawLineSegment(P1, P2, color[i]);
-                            gdrawer.DrawLineSegment(P1, P3, color[i]);
-                            gdrawer.DrawLineSegment(P2, P3, color[i]);
-                            i++;
-                        }
+                        gdrawer.DrawLineSegment(P1, P2, color[num]);
+                        gdrawer.DrawLineSegment(P1, P3, color[num]);
+                        gdrawer.DrawLineSegment(P2, P3, color[num]);
+                        num++;
                     }
                 }
             } catch (Exception e) {
