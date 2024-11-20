@@ -1,4 +1,4 @@
-# Muggl Tekla-Plugins
+# Muggle Tekla-Plugins
 用于Tekla Structures的工具和插件。请遵守[开源协议](/LICENSE)使用。
 
 基于2021版本的Tekla Open API开发，其他版本未经测试。
