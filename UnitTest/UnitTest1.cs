@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Internal;
+using Muggle.TeklaPlugins.Common.Model;
+using Muggle.TeklaPlugins.Common.ModelUI;
+using Muggle.TeklaPlugins.Common.Operation;
+using Muggle.TeklaPlugins.Common.Profile;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MuggleTeklaPlugins.Common.Geometry3d;
-using MuggleTeklaPlugins.Common.Internal;
-using MuggleTeklaPlugins.Common.Model;
-using MuggleTeklaPlugins.Common.ModelUI;
-using MuggleTeklaPlugins.Common.Operation;
-using MuggleTeklaPlugins.Common.Profile;
 
-namespace UnitTest {
+namespace Muggle.TeklaPlugins.UnitTest {
     [TestClass]
     public class UnitTest1 {
         [TestMethod]
@@ -873,7 +873,9 @@ namespace UnitTest {
                 Console.WriteLine(value);
                 Console.WriteLine(PointExtension.ToString(point));
                 for (int i = 0; i < 10000; i++) {
+#pragma warning disable CS0618
                     value = itvl.GetValue(point);
+#pragma warning restore CS0618
                     point = itvl.GetPoint(value);
                 }
                 Console.WriteLine();
@@ -899,9 +901,11 @@ namespace UnitTest {
                 End = 955.436861635746,
             };
             var point = new Point(16400, 9045.71823334187, 0);
+#pragma warning disable CS0618
             var value = itvl.GetValue(point);
             Console.WriteLine(value);
             Console.WriteLine(itvl.Contains(point));
+#pragma warning restore CS0618
         }
         [TestMethod]
         public void TestPositionOfTriangleOnLines() {
@@ -1009,8 +1013,10 @@ namespace UnitTest {
             var (X1, X2) = IntersectionExtension.CircleToLine_2D(point, 350.57096285916208, line);
 
             var itvl = new PointsInterval(line);
+#pragma warning disable CS0618
             Console.WriteLine($"X1 = {X1}, value = {itvl.GetValue(X1)}");
             Console.WriteLine($"X2 = {X2}, value = {itvl.GetValue(X2)}");
+#pragma warning restore CS0618
         }
         [TestMethod]
         public void TestColorToString() {
@@ -1027,7 +1033,7 @@ namespace UnitTest {
                 $"b1 = {prfbase.b1}, b2 = {prfbase.b2}, " +
                 $"s = {prfbase.s}, t = {prfbase.t}");
 
-            ProfileRect_Invariant prfinherit1 = null, prfinherit2 = null;
+            ProfileRect_Invariant prfinherit1, prfinherit2 = null;
             try {
                 prfinherit1 = new ProfileRect_Invariant("RHS400*300-350*250*14");
                 Console.WriteLine($"prfinherit1: h1 = {prfinherit1.h1}, h2 = {prfinherit1.h2}, " +
@@ -1090,9 +1096,10 @@ namespace UnitTest {
         public void TestStringCompression() {
             var rawString = "<188032>(-223.180370446127, -2796.25668730194, 12022.0182501074);" +
                 "<188317>(-2554.56716509891, -11230.1652854544, 56896.6903083333);";
+#pragma warning disable CS0612
             var compressedString = StringCompression.Compress(rawString);
             var decompressedString = StringCompression.Decompress(compressedString);
-
+#pragma warning restore CS0612
             Console.WriteLine(compressedString);
             Console.WriteLine(decompressedString);
         }

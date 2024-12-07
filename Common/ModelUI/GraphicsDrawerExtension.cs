@@ -1,9 +1,9 @@
-﻿using MuggleTeklaPlugins.Common.Geometry3d;
+﻿using Muggle.TeklaPlugins.Common.Geometry3d;
 using System;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model.UI;
 
-namespace MuggleTeklaPlugins.Common.ModelUI {
+namespace Muggle.TeklaPlugins.Common.ModelUI {
     /// <summary>
     /// <see cref="Tekla.Structures.Model.UI"/>.<see cref="GraphicsDrawer"/> 的扩展。
     /// </summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Tekla.Structures.Geometry3d;
 
-namespace MuggleTeklaPlugins.Common.Geometry3d {
+namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// <see cref="Tekla.Structures.Geometry3d"/>.<see cref="Arc"/> 的扩展。
     /// </summary>

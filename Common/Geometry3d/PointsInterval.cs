@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Tekla.Structures.Geometry3d;
 
-namespace MuggleTeklaPlugins.Common.Geometry3d {
+namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// 点的取值区间（闭区间，不支持开区间）。
     /// <para>

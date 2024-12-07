@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MuggleTeklaPlugins.HJ1001.Properties {
+namespace Muggle.TeklaPlugins.HJ1001.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MuggleTeklaPlugins.HJ1001.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MuggleTeklaPlugins.HJ1001.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Muggle.TeklaPlugins.HJ1001.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

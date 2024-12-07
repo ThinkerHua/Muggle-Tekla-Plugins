@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using Muggle.TeklaPlugins.MainForm.Plugins;
+using Muggle.TeklaPlugins.MainForm.Tools;
+using System;
 using System.Windows.Forms;
-using Tekla.Structures.Model;
-using Tekla.Structures.Model.UI;
-using MuggleTeklaPlugins.Common.Internal;
-using MuggleTeklaPlugins.MainForm.Tools;
-using MuggleTeklaPlugins.MainForm.Plugins;
 
-namespace MuggleTeklaPlugins.MainForm {
+namespace Muggle.TeklaPlugins.MainForm {
     public partial class MainForm : Form {
         private SelectBooleans formSelectBooleans;//  SelectBooleans子窗体
         public MainForm() {

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-namespace MuggleTeklaPlugins.MainForm.Tools {
+namespace Muggle.TeklaPlugins.MainForm.Tools {
     internal class SelectWeldedObjects {
         public static void Run() {
             var model = new Model();

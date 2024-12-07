@@ -1,6 +1,6 @@
 using System;
 
-namespace MuggleTeklaPlugins.HJ1001 {
+namespace Muggle.TeklaPlugins.HJ1001 {
     public partial class FormHJ1001 : Tekla.Structures.Dialog.PluginFormBase {
         public FormHJ1001() {
             InitializeComponent();
@@ -31,16 +31,16 @@ namespace MuggleTeklaPlugins.HJ1001 {
             this.Close();
         }
 
-        private void materialCatalog1_SelectClicked(object sender, EventArgs e) {
+        private void MaterialCatalog1_SelectClicked(object sender, EventArgs e) {
             materialCatalog1.SelectedMaterial = tBox_material.Text;
         }
 
-        private void materialCatalog1_SelectionDone(object sender, EventArgs e) {
+        private void MaterialCatalog1_SelectionDone(object sender, EventArgs e) {
             SetAttributeValue(tBox_material, materialCatalog1.SelectedMaterial);
         }
 
         private void IfCreatStif(object sender, EventArgs e) {
-            if(cBox_creatPrimStif.SelectedIndex == 0 && cBox_creatSecStif.SelectedIndex == 0) {
+            if (cBox_creatPrimStif.SelectedIndex == 0 && cBox_creatSecStif.SelectedIndex == 0) {
                 tBox_stifTHK.Text = "";
                 tBox_stifTHK.Enabled = false;
                 tBox_stifWidth.Text = "";
@@ -80,7 +80,7 @@ namespace MuggleTeklaPlugins.HJ1001 {
         }
 
         private void IfCreatBolt(object sender, EventArgs e) {
-            if(cBox_creatBolt.SelectedIndex == 0) {
+            if (cBox_creatBolt.SelectedIndex == 0) {
                 boltCatalogStandard1.Text = "";
                 boltCatalogStandard1.Enabled = false;
                 boltCatalogSize1.Text = "";
@@ -91,7 +91,7 @@ namespace MuggleTeklaPlugins.HJ1001 {
                 filter_boltSize.Enabled = false;
                 filter_boltCircleDiameter.Enabled = false;
 
-                if(cBox_creatPrimStif.SelectedIndex == 0 && cBox_creatSecStif.SelectedIndex == 0) {
+                if (cBox_creatPrimStif.SelectedIndex == 0 && cBox_creatSecStif.SelectedIndex == 0) {
                     tBox_quantity.Text = "";
                     tBox_quantity.Enabled = false;
                     filter_quantity.Enabled = false;

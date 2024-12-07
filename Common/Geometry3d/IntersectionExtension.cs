@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Muggle.TeklaPlugins.Common.Operation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tekla.Structures.Geometry3d;
-using MuggleTeklaPlugins.Common.Operation;
 
-namespace MuggleTeklaPlugins.Common.Geometry3d {
+namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// <see cref="Tekla.Structures.Geometry3d"/>.<see cref="Intersection"/> 的扩展。
     /// </summary>

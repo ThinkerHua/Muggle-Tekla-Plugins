@@ -1,5 +1,5 @@
 ﻿
-namespace MuggleTeklaPlugins.MainForm.Tools {
+namespace Muggle.TeklaPlugins.MainForm.Tools {
     partial class SelectBooleans {
         /// <summary>
         /// Required designer variable.

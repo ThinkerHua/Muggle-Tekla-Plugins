@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.ModelUI;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
-using MuggleTeklaPlugins.Common.Geometry3d;
-using MuggleTeklaPlugins.Common.ModelUI;
 
-namespace Test {
+namespace Muggle.TeklaPlugins.Test {
     internal class Test {
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
-        static void Main(string[] args) {
+        static void Main() {
         Start:
             Console.WriteLine("选择要运行的测试：");
             Console.WriteLine("[1] PositionOfTriangleOnLines");

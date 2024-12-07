@@ -1,3 +1,5 @@
+using Muggle.TeklaPlugins.Common.Model;
+using Muggle.TeklaPlugins.Common.Profile;
 using System;
 using System.Collections;
 using Tekla.Structures;
@@ -5,10 +7,8 @@ using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Plugins;
 using TSG = Tekla.Structures.Geometry3d;
-using MuggleTeklaPlugins.Common.Model;
-using MuggleTeklaPlugins.Common.Profile;
 
-namespace MuggleTeklaPlugins.HJ1001 {
+namespace Muggle.TeklaPlugins.HJ1001 {
     public class PluginData {
         #region Fields
         [StructuresField("endPlateTHK")]

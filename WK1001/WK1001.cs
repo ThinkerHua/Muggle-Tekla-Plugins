@@ -1,22 +1,16 @@
-using MuggleTeklaPlugins.Common.Geometry3d;
-using MuggleTeklaPlugins.Common.Internal;
-using MuggleTeklaPlugins.Common.Model;
-using MuggleTeklaPlugins.Common.Profile;
+using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Model;
+using Muggle.TeklaPlugins.Common.Profile;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using Tekla.Structures;
-using Tekla.Structures.Filtering;
+using System.Windows.Forms;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
-using Tekla.Structures.Model.Operations;
-using Tekla.Structures.Model.UI;
 using Tekla.Structures.Plugins;
 
-namespace MuggleTeklaPlugins.WK1001 {
+namespace Muggle.TeklaPlugins.WK1001 {
     public class PluginData {
         [StructuresField("prfStr_Tube")]
         public string prfStr_Tube;
@@ -92,13 +86,6 @@ namespace MuggleTeklaPlugins.WK1001 {
         #region MainMethod
 
         public override bool Run() {
-#if DEBUG
-            var streamWriter = new StreamWriter($"WK1001_DEBUG.log") { AutoFlush = true };
-            var listener = new TextWriterTraceListener(streamWriter);
-            Debug.Listeners.Add(listener);
-            var methodinfo = "In \"Run\" method: ";
-            Debug.WriteLine(methodinfo);
-#endif
             bool flag = false;
             try {
 
@@ -108,46 +95,21 @@ namespace MuggleTeklaPlugins.WK1001 {
                 if (originTP == null) originTP = _model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
                 if (workTP == null) workTP = GetWorkTransformationPlane();
                 _model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
-#if DEBUG
-                //Internal.ShowTransformationPlane(workTP);
-#endif
+
                 if (!ordered) {
                     OrderParts();
                     ordered = true;
                 }
-#if DEBUG
-                Debug.WriteLine(methodinfo);
-#endif
+
                 flag = CreatConnection();
-#if DEBUG
-                Debug.WriteLine(methodinfo);
-#endif
-
-                //AdjustPartsNormal();
-#if DEBUG
-                Debug.WriteLine(methodinfo);
-#endif
-
-            } catch (IOException) {
 
             } catch (Exception e) {
-#if DEBUG
-                Debug.WriteLine(e);
-#endif
-            } finally {
-#if DEBUG
-                Debug.WriteLine(methodinfo + "\"finaly\": ");
-                Debug.Listeners.Remove(listener);
-                listener.Close();
-                listener.Dispose();
-                streamWriter.Close();
-                streamWriter.Dispose();
-#endif
+                MessageBox.Show(e.ToString());
             }
 
             return flag;
         }
-#endregion
+        #endregion
 
         #region PrivateMethods
         private void GetValuesFromDialog() {
@@ -180,10 +142,7 @@ namespace MuggleTeklaPlugins.WK1001 {
                 _group_no = -1;
         }
         private void GetParts() {
-#if DEBUG
-            var methodinfo = ("In \"GetParts\" method: ");
-            Debug.WriteLine(methodinfo);
-#endif
+
             if (parts != null) return;
 
             parts = new List<Beam> {
@@ -209,10 +168,7 @@ namespace MuggleTeklaPlugins.WK1001 {
             }
         }
         private TransformationPlane GetWorkTransformationPlane() {
-#if DEBUG
-            var methodinfo = ("In \"GetWorkTransformation\" method: ");
-            Debug.WriteLine(methodinfo);
-#endif
+
             Vector normal;
 
             //根据前三个选择的杆件求共同法向（此时零件尚未排序）
@@ -258,10 +214,7 @@ namespace MuggleTeklaPlugins.WK1001 {
         /// 同时将centerlines的原点和方向转换到workTP。
         /// </summary>
         private void OrderParts() {
-#if DEBUG
-            var methodInfo = "In \"OrderParts\" method: ";
-            Debug.WriteLine(methodInfo);
-#endif
+
             var axisX = new Vector(1, 0, 0);
             var axisZ = new Vector(0, 0, 1);
             var XYPlane = new GeometricPlane(new Point(), axisZ);
@@ -274,15 +227,10 @@ namespace MuggleTeklaPlugins.WK1001 {
                     ProjectionExtension.VectorToPlane(line.Direction, XYPlane),
                     axisZ));
             }
-#if DEBUG
-            Debug.WriteLine(methodInfo + $"At first, angles is {string.Join(", ", angles)}");
-#endif
+
             var sort = angles.Select((value, index) => (Value: value, OriginalIndex: index)).OrderBy(resault => resault.Value).ToArray();
             var sortedIndex = sort.Select(x => x.OriginalIndex).ToArray();
-#if DEBUG
-            var sortedAngle = sort.Select(x => x.Value).ToArray();
-            Debug.WriteLine(methodInfo + $"Sorted angles is {string.Join(", ", sortedAngle)}");
-#endif
+
             var newParts = new Beam[sortedIndex.Length];
             var newProfiles = new ProfileRect_Invariant[sortedIndex.Length];
             var newCenterlines = new Line[sortedIndex.Length];
@@ -298,18 +246,13 @@ namespace MuggleTeklaPlugins.WK1001 {
             for (int i = 1; i < newAngles.Length; i++) {
                 angles[i] = newAngles[i] - newAngles[i - 1];
             }
-#if DEBUG
-            Debug.WriteLine(methodInfo + $"At last, angles is {string.Join(", ", newAngles)}");
-#endif
+
             parts.Clear(); parts.AddRange(newParts);
             profiles.Clear(); profiles.AddRange(newProfiles);
             centerlines.Clear(); centerlines.AddRange(newCenterlines);
         }
         private bool CreatConnection() {
-#if DEBUG
-            var methodInfo = "In \"CreatConnection\" method: ";
-            Debug.WriteLine(methodInfo);
-#endif
+
             Point point1, point2, point3, point4;
             bool typeA = IsDefaultValue(_diam_BEndplate) || _diam_BEndplate == 0;
             var chamferNone = new Chamfer();
@@ -327,11 +270,6 @@ namespace MuggleTeklaPlugins.WK1001 {
             //其中a, b分别为相邻杆件的宽度，angle为相邻杆件夹角
             //w为相邻杆件间最小间距，r为连接筒半径
             var diameter = (maxWidth + _minDis) / minAngle * 2;
-#if DEBUG
-            Debug.WriteLine(methodInfo + $"The max width of input parts is {maxWidth}");
-            Debug.WriteLine(methodInfo + $"The min angle between parts is {minAngle}");
-            Debug.WriteLine(methodInfo + $"Diameter is {diameter}");
-#endif
             var diameterArray = from prf in ProfileCircular_Perfect.CommonlyUsed
                                 where prf.d1 > diameter
                                 select prf.d1;

@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{121610DD-75AB-479A-AEB8-D6CD4C806CB5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MuggleTeklaPlugins.MainForm</RootNamespace>
+    <RootNamespace>Muggle.TeklaPlugins.MainForm</RootNamespace>
     <AssemblyName>MuggleTeklaPlugins</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

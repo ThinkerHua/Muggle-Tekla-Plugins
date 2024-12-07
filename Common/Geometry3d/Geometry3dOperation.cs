@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Muggle.TeklaPlugins.Common.Operation;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
-using MuggleTeklaPlugins.Common.Operation;
 
-namespace MuggleTeklaPlugins.Common.Geometry3d {
+namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// 三维几何操作相关功能
     /// </summary>

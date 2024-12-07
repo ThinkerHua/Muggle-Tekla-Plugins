@@ -1,7 +1,7 @@
 
 using System.Drawing;
 
-namespace MuggleTeklaPlugins.HJ1001 {
+namespace Muggle.TeklaPlugins.HJ1001 {
     partial class FormHJ1001 {
         /// <summary>
         /// Required designer variable.
@@ -143,7 +143,7 @@ namespace MuggleTeklaPlugins.HJ1001 {
             // 
             this.structuresExtender.SetAttributeName(this.ParametersTabPage, null);
             this.structuresExtender.SetAttributeTypeName(this.ParametersTabPage, null);
-            var bitmap = new Bitmap(global::MuggleTeklaPlugins.HJ1001.Properties.Resources._2);
+            var bitmap = new Bitmap(global::Muggle.TeklaPlugins.HJ1001.Properties.Resources._2);
             bitmap.MakeTransparent(Color.White);
             this.ParametersTabPage.BackgroundImage = bitmap;
             this.ParametersTabPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -460,8 +460,8 @@ namespace MuggleTeklaPlugins.HJ1001 {
             this.materialCatalog1.SelectedMaterial = "";
             this.materialCatalog1.Size = new System.Drawing.Size(70, 25);
             this.materialCatalog1.TabIndex = 31;
-            this.materialCatalog1.SelectClicked += new System.EventHandler(this.materialCatalog1_SelectClicked);
-            this.materialCatalog1.SelectionDone += new System.EventHandler(this.materialCatalog1_SelectionDone);
+            this.materialCatalog1.SelectClicked += new System.EventHandler(this.MaterialCatalog1_SelectClicked);
+            this.materialCatalog1.SelectionDone += new System.EventHandler(this.MaterialCatalog1_SelectionDone);
             // 
             // cBox_creatBolt
             // 

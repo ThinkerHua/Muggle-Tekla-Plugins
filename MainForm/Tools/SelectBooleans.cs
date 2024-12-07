@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-namespace MuggleTeklaPlugins.MainForm.Tools {
+namespace Muggle.TeklaPlugins.MainForm.Tools {
     public partial class SelectBooleans : Form {
         /*private enum BooleanTypeEnum {
             NONE = 0,

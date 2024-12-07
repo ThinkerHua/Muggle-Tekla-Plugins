@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 
-namespace MuggleTeklaPlugins.Common.Operation {
+namespace Muggle.TeklaPlugins.Common.Operation {
     [Obsolete]
     public class StringCompression {
         /// <summary>

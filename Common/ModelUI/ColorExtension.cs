@@ -1,7 +1,7 @@
 ﻿using System;
 using Tekla.Structures.Model.UI;
 
-namespace MuggleTeklaPlugins.Common.ModelUI {
+namespace Muggle.TeklaPlugins.Common.ModelUI {
     /// <summary>
     /// <see cref="Tekla.Structures.Model.UI"/>.<see cref="Color"/> 的扩展。
     /// <para>

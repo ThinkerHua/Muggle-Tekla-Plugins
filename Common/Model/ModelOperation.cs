@@ -1,16 +1,12 @@
-﻿using System;
+﻿using Muggle.TeklaPlugins.Common.Geometry3d;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using Tekla.Structures.Datatype;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
-using Tekla.Structures.Model.Operations;
 
-using MuggleTeklaPlugins.Common.Geometry3d;
-using Tekla.Structures.ModelInternal;
-
-namespace MuggleTeklaPlugins.Common.Model {
+namespace Muggle.TeklaPlugins.Common.Model {
     /// <summary>
     /// 模型操作。
     /// </summary>

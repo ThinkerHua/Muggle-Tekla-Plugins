@@ -2,7 +2,7 @@
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 
-namespace MuggleTeklaPlugins.Common.Model {
+namespace Muggle.TeklaPlugins.Common.Model {
     /// <summary>
     /// <see cref="Tekla.Structures.Model"/>.<see cref="Polygon"/> 的扩展。
     /// </summary>

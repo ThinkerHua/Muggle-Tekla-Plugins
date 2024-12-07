@@ -1,4 +1,4 @@
-namespace MuggleTeklaPlugins.WK1001 {
+namespace Muggle.TeklaPlugins.WK1001 {
     partial class FormWK1001 {
         /// <summary>
         /// Required designer variable.
@@ -139,7 +139,7 @@ namespace MuggleTeklaPlugins.WK1001 {
             // 
             this.structuresExtender.SetAttributeName(this.ParametersTabPage, null);
             this.structuresExtender.SetAttributeTypeName(this.ParametersTabPage, null);
-            this.ParametersTabPage.BackgroundImage = global::MuggleTeklaPlugins.WK1001.Properties.Resources._01;
+            this.ParametersTabPage.BackgroundImage = global::Muggle.TeklaPlugins.WK1001.Properties.Resources._01;
             this.ParametersTabPage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.structuresExtender.SetBindPropertyName(this.ParametersTabPage, null);
             this.ParametersTabPage.Controls.Add(this.label21);
@@ -618,7 +618,7 @@ namespace MuggleTeklaPlugins.WK1001 {
             this.tbox_prfStr_Tube.Size = new System.Drawing.Size(114, 21);
             this.tbox_prfStr_Tube.TabIndex = 4;
             this.toolTip1.SetToolTip(this.tbox_prfStr_Tube, "形式为Od*t，例如O377*18。不填表示根据参数“杆件间最小间距 f”、“上端板厚度 b”、“下端板厚度 c”自动确定一个合适的规格。");
-            this.tbox_prfStr_Tube.TextChanged += new System.EventHandler(this.tbox_prfStr_Tube_TextChanged);
+            this.tbox_prfStr_Tube.TextChanged += new System.EventHandler(this.Tbox_prfStr_Tube_TextChanged);
             // 
             // tbox_minDis
             // 
@@ -677,8 +677,8 @@ namespace MuggleTeklaPlugins.WK1001 {
             this.materialCatalog1.SelectedMaterial = "";
             this.materialCatalog1.Size = new System.Drawing.Size(88, 21);
             this.materialCatalog1.TabIndex = 21;
-            this.materialCatalog1.SelectClicked += new System.EventHandler(this.materialCatalog1_SelectClicked);
-            this.materialCatalog1.SelectionDone += new System.EventHandler(this.materialCatalog1_SelectionDone);
+            this.materialCatalog1.SelectClicked += new System.EventHandler(this.MaterialCatalog1_SelectClicked);
+            this.materialCatalog1.SelectionDone += new System.EventHandler(this.MaterialCatalog1_SelectionDone);
             // 
             // tbox_group_no
             // 

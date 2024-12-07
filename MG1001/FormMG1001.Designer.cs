@@ -1,7 +1,7 @@
 
 using System.Drawing;
 
-namespace MuggleTeklaPlugins.MG1001
+namespace Muggle.TeklaPlugins.MG1001
 {
     partial class FormMG1001
     {
@@ -607,7 +607,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.textBox_thk_THKED.Name = "textBox_thk_THKED";
             this.textBox_thk_THKED.Size = new System.Drawing.Size(100, 21);
             this.textBox_thk_THKED.TabIndex = 12;
-            this.textBox_thk_THKED.TextChanged += new System.EventHandler(this.textBox_thk_THKED_TextChanged);
+            this.textBox_thk_THKED.TextChanged += new System.EventHandler(this.TextBox_thk_THKED_TextChanged);
             // 
             // textBox_prfStr_HOR
             // 
@@ -648,7 +648,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.textBox_prfStr_DIAG.Name = "textBox_prfStr_DIAG";
             this.textBox_prfStr_DIAG.Size = new System.Drawing.Size(100, 21);
             this.textBox_prfStr_DIAG.TabIndex = 4;
-            this.textBox_prfStr_DIAG.TextChanged += new System.EventHandler(this.textBox_prfStr_DIAG_TextChanged);
+            this.textBox_prfStr_DIAG.TextChanged += new System.EventHandler(this.TextBox_prfStr_DIAG_TextChanged);
             // 
             // textBox_prfStr_TOP
             // 
@@ -669,7 +669,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.textBox_len_Eave.Name = "textBox_len_Eave";
             this.textBox_len_Eave.Size = new System.Drawing.Size(100, 21);
             this.textBox_len_Eave.TabIndex = 16;
-            this.textBox_len_Eave.TextChanged += new System.EventHandler(this.textBox_len_Eave_TextChanged);
+            this.textBox_len_Eave.TextChanged += new System.EventHandler(this.TextBox_len_Eave_TextChanged);
             // 
             // label27
             // 
@@ -1660,7 +1660,7 @@ namespace MuggleTeklaPlugins.MG1001
             this.imageListComboBox_type_STIF_Web.Size = new System.Drawing.Size(80, 71);
             this.imageListComboBox_type_STIF_Web.TabIndex = 32;
             this.imageListComboBox_type_STIF_Web.ToolTipText = "";
-            this.imageListComboBox_type_STIF_Web.ImageListComboBoxSelectedIndexChanged += new System.EventHandler(this.imageListComboBox_type_STIF_Web_ImageListComboBoxSelectedIndexChanged);
+            this.imageListComboBox_type_STIF_Web.ImageListComboBoxSelectedIndexChanged += new System.EventHandler(this.ImageListComboBox_type_STIF_Web_ImageListComboBoxSelectedIndexChanged);
             // 
             // imageList1
             // 
@@ -1739,8 +1739,8 @@ namespace MuggleTeklaPlugins.MG1001
             this.materialCatalog1.SelectedMaterial = "";
             this.materialCatalog1.Size = new System.Drawing.Size(88, 20);
             this.materialCatalog1.TabIndex = 29;
-            this.materialCatalog1.SelectClicked += new System.EventHandler(this.materialCatalog1_SelectClicked);
-            this.materialCatalog1.SelectionDone += new System.EventHandler(this.materialCatalog1_SelectionDone);
+            this.materialCatalog1.SelectClicked += new System.EventHandler(this.MaterialCatalog1_SelectClicked);
+            this.materialCatalog1.SelectionDone += new System.EventHandler(this.MaterialCatalog1_SelectionDone);
             // 
             // FormMG1001
             // 

@@ -1,6 +1,6 @@
 using System;
 
-namespace MuggleTeklaPlugins.WK1001 {
+namespace Muggle.TeklaPlugins.WK1001 {
     public partial class FormWK1001 : Tekla.Structures.Dialog.PluginFormBase {
         public FormWK1001() {
             InitializeComponent();
@@ -31,15 +31,15 @@ namespace MuggleTeklaPlugins.WK1001 {
             this.Close();
         }
 
-        private void materialCatalog1_SelectClicked(object sender, EventArgs e) {
+        private void MaterialCatalog1_SelectClicked(object sender, EventArgs e) {
             materialCatalog1.SelectedMaterial = tbox_materialStr.Text;
         }
 
-        private void materialCatalog1_SelectionDone(object sender, EventArgs e) {
+        private void MaterialCatalog1_SelectionDone(object sender, EventArgs e) {
             SetAttributeValue(tbox_materialStr, materialCatalog1.SelectedMaterial);
         }
 
-        private void tbox_prfStr_Tube_TextChanged(object sender, EventArgs e) {
+        private void Tbox_prfStr_Tube_TextChanged(object sender, EventArgs e) {
             if (tbox_prfStr_Tube.Text.Length > 0) {
                 tbox_minDis.Clear();
                 tbox_minDis.Enabled = false;

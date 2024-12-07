@@ -2,7 +2,7 @@
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 
-namespace MuggleTeklaPlugins.Common.Geometry3d {
+namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// <see cref="Tekla.Structures.Geometry3d"/>.<see cref="Point"/> 的扩展。
     /// </summary>

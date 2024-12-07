@@ -6,7 +6,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<UseWPF>true</UseWPF>
 		<OutputPath>Installer/BuildDrop</OutputPath>
-		<RootNamespace>MuggleTeklaPlugins.HJ1001</RootNamespace>
+		<RootNamespace>Muggle.TeklaPlugins.HJ1001</RootNamespace>
 		<AssemblyName>HJ1001</AssemblyName>
 		<Authors>thinkerhua@hotmail.com</Authors>
 	</PropertyGroup>

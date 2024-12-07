@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.ModelUI;
+using System;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
-using MuggleTeklaPlugins.Common.Geometry3d;
-using MuggleTeklaPlugins.Common.ModelUI;
 
-namespace MuggleTeklaPlugins.Common.Internal {
+namespace Muggle.TeklaPlugins.Common.Internal {
     public static class Internal {
         public static void ShowTransformationPlane(TransformationPlane tp) {
             if (tp is null) {

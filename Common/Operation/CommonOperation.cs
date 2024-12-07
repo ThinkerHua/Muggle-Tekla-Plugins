@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MuggleTeklaPlugins.Common.Operation {
+namespace Muggle.TeklaPlugins.Common.Operation {
     /// <summary>
     /// 通用操作
     /// </summary>

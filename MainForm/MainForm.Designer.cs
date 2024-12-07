@@ -1,5 +1,5 @@
 ﻿
-namespace MuggleTeklaPlugins.MainForm {
+namespace Muggle.TeklaPlugins.MainForm {
     partial class MainForm {
         /// <summary>
         /// 必需的设计器变量。
@@ -162,7 +162,7 @@ namespace MuggleTeklaPlugins.MainForm {
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::MuggleTeklaPlugins.MainForm.Properties.Resources.et_element_WK1001;
+            this.pictureBox1.BackgroundImage = global::Muggle.TeklaPlugins.MainForm.Properties.Resources.et_element_WK1001;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);

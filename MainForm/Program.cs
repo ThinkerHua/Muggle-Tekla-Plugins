@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MuggleTeklaPlugins.MainForm {
+namespace Muggle.TeklaPlugins.MainForm {
     static class Program {
         /// <summary>
         /// 应用程序的主入口点。

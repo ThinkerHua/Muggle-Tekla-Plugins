@@ -1,13 +1,8 @@
-﻿using MuggleTeklaPlugins.Common.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Muggle.TeklaPlugins.Common.Internal;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-namespace MuggleTeklaPlugins.MainForm.Tools {
+namespace Muggle.TeklaPlugins.MainForm.Tools {
     internal class ShowModelObjectCoordinateSystem {
         public static void Run() {
             var model = new Model();

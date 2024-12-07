@@ -1,3 +1,6 @@
+using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Model;
+using Muggle.TeklaPlugins.Common.Profile;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,11 +12,8 @@ using Tekla.Structures.Model;
 using Tekla.Structures.Plugins;
 using TSDatatype = Tekla.Structures.Datatype;
 using TSG3d = Tekla.Structures.Geometry3d;
-using MuggleTeklaPlugins.Common.Geometry3d;
-using MuggleTeklaPlugins.Common.Model;
-using MuggleTeklaPlugins.Common.Profile;
 
-namespace MuggleTeklaPlugins.MG1001 {
+namespace Muggle.TeklaPlugins.MG1001 {
     /// <summary>
     /// <para>prfStr_TOP:柱顶板规格，[PLt[*b]]，缺省的参数表示与梁翼缘相同</para>
     /// <para>bol_TOPHOR:柱顶板水平布置或顺坡</para>
@@ -517,8 +517,9 @@ namespace MuggleTeklaPlugins.MG1001 {
                 throw;
             }
 
-            point1 = new Point();
-            point1.X = Math.Max(prf_PRIM.h1, prf_PRIM.h2) - prf_PRIM.t1 + prf_End1.t;
+            point1 = new Point {
+                X = Math.Max(prf_PRIM.h1, prf_PRIM.h2) - prf_PRIM.t1 + prf_End1.t
+            };
             point1.Y = (point1.X + prf_End2.t) * slope + pos_EndPlate;
             point2 = new Point(point1);
             point2.Y -= prf_End1.l;
@@ -548,8 +549,9 @@ namespace MuggleTeklaPlugins.MG1001 {
 
             point1 = new Point();
             point1.X -= len_Eave;
-            point2 = new Point();
-            point2.X = Math.Max(prf_PRIM.h1, prf_PRIM.h2) - prf_PRIM.t1;
+            point2 = new Point {
+                X = Math.Max(prf_PRIM.h1, prf_PRIM.h2) - prf_PRIM.t1
+            };
 
             if (bol_TOPHOR > 0) {
                 point2.Y = endPlate1.StartPoint.Y - pos_EndPlate;
@@ -619,8 +621,9 @@ namespace MuggleTeklaPlugins.MG1001 {
             try {
                 prf_HOR = new ProfilePlate(prfStr_HOR);
             } catch {
-                prf_HOR = new ProfilePlate();
-                prf_HOR.t = prf_SEC.t1;
+                prf_HOR = new ProfilePlate {
+                    t = prf_SEC.t1
+                };
             }
             if (prf_HOR.b == 0) {
                 prf_HOR.b = (prf_SEC.b1 - Math.Max(prf_PRIM.s, thk_THKED)) * 0.5;
@@ -733,8 +736,9 @@ namespace MuggleTeklaPlugins.MG1001 {
 
             point3 = new Point(point2);
             point3.Z += prf_DIAG.b;
-            point4 = new Point(point1);
-            point4.Z = point3.Z;
+            point4 = new Point(point1) {
+                Z = point3.Z
+            };
 
             chamfer_Line = new Chamfer(chamfer_DIAG, chamfer_DIAG, Chamfer.ChamferTypeEnum.CHAMFER_LINE);
             cp1 = new ContourPoint(point1, chamfer_Line);
@@ -836,8 +840,9 @@ namespace MuggleTeklaPlugins.MG1001 {
             point4 = new Point(point1);
             point4.Z += prf_STIF_Web.l;
 
-            point5 = new Point();
-            point5.Y = point1.Y;//临时存储初始状态
+            point5 = new Point {
+                Y = point1.Y//临时存储初始状态
+            };
 
             chamfer_Line2 = new Chamfer(chamfer_STIF_out, chamfer_STIF_out, Chamfer.ChamferTypeEnum.CHAMFER_LINE);
 

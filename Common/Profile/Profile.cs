@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace MuggleTeklaPlugins.Common.Profile {
+namespace Muggle.TeklaPlugins.Common.Profile {
     /// <summary>
     /// 不支持的截面或不支持的截面参数
     /// </summary>

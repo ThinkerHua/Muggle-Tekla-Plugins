@@ -2,7 +2,7 @@
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 
-namespace MuggleTeklaPlugins.Common.Geometry3d {
+namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// 几何平面构造器。
     /// </summary>

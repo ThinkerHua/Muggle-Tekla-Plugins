@@ -1,6 +1,6 @@
 using System;
 
-namespace MuggleTeklaPlugins.MG1001 {
+namespace Muggle.TeklaPlugins.MG1001 {
     public partial class FormMG1001 : Tekla.Structures.Dialog.PluginFormBase {
         public FormMG1001() {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace MuggleTeklaPlugins.MG1001 {
             this.Close();
         }
 
-        private void textBox_len_Eave_TextChanged(object sender, EventArgs e) {
+        private void TextBox_len_Eave_TextChanged(object sender, EventArgs e) {
             if (textBox_len_Eave.Text == string.Empty) {
                 filter_hgt_Eave.Enabled = false;
                 textBox_hgt_Eave.Enabled = false;
@@ -45,7 +45,7 @@ namespace MuggleTeklaPlugins.MG1001 {
             }
         }
 
-        private void textBox_thk_THKED_TextChanged(object sender, EventArgs e) {
+        private void TextBox_thk_THKED_TextChanged(object sender, EventArgs e) {
             if (textBox_thk_THKED.Text == string.Empty) {
                 filter_pos_THKED.Enabled = false;
                 textBox_pos_THKED.Enabled = false;
@@ -55,7 +55,7 @@ namespace MuggleTeklaPlugins.MG1001 {
             }
         }
 
-        private void textBox_prfStr_DIAG_TextChanged(object sender, EventArgs e) {
+        private void TextBox_prfStr_DIAG_TextChanged(object sender, EventArgs e) {
             if (textBox_prfStr_DIAG.Text == string.Empty) {
                 filter_pos_DIAG1.Enabled = false;
                 textBox_pos_DIAG1.Enabled = false;
@@ -69,7 +69,7 @@ namespace MuggleTeklaPlugins.MG1001 {
             }
         }
 
-        private void imageListComboBox_type_STIF_Web_ImageListComboBoxSelectedIndexChanged(object sender, EventArgs e) {
+        private void ImageListComboBox_type_STIF_Web_ImageListComboBoxSelectedIndexChanged(object sender, EventArgs e) {
             switch (imageListComboBox_type_STIF_Web.SelectedIndex) {
             case 0:
                 filter_chamfer_STIF_out.Enabled = false;
@@ -85,11 +85,11 @@ namespace MuggleTeklaPlugins.MG1001 {
             }
         }
 
-        private void materialCatalog1_SelectClicked(object sender, EventArgs e) {
+        private void MaterialCatalog1_SelectClicked(object sender, EventArgs e) {
             materialCatalog1.SelectedMaterial = textBox_materialStr.Text;
         }
 
-        private void materialCatalog1_SelectionDone(object sender, EventArgs e) {
+        private void MaterialCatalog1_SelectionDone(object sender, EventArgs e) {
             SetAttributeValue(textBox_materialStr, materialCatalog1.SelectedMaterial);
         }
     }

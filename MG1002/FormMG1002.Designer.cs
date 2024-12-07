@@ -1,7 +1,7 @@
 
 using System.Drawing;
 
-namespace MuggleTeklaPlugins.MG1002 {
+namespace Muggle.TeklaPlugins.MG1002 {
     partial class FormMG1002 {
         /// <summary>
         /// Required designer variable.

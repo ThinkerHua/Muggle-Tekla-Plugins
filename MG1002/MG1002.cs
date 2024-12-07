@@ -1,3 +1,6 @@
+using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Model;
+using Muggle.TeklaPlugins.Common.Profile;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,11 +11,8 @@ using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Plugins;
 using TSG3d = Tekla.Structures.Geometry3d;
-using MuggleTeklaPlugins.Common.Geometry3d;
-using MuggleTeklaPlugins.Common.Model;
-using MuggleTeklaPlugins.Common.Profile;
 
-namespace MuggleTeklaPlugins.MG1002 {
+namespace Muggle.TeklaPlugins.MG1002 {
     public class MG1002Data {
         [StructuresField("prfStr_EndPlate")]
         public string prfStr_EndPlate;
@@ -56,8 +56,8 @@ namespace MuggleTeklaPlugins.MG1002 {
     [AutoDirectionType(AutoDirectionTypeEnum.AUTODIR_BASIC)]
     public class MG1002 : ConnectionBase {
         #region Fields
-        private Model _model;
-        private MG1002Data _data;
+        private readonly Model _model;
+        private readonly MG1002Data _data;
 
         private string prfStr_EndPlate;
         private string prfStr_STIF_FLNG;
@@ -86,25 +86,11 @@ namespace MuggleTeklaPlugins.MG1002 {
         private TransformationPlane originTP, workTP;
         #endregion
 
-        #region Properties
-        private Model Model {
-            get { return this._model; }
-            set { this._model = value; }
-        }
-
-        private MG1002Data Data {
-            get { return this._data; }
-            set {
-                this._data = value;
-                GetValuesFromDialog();
-            }
-        }
-        #endregion
-
         #region Constructor
         public MG1002(MG1002Data data) {
-            Model = new Model();
-            Data = data;
+            _model = new Model();
+            _data = data;
+            GetValuesFromDialog();
         }
         #endregion
 

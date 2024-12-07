@@ -1,27 +1,16 @@
-﻿using System;
+﻿using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Model;
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
-using MuggleTeklaPlugins.WK1001;
-using Tekla.Structures.Plugins;
-using MuggleTeklaPlugins.Common.Geometry3d;
-using MuggleTeklaPlugins.Common.Model;
-using System.Diagnostics;
-using System.IO;
 
-namespace MuggleTeklaPlugins.MainForm.Plugins {
+namespace Muggle.TeklaPlugins.MainForm.Plugins {
     internal class WK1001_Outer {
         public static void Run() {
-#if DEBUG
-            var streamWriter = new StreamWriter("WK1001_Outer_Debug.log");
-            var listener = new TextWriterTraceListener(streamWriter);
-            Debug.Listeners.Add(listener);
-            var methodinfo = "In \"Run\" method: ";
-            Debug.WriteLine(methodinfo);
-#endif
             try {
                 var model = new Model() ?? throw new Exception("未连接到 Tekla Structures。");
 
@@ -58,21 +47,14 @@ namespace MuggleTeklaPlugins.MainForm.Plugins {
                 Debug.WriteLine(e.ToString());
                 MessageBox.Show(e.ToString());
             } finally {
-#if DEBUG
-                Debug.Listeners.Remove(listener);
-                listener.Close(); listener.Dispose();
-                streamWriter.Close(); streamWriter.Dispose();
-#endif
+
             }
         }
         /// <summary>
         /// 调整杆件法向
         /// </summary>
         private static void AdjustPartsNormal(ArrayList parts) {
-#if DEBUG
-            var methodinfo = "In \"AdjustPartsNormal\" method: ";
-            Debug.WriteLine(methodinfo);
-#endif
+
             if (parts is null) {
                 throw new ArgumentNullException(nameof(parts));
             }
@@ -107,10 +89,7 @@ namespace MuggleTeklaPlugins.MainForm.Plugins {
         /// <param name="parts"></param>
         /// <returns></returns>
         private static Vector GetThisNormal(ArrayList parts) {
-#if DEBUG
-            var methodinfo = "In \"GetThisNormal\" method: ";
-            Debug.WriteLine(methodinfo);
-#endif
+
             if (parts is null) {
                 throw new ArgumentNullException(nameof(parts));
             }
@@ -154,10 +133,7 @@ namespace MuggleTeklaPlugins.MainForm.Plugins {
             return normal;
         }
         private static Vector GetAnotherNormal(Beam beam) {
-#if DEBUG
-            var methodinfo = "In \"GetAnotherNormal\" method: ";
-            Debug.WriteLine(methodinfo);
-#endif
+
             if (beam is null) {
                 throw new ArgumentNullException(nameof(beam));
             }
