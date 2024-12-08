@@ -8,21 +8,21 @@
 ## Common
 定义了一些实用的类型、方法，以及对一些官方实现的方法进行了重写，例如：
 
-    - Geometry3dOperation.PositionOfTriangleOnLines 方法，实现求二维平面中三角形三个顶点分别落在三条直线上时的位置。
+- Geometry3dOperation.PositionOfTriangleOnLines 方法，实现求二维平面中三角形三个顶点分别落在三条直线上时的位置。
 
-    - IntersectionExtension.LineToLine 方法，是对官方实现 Intersection.LineToLine 的重写，解决在两直线相交的情况下，官方实现求得的线段长度不等于0.0（虽然官方文档说是等于0.0，但实际是一个很小的值）的问题。
+- IntersectionExtension.LineToLine 方法，是对官方实现 Intersection.LineToLine 的重写，解决在两直线相交的情况下，官方实现求得的线段长度不等于0.0（虽然官方文档说是等于0.0，但实际是一个很小的值）的问题。
 
-    - IntersectionExtension.ArcToLine 方法，实现求三维空间中圆弧与直线间最短线段，并引申出 IntersectionExtension.CircleToLine 方法，实现求三维空间中圆与直线间最短线段。
+- IntersectionExtension.ArcToLine 方法，实现求三维空间中圆弧与直线间最短线段，并引申出 IntersectionExtension.CircleToLine 方法，实现求三维空间中圆与直线间最短线段。
 
-    - PointsInterval 类，提供了一种求解点区间相关问题的解决方案。
+- PointsInterval 类，提供了一种求解点区间相关问题的解决方案。
 
-    - VectorExtension.GetAngleBetween_Precisely 方法，是对官方实现 Vector.GetAngleBetween 的重写。官方实现对于一些比较小的角度，会按 0.0 返回，本方法可以返回更精确一些的角度。
+- VectorExtension.GetAngleBetween_Precisely 方法，是对官方实现 Vector.GetAngleBetween 的重写。官方实现对于一些比较小的角度，会按 0.0 返回，本方法可以返回更精确一些的角度。
 
-    - PointExtension 和 VectorExtension 的 Transform 系列方法，可以更便捷的在各种变换平面或坐标系中进行转换。
+- PointExtension 和 VectorExtension 的 Transform 系列方法，可以更便捷的在各种变换平面或坐标系中进行转换。
 
-    - ...
+- ...
 
-    更多内容参见[API Reference of Common](Documents/API%20Reference%20of%20Common.chm)
+更多内容参见[API Reference of Common](Documents/API%20Reference%20of%20Common.chm)
 
 ## ShowModelObjectCoordinateSystem(显示模型零件坐标系)
 软件自带的宏每次均需双击启动，且只能运行一次。本工具可以一次启动，点选并显示多个零件的坐标系。调试时很有用。
