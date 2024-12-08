@@ -12,11 +12,11 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// </summary>
     public static class Geometry3dOperation {
         /// <summary>
-        /// 获取一个单位向量，其在XY平面上的投影与X轴之间的夹角，以及其与XY平面之间的夹角为给定值。
+        /// 获取一个向量，其在XY平面上的投影与X轴之间的夹角，以及其与XY平面之间的夹角为给定值。
         /// </summary>
         /// <param name="angle_between_X">在XY平面上的投影与X轴之间的夹角，弧度制</param>
         /// <param name="angle_between_XY">与XY平面之间的夹角，弧度制</param>
-        /// <returns>单位向量，其在XY平面上的投影与X轴之间的夹角，以及其与XY平面之间的夹角为给定值。</returns>
+        /// <returns>向量，其在XY平面上的投影与X轴之间的夹角，以及其与XY平面之间的夹角为给定值。</returns>
         public static Vector GetDirectionByAngle(double angle_between_X, double angle_between_XY = 0) {
             Vector direction = new Vector {
                 X = Math.Cos(angle_between_X),
