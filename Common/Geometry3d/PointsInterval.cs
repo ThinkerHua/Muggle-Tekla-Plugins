@@ -89,9 +89,9 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 if (value >= 0) _enumInterval = value;
             }
         }
-
+        /// <inheritdoc/>
         public Point Current => GetPoint(_start + _position * _enumInterval);
-
+        /// <inheritdoc/>
         object IEnumerator.Current => Current;
         /// <summary>
         /// 使用默认值构造点区间，Origin 为零点，Direction 为单位X向量，Start 和 End 均为0。
@@ -443,21 +443,22 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 return new PointsInterval(itvl1.Origin, itvl1.Direction, value, value);
             }
         }
+        /// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
         public IEnumerator<Point> GetEnumerator() {
             return this;
         }
-
+        /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() {
             return this;
         }
-
+        /// <inheritdoc/>
         public void Dispose() { }
-
+        /// <inheritdoc/>
         public bool MoveNext() {
             _position++;
             return _position * _enumInterval <= Width;
         }
-
+        /// <inheritdoc/>
         public void Reset() {
             _position = -1;
         }

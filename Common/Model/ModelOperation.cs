@@ -230,7 +230,9 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="depthOffset">位置属性的深度偏移，默认值0</param>
         /// <returns>创建的多边形板。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="name"/>、<paramref name="profileStr"/>、<paramref name="materialStr"/>、
+        /// <paramref name="assemblyPrefix"/>、<paramref name="partPrefix"/>、<paramref name="class"/>为 null 或 <see cref="string.Empty"/>
+        /// 时引发。</exception>
         public static ContourPlate CreatContourPlate(
             ArrayList contourPoints,
             string name = "PLATE",
@@ -306,7 +308,9 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="depthOffset">位置属性的深度偏移，默认值0</param>
         /// <returns>创建的多边形板。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="name"/>、<paramref name="profileStr"/>、<paramref name="materialStr"/>、
+        /// <paramref name="assemblyPrefix"/>、<paramref name="partPrefix"/>、<paramref name="class"/>为 null 或 <see cref="string.Empty"/>
+        /// 时引发。</exception>
         public static ContourPlate CreatContourPlate(
             IEnumerable<Point> points,
             string name = "PLATE",
@@ -477,7 +481,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="nut2">是否使用螺母1，默认值true</param>
         /// <returns>创建的阵列螺栓组。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="bolt_dist_X"/> 中元素数量少于 2，
+        /// 或 <paramref name="bolt_dist_Y"/> 中元素数量少于 1 时引发。</exception>
         public static BoltArray CreatBoltArray(
             Part boltTo,
             Part beBolted,
@@ -505,7 +510,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             if (firstPosition is null) {
                 throw new ArgumentNullException(nameof(firstPosition));
             }
-
+            
             if (secondPosition is null) {
                 throw new ArgumentNullException(nameof(secondPosition));
             }
@@ -658,7 +663,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="num">要复制的数量，默认值1</param>
         /// <returns>成功旋转复制的对象集合（不包括初始对象）。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="num"/> 小于等于 0 时引发。</exception>
         public static List<ModelObject> Copy_Rotate(
             ModelObject obj,
             Point Axis_Origin,

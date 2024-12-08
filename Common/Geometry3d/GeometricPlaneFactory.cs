@@ -65,12 +65,14 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <summary>
         /// 根据三点构造一个几何平面。
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <param name="point3"></param>
+        /// <param name="point1">给定点1</param>
+        /// <param name="point2">给定点2</param>
+        /// <param name="point3">给定点3</param>
         /// <returns>成功构造的几何平面。
-        ///     <code>Origin == point1</code>
-        ///     <code>Normal == Vector.Cross(new Vector(point2 - point1), new Vector(point3 - point1))</code>
+        /// <code>
+        /// Origin == point1;
+        /// Normal == Vector.Cross(new Vector(point2 - point1), new Vector(point3 - point1));
+        /// </code>
         /// </returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException">给定点不应相等。</exception>

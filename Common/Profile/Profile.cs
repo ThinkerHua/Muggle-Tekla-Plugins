@@ -3,14 +3,22 @@ using System.Text.RegularExpressions;
 
 namespace Muggle.TeklaPlugins.Common.Profile {
     /// <summary>
-    /// 不支持的截面或不支持的截面参数
+    /// 不支持的截面或不支持的截面参数引发的异常。
     /// </summary>
     public class UnAcceptableProfile : Exception {
         private readonly string _message;
+        /// <summary>
+        /// 创建引发异常的信息为空的实例。
+        /// </summary>
         public UnAcceptableProfile() { }
+        /// <summary>
+        /// 根据给定引发异常的信息创建实例。
+        /// </summary>
+        /// <param name="message">引发异常的信息</param>
         public UnAcceptableProfile(string message) {
             _message = message;
         }
+        /// <inheritdoc/>
         override public string ToString() {
             return $"不支持此类型截面 或 不支持此类型截面的当前参数：\n{_message}";
         }
@@ -108,6 +116,9 @@ namespace Muggle.TeklaPlugins.Common.Profile {
         /// </summary>
         public static string RECT_5 => @"^B_VAR_[ABC](?<h1>\d+\.?\d*)-(?<h2>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(\d+\.?\d*)-(\d+\.?\d*)$";
     }
+    /// <summary>
+    /// 定义型材截面的属性、方法。
+    /// </summary>
     public interface IProfile {
         /// <summary>
         /// 截面文本
@@ -118,6 +129,9 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// 型材截面基类
     /// </summary>
     public class ProfileBase {
+        /// <summary>
+        /// 设置字段值。
+        /// </summary>
 
         protected virtual void SetFieldsValues() { }
     }
@@ -132,13 +146,11 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// </summary>
     public class ProfileH : ProfileBase, IProfile {
         private string _profileText;
-        public double h1;
-        public double h2;
-        public double b1;
-        public double b2;
-        public double s;
-        public double t1;
-        public double t2;
+        /// <summary>
+        /// 
+        /// </summary>
+        public double h1, h2, b1, b2, s, t1, t2;
+        /// <inheritdoc/>
         public string ProfileText {
             get => _profileText;
             set {
@@ -146,10 +158,18 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 SetFieldsValues();
             }
         }
+        /// <summary>
+        /// 创建各字段值均为 0.0 的实例。
+        /// </summary>
         public ProfileH() { }
+        /// <summary>
+        /// 根据给定截面文本创建实例，同时为字段赋值。
+        /// </summary>
+        /// <param name="profileText">给定截面文本</param>
         public ProfileH(string profileText) {
             ProfileText = profileText;
         }
+        /// <inheritdoc/>
         protected override void SetFieldsValues() {
             h1 = h2 = b1 = b2 = s = t1 = t2 = 0;
             try {
@@ -198,13 +218,11 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// </summary>
     public class ProfileH_Symmetrical : ProfileBase, IProfile {
         private string _profileText;
-        public double h1;
-        public double h2;
-        public double b1;
-        public double b2;
-        public double s;
-        public double t1;
-        public double t2;
+        /// <summary>
+        /// 
+        /// </summary>
+        public double h1, h2, b1, b2, s, t1, t2;
+        /// <inheritdoc/>
         public string ProfileText {
             get => _profileText;
             set {
@@ -212,10 +230,18 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 SetFieldsValues();
             }
         }
+        /// <summary>
+        /// 创建各字段值均为 0.0 的实例。
+        /// </summary>
         public ProfileH_Symmetrical() { }
+        /// <summary>
+        /// 根据给定截面文本创建实例，同时为字段赋值。
+        /// </summary>
+        /// <param name="profileText">给定截面文本</param>
         public ProfileH_Symmetrical(string profileText) {
             ProfileText = profileText;
         }
+        /// <inheritdoc/>
         protected override void SetFieldsValues() {
             h1 = h2 = b1 = b2 = s = t1 = t2 = 0;
             try {
@@ -262,9 +288,11 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// </summary>
     public class ProfilePlate : ProfileBase, IProfile {
         private string _profileText;
-        public double t;
-        public double b;
-        public double l;
+        /// <summary>
+        /// 
+        /// </summary>
+        public double t, b, l;
+        /// <inheritdoc/>
         public string ProfileText {
             get => _profileText;
             set {
@@ -272,10 +300,18 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 SetFieldsValues();
             }
         }
+        /// <summary>
+        /// 创建各字段值均为 0.0 的实例。
+        /// </summary>
         public ProfilePlate() { }
+        /// <summary>
+        /// 根据给定截面文本创建实例，同时为字段赋值。
+        /// </summary>
+        /// <param name="profileText">给定截面文本</param>
         public ProfilePlate(string profileText) {
             ProfileText = profileText;
         }
+        /// <inheritdoc/>
         protected override void SetFieldsValues() {
             t = b = l = 0;
             if (ProfileText == null || ProfileText == string.Empty)
@@ -300,12 +336,11 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// </summary>
     public class ProfileCircular : ProfileBase, IProfile {
         private string _profileText;
-        public double d1;
-        public double r1;
-        public double d2;
-        public double r2;
-        public double t;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        public double d1, r1, d2, r2, t;
+        /// <inheritdoc/>
         public string ProfileText {
             get => _profileText;
             set {
@@ -313,10 +348,18 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 SetFieldsValues();
             }
         }
+        /// <summary>
+        /// 创建各字段值均为 0.0 的实例。
+        /// </summary>
         public ProfileCircular() { }
+        /// <summary>
+        /// 根据给定截面文本创建实例，同时为字段赋值。
+        /// </summary>
+        /// <param name="profileText">给定截面文本</param>
         public ProfileCircular(string profileText) {
             ProfileText = profileText;
         }
+        /// <inheritdoc/>
         protected override void SetFieldsValues() {
             d1 = r1 = d2 = r2 = t = 0;
             try {
@@ -358,9 +401,10 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// </summary>
     public class ProfileCircular_Perfect : ProfileBase, IProfile {
         private string _profileText;
-        public double d1;
-        public double d2;
-        public double t;
+        /// <summary>
+        /// 
+        /// </summary>
+        public double d1, d2, t;
         private static readonly ProfileCircular_Perfect[] _commonlyUsed = new ProfileCircular_Perfect[] {
             new ProfileCircular_Perfect{ ProfileText = "PIP32*2.5"},
             new ProfileCircular_Perfect{ ProfileText = "PIP32*3"},
@@ -738,7 +782,7 @@ namespace Muggle.TeklaPlugins.Common.Profile {
             new ProfileCircular_Perfect{ ProfileText = "PIP630*15"},
             new ProfileCircular_Perfect{ ProfileText = "PIP630*16"},
         };
-
+        /// <inheritdoc/>
         public string ProfileText {
             get => _profileText;
             set {
@@ -750,10 +794,18 @@ namespace Muggle.TeklaPlugins.Common.Profile {
         /// 常用规格
         /// </summary>
         public static ProfileCircular_Perfect[] CommonlyUsed => _commonlyUsed;
+        /// <summary>
+        /// 创建各字段值均为 0.0 的实例。
+        /// </summary>
         public ProfileCircular_Perfect() { }
+        /// <summary>
+        /// 根据给定截面文本创建实例，同时为字段赋值。
+        /// </summary>
+        /// <param name="profileText">给定截面文本</param>
         public ProfileCircular_Perfect(string profileText) {
             ProfileText = profileText;
         }
+        /// <inheritdoc/>
         protected override void SetFieldsValues() {
             d1 = d2 = t = 0;
             try {
@@ -792,8 +844,11 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// </summary>
     public class ProfileRect : ProfileBase, IProfile {
         private string _profileText;
+        /// <summary>
+        /// 
+        /// </summary>
         public double h1, h2, b1, b2, s, t;
-
+        /// <inheritdoc/>
         public string ProfileText {
             get => _profileText;
             set {
@@ -801,11 +856,18 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 SetFieldsValues();
             }
         }
+        /// <summary>
+        /// 创建各字段值均为 0.0 的实例。
+        /// </summary>
         public ProfileRect() { }
+        /// <summary>
+        /// 根据给定截面文本创建实例，同时为字段赋值。
+        /// </summary>
+        /// <param name="profileText">给定截面文本</param>
         public ProfileRect(string profileText) {
             ProfileText = profileText;
         }
-
+        /// <inheritdoc/>
         protected override void SetFieldsValues() {
             h1 = h2 = b1 = b2 = s = t = 0;
             try {
@@ -862,6 +924,7 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// <see cref="PatternCollection.RECT_5"/>：<inheritdoc cref="PatternCollection.RECT_5"/><para></para>
     /// </summary>
     public class ProfileRect_Invariant : ProfileRect {
+        /// <inheritdoc cref="ProfileRect.ProfileText"/>
         public new string ProfileText {
             get { return base.ProfileText; }
             set {
@@ -879,7 +942,14 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 }
             }
         }
+        /// <summary>
+        /// 创建各字段值均为 0.0 的实例。
+        /// </summary>
         public ProfileRect_Invariant() : base() { }
+        /// <summary>
+        /// 根据给定截面文本创建实例，同时为字段赋值。
+        /// </summary>
+        /// <param name="profileText">给定截面文本</param>
         public ProfileRect_Invariant(string profileText) : base(profileText) {
             if (h2 != h1 || b2 != b1)
                 throw new UnAcceptableProfile(profileText);

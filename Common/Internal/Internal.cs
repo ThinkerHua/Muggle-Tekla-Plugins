@@ -6,7 +6,16 @@ using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
 namespace Muggle.TeklaPlugins.Common.Internal {
+    /// <summary>
+    /// 内部使用的类。
+    /// </summary>
     public static class Internal {
+        /// <summary>
+        /// 显示给定变换平面。
+        /// </summary>
+        /// <param name="tp">给定变换平面</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="Exception">当 Tekla Structures 不在运行时引发。</exception>
         public static void ShowTransformationPlane(TransformationPlane tp) {
             if (tp is null) {
                 throw new ArgumentNullException(nameof(tp));
@@ -26,6 +35,12 @@ namespace Muggle.TeklaPlugins.Common.Internal {
             drawer.DrawLineSegment(origin, axisY, ColorExtension.Green);
             drawer.DrawLineSegment(origin, axisZ, ColorExtension.Blue);
         }
+        /// <summary>
+        /// 显示给定坐标系。
+        /// </summary>
+        /// <param name="cs">给定坐标系</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="Exception">当 Tekla Structures 不在运行时引发。</exception>
         public static void ShowCoordinateSystem(CoordinateSystem cs) {
             if (cs is null) {
                 throw new ArgumentNullException(nameof(cs));

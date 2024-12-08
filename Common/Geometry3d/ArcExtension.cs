@@ -15,7 +15,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <param name="vector">指定方向，从圆弧中心点指出。不应平行于圆弧法向，也不应为零向量。</param>
         /// <returns>指定方向的点，如指定方向不在圆弧区间内，则返回null。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">参数 <paramref name="vector"/> 是零向量或与 <paramref name="arc"/> 的法向平行时引发。</exception>
         public static Point GetPointOnDirection(this Arc arc, Vector vector) {
             if (arc is null) {
                 throw new ArgumentNullException(nameof(arc));
@@ -25,8 +25,8 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 throw new ArgumentNullException(nameof(vector));
             }
 
-            if (vector == new Vector() || Parallel.VectorToVector(vector, arc.Normal))
-                throw new ArgumentException(nameof(vector));
+            if (vector.IsZero() || Parallel.VectorToVector(vector, arc.Normal))
+                throw new ArgumentException($"{nameof(vector)} 不应是零向量，且不应与 {nameof(arc)} 的法向平行。", nameof(vector));
 
             var v = ProjectionExtension.VectorToPlane(vector, new GeometricPlane(arc.CenterPoint, arc.Normal));
             var angle = arc.StartDirection.GetAngleBetween_WithDirection(v, arc.Normal);

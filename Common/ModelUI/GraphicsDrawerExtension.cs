@@ -18,7 +18,8 @@ namespace Muggle.TeklaPlugins.Common.ModelUI {
         /// <param name="type">线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
         /// <param name="accuracy">模拟圆弧的精细程度，即每多少弧长画一条直线，默认10。不建议设置为太小的数，会十分影响性能。</param>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="width"/> 是有效值"1, 2, 4"以外的数值，
+        /// 或<paramref name="accuracy"/> 小于等于 0 时引发。</exception>
         public static void DrawArc(this GraphicsDrawer drawer,
             Arc arc,
             Color color = default,
@@ -58,7 +59,8 @@ namespace Muggle.TeklaPlugins.Common.ModelUI {
         /// <param name="type">线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
         /// <param name="size">点大小，默认50。</param>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="width"/> 是有效值"1, 2, 4"以外的数值，
+        /// 或<paramref name="size"/> 小于等于 0 时引发。</exception>
         public static void DrawPoint(this GraphicsDrawer drawer,
             Point point,
             Color color = default,
@@ -114,7 +116,8 @@ namespace Muggle.TeklaPlugins.Common.ModelUI {
         /// <param name="point">基准控制点，默认为直线原点。</param>
         /// <param name="length">要画出的长度，默认5000。</param>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="line"/> 的 <see cref="Line.Direction"/> 属性为零向量，
+        /// 或 <paramref name="length"/> 小于等于 0.0，或 <paramref name="width"/> 是有效值"1, 2, 4"以外的数值时引发。</exception>
         public static void DrawLine(this GraphicsDrawer drawer,
             Line line,
             Color color = default,

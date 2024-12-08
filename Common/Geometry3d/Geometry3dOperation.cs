@@ -98,12 +98,12 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             return arrayList;
         }
         /// <summary>
-        /// 在平面上，有一个固定形状的三角形（位置不固定）和三条已知直线（位置固定）。求当三角形三个顶点分别落三条直线上时的位置（即三个顶点值）。
+        /// 在平面上，有一个固定形状的三角形（位置不固定）和三条已知直线（位置固定）。求当三角形三个顶点分别落在三条直线上时的位置（即三个顶点值）。
         /// <para><b>* 本方法仅处理二维平面情形。</b></para>
         /// <para>作如下约定：</para>
         /// <list type="bullet">
         ///     <item>
-        ///         三条直线分别为 <paramref name="lines"/>.L1, <paramref name="lines"/>L2, <paramref name="lines"/>L3。
+        ///         三条直线分别为 <paramref name="lines"/>.L1, <paramref name="lines"/>.L2, <paramref name="lines"/>.L3。
         ///     </item>
         ///     <item>  
         ///         三角形三条边分别为 <paramref name="edges"/>.E1, <paramref name="edges"/>.E2, <paramref name="edges"/>.E3。

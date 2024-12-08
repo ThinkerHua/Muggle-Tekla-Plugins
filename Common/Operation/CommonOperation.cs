@@ -9,7 +9,7 @@ namespace Muggle.TeklaPlugins.Common.Operation {
         /// <summary>
         /// 交换数据。
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">执行交换操作的数据类型</typeparam>
         /// <param name="a">要交换的数据</param>
         /// <param name="b">要交换的数据</param>
         public static void Swap<T>(ref T a, ref T b) {
@@ -34,13 +34,13 @@ namespace Muggle.TeklaPlugins.Common.Operation {
         /// <summary>
         /// 找出数据集合 <paramref name="data"/> 中的局部极值，并返回其序号集合。
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">数据集合中数据的类型。</typeparam>
         /// <param name="data">给定数据集合。</param>
         /// <param name="type">极值类型。</param>
         /// <param name="interval">用来判断极值的最小区间，应当为3以上的奇数，输入偶数则向上进1。</param>
         /// <returns>可能的局部极值的序号集合。入参为null或不符合规则，则返回null。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">数据集合 <paramref name="data"/> 为空时引发。</exception>
         public static List<int> GetLocalExtremeIndexes<T>(
             IList<T> data,
             ExtremeTypeEnum type,

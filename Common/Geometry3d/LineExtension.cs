@@ -6,9 +6,18 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <see cref="Tekla.Structures.Geometry3d"/>.<see cref="Line"/> 的扩展。
     /// </summary>
     public static class LineExtension {
+        /// <summary>
+        /// 偏移方向。
+        /// </summary>
         public enum OffsetDirectionEnum {
+            /// <summary>
+            /// 向左偏移。
+            /// </summary>
             LEFT,
-            RIGHT
+            /// <summary>
+            /// 向右偏移。
+            /// </summary>
+            RIGHT,
         }
         /// <summary>
         /// 适用于XY平面。

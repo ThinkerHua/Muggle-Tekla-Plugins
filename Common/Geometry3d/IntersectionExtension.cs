@@ -39,20 +39,20 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <para>L1上的点方程：P=P1+s*V1, L2上的点方程：P=P2+t*V2，最短线段所在直线上的方程：P=P3+r*V3</para>
         /// <para>由于最短线段两端分别落在L1、L2上，则有：(P2+t*V2)+r*V3=P1+s*V1</para>
         /// <para>可令V3=(P2+t*V2)-(P1+s*V1)，代入上述方程，则有：</para>
-        /// <para>(1) P1+s*V1=P2+t*V2，即s*V1-t*V2=P2-P1</para>
+        /// <para><i>(1) P1+s*V1=P2+t*V2，即s*V1-t*V2=P2-P1</i></para>
         /// <para>由于向量与其自身叉积为0，则有：</para>
-        /// <para>(2) s*V1×V2=(P2-P1)×V2</para>
+        /// <para><i>(2) s*V1×V2=(P2-P1)×V2</i></para>
         /// <para>这是一个向量方程，要得到实数方程，可以对两边用V1×V2做点积：</para>
         /// <para>s*(V1×V2)∙(V1×V2)=((P2-P1)×V2)∙(V1×V2)，求解出：</para>
-        /// <para>(3) s=((P2-P1)×V2)∙(V1×V2)/||V1×V2||^2</para>
+        /// <para><i>(3) s=((P2-P1)×V2)∙(V1×V2)/||V1×V2||^2</i></para>
         /// <para>再将s代入步骤(1)方程即可求解出：</para>
-        /// <para>(4) t=(s*V1-(P2-P1))∙V2/(V2∙V2) - 由于向量没有除法，所以此处需用点积形式做除法</para>
+        /// <para><i>(4) t=(s*V1-(P2-P1))∙V2/(V2∙V2)</i> - 由于向量没有除法，所以此处需用点积形式做除法</para>
         /// <para>据此即可算出最短线段的两个端点。</para>
         /// <para>
         ///     上述方程中，P1、P2可分别取值为L1、L2的 <see cref="Line.Origin"/> 属性，
         ///     V1、V2分别为L1、L2的 <see cref="Line.Direction"/> 属性。
         /// </para>
-        /// <para>另外，最短距离可用公式 d = (P2-P1)∙(V1×V2)/||V1×V2|| 求得。</para>
+        /// <para>另外，最短距离可用公式 <i>d = (P2-P1)∙(V1×V2)/||V1×V2||</i> 求得。</para>
         /// </summary>
         /// <param name="line1">给定直线1</param>
         /// <param name="line2">给定直线2</param>
@@ -260,12 +260,14 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         ///         <list type="bullet">
         ///             <item>与穿过的圆直径所在直线垂直：直线与圆平面交点在圆内时，有两个解；在圆上或圆外时，有一个解。
         ///                 <para>此情形下最优解可通过求以下方程最小值时的 α 得到：</para>
-        ///                     <code>y = ((d*tan(α)/tan(θ))^2 + (r-d/cos(α))^2)^0.5</code>
-        ///                     <code>y - 圆上取点到直线的距离, y >= 0</code>
-        ///                     <code>r - 圆半径, r > 0</code>
-        ///                     <code>d - 圆心到直线的距离, 0 &lt;= d &lt;= r</code>
-        ///                     <code>θ - 直线方向与圆平面法向的夹角, 0 &lt; θ &lt; 0.5π</code>
-        ///                     <code>α - 圆上取点与圆心的连线 和 直线与圆平面的交点与圆心的连线之间的夹角, 0 &lt; α &lt; 0.5π</code>
+        /// <code>
+        /// y = ((d*tan(α)/tan(θ))^2 + (r-d/cos(α))^2)^0.5
+        /// y - 圆上取点到直线的距离, y >= 0
+        /// r - 圆半径, r > 0
+        /// d - 圆心到直线的距离, 0 &lt;= d &lt;= r
+        /// θ - 直线方向与圆平面法向的夹角, 0 &lt; θ &lt; 0.5π
+        /// α - 圆上取点与圆心的连线 和 直线与圆平面的交点与圆心的连线之间的夹角, 0 &lt; α &lt; 0.5π
+        /// </code>
         ///                 <b>* 上述方程不会解，暂时调用采样方法实现</b>，参见 <see cref="ArcToLine(Arc, Line, double, double)"/> 。
         ///             </item>
         ///             <item>与穿过的圆直径所在直线不垂直：只有一个解。

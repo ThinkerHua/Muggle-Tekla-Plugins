@@ -4,6 +4,9 @@ using System.IO.Compression;
 using System.Text;
 
 namespace Muggle.TeklaPlugins.Common.Operation {
+    /// <summary>
+    /// 字符串压缩器。
+    /// </summary>
     [Obsolete]
     public class StringCompression {
         /// <summary>
@@ -11,7 +14,7 @@ namespace Muggle.TeklaPlugins.Common.Operation {
         /// </summary>
         /// <param name="rawString">原始字符串</param>
         /// <returns>压缩后的字符串。</returns>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="rawString"/> 为 null 或 <see cref="string.Empty"/> 时引发。</exception>
         public static string Compress(string rawString) {
             if (string.IsNullOrEmpty(rawString)) {
                 throw new ArgumentException($"“{nameof(rawString)}”不能为 null 或空。", nameof(rawString));
@@ -27,7 +30,7 @@ namespace Muggle.TeklaPlugins.Common.Operation {
         /// </summary>
         /// <param name="zippedString">压缩的字符串</param>
         /// <returns>解压后的（原始）字符串。</returns>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="zippedString"/> 为 null 或 <see cref="string.Empty"/> 时引发。</exception>
         public static string Decompress(string zippedString) {
             if (string.IsNullOrEmpty(zippedString)) {
                 throw new ArgumentException($"“{nameof(zippedString)}”不能为 null 或空。", nameof(zippedString));
@@ -83,6 +86,9 @@ namespace Muggle.TeklaPlugins.Common.Operation {
             return outBuffer.ToArray();
         }
     }
+    /// <summary>
+    /// 数值压缩器。
+    /// </summary>
     public class NumberCompression {
         /// <summary>
         /// double转换成string。

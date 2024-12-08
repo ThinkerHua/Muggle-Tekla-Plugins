@@ -64,6 +64,13 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return new Point(det1 / det, det2 / det, det3 / det);
         }
+        /// <summary>
+        /// 使用当前矩阵变换给定向量。
+        /// </summary>
+        /// <param name="matrix">当前矩阵</param>
+        /// <param name="vector">给定向量</param>
+        /// <returns>变换后的向量。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static Vector Transform(this Matrix matrix, Vector vector) {
             if (matrix is null) {
                 throw new ArgumentNullException(nameof(matrix));
