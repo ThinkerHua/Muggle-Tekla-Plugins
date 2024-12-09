@@ -35,7 +35,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
 
     }
     [Plugin("WK1001")]
-    [PluginUserInterface("MuggleTeklaPlugins.WK1001.FormWK1001")]
+    [PluginUserInterface("Muggle.TeklaPlugins.WK1001.FormWK1001")]
     [SecondaryType(SecondaryType.SECONDARYTYPE_MULTIPLE)]
     public class WK1001 : ConnectionBase {
         #region Fields

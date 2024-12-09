@@ -110,7 +110,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
     }
 
     [Plugin("MG1001")]
-    [PluginUserInterface("MuggleTeklaPlugins.MG1001.FormMG1001")]
+    [PluginUserInterface("Muggle.TeklaPlugins.MG1001.FormMG1001")]
     //[InputObjectType(InputObjectType.INPUTOBJECT_PART)]
     [SecondaryType(SecondaryType.SECONDARYTYPE_ONE)]
     [AutoDirectionType(AutoDirectionTypeEnum.AUTODIR_BASIC)]

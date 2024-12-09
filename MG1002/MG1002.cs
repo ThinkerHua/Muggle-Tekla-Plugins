@@ -51,7 +51,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
     }
 
     [Plugin("MG1002")]
-    [PluginUserInterface("MuggleTeklaPlugins.MG1002.FormMG1002")]
+    [PluginUserInterface("Muggle.TeklaPlugins.MG1002.FormMG1002")]
     [SecondaryType(SecondaryType.SECONDARYTYPE_TWO)]
     [AutoDirectionType(AutoDirectionTypeEnum.AUTODIR_BASIC)]
     public class MG1002 : ConnectionBase {
