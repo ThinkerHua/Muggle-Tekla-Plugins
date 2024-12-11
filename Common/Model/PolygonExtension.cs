@@ -8,10 +8,10 @@ namespace Muggle.TeklaPlugins.Common.Model {
     /// </summary>
     public static class PolygonExtension {
         /// <summary>
-        /// 克隆一个多边形。
+        /// 克隆一个实例。
         /// </summary>
-        /// <param name="polygon">当前多边形</param>
-        /// <returns>克隆的多边形。</returns>
+        /// <param name="polygon">当前实例</param>
+        /// <returns>克隆的实例。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static Polygon Clone(this Polygon polygon) {
             if (polygon is null) {

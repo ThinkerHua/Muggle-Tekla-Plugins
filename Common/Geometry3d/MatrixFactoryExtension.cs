@@ -4,20 +4,20 @@ using Tekla.Structures.Geometry3d;
 namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// <see cref="Tekla.Structures.Geometry3d"/>.<see cref="MatrixFactory"/> 的扩展。
+    /// <para></para>
     /// </summary>
+    /// <remarks><b>
+    /// Tekla Open API内部，矩阵操作对象为坐标系。
+    /// 参考官方库的 <see cref="MatrixFactory.Rotate(double, Vector)"/> 方法，
+    /// 产生的矩阵对点进行变换操作，实际得到的结果是反方向旋转的。
+    /// 本类中的扩展方法创建的矩阵，保持与官方实现行为一致。
+    /// </b></remarks>
     public static class MatrixFactoryExtension {
         /// <summary>
         /// 使用给定向量创建平移矩阵。
-        /// <para><b>
-        ///     注：Tekla Open API内部，矩阵操作对象为坐标系。
-        ///     参考官方库的<see cref="MatrixFactory.Rotate(double, Vector)"/> 方法，
-        ///     产生的矩阵对向量进行变换操作，实际得到的结果是反方向旋转的。
-        ///     因此，本方法创建的平移矩阵，也是以坐标系为操作对象的，
-        ///     用所得矩阵对点进行变换，得到的结果是反方向移动的。
-        /// </b></para>
         /// </summary>
         /// <param name="vector">给定向量</param>
-        /// <returns>平移矩阵（线性变换部分为单位矩阵）。</returns>
+        /// <returns>平移矩阵。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static Matrix Translate(Vector vector) {
             if (vector is null) {
@@ -25,12 +25,101 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             }
 
             var matrix = new Matrix();
-            matrix[0, 0] = 1.0; matrix[0, 1] = 0.0; matrix[0, 2] = 0.0;
-            matrix[1, 0] = 0.0; matrix[1, 1] = 1.0; matrix[1, 2] = 0.0;
-            matrix[2, 0] = 0.0; matrix[2, 1] = 0.0; matrix[2, 2] = 1.0;
-            matrix[3, 0] = -vector.X; matrix[3, 1] = -vector.Y; matrix[3, 2] = -vector.Z;
+            matrix[3, 0] = -vector.X; 
+            matrix[3, 1] = -vector.Y; 
+            matrix[3, 2] = -vector.Z;
 
             return matrix;
+        }
+        /// <summary>
+        /// 以给定直线为旋转轴创建旋转矩阵。
+        /// </summary>
+        /// <param name="axis">旋转轴</param>
+        /// <param name="radians">旋转角度，弧度制</param>
+        /// <returns>旋转矩阵。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="axis"/> 的 <see cref="Line.Direction"/> 属性不应为零向量。</exception>
+        /// <remarks>官方实现的 <see cref="MatrixFactory.Rotate(double, Vector)"/> 方法，
+        /// 只能以穿过当前坐标原点的旋转轴创建旋转矩阵。本实现可根据任意旋转轴创建旋转矩阵。</remarks>
+        public static Matrix Rotate(Line axis, double radians) {
+            if (axis is null) {
+                throw new ArgumentNullException(nameof(axis));
+            }
+
+            if (axis.Direction.IsZero()) {
+                throw new ArgumentException($"{nameof(axis)} 的 Direction 属性不应为零向量。", nameof(axis));
+            }
+
+            var origin = new Point();
+            var rM = MatrixFactory.Rotate(radians, axis.Direction);
+
+            var projectedPoint = Projection.PointToLine(origin, axis);
+            var currentVector = new Vector(origin - projectedPoint);
+            var rotatedVector = MatrixExtension.Transform(rM.GetTranspose(), currentVector);
+
+            // currentVector + translateVector = rotatedVector
+            var tM = MatrixFactoryExtension.Translate(new Vector(rotatedVector - currentVector));
+
+            return rM * tM;
+        }
+        /// <summary>
+        /// 使用镜像平面的法向及镜像平面上的任意一点创建镜像矩阵。
+        /// </summary>
+        /// <param name="normal">镜像平面的法向</param>
+        /// <param name="point">镜像平面上的任意一点</param>
+        /// <returns>镜像矩阵。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="normal"/> 不应是零向量。</exception>
+        public static Matrix Mirror(Vector normal, Point point) {
+            if (point is null) {
+                throw new ArgumentNullException(nameof(point));
+            }
+
+            if (normal is null) {
+                throw new ArgumentNullException(nameof(normal));
+            }
+
+            if (normal.IsZero()) {
+                throw new ArgumentException($"{nameof(normal)} 不应是零向量", nameof(normal));
+            }
+
+            normal = normal.GetNormal();
+
+            var v = Vector.Dot(normal, new Vector(point)) * normal;
+            var translate = MatrixFactoryExtension.Translate(v * 2);
+            var mirror = new Matrix();
+            mirror[0, 0] = 1 - 2 * normal.X * normal.X; mirror[0, 1] = -2 * normal.X * normal.Y; mirror[0, 2] = -2 * normal.X * normal.Z;
+            mirror[1, 0] = -2 * normal.Y * normal.X; mirror[1, 1] = 1 - 2 * normal.Y * normal.Y; mirror[1, 2] = -2 * normal.Y * normal.Z;
+            mirror[2, 0] = -2 * normal.Z * normal.X; mirror[2, 1] = -2 * normal.Z * normal.Y; mirror[2, 2] = 1 - 2 * normal.Z * normal.Z;
+
+            return mirror * translate;
+        }
+        /// <summary>
+        /// 使用镜像平面的法向及坐标系原点与镜像平面之间的距离创建镜像矩阵。
+        /// </summary>
+        /// <param name="normal">镜像平面的法向</param>
+        /// <param name="distance">坐标系原点与镜像平面之间的距离。正值表示坐标系原点在平面之上，负值表示坐标系原点在平面之下。</param>
+        /// <returns>镜像矩阵。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="normal"/> 不应是零向量。</exception>
+        public static Matrix Mirror(Vector normal, double distance) {
+            if (normal is null) {
+                throw new ArgumentNullException(nameof(normal));
+            }
+
+            if (normal.IsZero()) {
+                throw new ArgumentException($"{nameof(normal)} 不应是零向量", nameof(normal));
+            }
+
+            normal = normal.GetNormal();
+;
+            var translate = MatrixFactoryExtension.Translate(normal * distance * 2);
+            var mirror = new Matrix();
+            mirror[0, 0] = 1 - 2 * normal.X * normal.X; mirror[0, 1] = -2 * normal.X * normal.Y; mirror[0, 2] = -2 * normal.X * normal.Z;
+            mirror[1, 0] = -2 * normal.Y * normal.X; mirror[1, 1] = 1 - 2 * normal.Y * normal.Y; mirror[1, 2] = -2 * normal.Y * normal.Z;
+            mirror[2, 0] = -2 * normal.Z * normal.X; mirror[2, 1] = -2 * normal.Z * normal.Y; mirror[2, 2] = 1 - 2 * normal.Z * normal.Z;
+
+            return mirror * translate;
         }
     }
 }

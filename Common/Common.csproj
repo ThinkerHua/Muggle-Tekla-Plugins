@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Internal.cs" />
+    <Compile Include="Model\ContourPointExtension.cs" />
+    <Compile Include="Model\PositionExtension.cs" />
     <Compile Include="Operation\CommonOperation.cs" />
     <Compile Include="Geometry3d\ArcExtension.cs" />
     <Compile Include="Geometry3d\CoordinateSystemExtension.cs" />

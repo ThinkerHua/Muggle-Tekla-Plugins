@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
+using Tekla.Structures.Model.Operations;
 using Tekla.Structures.Model.UI;
 
 namespace Muggle.TeklaPlugins.UnitTest {
@@ -162,53 +163,82 @@ namespace Muggle.TeklaPlugins.UnitTest {
 
             var globalTP = new TransformationPlane();
             var currentTP = model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
-            var picker = new Picker();
-            var part = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART);
-            var partCS = part.GetCoordinateSystem();
-            var partTP = new TransformationPlane(partCS);
-            Console.WriteLine($"Global TransformationPlane:\n{globalTP}");
-            Console.WriteLine($"Current TransformationPlane:\n{currentTP}");
-            Console.WriteLine($"Part TransformationPlane:\n{partTP}");
-            var matrix = partTP.TransformationMatrixToLocal;
-            Console.WriteLine($"Matrix:\n{matrix}");
-            matrix = matrix.GetTranspose();
-            Console.WriteLine($"Matrix:\n{matrix}");
-
+            Matrix matrix;
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(globalTP);
             var globalCS = new CoordinateSystem();
-            var targetCS1 = new CoordinateSystem(new Point(100, 200, 300), new Vector(1, 0, 0), new Vector(0, 1, 0));//平移
-            var targetCS2 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, 1, 0), new Vector(-1, 0, 0));//平移+绕Z轴旋转90度
-            var targetCS3 = new CoordinateSystem(new Point(100, 200, 300), new Vector(-1, 0, 0), new Vector(0, -1, 0));//平移+绕Z轴旋转180度
-            var targetCS4 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, -1, 0), new Vector(1, 0, 0));//平移+绕Z轴旋转270度
-            var targetCS5 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, 1, 0), new Vector(1, 0, 0));//平移+绕XY平面45度轴旋转180度
-            var rotationMatrix = MatrixFactory.Rotate(Math.PI * 0.5, new Vector(0, 0, 1));
-            var translationMatrix = new Matrix();
-            translationMatrix[0, 0] = 1; translationMatrix[0, 1] = 0; translationMatrix[0, 2] = 0;
-            translationMatrix[1, 0] = 0; translationMatrix[1, 1] = 1; translationMatrix[1, 2] = 0;
-            translationMatrix[2, 0] = 0; translationMatrix[2, 1] = 0; translationMatrix[2, 2] = 1;
-            translationMatrix[3, 0] = -100; translationMatrix[3, 1] = -200; translationMatrix[3, 2] = -300;
+            //平移(100, 200, 300)
+            var targetCS1 = new CoordinateSystem(new Point(100, 200, 300), new Vector(1, 0, 0), new Vector(0, 1, 0));
+            //绕Z轴旋转90度
+            var targetCS2 = new CoordinateSystem(new Point(), new Vector(0, 1, 0), new Vector(-1, 0, 0));
+            //平移(100, 200, 300)+绕Z轴旋转90度
+            var targetCS3 = new CoordinateSystem(new Point(100, 200, 300), new Vector(0, 1, 0), new Vector(-1, 0, 0));
+            var translationMatrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS1);
+            var rotationMatrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS2);
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(currentTP);
 
-            Console.WriteLine($"Rotation matrix:\n{rotationMatrix}");
-            Console.WriteLine($"Translation matrix:\n{translationMatrix}");
             var point = new Point(100, 200, 300);
-            Console.WriteLine($"Point:\n\t{point}");
-            Console.WriteLine($"Rotated point:\n\t{rotationMatrix.Transform(point)}");
-            Console.WriteLine($"Translated point:\n\t{translationMatrix.Transform(point)}");
-            Console.WriteLine($"Rotation matrix multiply translation matrix:\n{rotationMatrix * translationMatrix}");
-            Console.WriteLine($"Translation matrix multiply rotation matrix:\n{translationMatrix * rotationMatrix}");
-            Console.WriteLine("矩阵乘法一般不满足交换律！");
-            Console.WriteLine($"Rotated and translated point:\n\t{(rotationMatrix * translationMatrix).Transform(point)}");
             matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS1);
-            Console.WriteLine($"Matrix 1:\n{matrix}");
+            Console.WriteLine($"Matrix 平移(100, 200, 300)：\n{matrix}");
             matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS2);
-            Console.WriteLine($"Matrix 2:\n{matrix}");
+            Console.WriteLine($"Matrix 绕Z轴旋转90度：\n{matrix}");
             matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS3);
-            Console.WriteLine($"Matrix 3:\n{matrix}");
-            matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS4);
-            Console.WriteLine($"Matrix 4:\n{matrix}");
-            matrix = MatrixFactory.ByCoordinateSystems(globalCS, targetCS5);
-            Console.WriteLine($"Matrix 5:\n{matrix}");
+            Console.WriteLine($"Matrix 平移(100, 200, 300) + 绕Z轴旋转90度：\n{matrix}");
+            Console.WriteLine($"Matrix 平移(100, 200, 300) 乘以 绕Z轴旋转90度：\n{translationMatrix * rotationMatrix}");
+            Console.WriteLine($"Matrix 绕Z轴旋转90度 乘以 平移(100, 200, 300)：\n{rotationMatrix * translationMatrix}");
+            Console.WriteLine($"初始点：\n\t{point}");
+            Console.WriteLine($"平移矩阵变换后的点：\n\t{translationMatrix.Transform(point)}");
+            Console.WriteLine($"旋转矩阵变换后的点：\n\t{rotationMatrix.Transform(point)}");
+            Console.WriteLine($"平移矩阵 乘以 旋转矩阵变换后的点：\n\t{(translationMatrix * rotationMatrix).Transform(point)}");
+            Console.WriteLine($"旋转矩阵 乘以 平移矩阵变换后的点：\n\t{(rotationMatrix * translationMatrix).Transform(point)}");
+            /*  
+             *  输出结果：
+             *  
+             *  Matrix 平移(100, 200, 300)：
+             *  [1.0000 0.0000 0.0000]
+             *  [0.0000 1.0000 0.0000]
+             *  [0.0000 0.0000 1.0000]
+             *  [-100.0000 -200.0000 -300.0000]
+             *  
+             *  Matrix 绕Z轴旋转90度：
+             *  [0.0000 -1.0000 0.0000]
+             *  [1.0000 0.0000 0.0000]
+             *  [0.0000 0.0000 1.0000]
+             *  [0.0000 0.0000 0.0000]
+             *  
+             *  Matrix 平移(100, 200, 300) + 绕Z轴旋转90度：
+             *  [0.0000 -1.0000 0.0000]
+             *  [1.0000 0.0000 0.0000]
+             *  [0.0000 0.0000 1.0000]
+             *  [-200.0000 100.0000 -300.0000]
+             *  
+             *  Matrix 平移(100, 200, 300) 乘以 绕Z轴旋转90度：
+             *  [0.0000 -1.0000 0.0000]
+             *  [1.0000 0.0000 0.0000]
+             *  [0.0000 0.0000 1.0000]
+             *  [-100.0000 -200.0000 -300.0000]
+             *  
+             *  Matrix 绕Z轴旋转90度 乘以 平移(100, 200, 300)：
+             *  [0.0000 -1.0000 0.0000]
+             *  [1.0000 0.0000 0.0000]
+             *  [0.0000 0.0000 1.0000]
+             *  [-200.0000 100.0000 -300.0000]
+             *  
+             *  初始点：
+	         *      (100.000, 200.000, 300.000)
+             *  平移矩阵变换后的点：
+	         *      (0.000, 0.000, 0.000)
+             *  旋转矩阵变换后的点：
+	         *      (200.000, -100.000, 300.000)
+             *  平移矩阵 乘以 旋转矩阵变换后的点：
+	         *      (100.000, -300.000, 0.000)
+             *  旋转矩阵 乘以 平移矩阵变换后的点：
+	         *      (0.000, 0.000, 0.000)
+	         *  
+	         *  结论：多个矩阵相乘，应用顺序为从右向左。
+	         *  左边的矩阵变换，是在右边矩阵变换完成后的新坐标系上继续变换。
+	         *  
+	         *  由 MatrixFactory.ByCoordinateSystem 方法产生的矩阵，是先应用平移变换，再应用旋转变换。
+             */
 
         }
         [TestMethod]
@@ -780,7 +810,9 @@ namespace Muggle.TeklaPlugins.UnitTest {
             var point = picker.PickPoint("Select the rotation axis's original point:");
             var direction = picker.PickPoint("Select the rotation axis's direction:");
 
-            ModelOperation.Copy_Rotate(obj, point, new Vector(direction - point), Math.PI * 0.25);
+            //ModelOperation.Copy_Rotate(obj, point, new Vector(direction - point), Math.PI * 0.25);
+            var matrix = MatrixFactoryExtension.Rotate(new Line(point, direction), Math.PI * 0.25);
+            ModelOperation.CopyObject(obj, matrix);
 
             model.CommitChanges();
         }
@@ -1128,6 +1160,59 @@ namespace Muggle.TeklaPlugins.UnitTest {
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
                 throw;
+            }
+        }
+        [TestMethod]
+        public void TestMirrorMatrix1() {
+            try {
+                var model = new Model();
+                if (!model.GetConnectionStatus()) return;
+
+                var axisZ = new Vector(0, 0, 1);
+                var picker = new Picker();
+                var p1 = picker.PickPoint("选择镜像平面上一点：");
+                var p2 = picker.PickPoint("选择镜像平面上另一点：");
+                var p3 = picker.PickPoint("选择镜像平面的法向：");
+
+                var line = new Line(p1, p2);
+                var projection = Projection.PointToLine(p3, line);
+                var normal = new Vector(p3 - projection);
+                var mirroringMatrix = MatrixFactoryExtension.Mirror(normal, p1);
+
+                var rotationMatrix = MatrixFactoryExtension.Rotate(line, Math.PI);
+
+                Console.WriteLine(mirroringMatrix.ToString());
+                Console.WriteLine(rotationMatrix.ToString());
+
+            } catch (Exception) {
+
+            }
+        }
+        [TestMethod]
+        public void TestMirrorMatrix2() {
+            var model = new Model();
+            if (!model.GetConnectionStatus()) return;
+
+            try {
+                var axisZ = new Vector(0, 0, 1);
+                while (true) {
+                    var picker = new Picker();
+                    var beam = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART) as Beam;
+                    var p1 = picker.PickPoint("选择镜像平面上一点：");
+                    var p2 = picker.PickPoint("选择镜像平面上另一点：");
+                    var p3 = picker.PickPoint("选择镜像平面的法向：");
+
+                    var direction = new Vector(p3 - Projection.PointToLine(p3, new Line(p1, p2)));
+                    var mirrorMatrix = MatrixFactoryExtension.Mirror(direction, p1);
+
+                    beam.StartPoint = mirrorMatrix.Transform(beam.StartPoint);
+                    beam.EndPoint = mirrorMatrix.Transform(beam.EndPoint);
+                    beam.Modify();
+
+                    model.CommitChanges();
+                }
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
             }
         }
     }
