@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Tekla.Structures.Datatype;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
@@ -14,7 +15,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <summary>
         /// 用给定轮廓点集合创建布尔操作多边形。
         /// </summary>
-        /// <param name="contourPoints">轮廓点</param>
+        /// <param name="contourPoints">轮廓点集合</param>
         /// <param name="thickness">厚度</param>
         /// <returns>布尔操作多边形。</returns>
         /// <exception cref="ArgumentNullException"></exception>
@@ -27,8 +28,13 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentOutOfRangeException($"“{nameof(thickness)}”不能是 double.NaN，也不应小于等于0.0。");
             }
 
+
+            var cps = new ArrayList();
+            foreach (ContourPoint cp in contourPoints) {
+                cps.Add(cp.Clone());
+            }
             ContourPlate contourPlate = new ContourPlate {
-                Contour = { ContourPoints = new ArrayList(contourPoints) },
+                Contour = { ContourPoints = cps },
                 Profile = { ProfileString = "PL" + thickness },
                 Material = { MaterialString = "ANTIMATERIAL" },
                 Class = BooleanPart.BooleanOperativeClassName,
@@ -80,8 +86,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentNullException(nameof(sourceContourPlate));
             }
 
+            var cps = new ArrayList();
+            foreach (ContourPoint cp in sourceContourPlate.Contour.ContourPoints) {
+                cps.Add(cp.Clone());
+            }
             ContourPlate contourPlate = new ContourPlate {
-                Contour = { ContourPoints = new ArrayList(sourceContourPlate.Contour.ContourPoints) },
+                Contour = { ContourPoints = cps },
                 Profile = { ProfileString = string.Copy(sourceContourPlate.Profile.ProfileString) },
                 Material = { MaterialString = "ANTIMATERIAL" },
                 Class = BooleanPart.BooleanOperativeClassName,
@@ -278,8 +288,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentException($"“{nameof(@class)}”不能为 null 或空。", nameof(@class));
             }
 
+            var cps = new ArrayList();
+            foreach (ContourPoint cp in contourPoints) {
+                cps.Add(cp.Clone());
+            }
             ContourPlate contourPlate = new ContourPlate {
-                Contour = { ContourPoints = new ArrayList(contourPoints) },
+                Contour = { ContourPoints = cps },
                 Name = string.Copy(name),
                 Profile = { ProfileString = string.Copy(profileStr) },
                 Material = { MaterialString = string.Copy(materialStr) },
@@ -328,6 +342,10 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentNullException(nameof(points));
             }
 
+            if (points.Count() == 0) {
+                throw new ArgumentException($"“{nameof(points)}”元素数量不应为 0。", nameof(points));
+            }
+
             if (string.IsNullOrEmpty(name)) {
                 throw new ArgumentException($"“{nameof(name)}”不能为 null 或空。", nameof(name));
             }
@@ -356,9 +374,6 @@ namespace Muggle.TeklaPlugins.Common.Model {
             var chamfer = new Chamfer();
             foreach (var point in points) {
                 contourPoints.Add(new ContourPoint(point, chamfer));
-            }
-            if (contourPoints.Count == 0) {
-                throw new ArgumentException($"“{nameof(points)}”元素数量不应为 0。");
             }
 
             ContourPlate contourPlate = new ContourPlate {
@@ -510,7 +525,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             if (firstPosition is null) {
                 throw new ArgumentNullException(nameof(firstPosition));
             }
-            
+
             if (secondPosition is null) {
                 throw new ArgumentNullException(nameof(secondPosition));
             }
@@ -523,16 +538,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             if (position == null) position = new Position { Rotation = Position.RotationEnum.TOP };
 
-            //使用new，防止引用类型值变化
-            firstPosition = new Point(firstPosition);
-            secondPosition = new Point(secondPosition);
-
             BoltArray boltArray = new BoltArray {
                 PartToBoltTo = boltTo,
                 PartToBeBolted = beBolted,
-                FirstPosition = firstPosition,
-                SecondPosition = secondPosition,
-                Position = position,
+                FirstPosition = new Point(firstPosition),
+                SecondPosition = new Point(secondPosition),
+                Position = position.Clone(),
                 BoltStandard = string.Copy(bolt_standard),
                 BoltSize = bolt_size,
                 BoltType = bolttype,
@@ -620,17 +631,14 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             if (position == default) position = new Position { Rotation = Position.RotationEnum.TOP };
 
-            firstPosition = new Point(firstPosition);
-            secondPosition = new Point(secondPosition);
-
             var boltCircle = new BoltCircle {
                 PartToBoltTo = boltTo,
                 PartToBeBolted = beBolted,
-                FirstPosition = firstPosition,
-                SecondPosition = secondPosition,
+                FirstPosition = new Point(firstPosition),
+                SecondPosition = new Point(secondPosition),
                 NumberOfBolts = num,
                 Diameter = diameter,
-                Position = position,
+                Position = position.Clone(),
                 BoltStandard = string.Copy(bolt_standard),
                 BoltSize = bolt_size,
                 BoltType = bolttype,
@@ -653,6 +661,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return boltCircle;
         }
+        [Obsolete("应改为使用 Muggle.TeklaPlugins.Model.ModelOperation.CopyObject(ModelObject obj, Matrix matrix, int num)方法", true)]
         /// <summary>
         /// 沿给定轴线每隔给定角度旋转复制一份对象。
         /// </summary>
@@ -696,6 +705,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return objs;
         }
+        [Obsolete("应改为使用 Muggle.TeklaPlugins.Model.ModelOperation.MoveObject(ModelObject obj, Matrix matrix)方法", true)]
         /// <summary>
         /// 沿给定轴线和角度旋转移动对象。
         /// </summary>
@@ -723,19 +733,68 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentNullException(nameof(Axis_Direction));
             }
 
+            var matrix = MatrixFactoryExtension.Rotate(new Line(Axis_Origin, Axis_Direction), radians);
             var currentCS = new CoordinateSystem();
-            var rM = MatrixFactory.Rotate(radians, Axis_Direction);
-
-            var line = new Line(Axis_Origin, Axis_Direction);
-            var projectedPoint = Projection.PointToLine(currentCS.Origin, line);
-            var currentVector = new Vector(currentCS.Origin - projectedPoint);
-            var rotatedVector = MatrixExtension.Transform(rM.GetTranspose(), currentVector);
-
-            // currentVector + translateVector = rotatedVector
-            var tM = MatrixFactoryExtension.Translate(new Vector(rotatedVector - currentVector));
-            var targetCS = (rM * tM).Transform(currentCS);
+            var targetCS = matrix.Transform(currentCS);
 
             return Tekla.Structures.Model.Operations.Operation.MoveObject(obj, currentCS, targetCS);
+        }
+        /// <summary>
+        /// 按给定矩阵移动模型对象。
+        /// </summary>
+        /// <param name="obj">要移动的模型对象</param>
+        /// <param name="matrix">给定矩阵</param>
+        /// <returns>成功返回 True，失败返回 False。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <remarks>由于 Tekla Open API 底层限制，
+        /// 诸如镜像、缩放、切变等“变形”矩阵无法产生（完全）作用，
+        /// 仅平移、旋转矩阵可产生作用。</remarks>
+        public static bool MoveObject(ModelObject obj, Matrix matrix) {
+            if (obj is null) {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            if (matrix is null) {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
+            var currentCS = new CoordinateSystem();
+            var targetCS = matrix.Transform(currentCS);
+
+            return Tekla.Structures.Model.Operations.Operation.MoveObject(obj, currentCS, targetCS);
+        }
+        /// <summary>
+        /// 按给定矩阵连续复制模型对象。
+        /// </summary>
+        /// <param name="obj">要复制的模型对象</param>
+        /// <param name="matrix">给定矩阵</param>
+        /// <param name="num">复制份数，默认值 1</param>
+        /// <returns>成功复制的对象集合（不包括初始对象）。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <remarks><inheritdoc cref="MoveObject(ModelObject, Matrix)" path="/remarks[1]"/></remarks>
+        public static List<ModelObject> CopyObject(ModelObject obj, Matrix matrix, int num = 1) {
+            if (obj is null) {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            if (matrix is null) {
+                throw new ArgumentNullException(nameof(matrix));
+            }
+
+            if (num <= 0)
+                throw new ArgumentException($"“{nameof(num)}”不应小于等于0。", nameof(num));
+
+            var objs = new List<ModelObject>();
+            var zeroVector = new Vector();
+            ModelObject copy = obj;
+
+            for (int i = 0; i < num; i++) {
+                copy = Tekla.Structures.Model.Operations.Operation.CopyObject(copy, zeroVector);
+                if(MoveObject(copy, matrix)) objs.Add(copy);
+            }
+
+            return objs;
         }
     }
 }

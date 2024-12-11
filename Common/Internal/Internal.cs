@@ -14,9 +14,21 @@ namespace Muggle.TeklaPlugins.Common.Internal {
         /// 显示给定变换平面。
         /// </summary>
         /// <param name="tp">给定变换平面</param>
+        /// <param name="width">轴线要显示的宽度，默认 1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
+        /// <param name="lineType">轴线要显示的线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/></param>
+        /// <param name="axisX_Color">X轴要显示的颜色，默认为 <see cref="ColorExtension.Red"/></param>
+        /// <param name="axisY_Color">Y轴要显示的颜色，默认为 <see cref="ColorExtension.Green"/></param>
+        /// <param name="axisZ_Color">Z轴要显示的颜色，默认为 <see cref="ColorExtension.Blue"/></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="Exception">当 Tekla Structures 不在运行时引发。</exception>
-        public static void ShowTransformationPlane(TransformationPlane tp) {
+        public static void ShowTransformationPlane(
+            TransformationPlane tp,
+            int width = 1,
+            GraphicPolyLine.LineType lineType = GraphicPolyLine.LineType.Solid,
+            Color axisX_Color = default,
+            Color axisY_Color = default,
+            Color axisZ_Color = default) {
+
             if (tp is null) {
                 throw new ArgumentNullException(nameof(tp));
             }
@@ -30,18 +42,42 @@ namespace Muggle.TeklaPlugins.Common.Internal {
             var axisY = new Point(0, 500, 0).Transform(tp, currentTP);
             var axisZ = new Point(0, 0, 500).Transform(tp, currentTP);
 
+            var plX = new PolyLine(new Point[] { origin, axisX });
+            var plY = new PolyLine(new Point[] { origin, axisY });
+            var plZ = new PolyLine(new Point[] { origin, axisZ });
+            
+            if (axisX_Color == null) axisX_Color = ColorExtension.Red;
+            if (axisY_Color == null) axisY_Color = ColorExtension.Green;
+            if (axisZ_Color == null) axisZ_Color = ColorExtension.Blue;
+
+            var gplX = new GraphicPolyLine(plX, axisX_Color, width, lineType);
+            var gplY = new GraphicPolyLine(plY, axisY_Color, width, lineType);
+            var gplZ = new GraphicPolyLine(plZ, axisZ_Color, width, lineType);
+
             var drawer = new GraphicsDrawer();
-            drawer.DrawLineSegment(origin, axisX, ColorExtension.Red);
-            drawer.DrawLineSegment(origin, axisY, ColorExtension.Green);
-            drawer.DrawLineSegment(origin, axisZ, ColorExtension.Blue);
+            drawer.DrawPolyLine(gplX);
+            drawer.DrawPolyLine(gplY);
+            drawer.DrawPolyLine(gplZ);
         }
         /// <summary>
         /// 显示给定坐标系。
         /// </summary>
         /// <param name="cs">给定坐标系</param>
+        /// <param name="width">轴线要显示的宽度，默认 1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
+        /// <param name="lineType">轴线要显示的线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/></param>
+        /// <param name="axisX_Color">X轴要显示的颜色，默认为 <see cref="ColorExtension.Red"/></param>
+        /// <param name="axisY_Color">Y轴要显示的颜色，默认为 <see cref="ColorExtension.Green"/></param>
+        /// <param name="axisZ_Color">Z轴要显示的颜色，默认为 <see cref="ColorExtension.Blue"/></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="Exception">当 Tekla Structures 不在运行时引发。</exception>
-        public static void ShowCoordinateSystem(CoordinateSystem cs) {
+        public static void ShowCoordinateSystem(
+            CoordinateSystem cs,
+            int width = 1,
+            GraphicPolyLine.LineType lineType = GraphicPolyLine.LineType.Solid,
+            Color axisX_Color = default,
+            Color axisY_Color = default,
+            Color axisZ_Color = default) {
+
             if (cs is null) {
                 throw new ArgumentNullException(nameof(cs));
             }
@@ -56,10 +92,22 @@ namespace Muggle.TeklaPlugins.Common.Internal {
             axisY.Normalize(500);
             axisZ.Normalize(500);
 
+            var plX = new PolyLine(new Point[] { cs.Origin, axisX });
+            var plY = new PolyLine(new Point[] { cs.Origin, axisY });
+            var plZ = new PolyLine(new Point[] { cs.Origin, axisZ });
+
+            if (axisX_Color == null) axisX_Color = ColorExtension.Red;
+            if (axisY_Color == null) axisY_Color = ColorExtension.Green;
+            if (axisZ_Color == null) axisZ_Color = ColorExtension.Blue;
+
+            var gplX = new GraphicPolyLine(plX, axisX_Color, width, lineType);
+            var gplY = new GraphicPolyLine(plY, axisY_Color, width, lineType);
+            var gplZ = new GraphicPolyLine(plZ, axisZ_Color, width, lineType);
+
             var drawer = new GraphicsDrawer();
-            drawer.DrawLineSegment(cs.Origin, cs.Origin + axisX, ColorExtension.Red);
-            drawer.DrawLineSegment(cs.Origin, cs.Origin + axisY, ColorExtension.Green);
-            drawer.DrawLineSegment(cs.Origin, cs.Origin + axisZ, ColorExtension.Blue);
+            drawer.DrawPolyLine(gplX);
+            drawer.DrawPolyLine(gplY);
+            drawer.DrawPolyLine(gplZ);
         }
     }
 }

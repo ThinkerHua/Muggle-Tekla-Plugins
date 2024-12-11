@@ -1,3 +1,4 @@
+using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
 using System;
@@ -294,6 +295,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             secDiameter = dis1 < dis2 ? secProfile.d1 : secProfile.d2;
 
             var rotationAngel = quantity == 0 ? 0 : 2 * Math.PI / quantity;
+            var matrix = MatrixFactoryExtension.Rotate(new Line(origin, axisX), rotationAngel);
             #endregion
 
             Point p1, p2, p3, p4;
@@ -365,7 +367,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
                 new ArrayList { cp1, cp2, cp3, cp4 },
                 profileStr: "PL" + stifTHK,
                 materialStr: material);
-            var listStifPrim = ModelOperation.Copy_Rotate(stifPrim, origin, axisX, rotationAngel, quantity - 1);
+            var listStifPrim = ModelOperation.CopyObject(stifPrim, matrix, quantity - 1);
             listStifPrim.Add(stifPrim);
             foreach (var item in listStifPrim) {
                 ModelOperation.CreatWeld(prim, item);
@@ -388,7 +390,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
                 new ArrayList { cp1, cp2, cp3, cp4 },
                 profileStr: "PL" + stifTHK,
                 materialStr: material);
-            var listStifSec = ModelOperation.Copy_Rotate(stifSec, origin, axisX, rotationAngel, quantity - 1);
+            var listStifSec = ModelOperation.CopyObject(stifSec, matrix, quantity - 1);
             listStifSec.Add(stifSec);
             foreach (var item in listStifSec) {
                 ModelOperation.CreatWeld(sec, item);

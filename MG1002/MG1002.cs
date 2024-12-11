@@ -1,9 +1,12 @@
 using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Internal;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 using Tekla.Structures;
 using Tekla.Structures.Datatype;
@@ -106,16 +109,16 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 var SECPart1 = (Beam) _model.SelectModelObject(Secondaries[0]);
                 var SECPart2 = (Beam) _model.SelectModelObject(Secondaries[1]);
 
-                CheckIfAcceptableProfile(PRIMPart, SECPart1, SECPart2);
+                CheckIfAcceptableProfile();
 
                 if (originTP == null)
                     originTP = _model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
 
                 if (workTP == null)
-                    workTP = GetWorkTransformationPlane(PRIMPart);
+                    workTP = GetWorkTransformationPlane();
                 _model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
 
-                CreatConnection(PRIMPart, SECPart1, SECPart2);
+                CreatConnection();
 
                 resault = true;
             } catch (Exception Exc) {
@@ -213,22 +216,22 @@ namespace Muggle.TeklaPlugins.MG1002 {
         /// <summary>
         /// 主零件仅支持等截面和对称变截面H型钢，次零件仅支持等截面和楔形H型钢
         /// </summary>
-        /// <param name="primPart"></param>
-        /// <param name="secPart_L"></param>
-        /// <param name="secPart_R"></param>
         /// <exception cref="UnAcceptableProfile">当选择的零件不支持时抛出。</exception>
-        private void CheckIfAcceptableProfile(Beam primPart, Beam secPart_L, Beam secPart_R) {
+        private void CheckIfAcceptableProfile() {
+            var primPart = _model.SelectModelObject(Primary) as Beam;
+            var secPart1 = _model.SelectModelObject(Secondaries[0]) as Beam;
+            var secPart2 = _model.SelectModelObject(Secondaries[1]) as Beam;
             try {
                 prfPrim = new ProfileH_Symmetrical(primPart.Profile.ProfileString);
-                prfSecL = new ProfileH(secPart_L.Profile.ProfileString);
-                prfSecR = new ProfileH(secPart_R.Profile.ProfileString);
+                prfSecL = new ProfileH(secPart1.Profile.ProfileString);
+                prfSecR = new ProfileH(secPart2.Profile.ProfileString);
 
                 if (prfPrim.b2 != prfPrim.b1)
-                    throw new UnAcceptableProfile(prfPrim.ProfileText);
+                    throw new UnAcceptableProfile($"仅支持截面等宽（高度可变）的主零件，但输入的主零件截面为：{prfPrim.ProfileText}");
                 if (prfSecL.ProfileText.Contains("I_VAR_A") && prfSecL.h2 != prfSecL.h1 || prfSecL.b2 != prfSecL.b1)
-                    throw new UnAcceptableProfile(prfSecL.ProfileText);
+                    throw new UnAcceptableProfile($"仅支持等截面或等宽楔形截面的次零件，但输入的次零件截面为{prfSecL.ProfileText}");
                 if (prfSecR.ProfileText.Contains("I_VAR_A") && prfSecR.h2 != prfSecR.h1 || prfSecR.b2 != prfSecR.b1)
-                    throw new UnAcceptableProfile(prfSecR.ProfileText);
+                    throw new UnAcceptableProfile($"仅支持等截面或等宽楔形截面的次零件，但输入的次零件截面为{prfSecR.ProfileText}");
             } catch (UnAcceptableProfile) {
                 throw;
             }
@@ -236,13 +239,13 @@ namespace Muggle.TeklaPlugins.MG1002 {
         /// <summary>
         /// 获取工作平面。
         /// </summary>
-        /// <param name="primPart"></param>
         /// <returns>原点为柱顶点，X轴为柱的零件坐标系Y轴，Y轴为柱的零件坐标系X轴，若柱是从上往下绘制则Y轴反向。</returns>
-        private TransformationPlane GetWorkTransformationPlane(Beam primPart) {
+        private TransformationPlane GetWorkTransformationPlane() {
             Point origin;
             Vector axisX, axisY;
             double disStart, disEnd;
 
+            var primPart = _model.SelectModelObject(Primary) as Beam;
             var zeroPoint = new Point();
             disStart = TSG3d.Distance.PointToPoint(zeroPoint, primPart.StartPoint);
             disEnd = TSG3d.Distance.PointToPoint(zeroPoint, primPart.EndPoint);
@@ -254,13 +257,16 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
             return new TransformationPlane(origin, axisX, axisY);
         }
-        private void CreatConnection(Beam primPart, Beam secPart1, Beam secPart2) {
+        private void CreatConnection() {
 
             Point origin = new Point();
             var axisX = new Vector(1, 0, 0);
             var axisY = new Vector(0, 1, 0);
             var axisZ = new Vector(0, 0, 1);
 
+            var primPart = _model.SelectModelObject(Primary) as Beam;
+            var secPart1 = _model.SelectModelObject(Secondaries[0]) as Beam;
+            var secPart2 = _model.SelectModelObject(Secondaries[1]) as Beam;
             #region 定义左、右梁
             //  与柱零件坐标系Y轴同向为右梁，反向为左梁
 
@@ -270,7 +276,12 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
             var secPartL = secPart1;
             var secPartR = secPart2;
-            if (direction.Dot(axisX) > 0) (secPartL, secPartR) = (secPartR, secPartL);
+
+            if (direction.Dot(axisX) > 0) {
+                (secPartL, secPartR) = (secPartR, secPartL);
+                (prfSecL, prfSecR) = (prfSecR, prfSecL);
+            }
+
             #endregion
 
             #region 主次零件规格、边线
@@ -658,7 +669,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             var list_StifWeb_Up = new List<ContourPlate>();
             var list_StifWeb_Down = new List<ContourPlate>();
             foreach (var dis in disList_STIF_WEB) {
-                transX.Normalize(dis.Millimeters);
+                transX.Normalize(dis.Value);
                 foreach (ContourPoint cp in contourPoints) {
                     cp.Translate(transX);
                 }
@@ -715,13 +726,24 @@ namespace Muggle.TeklaPlugins.MG1002 {
             ModelOperation.CreatWeld(endPlate2, stifFlange_L);
             ModelOperation.CreatWeld(primPart, stifFlange_R);
             ModelOperation.CreatWeld(endPlate2, stifFlange_R);
+
             foreach (var stifWeb in list_StifWeb_Up) {
-                ModelOperation.CreatWeld(secPartL, stifWeb);
-                ModelOperation.CreatWeld(secPartR, stifWeb);
+                var query = from p in stifWeb.Contour.ContourPoints.Cast<ContourPoint>()
+                            select p.X;
+                var isLeft = from x in query
+                             where x <= 0
+                             select x;
+                var isRight = from x in query
+                              where x >= 0
+                              select x;
+                if (isLeft.Count() > 0)
+                    ModelOperation.CreatWeld(secPartL, stifWeb);
+                if (isRight.Count() > 0)
+                    ModelOperation.CreatWeld(secPartR, stifWeb);
                 ModelOperation.CreatWeld(endPlate1, stifWeb);
             }
+
             foreach (var stifWeb in list_StifWeb_Down) {
-                ModelOperation.CreatWeld(primPart, stifWeb);
                 ModelOperation.CreatWeld(primPart, stifWeb);
                 ModelOperation.CreatWeld(endPlate2, stifWeb);
             }

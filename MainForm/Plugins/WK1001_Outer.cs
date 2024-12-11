@@ -80,7 +80,8 @@ namespace Muggle.TeklaPlugins.MainForm.Plugins {
                 partNormal = new Vector(thisProjectedNormal.GetNormal() + anotherProjectedNormal.GetNormal());
                 angle = partNormal.GetAngleBetween_WithDirection(partCS.AxisY, partCS.AxisX) + Math.PI * 0.25;
                 angle = angle % (Math.PI * 0.5) - Math.PI * 0.25;
-                ModelOperation.Move_Rotate(beam, partCS.Origin, partCS.AxisX, -angle);
+                var matrix = MatrixFactoryExtension.Rotate(new Line(partCS.Origin, partCS.AxisX), -angle);
+                ModelOperation.MoveObject(beam, matrix);
             }
         }
         /// <summary>
