@@ -771,8 +771,10 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="num">复制份数，默认值 1</param>
         /// <returns>成功复制的对象集合（不包括初始对象）。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <remarks><inheritdoc cref="MoveObject(ModelObject, Matrix)" path="/remarks[1]"/></remarks>
+        /// <exception cref="ArgumentException"><paramref name="num"/> 应大于 0。</exception>
+        /// <remarks>由于 Tekla Open API 底层限制，
+        /// 诸如镜像、缩放、切变等“变形”矩阵无法产生（完全）作用，
+        /// 仅平移、旋转矩阵可产生作用。</remarks>
         public static List<ModelObject> CopyObject(ModelObject obj, Matrix matrix, int num = 1) {
             if (obj is null) {
                 throw new ArgumentNullException(nameof(obj));
@@ -783,7 +785,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             }
 
             if (num <= 0)
-                throw new ArgumentException($"“{nameof(num)}”不应小于等于0。", nameof(num));
+                throw new ArgumentException($"“{nameof(num)}”应大于 0。", nameof(num));
 
             var objs = new List<ModelObject>();
             var zeroVector = new Vector();
