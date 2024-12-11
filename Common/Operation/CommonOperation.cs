@@ -162,34 +162,4 @@ namespace Muggle.TeklaPlugins.Common.Operation {
             return true;
         }
     }
-    /// <summary>
-    /// 对象深拷贝。
-    /// </summary>
-    /// <typeparam name="TIn"></typeparam>
-    /// <typeparam name="TOut"></typeparam>
-    /// <remarks>该代码源自<see href="https://www.cnblogs.com/SF8588/p/16152078.html"/>，
-    /// 其原理是反射和表达式树相结合，先用反射获取字段然后缓存起来，再用表达式树赋值。</remarks>
-    public static class TransExp<TIn, TOut> {
-        private static readonly Func<TIn, TOut> cache = GetFunc();
-        private static Func<TIn, TOut> GetFunc() {
-            ParameterExpression parameterExpression = Expression.Parameter(typeof(TIn), "p");
-            List<MemberBinding> memberBindingList = new List<MemberBinding>();
-
-            foreach (var item in typeof(TOut).GetProperties()) {
-                if (!item.CanWrite) continue;
-                MemberExpression property = Expression.Property(parameterExpression, typeof(TIn).GetProperty(item.Name));
-                MemberBinding memberBinding = Expression.Bind(item, property);
-                memberBindingList.Add(memberBinding);
-            }
-
-            MemberInitExpression memberInitExpression = Expression.MemberInit(Expression.New(typeof(TOut)), memberBindingList.ToArray());
-            Expression<Func<TIn, TOut>> lambda = Expression.Lambda<Func<TIn, TOut>>(memberInitExpression, new ParameterExpression[] { parameterExpression });
-
-            return lambda.Compile();
-        }
-
-        public static TOut Trans(TIn tIn) {
-            return cache(tIn);
-        }
-    }
 }
