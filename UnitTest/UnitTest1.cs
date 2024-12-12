@@ -1215,5 +1215,21 @@ namespace Muggle.TeklaPlugins.UnitTest {
                 Console.WriteLine(e.ToString());
             }
         }
+        [TestMethod]
+        public void TestStringCopyNullOrEmpty() {
+            try {
+                var str1 = string.Copy(null);
+                Console.WriteLine($"str1 = {str1}");
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+
+            try {
+                var str2 = string.Copy(string.Empty);
+                Console.WriteLine($"str2 = {str2}");
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+        }
     }
 }

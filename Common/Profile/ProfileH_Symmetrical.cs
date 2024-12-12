@@ -15,37 +15,57 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// <br/><see cref="PatternCollection.H_6"/>：<inheritdoc cref="PatternCollection.H_6"/>
     /// <br/><see cref="PatternCollection.H_7"/>：<inheritdoc cref="PatternCollection.H_7"/>
     /// </summary>
-    public class ProfileH_Symmetrical : ProfileBase, IProfile {
+    public class ProfileH_Symmetrical : IProfile {
         private string _profileText;
+        private ProfileTextChangedEventHandler _profileTextChangedEventHandler;
         /// <summary>
         /// 
         /// </summary>
         public double h1, h2, b1, b2, s, t1, t2;
+
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
         public string ProfileText {
             get => _profileText;
             set {
+                var eventArgs = new ProfileTextChangedEventArgs(_profileText, value);
                 _profileText = value;
-                SetFieldsValues();
+                _profileTextChangedEventHandler?.Invoke(this, eventArgs);
+            }
+        }
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public event ProfileTextChangedEventHandler ProfileTextChanged {
+            add {
+                _profileTextChangedEventHandler += value;
+            }
+            remove {
+                _profileTextChangedEventHandler -= value;
             }
         }
         /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
-        public ProfileH_Symmetrical() { }
+        public ProfileH_Symmetrical() {
+            ProfileTextChanged += OnProfileTextChanged;
+        }
         /// <summary>
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
         public ProfileH_Symmetrical(string profileText) {
+            ProfileTextChanged += OnProfileTextChanged;
             ProfileText = profileText;
         }
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        protected override void SetFieldsValues() {
+        /// <param name="profile"><inheritdoc path="/param[1]"/></param>
+        /// <param name="args"><inheritdoc path="/param[2]"/></param>
+        public void OnProfileTextChanged(IProfile profile, ProfileTextChangedEventArgs args) {
             h1 = h2 = b1 = b2 = s = t1 = t2 = 0;
             try {
                 if (string.IsNullOrEmpty(ProfileText))

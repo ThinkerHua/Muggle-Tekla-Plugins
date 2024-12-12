@@ -12,8 +12,9 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// <br/><see cref="PatternCollection.CIRC_2"/>：<inheritdoc cref="PatternCollection.CIRC_2"/>
     /// <br/><see cref="PatternCollection.CIRC_3"/>：<inheritdoc cref="PatternCollection.CIRC_3"/>
     /// </summary>
-    public class ProfileCircular_Perfect : ProfileBase, IProfile {
+    public class ProfileCircular_Perfect : IProfile {
         private string _profileText;
+        private ProfileTextChangedEventHandler _profileTextChangedEventHandler;
         /// <summary>
         /// 
         /// </summary>
@@ -395,14 +396,28 @@ namespace Muggle.TeklaPlugins.Common.Profile {
             new ProfileCircular_Perfect{ ProfileText = "PIP630*15"},
             new ProfileCircular_Perfect{ ProfileText = "PIP630*16"},
         };
+
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
         public string ProfileText {
             get => _profileText;
             set {
+                var eventArgs = new ProfileTextChangedEventArgs(_profileText,  value);
                 _profileText = value;
-                SetFieldsValues();
+                _profileTextChangedEventHandler?.Invoke(this, eventArgs);
+            }
+        }
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public event ProfileTextChangedEventHandler ProfileTextChanged {
+            add {
+                _profileTextChangedEventHandler += value;
+            }
+            remove {
+                _profileTextChangedEventHandler -= value;
             }
         }
         /// <summary>
@@ -412,18 +427,23 @@ namespace Muggle.TeklaPlugins.Common.Profile {
         /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
-        public ProfileCircular_Perfect() { }
+        public ProfileCircular_Perfect() {
+            ProfileTextChanged += OnProfileTextChanged;
+        }
         /// <summary>
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
         public ProfileCircular_Perfect(string profileText) {
+            ProfileTextChanged += OnProfileTextChanged;
             ProfileText = profileText;
         }
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        protected override void SetFieldsValues() {
+        /// <param name="profile"><inheritdoc path="/param[1]"/></param>
+        /// <param name="args"><inheritdoc path="/param[2]"/></param>
+        public void OnProfileTextChanged(IProfile profile, ProfileTextChangedEventArgs args) {
             d1 = d2 = t = 0;
             try {
                 if (string.IsNullOrEmpty(ProfileText))
