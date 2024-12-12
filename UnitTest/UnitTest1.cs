@@ -993,7 +993,7 @@ namespace Muggle.TeklaPlugins.UnitTest {
             try {
                 var position = Geometry3dOperation.PositionOfTriangleOnLines(
                     (line1, line2, line3), (e1, e1, 700));
-                if (position is null) {
+                if (position.Count == 0) {
                     Console.WriteLine("\nNo solution!");
                 } else {
                     var model = new Model();

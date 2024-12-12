@@ -7,8 +7,9 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// </summary>
     public static class ProjectionExtension {
         /// <summary>
-        /// 获取向量在平面上投影的向量。根据以下公式计算：<code>P = V - (V∙N / ||N||^2) * N</code>
+        /// 获取向量在平面上投影的向量。
         /// </summary>
+        /// <remarks>根据以下公式计算：<code>P = V - (V∙N / ||N||^2) * N</code></remarks>
         /// <param name="vector">要投影的向量</param>
         /// <param name="gPlane">要投影的平面</param>
         /// <returns>投影的向量。</returns>

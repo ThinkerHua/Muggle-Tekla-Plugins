@@ -9,11 +9,14 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
     public static class PointExtension {
         /// <summary>
         /// 获取点的字符串表示形式。
-        /// <para><b>
-        ///     * 官方实现的 <see cref="Point.ToString()"/> 方法，输出的是保留3位有效数字的字符串，
-        ///     不能输出其他样式。本实现可自定义输出样式。
-        /// </b></para>
+        /// <para></para>
         /// </summary>
+        /// <remarks><b>* 官方实现的 <see cref="Point.ToString()"/> 方法，
+        /// 输出的是保留3位有效数字的字符串，不能输出其他样式。本实现可自定义输出样式。</b>
+        /// <para>有关数字格式字符串的详细信息，请参阅
+        /// <a href="https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/standard-numeric-format-strings">标准数字格式字符串</a>
+        /// 和 <a href="https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/custom-numeric-format-strings">自定义数字格式字符串</a>。
+        /// </para></remarks>
         /// <param name="p">当前点</param>
         /// <param name="format">复合格式字符串。默认 null。</param>
         /// <returns>点的字符串表示形式。</returns>
@@ -29,8 +32,8 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// 判断给定点是否是零点。
         /// </summary>
         /// <param name="p">当前点</param>
-        /// <param name="epsilon">容许误差，小于等于此误差当做0处理。默认值0。</param>
-        /// <returns>是零点则返回true, 否则返回false。</returns>
+        /// <param name="epsilon">容许误差，小于等于此误差当做 0 处理。默认值 0。</param>
+        /// <returns>是零点则返回 true, 否则返回 false。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static bool IsZero(this Point p, double epsilon = 0) {
             if (p is null) {

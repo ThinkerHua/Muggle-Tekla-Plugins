@@ -1,403 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Muggle.TeklaPlugins.Common.Profile {
     /// <summary>
-    /// 不支持的截面或不支持的截面参数引发的异常。
-    /// </summary>
-    public class UnAcceptableProfile : Exception {
-        private readonly string _message;
-        /// <summary>
-        /// 创建引发异常的信息为空的实例。
-        /// </summary>
-        public UnAcceptableProfile() { }
-        /// <summary>
-        /// 根据给定引发异常的信息创建实例。
-        /// </summary>
-        /// <param name="message">引发异常的信息</param>
-        public UnAcceptableProfile(string message) {
-            _message = message;
-        }
-        /// <inheritdoc/>
-        override public string ToString() {
-            return $"不支持此类型截面 或 不支持此类型截面的当前参数：\n{_message}";
-        }
-    }
-    /// <summary>
-    /// 匹配模式集合
-    /// </summary>
-    public static class PatternCollection {
-        /// <summary>
-        /// 前置标识符为 H 或 HP 或 HW 或 HM 或 HN 或 HT 或 WH，后续参数形式为 h1[~h2]*b1[/b2]*s*t1[/t2]。
-        /// </summary>
-        public static string H_1 => @"^((H[PWMNT]?)|WH)(?<h1>\d+\.?\d*)(~(?<h2>\d+\.?\d*))?"
-                                    + @"\*(?<b1>\d+\.?\d*)(/(?<b2>\d+\.?\d*))?"
-                                    + @"\*(?<s>\d+\.?\d*)\*(?<t1>\d+\.?\d*)(/(?<t2>\d+\.?\d*))?$";
-        /// <summary>
-        /// 前置标识符为 HI 或 PHI 或 WI，后续参数形式为 h1[-h2]-s-t1*b1[-t2*b2]。
-        /// </summary>
-        public static string H_2 => @"^((P?H)|W)I(?<h1>\d+\.?\d*)(-(?<h2>\d+\.?\d*))?-(?<s>\d+\.?\d*)"
-                                    + @"-(?<t1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)(-(?<t2>\d+\.?\d*)\*(?<b2>\d+\.?\d*))?$";
-        /// <summary>
-        /// 前置标识符为 H 或 HW 或 HM 或 HN 或 HT，用"TYPE"分组接收，后续参数形式为 H*B，仅支持整数。
-        /// </summary>
-        public static string H_3 => @"^(?<TYPE>H([WMN]?|T))(?<H>\d+)\*(?<B>\d+)$";
-        /// <summary>
-        /// 前置标识符为 B_WLD_K，后续参数形式为 h1*h2*b1*s*t1。
-        /// </summary>
-        public static string H_4 => @"^B_WLD_K(?<h1>\d+\.?\d*)\*(?<h2>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t1>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 B_WLD_A，后续参数形式为 h1*b1*s*t1。
-        /// </summary>
-        public static string H_5 => @"^B_WLD_A(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t1>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 B_WLD_H，后续参数形式为 h1*b1*b2*s*t1*t2。
-        /// </summary>
-        public static string H_6 => @"^B_WLD_H(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<b2>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t1>\d+\.?\d*)\*(?<t2>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 I_VAR_A，后续参数形式为 h1-h2*b1-b2*s*t1。
-        /// </summary>
-        public static string H_7 => @"^I_VAR_A(?<h1>\d+\.?\d*)-(?<h2>\d+\.?\d*)\*(?<b1>\d+\.?\d*)-(?<b2>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t1>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 PL，后续参数形式为 t*b*l。
-        /// </summary>
-        public static string PL_1 => @"\APL(?<t>\d+\.?\d*)(\*(?<b>\d+\.?\d*))?(\*(?<l>\d+\.?\d*))?\Z";
-        /// <summary>
-        /// 前置标识符为 φ 或 D 或 ELD 或 ROD，后续参数形式为 d1。
-        /// </summary>
-        public static string CIRC_1 => @"^(φ|D|(ELD)|(ROD))(?<d1>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 PIP 或 CFCHS 或 CHS 或 EPD 或 O 或 PD 或 TUBE，后续参数形式为 d1*t。
-        /// </summary>
-        public static string CIRC_2 => @"^((PIP)|(CFCHS)|(CHS)|(EPD)|(O)|(PD)|(TUBE))(?<d1>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 CFCHS 或 CHS 或 EPD 或 O 或 PD 或 TUBE，后续参数形式为 d1*d2*t。
-        /// </summary>
-        public static string CIRC_3 => @"^((CFCHS)|(CHS)|(EPD)|O|(PD)|(TUBE))(?<d1>\d+\.?\d*)\*(?<d2>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 D 或 ELD 或 ROD，后续参数形式为 d1*r1*d2*r2。
-        /// </summary>
-        public static string CIRC_4 => @"^((EL)|(RO))?D(?<d1>\d+\.?\d*)\*(?<r1>\d+\.?\d*)\*(?<d2>\d+\.?\d*)\*(?<r2>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 CFCHS 或 CHS 或 EPD 或 O 或 PD 或 TUBE，后续参数形式为 d1*r1*d2*r2*t。
-        /// </summary>
-        public static string CIRC_5 => @"^((CFCHS)|(CHS)|(EPD)|O|(PD)|(TUBE))(?<d1>\d+\.?\d*)\*(?<r1>\d+\.?\d*)"
-                                        + @"\*(?<d2>\d+\.?\d*)\*(?<r2>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 F 或 J 或 P 或 TUB 或 RHS 或 SHS 或 CFRHS，后续参数形式为 h1*s。
-        /// </summary>
-        public static string CFH_J_1 => @"^(F|J|P|(TUB)|(RHS)|(SHS)|(CFRHS))(?<h1>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 F 或 J 或 P 或 RHS 或 SHS 或 CFRHS，后续参数形式为 h1*b1*s。
-        /// </summary>
-        public static string CFH_J_2 => @"^(F|J|P|(RHS)|(SHS)|(CFRHS))(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 P 或 RHS 或 SHS 或 CFRHS，后续参数形式为 h1*b1-h2*b2*s。
-        /// </summary>
-        public static string CFH_J_3 => @"^(P|(RHS)|(SHS)|(CFRHS))(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)-(?<h2>\d+\.?\d*)\*(?<b2>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 B_WLD_F，后续参数形式为 h1*b1*s。
-        /// </summary>
-        public static string RECT_1 => @"^B_WLD_F(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 RECT 或 B_WLD_F 或 B_BUILT，后续参数形式为 h1*b1*s*t。
-        /// </summary>
-        public static string RECT_2 => @"^((RECT)|(B_WLD_F)|(B_BUILT))(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 R，后续参数形式为 h1~h2*b1*s*t。
-        /// </summary>
-        public static string RECT_3 => @"^R(?<h1>\d+\.?\d*)~(?<h2>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 B_WLD_J，后续参数形式为 h1*h2*b1*s*t。
-        /// </summary>
-        public static string RECT_4 => @"^B_WLD_J(?<h1>\d+\.?\d*)\*(?<h2>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
-        /// <summary>
-        /// 前置标识符为 B_VAR_A 或 B_VAR_B 或 B_VAR_C，后续参数形式为 h1-h2*s[*b1[-b2]]。b1, b2 值均忽略。
-        /// </summary>
-        public static string RECT_5 => @"^B_VAR_[ABC](?<h1>\d+\.?\d*)-(?<h2>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(\d+\.?\d*)-(\d+\.?\d*)$";
-    }
-    /// <summary>
-    /// 定义型材截面的属性、方法。
-    /// </summary>
-    public interface IProfile {
-        /// <summary>
-        /// 截面文本
-        /// </summary>
-        string ProfileText { get; set; }
-    }
-    /// <summary>
-    /// 型材截面基类
-    /// </summary>
-    public class ProfileBase {
-        /// <summary>
-        /// 设置字段值。
-        /// </summary>
-
-        protected virtual void SetFieldsValues() { }
-    }
-    /// <summary>
-    /// H型钢（通用形式）。适用如下形式：<para></para>
-    /// <see cref="PatternCollection.H_1"/>：<inheritdoc cref="PatternCollection.H_1"/><para></para>
-    /// <see cref="PatternCollection.H_2"/>：<inheritdoc cref="PatternCollection.H_2"/><para></para>
-    /// <see cref="PatternCollection.H_4"/>：<inheritdoc cref="PatternCollection.H_4"/><para></para>
-    /// <see cref="PatternCollection.H_5"/>：<inheritdoc cref="PatternCollection.H_5"/><para></para>
-    /// <see cref="PatternCollection.H_6"/>：<inheritdoc cref="PatternCollection.H_6"/><para></para>
-    /// <see cref="PatternCollection.H_7"/>：<inheritdoc cref="PatternCollection.H_7"/><para></para>
-    /// </summary>
-    public class ProfileH : ProfileBase, IProfile {
-        private string _profileText;
-        /// <summary>
-        /// 
-        /// </summary>
-        public double h1, h2, b1, b2, s, t1, t2;
-        /// <inheritdoc/>
-        public string ProfileText {
-            get => _profileText;
-            set {
-                _profileText = value;
-                SetFieldsValues();
-            }
-        }
-        /// <summary>
-        /// 创建各字段值均为 0.0 的实例。
-        /// </summary>
-        public ProfileH() { }
-        /// <summary>
-        /// 根据给定截面文本创建实例，同时为字段赋值。
-        /// </summary>
-        /// <param name="profileText">给定截面文本</param>
-        public ProfileH(string profileText) {
-            ProfileText = profileText;
-        }
-        /// <inheritdoc/>
-        protected override void SetFieldsValues() {
-            h1 = h2 = b1 = b2 = s = t1 = t2 = 0;
-            try {
-                if (string.IsNullOrEmpty(ProfileText))
-                    throw new UnAcceptableProfile(ProfileText);
-
-                Match match = Regex.Match(ProfileText, PatternCollection.H_1);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_2);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_4);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_5);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_6);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_7);
-                if (!match.Success)
-                    throw new UnAcceptableProfile(ProfileText);
-
-                double.TryParse(match.Groups["h1"].Value, out h1);
-                double.TryParse(match.Groups["h2"].Value, out h2);
-                double.TryParse(match.Groups["b1"].Value, out b1);
-                double.TryParse(match.Groups["b2"].Value, out b2);
-                double.TryParse(match.Groups["s"].Value, out s);
-                double.TryParse(match.Groups["t1"].Value, out t1);
-                double.TryParse(match.Groups["t2"].Value, out t2);
-
-                if (h2 == 0) h2 = h1;
-                if (b2 == 0) b2 = b1;
-                if (t2 == 0) t2 = t1;
-            } catch (UnAcceptableProfile) {
-                h1 = h2 = b1 = b2 = s = t1 = t2 = 0;
-                throw;
-            }
-        }
-    }
-    /// <summary>
-    /// 等截面H型钢和对称变截面H型钢（b2 == b1 的情形）。适用如下形式：<para></para>
-    /// <see cref="PatternCollection.H_1"/>：<inheritdoc cref="PatternCollection.H_1"/><para></para>
-    /// <see cref="PatternCollection.H_2"/>：<inheritdoc cref="PatternCollection.H_2"/><para></para>
-    /// <see cref="PatternCollection.H_4"/>：<inheritdoc cref="PatternCollection.H_4"/><para></para>
-    /// <see cref="PatternCollection.H_5"/>：<inheritdoc cref="PatternCollection.H_5"/><para></para>
-    /// <see cref="PatternCollection.H_6"/>：<inheritdoc cref="PatternCollection.H_6"/><para></para>
-    /// <see cref="PatternCollection.H_7"/>：<inheritdoc cref="PatternCollection.H_7"/><para></para>
-    /// </summary>
-    public class ProfileH_Symmetrical : ProfileBase, IProfile {
-        private string _profileText;
-        /// <summary>
-        /// 
-        /// </summary>
-        public double h1, h2, b1, b2, s, t1, t2;
-        /// <inheritdoc/>
-        public string ProfileText {
-            get => _profileText;
-            set {
-                _profileText = value;
-                SetFieldsValues();
-            }
-        }
-        /// <summary>
-        /// 创建各字段值均为 0.0 的实例。
-        /// </summary>
-        public ProfileH_Symmetrical() { }
-        /// <summary>
-        /// 根据给定截面文本创建实例，同时为字段赋值。
-        /// </summary>
-        /// <param name="profileText">给定截面文本</param>
-        public ProfileH_Symmetrical(string profileText) {
-            ProfileText = profileText;
-        }
-        /// <inheritdoc/>
-        protected override void SetFieldsValues() {
-            h1 = h2 = b1 = b2 = s = t1 = t2 = 0;
-            try {
-                if (string.IsNullOrEmpty(ProfileText))
-                    throw new UnAcceptableProfile(ProfileText);
-
-                Match match = Regex.Match(ProfileText, PatternCollection.H_1);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_2);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_4);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_5);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_6);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_7);
-                if (!match.Success)
-                    throw new UnAcceptableProfile(ProfileText);
-
-                double.TryParse(match.Groups["h1"].Value, out h1);
-                double.TryParse(match.Groups["h2"].Value, out h2);
-                double.TryParse(match.Groups["b1"].Value, out b1);
-                double.TryParse(match.Groups["b2"].Value, out b2);
-                double.TryParse(match.Groups["s"].Value, out s);
-                double.TryParse(match.Groups["t1"].Value, out t1);
-                double.TryParse(match.Groups["t2"].Value, out t2);
-
-                if (h2 == 0) h2 = h1;
-                if (b2 == 0) b2 = b1;
-                if (t2 == 0) t2 = t1;
-
-                if (!ProfileText.Contains("I_VAR_A") && h2 != h1 || b2 != b1)
-                    throw new UnAcceptableProfile(ProfileText);
-            } catch (UnAcceptableProfile) {
-                h1 = h2 = b1 = b2 = s = t1 = t2 = 0;
-                throw;
-            }
-        }
-    }
-    /// <summary>
-    /// 板。适用如下形式：<para></para>
-    /// <see cref="PatternCollection.PL_1"/>：<inheritdoc cref="PatternCollection.PL_1"/><para></para>
-    /// </summary>
-    public class ProfilePlate : ProfileBase, IProfile {
-        private string _profileText;
-        /// <summary>
-        /// 
-        /// </summary>
-        public double t, b, l;
-        /// <inheritdoc/>
-        public string ProfileText {
-            get => _profileText;
-            set {
-                _profileText = value;
-                SetFieldsValues();
-            }
-        }
-        /// <summary>
-        /// 创建各字段值均为 0.0 的实例。
-        /// </summary>
-        public ProfilePlate() { }
-        /// <summary>
-        /// 根据给定截面文本创建实例，同时为字段赋值。
-        /// </summary>
-        /// <param name="profileText">给定截面文本</param>
-        public ProfilePlate(string profileText) {
-            ProfileText = profileText;
-        }
-        /// <inheritdoc/>
-        protected override void SetFieldsValues() {
-            t = b = l = 0;
-            if (ProfileText == null || ProfileText == string.Empty)
-                throw new UnAcceptableProfile(ProfileText);
-
-            Match match = Regex.Match(ProfileText, PatternCollection.PL_1);
-            if (!match.Success)
-                throw new UnAcceptableProfile(ProfileText);
-
-            double.TryParse(match.Groups["t"].Value, out t);
-            double.TryParse(match.Groups["b"].Value, out b);
-            double.TryParse(match.Groups["l"].Value, out l);
-        }
-    }
-    /// <summary>
-    /// 圆钢或圆管（通用形式，含椭圆）。适用如下形式：<para></para>
-    /// <see cref="PatternCollection.CIRC_1"/>：<inheritdoc cref="PatternCollection.CIRC_1"/><para></para>
-    /// <see cref="PatternCollection.CIRC_2"/>：<inheritdoc cref="PatternCollection.CIRC_2"/><para></para>
-    /// <see cref="PatternCollection.CIRC_3"/>：<inheritdoc cref="PatternCollection.CIRC_3"/><para></para>
-    /// <see cref="PatternCollection.CIRC_4"/>：<inheritdoc cref="PatternCollection.CIRC_4"/><para></para>
-    /// <see cref="PatternCollection.CIRC_5"/>：<inheritdoc cref="PatternCollection.CIRC_5"/><para></para>
-    /// </summary>
-    public class ProfileCircular : ProfileBase, IProfile {
-        private string _profileText;
-        /// <summary>
-        /// 
-        /// </summary>
-        public double d1, r1, d2, r2, t;
-        /// <inheritdoc/>
-        public string ProfileText {
-            get => _profileText;
-            set {
-                _profileText = value;
-                SetFieldsValues();
-            }
-        }
-        /// <summary>
-        /// 创建各字段值均为 0.0 的实例。
-        /// </summary>
-        public ProfileCircular() { }
-        /// <summary>
-        /// 根据给定截面文本创建实例，同时为字段赋值。
-        /// </summary>
-        /// <param name="profileText">给定截面文本</param>
-        public ProfileCircular(string profileText) {
-            ProfileText = profileText;
-        }
-        /// <inheritdoc/>
-        protected override void SetFieldsValues() {
-            d1 = r1 = d2 = r2 = t = 0;
-            try {
-                if (string.IsNullOrEmpty(ProfileText))
-                    throw new UnAcceptableProfile(ProfileText);
-
-                Match match = Regex.Match(ProfileText, PatternCollection.CIRC_1);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.CIRC_2);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.CIRC_3);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.CIRC_4);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.CIRC_5);
-                if (!match.Success)
-                    throw new UnAcceptableProfile(ProfileText);
-
-                double.TryParse(match.Groups["d1"].Value, out d1);
-                double.TryParse(match.Groups["r1"].Value, out r1);
-                double.TryParse(match.Groups["d2"].Value, out d2);
-                double.TryParse(match.Groups["r2"].Value, out r2);
-                double.TryParse(match.Groups["t"].Value, out t);
-
-                if (r1 == 0) r1 = d1;
-                if (d2 == 0) d2 = d1;
-                if (r2 == 0) r2 = r1;
-            } catch (UnAcceptableProfile) {
-                d1 = r1 = d2 = r2 = t = 0;
-                throw;
-            }
-        }
-    }
-    /// <summary>
-    /// 圆钢或圆管（正圆形式，不含椭圆，含正圆变截面）。适用如下形式：<para></para>
-    /// <see cref="PatternCollection.CIRC_1"/>：<inheritdoc cref="PatternCollection.CIRC_1"/><para></para>
-    /// <see cref="PatternCollection.CIRC_2"/>：<inheritdoc cref="PatternCollection.CIRC_2"/><para></para>
-    /// <see cref="PatternCollection.CIRC_3"/>：<inheritdoc cref="PatternCollection.CIRC_3"/><para></para>
+    /// 圆钢或圆管（正圆形式，不含椭圆，含正圆变截面）。适用如下形式：
+    /// <br/><see cref="PatternCollection.CIRC_1"/>：<inheritdoc cref="PatternCollection.CIRC_1"/>
+    /// <br/><see cref="PatternCollection.CIRC_2"/>：<inheritdoc cref="PatternCollection.CIRC_2"/>
+    /// <br/><see cref="PatternCollection.CIRC_3"/>：<inheritdoc cref="PatternCollection.CIRC_3"/>
     /// </summary>
     public class ProfileCircular_Perfect : ProfileBase, IProfile {
         private string _profileText;
@@ -782,7 +395,9 @@ namespace Muggle.TeklaPlugins.Common.Profile {
             new ProfileCircular_Perfect{ ProfileText = "PIP630*15"},
             new ProfileCircular_Perfect{ ProfileText = "PIP630*16"},
         };
+        /// <summary>
         /// <inheritdoc/>
+        /// </summary>
         public string ProfileText {
             get => _profileText;
             set {
@@ -805,12 +420,14 @@ namespace Muggle.TeklaPlugins.Common.Profile {
         public ProfileCircular_Perfect(string profileText) {
             ProfileText = profileText;
         }
+        /// <summary>
         /// <inheritdoc/>
+        /// </summary>
         protected override void SetFieldsValues() {
             d1 = d2 = t = 0;
             try {
                 if (string.IsNullOrEmpty(ProfileText))
-                    throw new UnAcceptableProfile(ProfileText);
+                    throw new UnAcceptableProfileException(ProfileText);
 
                 Match match = Regex.Match(ProfileText, PatternCollection.CIRC_1);
                 if (!match.Success)
@@ -818,141 +435,17 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 if (!match.Success)
                     match = Regex.Match(ProfileText, PatternCollection.CIRC_3);
                 if (!match.Success)
-                    throw new UnAcceptableProfile(ProfileText);
+                    throw new UnAcceptableProfileException(ProfileText);
 
                 double.TryParse(match.Groups["d1"].Value, out d1);
                 double.TryParse(match.Groups["d2"].Value, out d2);
                 double.TryParse(match.Groups["t"].Value, out t);
 
                 if (d2 == 0) d2 = d1;
-            } catch (UnAcceptableProfile) {
+            } catch (UnAcceptableProfileException) {
                 d1 = d2 = t = 0;
                 throw;
             }
-        }
-    }
-    /// <summary>
-    /// 矩形管（通用形式，含冷弯矩形管和焊接矩形管）。适用如下形式：<para></para>
-    /// <see cref="PatternCollection.CFH_J_1"/>：<inheritdoc cref="PatternCollection.CFH_J_1"/><para></para>
-    /// <see cref="PatternCollection.CFH_J_2"/>：<inheritdoc cref="PatternCollection.CFH_J_2"/><para></para>
-    /// <see cref="PatternCollection.CFH_J_3"/>：<inheritdoc cref="PatternCollection.CFH_J_3"/><para></para>
-    /// <see cref="PatternCollection.RECT_1"/>：<inheritdoc cref="PatternCollection.RECT_1"/><para></para>
-    /// <see cref="PatternCollection.RECT_2"/>：<inheritdoc cref="PatternCollection.RECT_2"/><para></para>
-    /// <see cref="PatternCollection.RECT_3"/>：<inheritdoc cref="PatternCollection.RECT_3"/><para></para>
-    /// <see cref="PatternCollection.RECT_4"/>：<inheritdoc cref="PatternCollection.RECT_4"/><para></para>
-    /// <see cref="PatternCollection.RECT_5"/>：<inheritdoc cref="PatternCollection.RECT_5"/><para></para>
-    /// </summary>
-    public class ProfileRect : ProfileBase, IProfile {
-        private string _profileText;
-        /// <summary>
-        /// 
-        /// </summary>
-        public double h1, h2, b1, b2, s, t;
-        /// <inheritdoc/>
-        public string ProfileText {
-            get => _profileText;
-            set {
-                _profileText = value;
-                SetFieldsValues();
-            }
-        }
-        /// <summary>
-        /// 创建各字段值均为 0.0 的实例。
-        /// </summary>
-        public ProfileRect() { }
-        /// <summary>
-        /// 根据给定截面文本创建实例，同时为字段赋值。
-        /// </summary>
-        /// <param name="profileText">给定截面文本</param>
-        public ProfileRect(string profileText) {
-            ProfileText = profileText;
-        }
-        /// <inheritdoc/>
-        protected override void SetFieldsValues() {
-            h1 = h2 = b1 = b2 = s = t = 0;
-            try {
-                if (string.IsNullOrEmpty(ProfileText))
-                    throw new UnAcceptableProfile(ProfileText);
-
-                var match = Regex.Match(ProfileText, PatternCollection.CFH_J_1);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.CFH_J_2);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.CFH_J_3);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_1);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_2);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_3);
-                if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_4);
-                if (match.Success) {
-                    double.TryParse(match.Groups["b1"].Value, out b1);
-                    double.TryParse(match.Groups["b2"].Value, out b2);
-                } else if (!match.Success) {
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_5);
-                }
-                if (!match.Success)
-                    throw new UnAcceptableProfile(ProfileText);
-
-                double.TryParse(match.Groups["h1"].Value, out h1);
-                double.TryParse(match.Groups["h2"].Value, out h2);
-                double.TryParse(match.Groups["s"].Value, out s);
-                double.TryParse(match.Groups["t"].Value, out t);
-
-                if (h2 == 0) h2 = h1;
-                if (b1 == 0) b1 = h1;
-                if (b2 == 0) b2 = b1;
-                if (t == 0) t = s;
-
-            } catch (UnAcceptableProfile) {
-                h1 = h2 = b1 = b2 = s = t = 0;
-                throw;
-            }
-        }
-    }
-    /// <summary>
-    /// 矩形管（等截面形式）。适用如下形式：<para></para>
-    /// <see cref="PatternCollection.CFH_J_1"/>：<inheritdoc cref="PatternCollection.CFH_J_1"/><para></para>
-    /// <see cref="PatternCollection.CFH_J_2"/>：<inheritdoc cref="PatternCollection.CFH_J_2"/><para></para>
-    /// <see cref="PatternCollection.CFH_J_3"/>：<inheritdoc cref="PatternCollection.CFH_J_3"/><para></para>
-    /// <see cref="PatternCollection.RECT_1"/>：<inheritdoc cref="PatternCollection.RECT_1"/><para></para>
-    /// <see cref="PatternCollection.RECT_2"/>：<inheritdoc cref="PatternCollection.RECT_2"/><para></para>
-    /// <see cref="PatternCollection.RECT_3"/>：<inheritdoc cref="PatternCollection.RECT_3"/><para></para>
-    /// <see cref="PatternCollection.RECT_4"/>：<inheritdoc cref="PatternCollection.RECT_4"/><para></para>
-    /// <see cref="PatternCollection.RECT_5"/>：<inheritdoc cref="PatternCollection.RECT_5"/><para></para>
-    /// </summary>
-    public class ProfileRect_Invariant : ProfileRect {
-        /// <inheritdoc cref="ProfileRect.ProfileText"/>
-        public new string ProfileText {
-            get { return base.ProfileText; }
-            set {
-                var temp = (h1, h2, b1, b2, s, t);
-                base.ProfileText = value;
-                if (h2 != h1 || b2 != b1) {
-                    h1 = temp.h1;
-                    h2 = temp.h2;
-                    b1 = temp.b1;
-                    b2 = temp.b2;
-                    s = temp.s;
-                    t = temp.t;
-
-                    throw new UnAcceptableProfile(value);
-                }
-            }
-        }
-        /// <summary>
-        /// 创建各字段值均为 0.0 的实例。
-        /// </summary>
-        public ProfileRect_Invariant() : base() { }
-        /// <summary>
-        /// 根据给定截面文本创建实例，同时为字段赋值。
-        /// </summary>
-        /// <param name="profileText">给定截面文本</param>
-        public ProfileRect_Invariant(string profileText) : base(profileText) {
-            if (h2 != h1 || b2 != b1)
-                throw new UnAcceptableProfile(profileText);
         }
     }
 }

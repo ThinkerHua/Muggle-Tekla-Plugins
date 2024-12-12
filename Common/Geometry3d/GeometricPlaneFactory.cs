@@ -19,11 +19,9 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// </param>
         /// <returns>
         /// <list type="bullet">
-        ///     <item>-1: <paramref name="gPlane"/> == null。
-        ///         有无数个解，即两条直线共线。
-        ///     </item>
-        ///     <item>0: <paramref name="gPlane"/> == null。无解，两条直线不共面。</item>
-        ///     <item>1: 有且仅有唯一解，此时由输出参数<paramref name="gPlane"/>输出成功构造的几何平面。</item>
+        ///     <item>-1: 有无数个解，即两条直线共线。<paramref name="gPlane"/> == null。</item>
+        ///     <item>0: 无解，两条直线不共面。<paramref name="gPlane"/> == null。</item>
+        ///     <item>1: 有且仅有唯一解，此时由输出参数 <paramref name="gPlane"/> 输出成功构造的几何平面。</item>
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"></exception>

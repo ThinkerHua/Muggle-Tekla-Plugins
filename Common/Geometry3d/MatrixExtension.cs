@@ -7,8 +7,9 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// </summary>
     public static class MatrixExtension {
         /// <summary>
-        /// 计算矩阵的行列式。<b>* 非方阵行列式未定义，此处忽略矩阵的平移部分。</b>
+        /// 计算矩阵的行列式。
         /// </summary>
+        /// <remarks><b>* 非方阵行列式未定义，此处忽略矩阵的平移部分。</b></remarks>
         /// <returns>矩阵（线性变换部分）的行列式。</returns>
         /// <param name="matrix">当前矩阵</param>
         /// <exception cref="ArgumentNullException"></exception>
@@ -30,9 +31,9 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         }
         /// <summary>
         /// 克莱姆法则求解线性方程组。
-        /// 系数项以列向量形式储存在矩阵的线性变换部分中，
-        /// 常数项以行向量形式储存在矩阵的平移部分中。
         /// </summary>
+        /// <remarks>线性方程组的系数项以列向量形式储存在矩阵的线性变换部分中，
+        /// 常数项以行向量形式储存在矩阵的平移部分中。</remarks>
         /// <param name="matrix">当前矩阵</param>
         /// <returns>以点的形式返回方程组的解。无解则返回null。</returns>
         /// <exception cref="ArgumentNullException"></exception>
@@ -92,7 +93,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// </summary>
         /// <param name="matrix">当前矩阵</param>
         /// <param name="coordinateSystem">给定坐标系</param>
-        /// <returns>转换后的坐标系，X轴、Y轴向量标准化为1000。</returns>
+        /// <returns>转换后的坐标系，X轴、Y轴向量标准化为 1000。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static CoordinateSystem Transform(this Matrix matrix, CoordinateSystem coordinateSystem) {
             if (matrix is null) {

@@ -6,20 +6,17 @@ using Tekla.Structures.Geometry3d;
 namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// 点的取值区间（闭区间，不支持开区间）。
-    /// <para>
-    ///     虽然可以直接用 [StartPoint, EndPoint] 来表示点区间，但实际应用中可能存在精度问题。
-    ///     本实现旨在提供一种解决方案，规避这种误差，因此在本类内部，不采用容许误差的设计。
-    /// </para>
-    /// <para>
-    ///     具体方案为：
-    ///     使用原点 Origin 和<b>单位向量</b> Direction 建立数轴，用实数 Start 和 End 来表示区间。
-    ///     将点转化成在此数轴上对应的实数（用与原点之间带有方向的距离表示，也即 Direction 的倍数）。
-    ///     在具体问题中，使用实数来讨论，得出结论后，再将实数转换成点。
-    /// </para>
-    /// <para>
-    ///     同时本类还实现了枚举，在枚举前应先设置枚举间隔 EnumInterval 。
-    /// </para>
     /// </summary>
+    /// <remarks>虽然可以直接用 [<see cref="PointsInterval.StartPoint"/>, <see cref="PointsInterval.EndPoint"/>]
+    /// 来表示点区间，但实际应用中可能存在精度问题。
+    /// 本实现旨在提供一种解决方案，规避这种误差，因此在本类内部，不采用容许误差的设计。
+    /// <para>具体方案为：使用原点 <see cref="PointsInterval.Origin"/> 和<b>单位向量</b>
+    /// <see cref="PointsInterval.Direction"/> 建立数轴，用实数 <see cref="PointsInterval.Start"/> 和
+    /// <see cref="PointsInterval.End"/> 来表示区间。将点转化成在此数轴上对应的实数
+    /// （用与原点之间带有方向的距离表示，也即 <see cref="PointsInterval.Direction"/> 的倍数）。
+    /// 在具体问题中，使用实数来讨论，得出结论后，再将实数转换成点。</para>
+    /// <para>同时本类还实现了枚举，在枚举前应先设置枚举间隔 <see cref="PointsInterval.EnumInterval"/>。</para>
+    /// </remarks>
     public class PointsInterval : IEnumerable, IEnumerator<Point> {
         private readonly Point _origin = new Point();
         private readonly Vector _direction = new Vector(1, 0, 0);
@@ -28,15 +25,18 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         private double _enumInterval = GeometryConstants.DISTANCE_EPSILON;
         private int _position = -1;
         /// <summary>
-        /// 数轴的原点，默认为零点。
+        /// 数轴的原点。
         /// </summary>
+        /// <value>默认值 (0.0, 0.0, 0.0)。</value>
         public Point Origin {
             get => _origin;
             set => _origin.Copy(value);
         }
         /// <summary>
-        /// 数轴的方向，默认为单位X向量。不接受零向量（赋值为零向量时不处理）。自动设置成单位向量。
+        /// 数轴的方向。
         /// </summary>
+        /// <remarks>不接受零向量（赋值为零向量时不处理）。自动设置成单位向量。</remarks>
+        /// <value>默认值 (1.0, 0.0, 0.0)。</value>
         public Vector Direction {
             get => _direction;
             set {
@@ -48,8 +48,11 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             }
         }
         /// <summary>
-        /// 区间起点值。将始终保持 Start &lt;= End，若赋值大于 End，则自动将 End 设置为等于 Start。
+        /// 区间起点值。
         /// </summary>
+        /// <remarks>将始终保持 <see cref="Start"/> &lt;= <see cref="End"/>，
+        /// 若赋值大于 <see cref="End"/>，则自动将 <see cref="End"/> 
+        /// 设置为等于 <see cref="Start"/>。</remarks>
         public double Start {
             get => _start;
             set {
@@ -58,8 +61,11 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             }
         }
         /// <summary>
-        /// 区间终点值。将始终保持 Start &lt;= End，若赋值小于 Start，则自动将 Start 设置为等于 End。
+        /// 区间终点值。
         /// </summary>
+        /// <remarks>将始终保持 <see cref="Start"/> &lt;= <see cref="End"/>，
+        /// 若赋值小于 <see cref="Start"/>，则自动将 <see cref="Start"/> 
+        /// 设置为等于 <see cref="End"/>。</remarks>
         public double End {
             get => _end;
             set {
@@ -70,7 +76,6 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <summary>
         /// 区间的宽度。
         /// </summary>
-        /// <returns>区间的宽度。</returns>
         public double Width => _end - _start;
         /// <summary>
         /// 区间起点。
@@ -83,18 +88,24 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <summary>
         /// 枚举间隔。
         /// </summary>
+        /// <value>默认值 <see cref="GeometryConstants.DISTANCE_EPSILON"/>。</value>
         public double EnumInterval {
             get => _enumInterval;
             set {
                 if (value >= 0) _enumInterval = value;
             }
         }
+        /// <summary>
         /// <inheritdoc/>
+        /// </summary>
         public Point Current => GetPoint(_start + _position * _enumInterval);
+        /// <summary>
         /// <inheritdoc/>
+        /// </summary>
         object IEnumerator.Current => Current;
         /// <summary>
-        /// 使用默认值构造点区间，Origin 为零点，Direction 为单位X向量，Start 和 End 均为0。
+        /// 使用默认值构造点区间，<see cref="Origin"/> 为零点，
+        /// <see cref="Direction"/> 为单位 X 向量，<see cref="Start"/> 和 <see cref="End"/> 均为 0.0。
         /// </summary>
         public PointsInterval() { }
         /// <summary>
@@ -112,7 +123,8 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             End = end;
         }
         /// <summary>
-        /// 用一条直线构造点区间，起点、终点分别为负无穷和正无穷。
+        /// 用一条直线构造点区间，<see cref="Start"/> 为 <see cref="double.NegativeInfinity"/>，
+        /// <see cref="End"/> 为 <see cref="double.PositiveInfinity"/>。
         /// </summary>
         /// <param name="line">给定直线</param>
         /// <exception cref="ArgumentNullException"></exception>
@@ -130,7 +142,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             End = double.PositiveInfinity;
         }
         /// <summary>
-        /// 用一条线段构造点区间，起点值为0，终点值为线段长度。
+        /// 用一条线段构造点区间，<see cref="Start"/> 为 0.0，<see cref="End"/> 为线段长度。
         /// </summary>
         /// <param name="lineSegment">给定线段</param>
         /// <exception cref="ArgumentNullException"></exception>
@@ -164,6 +176,10 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <summary>
         /// 获取当前点区间的字符串表示形式。
         /// </summary>
+        /// <remarks>有关数字格式字符串的详细信息，请参阅
+        /// <a href="https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/standard-numeric-format-strings">标准数字格式字符串</a>
+        /// 和 <a href="https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/custom-numeric-format-strings">自定义数字格式字符串</a>。
+        /// </remarks>
         /// <param name="format">复合格式字符串</param>
         /// <returns>当前点区间的字符串表示形式。</returns>
         public string ToString(string format = default) {
@@ -248,8 +264,8 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <param name="num">左右各指定数量个值，正整数。</param>
         /// <returns>区间内给定实数值左右各数个连续间距的值的集合。</returns>
         /// <exception cref="ArgumentException"><paramref name="value"/>不在区间内。</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="dis"/>不应&lt;=0，<paramref name="num"/>不应&lt;=0。</exception>
-        public IEnumerable<double> GetValuesArround(double value, double dis, int num) {
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="dis"/> &lt;= 0.0 或 <paramref name="num"/> &lt;= 0.0 时引发。</exception>
+        public double[] GetValuesArround(double value, double dis, int num) {
             if (double.IsNaN(value) || value < _start || value > _end) {
                 var msg = ToString(null);
                 msg = msg.Replace("\n", " ");
@@ -283,10 +299,10 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <returns>区间内给定点左右各数个连续间距的点的集合。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"><paramref name="point"/>不在区间内。</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="dis"/>不应&lt;=0，<paramref name="num"/>不应&lt;=0。</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="dis"/> &lt;= 0.0 或 <paramref name="num"/> &lt;= 0.0 时引发。</exception>
         [Obsolete("由于计算精度问题，可能出现误判参数“point”不在区间内，谨慎使用。" +
             "应优先转换思路，使用“PointsInterval.GetPointsArround(double value, double dis, int num)”方法。", false)]
-        public IEnumerable<Point> GetPointsArround(Point point, double dis, int num) {
+        public Point[] GetPointsArround(Point point, double dis, int num) {
             if (point is null) {
                 throw new ArgumentNullException(nameof(point));
             }
@@ -315,8 +331,8 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <param name="num">左右各指定数量个点，正整数。</param>
         /// <returns>区间内给定实数值对应的点左右各数个连续间距的点的集合。</returns>
         /// <exception cref="ArgumentException"><paramref name="value"/>不在区间内。</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="dis"/>不应&lt;=0，<paramref name="num"/>不应&lt;=0。</exception>
-        public IEnumerable<Point> GetPointsArround(double value, double dis, int num) {
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="dis"/> &lt;= 0.0 或 <paramref name="num"/> &lt;= 0.0 时引发。</exception>
+        public Point[] GetPointsArround(double value, double dis, int num) {
             if (double.IsNaN(value) || value < _start || value > _end) {
                 var msg = ToString(null);
                 msg = msg.Replace("\n", " ");
@@ -447,18 +463,26 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         public IEnumerator<Point> GetEnumerator() {
             return this;
         }
+        /// <summary>
         /// <inheritdoc/>
+        /// </summary>
         IEnumerator IEnumerable.GetEnumerator() {
             return this;
         }
+        /// <summary>
         /// <inheritdoc/>
+        /// </summary>
         public void Dispose() { }
+        /// <summary>
         /// <inheritdoc/>
+        /// </summary>
         public bool MoveNext() {
             _position++;
             return _position * _enumInterval <= Width;
         }
+        /// <summary>
         /// <inheritdoc/>
+        /// </summary>
         public void Reset() {
             _position = -1;
         }

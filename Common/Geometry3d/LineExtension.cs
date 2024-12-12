@@ -20,7 +20,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             RIGHT,
         }
         /// <summary>
-        /// 适用于XY平面。
+        /// 获取当前直线偏移后的直线，适用于XY平面。
         /// </summary>
         /// <param name="line">当前直线</param>
         /// <param name="distance">偏移距离</param>
@@ -38,7 +38,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             return Offset(line, vector);
         }
         /// <summary>
-        /// 适用于三维坐标系。
+        /// 获取当前直线偏移后的直线，适用于三维坐标系。
         /// </summary>
         /// <param name="line">当前直线</param>
         /// <param name="vector">偏移向量</param>

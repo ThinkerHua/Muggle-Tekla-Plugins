@@ -304,10 +304,10 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 prf_SEC = new ProfileH(secPart.Profile.ProfileString);
 
                 if (prf_PRIM.ProfileText.Contains("I_VAR_A") && prf_PRIM.h2 != prf_PRIM.h1 || prf_PRIM.b2 != prf_PRIM.b1)
-                    throw new UnAcceptableProfile(prf_PRIM.ProfileText);
+                    throw new UnAcceptableProfileException(prf_PRIM.ProfileText);
                 if (prf_SEC.ProfileText.Contains("I_VAR_A") && prf_SEC.h2 != prf_SEC.h1 || prf_SEC.b2 != prf_SEC.b1)
-                    throw new UnAcceptableProfile(prf_SEC.ProfileText);
-            } catch (UnAcceptableProfile) {
+                    throw new UnAcceptableProfileException(prf_SEC.ProfileText);
+            } catch (UnAcceptableProfileException) {
                 throw;
             }
         }
@@ -770,7 +770,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 throw;
             }
             if (prf_STIF_FLNG.b == 0 || prf_STIF_FLNG.l == 0) {
-                throw new UnAcceptableProfile();
+                throw new UnAcceptableProfileException();
             }
             point1 = TSG3d.Intersection.LineToLine(TOPPlate_Line,
                 ENDPlate_Line.Offset(prf_End1.t, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
@@ -824,7 +824,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 throw;
             }
             if (prf_STIF_Web.l == 0 || prf_STIF_Web.l == 0) {
-                throw new UnAcceptableProfile();
+                throw new UnAcceptableProfileException();
             }
 
             stifWeb_PRIM = new List<ContourPlate>();

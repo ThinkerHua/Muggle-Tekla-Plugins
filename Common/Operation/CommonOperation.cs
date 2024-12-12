@@ -38,8 +38,8 @@ namespace Muggle.TeklaPlugins.Common.Operation {
         /// <typeparam name="T">数据集合中数据的类型。</typeparam>
         /// <param name="data">给定数据集合。</param>
         /// <param name="type">极值类型。</param>
-        /// <param name="interval">用来判断极值的最小区间，应当为3以上的奇数，输入偶数则向上进1。</param>
-        /// <returns>可能的局部极值的序号集合。入参为null或不符合规则，则返回null。</returns>
+        /// <param name="interval">用来判断极值的最小区间，应当为 3 以上的奇数，输入偶数则向上进 1。</param>
+        /// <returns>可能的局部极值的序号集合。入参为 null 或不符合规则，则返回 null。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException">数据集合 <paramref name="data"/> 为空时引发。</exception>
         public static List<int> GetLocalExtremeIndexes<T>(
@@ -109,11 +109,9 @@ namespace Muggle.TeklaPlugins.Common.Operation {
         }
         /// <summary>
         /// 判断变化集合 <paramref name="variations"/> 是否符合极值分布。
-        /// <para>
-        ///     是 <see cref="GetLocalExtremeIndexes{T}(IList{T}, ExtremeTypeEnum, int)"/> 的配套方法。
-        ///     <paramref name="variations"/> 元素数量必定为大于等于2的偶数。
-        /// </para>
         /// </summary>
+        /// <remarks>是 <see cref="GetLocalExtremeIndexes{T}(IList{T}, ExtremeTypeEnum, int)"/> 的配套方法。
+        /// <paramref name="variations"/> 元素数量必定为大于等于 2 的偶数。</remarks>
         /// <param name="variations">给定数据集合。</param>
         /// <param name="type">极值类型。</param>
         /// <returns>是否符合极值类型 <paramref name="type"/> 。</returns>

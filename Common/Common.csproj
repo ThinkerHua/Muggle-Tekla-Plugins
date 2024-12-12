@@ -80,8 +80,19 @@
     <Compile Include="ModelUI\GraphicsDrawerExtension.cs" />
     <Compile Include="Model\ModelOperation.cs" />
     <Compile Include="Model\PolygonExtension.cs" />
-    <Compile Include="Operation\Compression.cs" />
-    <Compile Include="Profile\Profile.cs" />
+    <Compile Include="Operation\NumberCompression.cs" />
+    <Compile Include="Operation\StringCompression.cs" />
+    <Compile Include="Profile\IProfile.cs" />
+    <Compile Include="Profile\PatternCollection.cs" />
+    <Compile Include="Profile\ProfileBase.cs" />
+    <Compile Include="Profile\ProfileCircular.cs" />
+    <Compile Include="Profile\ProfileCircular_Perfect.cs" />
+    <Compile Include="Profile\ProfileH.cs" />
+    <Compile Include="Profile\ProfileH_Symmetrical.cs" />
+    <Compile Include="Profile\ProfilePlate.cs" />
+    <Compile Include="Profile\ProfileRect.cs" />
+    <Compile Include="Profile\ProfileRect_Invariant.cs" />
+    <Compile Include="Profile\UnAcceptableProfileException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

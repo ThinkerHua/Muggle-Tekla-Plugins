@@ -82,7 +82,7 @@ namespace Muggle.TeklaPlugins.Test {
             try {
                 var position = Geometry3dOperation.PositionOfTriangleOnLines(
                     (lines[0], lines[1], lines[2]), (edges[0], edges[1], edges[2]));
-                if (position is null) {
+                if (position.Count == 0) {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("\nNo solution!");
                     Console.ForegroundColor = ConsoleColor.White;

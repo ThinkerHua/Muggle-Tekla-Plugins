@@ -26,20 +26,15 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         }
         /// <summary>
         /// 获取向量之间更精确的角度。
-        /// <para><b>
-        ///     * 官方实现的 <see cref="Vector.GetAngleBetween(Vector)"/> 方法，对于一些比较小的角度，会按 0 返回。
-        ///     本方法可以返回更精确一些的角度。根据以下计算公式计算：
-        ///     <code>cos(θ) = U∙V / (||U|| * ||V||)</code>
-        /// </b></para>
-        /// <para><b>
-        ///     * 官方实现的 <see cref="Vector.GetAngleBetween(Vector)"/> 方法，约定零向量与任意有效向量的角度均为π/2，
-        ///     本方法也依此约定实现。
-        /// </b></para>
-        /// <para><b>
-        ///     * 官方实现的 <see cref="Vector.GetAngleBetween(Vector)"/> 方法，输入参数为null时将引发异常：System.NullReferenceException，
-        ///     本方法与此行为一致。
-        /// </b></para>
         /// </summary>
+        /// <remarks><para><b>* 官方实现的 <see cref="Vector.GetAngleBetween(Vector)"/> 方法，
+        /// 对于一些比较小的角度，会按 0 返回。本方法可以返回更精确一些的角度。根据以下计算公式计算：
+        /// <code>cos(θ) = U∙V / (||U|| * ||V||)</code></b></para>
+        /// <para><b>* 官方实现的 <see cref="Vector.GetAngleBetween(Vector)"/> 方法，
+        /// 约定零向量与任意有效向量的角度均为π/2，本方法也依此约定实现。</b></para>
+        /// <para><b>* 官方实现的 <see cref="Vector.GetAngleBetween(Vector)"/> 方法，
+        /// 输入参数为null时将引发异常：System.NullReferenceException，本方法与此行为一致。</b></para>
+        /// </remarks>
         /// <param name="v">当前向量</param>
         /// <param name="vector">给定向量</param>
         /// <returns>向量之间的角度,取值范围 [0.0, π]。</returns>
@@ -60,7 +55,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <summary>
         /// 获取向量之间具有方向性的角度。
         /// 正方向由 <paramref name="normal"/> 决定（仅需指示大致方向），
-        /// 当前向量起始，到给定向量终止。
+        /// 从当前向量起始，到给定向量终止。
         /// </summary>
         /// <param name="v">当前向量</param>
         /// <param name="vector">给定向量</param>

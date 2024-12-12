@@ -216,7 +216,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
         /// <summary>
         /// 主零件仅支持等截面和对称变截面H型钢，次零件仅支持等截面和楔形H型钢
         /// </summary>
-        /// <exception cref="UnAcceptableProfile">当选择的零件不支持时抛出。</exception>
+        /// <exception cref="UnAcceptableProfileException">当选择的零件不支持时抛出。</exception>
         private void CheckIfAcceptableProfile() {
             var primPart = _model.SelectModelObject(Primary) as Beam;
             var secPart1 = _model.SelectModelObject(Secondaries[0]) as Beam;
@@ -227,12 +227,12 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 prfSecR = new ProfileH(secPart2.Profile.ProfileString);
 
                 if (prfPrim.b2 != prfPrim.b1)
-                    throw new UnAcceptableProfile($"仅支持截面等宽（高度可变）的主零件，但输入的主零件截面为：{prfPrim.ProfileText}");
+                    throw new UnAcceptableProfileException($"仅支持截面等宽（高度可变）的主零件，但输入的主零件截面为：{prfPrim.ProfileText}");
                 if (prfSecL.ProfileText.Contains("I_VAR_A") && prfSecL.h2 != prfSecL.h1 || prfSecL.b2 != prfSecL.b1)
-                    throw new UnAcceptableProfile($"仅支持等截面或等宽楔形截面的次零件，但输入的次零件截面为{prfSecL.ProfileText}");
+                    throw new UnAcceptableProfileException($"仅支持等截面或等宽楔形截面的次零件，但输入的次零件截面为{prfSecL.ProfileText}");
                 if (prfSecR.ProfileText.Contains("I_VAR_A") && prfSecR.h2 != prfSecR.h1 || prfSecR.b2 != prfSecR.b1)
-                    throw new UnAcceptableProfile($"仅支持等截面或等宽楔形截面的次零件，但输入的次零件截面为{prfSecR.ProfileText}");
-            } catch (UnAcceptableProfile) {
+                    throw new UnAcceptableProfileException($"仅支持等截面或等宽楔形截面的次零件，但输入的次零件截面为{prfSecR.ProfileText}");
+            } catch (UnAcceptableProfileException) {
                 throw;
             }
         }
@@ -392,7 +392,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
             var xPoint = IntersectionExtension.LineToLine(secL_BLine_inside, secR_BLine_inside).StartPoint;
             var positionOfTriangle = Geometry3dOperation.PositionOfTriangleOnLines(
                     (secL_BLine_inside, secR_BLine_inside, prim_CLine),
-                    (e1, e1, prfEndPlate.l)) ?? throw new Exception("根据现有参数，端板无法放置，请检查并调整参数。");
+                    (e1, e1, prfEndPlate.l));
+            if (positionOfTriangle.Count == 0) throw new Exception("根据现有参数，端板无法放置，请检查并调整参数。");
             foreach (var (P1, P2, P3) in positionOfTriangle) {
 
                 //  抛弃P3在上方的组合

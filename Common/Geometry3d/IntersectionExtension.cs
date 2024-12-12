@@ -1,7 +1,7 @@
-﻿using Muggle.TeklaPlugins.Common.Operation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Muggle.TeklaPlugins.Common.Operation;
 using Tekla.Structures.Geometry3d;
 
 namespace Muggle.TeklaPlugins.Common.Geometry3d {
@@ -30,13 +30,12 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             return new LineSegment(point, Projection.PointToLine(point, line));
         }
         /// <summary>
-        /// <para>两条直线间最短线段。</para>
-        /// <para>
-        ///     本实现旨在解决在两直线相交的情况下，官方实现求得的线段长度不等于0的问题。
-        ///     同时也实现了求直线退化成点，即 <see cref="Line.Direction"/> 为零向量时的解。
-        /// </para>
+        /// 两条直线间最短线段。
+        /// </summary>
+        /// <remarks>本实现旨在解决在两直线相交的情况下，官方实现求得的线段长度不等于0的问题。
+        /// 同时也实现了求直线退化成点，即 <see cref="Line.Direction"/> 为零向量时的解。
         /// <para>主要求解公式推导过程如下(<a href="https://math.stackexchange.com/a/4764188">参考</a>)：</para>
-        /// <para>L1上的点方程：P=P1+s*V1, L2上的点方程：P=P2+t*V2，最短线段所在直线上的方程：P=P3+r*V3</para>
+        /// <para>L1上的点方程：P=P1+s*V1, L2上的点方程：P=P2+t*V2，最短线段所在直线上的点方程：P=P3+r*V3</para>
         /// <para>由于最短线段两端分别落在L1、L2上，则有：(P2+t*V2)+r*V3=P1+s*V1</para>
         /// <para>可令V3=(P2+t*V2)-(P1+s*V1)，代入上述方程，则有：</para>
         /// <para><i>(1) P1+s*V1=P2+t*V2，即s*V1-t*V2=P2-P1</i></para>
@@ -52,8 +51,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         ///     上述方程中，P1、P2可分别取值为L1、L2的 <see cref="Line.Origin"/> 属性，
         ///     V1、V2分别为L1、L2的 <see cref="Line.Direction"/> 属性。
         /// </para>
-        /// <para>另外，最短距离可用公式 <i>d = (P2-P1)∙(V1×V2)/||V1×V2||</i> 求得。</para>
-        /// </summary>
+        /// <para>另外，最短距离可用公式 <i>d = (P2-P1)∙(V1×V2)/||V1×V2||</i> 求得。</para></remarks>
         /// <param name="line1">给定直线1</param>
         /// <param name="line2">给定直线2</param>
         /// <returns>两条直线之间的最短线段。如果直线平行，则为null。</returns>
@@ -98,24 +96,22 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         }
         /// <summary>
         /// 圆弧与直线间最短线段的集合。
-        /// <para>
-        ///     <b>* 有可能不是最优解。</b>
-        ///     本方法是在圆弧上循环采样（逐步缩小采样间隔）取点计算最短距离，采样区域有可能错过最优解。
-        ///     可以设置更小的 <paramref name="samplingSpacingAtStart"/> 值以获得更精确的采样间隔。
-        ///     但不宜设置过小的值，一是影响计算速度，二是可能导致大批距离值相等影响判断。
-        /// </para>
         /// </summary>
+        /// <remarks><b>* 有可能不是最优解。</b>
+        /// 本方法是在圆弧上循环采样（逐步缩小采样间隔）取点计算最短距离，采样区域有可能错过最优解。
+        /// 可以设置更小的 <paramref name="samplingSpacingAtStart"/> 值以获得更精确的采样间隔。
+        /// 但不宜设置过小的值，一是影响计算速度，二是可能导致大批距离值相等影响判断。</remarks>
         /// <param name="arc">给定的圆弧</param>
         /// <param name="line">给定的直线</param>
         /// <param name="samplingSpacingAtStart">
         ///     初始采样间隔弧长。
         ///     输入正值以指定初始采样间隔弧长，
         ///     或输入非正值由方法自动确定一个适当的值。
-        ///     默认值0。
+        ///     默认值 0。
         /// </param>
         /// <param name="epsilon">
         ///     容许误差，小于此差异的距离值当作相等处理。默认值为
-        ///     <see cref="GeometryConstants.DISTANCE_EPSILON"/> 。
+        ///     <see cref="GeometryConstants.DISTANCE_EPSILON"/>。
         /// </param>
         /// <returns>最短线段集合。</returns>
         /// <exception cref="ArgumentNullException"></exception>
@@ -236,11 +232,10 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// </summary>
         /// <param name="circle">给定的圆（弧），不是整圆依然当成整圆处理。</param>
         /// <param name="line">给定的直线。</param>
-        /// <param name="samplingIntervalAtStart">用于情形4.2下调用关联方法时输入的参数，详情参见 <see cref="ArcToLine(Arc, Line, double, double)"/> 。</param>
-        /// <param name="epsilon">
-        ///     容许误差，小于此差异的距离值当作相等处理。默认值为
-        ///     <see cref="GeometryConstants.DISTANCE_EPSILON"/> 。
-        /// </param>
+        /// <param name="samplingIntervalAtStart">用于情形4.2下调用关联方法时输入的参数，
+        /// 详情参见 <see cref="ArcToLine(Arc, Line, double, double)"/> 。</param>
+        /// <param name="epsilon">容许误差，小于此差异的距离值当作相等处理。
+        /// 默认值为 <see cref="GeometryConstants.DISTANCE_EPSILON"/> 。</param>
         /// <returns>最短线段集合。符合条件的解有多种情形：
         /// <list type="number">
         ///     <item>圆半径为0：此时相当于求圆中心点与直线间的最短线段。</item>
@@ -256,25 +251,25 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         ///             <item>直线在圆平面上投影在与圆相交：有两个解。</item>
         ///         </list>
         ///     </item>
-        ///     <item>直线既不垂直也不平行于圆平面：
+        ///     <item>与穿过的圆直径所在直线垂直：
         ///         <list type="bullet">
-        ///             <item>与穿过的圆直径所在直线垂直：直线与圆平面交点在圆内时，有两个解；在圆上或圆外时，有一个解。
-        ///                 <para>此情形下最优解可通过求以下方程最小值时的 α 得到：</para>
-        /// <code>
+        ///             <item>直线与圆平面交点在圆内时，有两个解；</item>
+        ///             <item>在圆上或圆外时，有一个解。</item>
+        ///         </list>
+        ///         此情形下最优解可通过求以下方程最小值时的 α 得到：
+        ///         <code>
         /// y = ((d*tan(α)/tan(θ))^2 + (r-d/cos(α))^2)^0.5
         /// y - 圆上取点到直线的距离, y >= 0
         /// r - 圆半径, r > 0
         /// d - 圆心到直线的距离, 0 &lt;= d &lt;= r
         /// θ - 直线方向与圆平面法向的夹角, 0 &lt; θ &lt; 0.5π
         /// α - 圆上取点与圆心的连线 和 直线与圆平面的交点与圆心的连线之间的夹角, 0 &lt; α &lt; 0.5π
-        /// </code>
-        ///                 <b>* 上述方程不会解，暂时调用采样方法实现</b>，参见 <see cref="ArcToLine(Arc, Line, double, double)"/> 。
-        ///             </item>
-        ///             <item>与穿过的圆直径所在直线不垂直：只有一个解。
-        ///                 <para><b>* 此情形下是通过取样逼近最小值的方法实现。</b>
-        ///                 参见 <see cref="ArcToLine(Arc, Line, double, double)"/> 。</para>
-        ///             </item>
-        ///         </list>
+        ///         </code>
+        ///         <b>* 上述方程不会解，暂时调用采样方法实现</b>，参见 <see cref="ArcToLine(Arc, Line, double, double)"/>。
+        ///     </item>
+        ///     <item>与穿过的圆直径所在直线不垂直：只有一个解。
+        ///         <br/><b>* 此情形下是通过取样逼近最小值的方法实现。</b>
+        ///         参见 <see cref="ArcToLine(Arc, Line, double, double)"/> 。
         ///     </item>
         /// </list>
         /// </returns>

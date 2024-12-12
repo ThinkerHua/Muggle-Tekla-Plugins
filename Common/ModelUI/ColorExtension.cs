@@ -4,11 +4,9 @@ using Tekla.Structures.Model.UI;
 namespace Muggle.TeklaPlugins.Common.ModelUI {
     /// <summary>
     /// <see cref="Tekla.Structures.Model.UI"/>.<see cref="Color"/> 的扩展。
-    /// <para>
-    ///     参见"<a href="https://github.com/ThinkerHua/Muggle-Tekla-Plugins/blob/master/Documents/%E9%A2%9C%E8%89%B2%E7%A0%81%E5%AF%B9%E7%85%A7%E8%A1%A8.png">颜色码对照表</a>"。
-    ///     表中RGB值是通常定义的 0~255 整数，但官方文档定义取值范围为 0.0~1.0，所以代码中的实际值做了转换，保留4位小数。
-    /// </para>
     /// </summary>
+    /// <remarks>参见"<a href="https://github.com/ThinkerHua/Muggle-Tekla-Plugins/blob/master/Documents/%E9%A2%9C%E8%89%B2%E7%A0%81%E5%AF%B9%E7%85%A7%E8%A1%A8.png">颜色码对照表</a>"。
+    /// 表中RGB值是通常定义的 0~255 整数，但官方文档定义取值范围为 0.0~1.0，所以代码中的实际值做了转换，保留4位小数。</remarks>
     public static class ColorExtension {
         #region 预设属性
         /// <summary>
@@ -695,6 +693,10 @@ namespace Muggle.TeklaPlugins.Common.ModelUI {
         /// <summary>
         /// 获取颜色的字符串表示形式。
         /// </summary>
+        /// <remarks>有关数字格式字符串的详细信息，请参阅
+        /// <a href="https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/standard-numeric-format-strings">标准数字格式字符串</a>
+        /// 和 <a href="https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/custom-numeric-format-strings">自定义数字格式字符串</a>。
+        /// </remarks>
         /// <param name="color">当前颜色</param>
         /// <param name="format">复合格式字符串。默认值 null。</param>
         /// <returns>颜色的字符串表示形式。</returns>

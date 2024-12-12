@@ -13,19 +13,19 @@ namespace Muggle.TeklaPlugins.Common.ModelUI {
         /// </summary>
         /// <param name="drawer">当前绘图器。</param>
         /// <param name="arc">要画出的圆弧。</param>
-        /// <param name="color">线条颜色，默认黑色。</param>
-        /// <param name="width">线条宽度，默认1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
-        /// <param name="type">线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
-        /// <param name="accuracy">模拟圆弧的精细程度，即每多少弧长画一条直线，默认10。不建议设置为太小的数，会十分影响性能。</param>
+        /// <param name="color">线条颜色，默认值 <see cref="ColorExtension.Black"/>。</param>
+        /// <param name="width">线条宽度，默认值 1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
+        /// <param name="type">线型，默认值 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
+        /// <param name="accuracy">模拟圆弧的精细程度，即每多少弧长画一条直线，默认值 10.0。不建议设置为太小的数值，会十分影响性能。</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"><paramref name="width"/> 是有效值"1, 2, 4"以外的数值，
-        /// 或<paramref name="accuracy"/> 小于等于 0 时引发。</exception>
+        /// 或 <paramref name="accuracy"/> 小于等于 0.0 时引发。</exception>
         public static void DrawArc(this GraphicsDrawer drawer,
             Arc arc,
             Color color = default,
             int width = 1,
             GraphicPolyLine.LineType type = GraphicPolyLine.LineType.Solid,
-            double accuracy = 10) {
+            double accuracy = 10.0) {
             if (drawer is null) {
                 throw new ArgumentNullException(nameof(drawer));
             }
@@ -38,7 +38,7 @@ namespace Muggle.TeklaPlugins.Common.ModelUI {
                 throw new ArgumentException($"根据官方文档，“{nameof(width)}”有效值仅为 1 或 2 或 4。");
 
             if (accuracy <= 0)
-                throw new ArgumentException($"“{nameof(accuracy)}”不应小于等于0.0。");
+                throw new ArgumentException($"“{nameof(accuracy)}”不应小于等于 0.0。");
 
             var points = arc.GetPointsMeasure(accuracy);
             //必须包含圆弧终点，避免产生缺口
@@ -54,19 +54,19 @@ namespace Muggle.TeklaPlugins.Common.ModelUI {
         /// </summary>
         /// <param name="drawer">当前绘图器。</param>
         /// <param name="point">要画出的点。</param>
-        /// <param name="color">线条颜色，默认黑色。</param>
-        /// <param name="width">线条宽度，默认1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
-        /// <param name="type">线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
-        /// <param name="size">点大小，默认50。</param>
+        /// <param name="color">线条颜色，默认值 <see cref="ColorExtension.Black"/>。</param>
+        /// <param name="width">线条宽度，默认值 1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
+        /// <param name="type">线型，默认值 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
+        /// <param name="size">点大小，默认值 50.0。</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"><paramref name="width"/> 是有效值"1, 2, 4"以外的数值，
-        /// 或<paramref name="size"/> 小于等于 0 时引发。</exception>
+        /// 或 <paramref name="size"/> 小于等于 0.0 时引发。</exception>
         public static void DrawPoint(this GraphicsDrawer drawer,
             Point point,
             Color color = default,
             int width = 1,
             GraphicPolyLine.LineType type = GraphicPolyLine.LineType.Solid,
-            double size = 50) {
+            double size = 50.0) {
             if (drawer is null) {
                 throw new ArgumentNullException(nameof(drawer));
             }
@@ -110,11 +110,11 @@ namespace Muggle.TeklaPlugins.Common.ModelUI {
         /// </summary>
         /// <param name="drawer">当前绘图器。</param>
         /// <param name="line">要画的直线。</param>
-        /// <param name="color">线条颜色，默认黑色。</param>
-        /// <param name="width">线条宽度，默认1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
-        /// <param name="type">线型，默认 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
-        /// <param name="point">基准控制点，默认为直线原点。</param>
-        /// <param name="length">要画出的长度，默认5000。</param>
+        /// <param name="color">线条颜色，默认值 <see cref="ColorExtension.Black"/>。</param>
+        /// <param name="width">线条宽度，默认值 1。根据官方文档 <see cref="GraphicPolyLine.Width"/>，当前有效值为 1 或 2 或 4。</param>
+        /// <param name="type">线型，默认值 <see cref="GraphicPolyLine.LineType.Solid"/>。</param>
+        /// <param name="point">基准控制点，默认值为直线原点。</param>
+        /// <param name="length">要画出的长度，默认值 5000.0。</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"><paramref name="line"/> 的 <see cref="Line.Direction"/> 属性为零向量，
         /// 或 <paramref name="length"/> 小于等于 0.0，或 <paramref name="width"/> 是有效值"1, 2, 4"以外的数值时引发。</exception>
@@ -124,7 +124,7 @@ namespace Muggle.TeklaPlugins.Common.ModelUI {
             int width = 1,
             GraphicPolyLine.LineType type = GraphicPolyLine.LineType.Solid,
             Point point = default,
-            double length = 5000) {
+            double length = 5000.0) {
             if (drawer is null) {
                 throw new ArgumentNullException(nameof(drawer));
             }

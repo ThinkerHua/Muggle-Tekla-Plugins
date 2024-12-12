@@ -4,14 +4,11 @@ using Tekla.Structures.Geometry3d;
 namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// <see cref="Tekla.Structures.Geometry3d"/>.<see cref="MatrixFactory"/> 的扩展。
-    /// <para></para>
     /// </summary>
-    /// <remarks><b>
-    /// Tekla Open API内部，矩阵操作对象为坐标系。
+    /// <remarks><b>* Tekla Open API内部，矩阵操作对象为坐标系。
     /// 参考官方库的 <see cref="MatrixFactory.Rotate(double, Vector)"/> 方法，
     /// 产生的矩阵对点进行变换操作，实际得到的结果是反方向旋转的。
-    /// 本类中的扩展方法创建的矩阵，保持与官方实现行为一致。
-    /// </b></remarks>
+    /// 本类中的扩展方法创建的矩阵，保持与官方实现行为一致。</b></remarks>
     public static class MatrixFactoryExtension {
         /// <summary>
         /// 使用给定向量创建平移矩阵。
@@ -25,8 +22,8 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             }
 
             var matrix = new Matrix();
-            matrix[3, 0] = -vector.X; 
-            matrix[3, 1] = -vector.Y; 
+            matrix[3, 0] = -vector.X;
+            matrix[3, 1] = -vector.Y;
             matrix[3, 2] = -vector.Z;
 
             return matrix;
@@ -34,13 +31,13 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <summary>
         /// 以给定直线为旋转轴创建旋转矩阵。
         /// </summary>
+        /// <remarks>官方实现的 <see cref="MatrixFactory.Rotate(double, Vector)"/> 方法，
+        /// 只能以穿过当前坐标原点的旋转轴创建旋转矩阵。本实现可根据任意旋转轴创建旋转矩阵。</remarks>
         /// <param name="axis">旋转轴</param>
         /// <param name="radians">旋转角度，弧度制</param>
         /// <returns>旋转矩阵。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"><paramref name="axis"/> 的 <see cref="Line.Direction"/> 属性不应为零向量。</exception>
-        /// <remarks>官方实现的 <see cref="MatrixFactory.Rotate(double, Vector)"/> 方法，
-        /// 只能以穿过当前坐标原点的旋转轴创建旋转矩阵。本实现可根据任意旋转轴创建旋转矩阵。</remarks>
         public static Matrix Rotate(Line axis, double radians) {
             if (axis is null) {
                 throw new ArgumentNullException(nameof(axis));
@@ -112,7 +109,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             }
 
             normal = normal.GetNormal();
-;
+            ;
             var translate = MatrixFactoryExtension.Translate(normal * distance * 2);
             var mirror = new Matrix();
             mirror[0, 0] = 1 - 2 * normal.X * normal.X; mirror[0, 1] = -2 * normal.X * normal.Y; mirror[0, 2] = -2 * normal.X * normal.Z;

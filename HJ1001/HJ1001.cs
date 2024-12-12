@@ -190,7 +190,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             try {
                 primProfile = new ProfileCircular_Perfect(prim.Profile.ProfileString);
                 secProfile = new ProfileCircular_Perfect(sec.Profile.ProfileString);
-            } catch (UnAcceptableProfile) {
+            } catch (UnAcceptableProfileException) {
                 throw;
             }
         }

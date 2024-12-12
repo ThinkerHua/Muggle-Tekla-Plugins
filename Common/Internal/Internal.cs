@@ -1,13 +1,13 @@
-﻿using Muggle.TeklaPlugins.Common.Geometry3d;
+﻿using System;
+using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.ModelUI;
-using System;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
 namespace Muggle.TeklaPlugins.Common.Internal {
     /// <summary>
-    /// 内部使用的类。
+    /// 内部使用的类。主要用于开发过程中的测试。
     /// </summary>
     public static class Internal {
         /// <summary>
@@ -45,7 +45,7 @@ namespace Muggle.TeklaPlugins.Common.Internal {
             var plX = new PolyLine(new Point[] { origin, axisX });
             var plY = new PolyLine(new Point[] { origin, axisY });
             var plZ = new PolyLine(new Point[] { origin, axisZ });
-            
+
             if (axisX_Color == null) axisX_Color = ColorExtension.Red;
             if (axisY_Color == null) axisY_Color = ColorExtension.Green;
             if (axisZ_Color == null) axisZ_Color = ColorExtension.Blue;

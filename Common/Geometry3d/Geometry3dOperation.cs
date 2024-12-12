@@ -1,8 +1,8 @@
-﻿using Muggle.TeklaPlugins.Common.Operation;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Muggle.TeklaPlugins.Common.Operation;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 
@@ -99,7 +99,8 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         }
         /// <summary>
         /// 在平面上，有一个固定形状的三角形（位置不固定）和三条已知直线（位置固定）。求当三角形三个顶点分别落在三条直线上时的位置（即三个顶点值）。
-        /// <para><b>* 本方法仅处理二维平面情形。</b></para>
+        /// </summary>
+        /// <remarks><para><b>* 本方法仅处理二维平面情形。</b></para>
         /// <para>作如下约定：</para>
         /// <list type="bullet">
         ///     <item>
@@ -112,24 +113,23 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         ///         <para>三角形三个顶点分别为 P1, P2, P3, 分别落在 L1, L2, L3上。</para>
         ///         <para>E1 = [P1, P3], E2 = [P2, P3], E3 = [P1, P2]</para>
         ///     </item>
-        /// </list>
-        /// </summary>
+        /// </list></remarks>
         /// <param name="lines">给定的三条直线</param>
         /// <param name="edges">给定的三角形三条边</param>
         /// <param name="samplingSpacingAtStart">
         ///     初始采样间隔长度。
         ///     输入正值以指定初始采样间隔，或输入非正值由方法自动确定一个适当的值。
-        ///     默认值0。
+        ///     默认值 0。
         /// </param>
         /// <param name="epsilon">
         ///     容许误差，小于此差异的距离值当作相等处理。默认值为
-        ///     <see cref="GeometryConstants.DISTANCE_EPSILON"/> 。
+        ///     <see cref="GeometryConstants.DISTANCE_EPSILON"/>。
         /// </param>
-        /// <returns>符合要求的三角形三个顶点的集合。无解则返回 null。</returns>
+        /// <returns>符合要求的三角形三个顶点的集合。如无解则集合中元素数量为 0。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException">
-        ///     <paramref name="lines"/>的元素的Direction属性为零向量或不在同一个平面上，
-        ///     或<paramref name="edges"/>的元素不构成三角形。
+        ///     <paramref name="lines"/> 的元素的Direction属性为零向量或不在同一个平面上，
+        ///     或 <paramref name="edges"/> 的元素不构成三角形。
         /// </exception>
         public static List<(Point P1, Point P2, Point P3)> PositionOfTriangleOnLines(
             (Line L1, Line L2, Line L3) lines,
@@ -551,7 +551,6 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 }
             }
 
-            if (resault.Count == 0) resault = null;
             return resault;
             #endregion
 
@@ -563,7 +562,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <param name="p1">给定任意点1</param>
         /// <param name="p2">给定任意点2</param>
         /// <param name="p3">给定任意点3</param>
-        /// <returns>球体的中心点。</returns>
+        /// <returns>球体的中心点。如果给定四点共面，则无解，返回 null。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException">给定的四个点必须均不相等。</exception>
         public static Point CenterOfSphere(Point p0, Point p1, Point p2, Point p3) {

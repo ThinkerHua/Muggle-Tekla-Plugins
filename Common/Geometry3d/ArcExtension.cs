@@ -39,11 +39,10 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         }
         /// <summary>
         /// 获取弧线上在 <paramref name="startPoint"/> 与 <paramref name="endPoint"/> 之间每隔 <paramref name="stepRadians"/> 角度的点的集合。
-        /// <para><b>
-        ///     * 约定计算夹角时遵循圆弧的方向。 
-        ///     如果 <paramref name="startPoint"/> 与 <paramref name="endPoint"/> 之间夹角为0，则按2π处理。
-        /// </b></para>
         /// </summary>
+        /// <remarks><b>* 约定：计算夹角时遵循圆弧的方向。
+        /// 如果 <paramref name="startPoint"/> 与 <paramref name="endPoint"/> 之间夹角为0，则按2π处理。
+        /// </b></remarks>
         /// <param name="arc">当前圆弧</param>
         /// <param name="startPoint">
         ///     起始计算点。（在弧平面上的投影）不应与弧中心点重合。
