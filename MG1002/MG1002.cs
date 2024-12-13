@@ -1,3 +1,17 @@
+ï»¿/*==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures
+ *
+ *  Copyright Â© 2024 Huang YongXing.                 
+ *
+ *  This library is free software, licensed under the terms of the GNU 
+ *  General Public License as published by the Free Software Foundation, 
+ *  either version 3 of the License, or (at your option) any later version. 
+ *  You should have received a copy of the GNU General Public License 
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
+ *==============================================================================
+ *  MG1002.cs: "WK1001" connection
+ *  written by Huang YongXing - thinkerhua@hotmail.com
+ *==============================================================================*/
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Internal;
 using Muggle.TeklaPlugins.Common.Model;
@@ -103,7 +117,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             bool resault = false;
             try {
                 if (Primary == null || Secondaries == null || Secondaries.Count != 2)
-                    throw new Exception("ĞèÒªÒ»¸öÖ÷Áã¼ş£¬Á½¸ö´ÎÁã¼ş£¡");
+                    throw new Exception("éœ€è¦ä¸€ä¸ªä¸»é›¶ä»¶ï¼Œä¸¤ä¸ªæ¬¡é›¶ä»¶ï¼");
 
                 var PRIMPart = (Beam) _model.SelectModelObject(Primary);
                 var SECPart1 = (Beam) _model.SelectModelObject(Secondaries[0]);
@@ -153,13 +167,13 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 prfStr_EndPlate = "PL30*460*1093";
             prfEndPlate = new ProfilePlate(prfStr_EndPlate);
             if (prfEndPlate.t == 0.0 || prfEndPlate.b == 0.0 || prfEndPlate.l == 0.0)
-                throw new ArgumentException("¶Ë°å¹æ¸ñÓ¦Ìá¹©ÍêÕû²ÎÊı£¬²»µÃÊ¡ÂÔ¡£ÀıÈç£ºPL30*460*1093¡£");
+                throw new ArgumentException("ç«¯æ¿è§„æ ¼åº”æä¾›å®Œæ•´å‚æ•°ï¼Œä¸å¾—çœç•¥ã€‚ä¾‹å¦‚ï¼šPL30*460*1093ã€‚");
 
             if (IsDefaultValue(prfStr_STIF_FLNG) || prfStr_STIF_FLNG == string.Empty)
                 prfStr_STIF_FLNG = "PL10*115*175";
             prfStifFlange = new ProfilePlate(prfStr_STIF_FLNG);
             if (prfStifFlange.t == 0.0 || prfStifFlange.b == 0.0 || prfStifFlange.l == 0.0)
-                throw new ArgumentException("ÒíÔµ¼Ó¾¢°å¹æ¸ñÓ¦Ìá¹©ÍêÕû²ÎÊı£¬²»µÃÊ¡ÂÔ¡£ÀıÈç£ºPL10*115*175¡£");
+                throw new ArgumentException("ç¿¼ç¼˜åŠ åŠ²æ¿è§„æ ¼åº”æä¾›å®Œæ•´å‚æ•°ï¼Œä¸å¾—çœç•¥ã€‚ä¾‹å¦‚ï¼šPL10*115*175ã€‚");
 
             if (IsDefaultValue(type_STIF_WEB))
                 type_STIF_WEB = 0;
@@ -168,7 +182,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 prfStr_STIF_WEB = "PL10*225*225";
             prfStifWeb = new ProfilePlate(prfStr_STIF_WEB);
             if (prfStifWeb.t == 0.0 || prfStifWeb.b == 0.0 || prfStifWeb.l == 0.0)
-                throw new ArgumentException("¸¹°å¼Ó¾¢°å¹æ¸ñÓ¦Ìá¹©ÍêÕû²ÎÊı£¬²»µÃÊ¡ÂÔ¡£ÀıÈç£ºPL10*225*225¡£");
+                throw new ArgumentException("è…¹æ¿åŠ åŠ²æ¿è§„æ ¼åº”æä¾›å®Œæ•´å‚æ•°ï¼Œä¸å¾—çœç•¥ã€‚ä¾‹å¦‚ï¼šPL10*225*225ã€‚");
 
             if (IsDefaultValue(cmf_Inside))
                 cmf_Inside = 20;
@@ -181,15 +195,15 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 prfStr_VERT = "PL18";
             prfVert = new ProfilePlate(prfStr_VERT);
             if (prfVert.t == 0.0 || prfVert.l != 0.0)
-                throw new ArgumentException("Êú°å¹æ¸ñ±ØĞëÌá¹©ºñ¶È²ÎÊı£¬¿ÉÊ¡ÂÔ¿í¶È²ÎÊı£¬²»ĞèÒª³¤¶È²ÎÊı¡£ÀıÈç£ºPL18 »ò PL18*150¡£");
+                throw new ArgumentException("ç«–æ¿è§„æ ¼å¿…é¡»æä¾›åšåº¦å‚æ•°ï¼Œå¯çœç•¥å®½åº¦å‚æ•°ï¼Œä¸éœ€è¦é•¿åº¦å‚æ•°ã€‚ä¾‹å¦‚ï¼šPL18 æˆ– PL18*150ã€‚");
 
             if (IsDefaultValue(prfStr_DIAG) || prfStr_DIAG == string.Empty)
                 prfStr_DIAG = string.Empty;
             if (prfStr_DIAG != string.Empty) {
                 prfDiag = new ProfilePlate(prfStr_DIAG);
                 if (prfDiag.t == 0.0 && prfDiag.b != 0.0 || prfDiag.l != 0.0)
-                    throw new ArgumentException("¶Ô½Ç°å¹æ¸ñ¿É²»Ìî »ò ½öÌá¹©ºñ¶È²ÎÊı »ò Í¬Ê±Ìá¹©ºñ¶ÈºÍ¿í¶È²ÎÊı£¬²»ĞèÒª³¤¶È²ÎÊı¡£" +
-                        "ÀıÈç£ºPL8 »ò PL8*150¡£");
+                    throw new ArgumentException("å¯¹è§’æ¿è§„æ ¼å¯ä¸å¡« æˆ– ä»…æä¾›åšåº¦å‚æ•° æˆ– åŒæ—¶æä¾›åšåº¦å’Œå®½åº¦å‚æ•°ï¼Œä¸éœ€è¦é•¿åº¦å‚æ•°ã€‚" +
+                        "ä¾‹å¦‚ï¼šPL8 æˆ– PL8*150ã€‚");
             }
 
             if (IsDefaultValue(pos_DIAG1))
@@ -214,9 +228,9 @@ namespace Muggle.TeklaPlugins.MG1002 {
             disList_bolt_Y = DistanceList.Parse(disListStr_bolt_Y, System.Globalization.CultureInfo.InvariantCulture, Tekla.Structures.Datatype.Distance.CurrentUnitType);
         }
         /// <summary>
-        /// Ö÷Áã¼ş½öÖ§³ÖµÈ½ØÃæºÍ¶Ô³Æ±ä½ØÃæHĞÍ¸Ö£¬´ÎÁã¼ş½öÖ§³ÖµÈ½ØÃæºÍĞ¨ĞÎHĞÍ¸Ö
+        /// ä¸»é›¶ä»¶ä»…æ”¯æŒç­‰æˆªé¢å’Œå¯¹ç§°å˜æˆªé¢Hå‹é’¢ï¼Œæ¬¡é›¶ä»¶ä»…æ”¯æŒç­‰æˆªé¢å’Œæ¥”å½¢Hå‹é’¢
         /// </summary>
-        /// <exception cref="UnAcceptableProfileException">µ±Ñ¡ÔñµÄÁã¼ş²»Ö§³ÖÊ±Å×³ö¡£</exception>
+        /// <exception cref="UnAcceptableProfileException">å½“é€‰æ‹©çš„é›¶ä»¶ä¸æ”¯æŒæ—¶æŠ›å‡ºã€‚</exception>
         private void CheckIfAcceptableProfile() {
             var primPart = _model.SelectModelObject(Primary) as Beam;
             var secPart1 = _model.SelectModelObject(Secondaries[0]) as Beam;
@@ -227,19 +241,19 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 prfSecR = new ProfileH(secPart2.Profile.ProfileString);
 
                 if (prfPrim.b2 != prfPrim.b1)
-                    throw new UnAcceptableProfileException($"½öÖ§³Ö½ØÃæµÈ¿í£¨¸ß¶È¿É±ä£©µÄÖ÷Áã¼ş£¬µ«ÊäÈëµÄÖ÷Áã¼ş½ØÃæÎª£º{prfPrim.ProfileText}");
+                    throw new UnAcceptableProfileException($"ä»…æ”¯æŒæˆªé¢ç­‰å®½ï¼ˆé«˜åº¦å¯å˜ï¼‰çš„ä¸»é›¶ä»¶ï¼Œä½†è¾“å…¥çš„ä¸»é›¶ä»¶æˆªé¢ä¸ºï¼š{prfPrim.ProfileText}");
                 if (prfSecL.ProfileText.Contains("I_VAR_A") && prfSecL.h2 != prfSecL.h1 || prfSecL.b2 != prfSecL.b1)
-                    throw new UnAcceptableProfileException($"½öÖ§³ÖµÈ½ØÃæ»òµÈ¿íĞ¨ĞÎ½ØÃæµÄ´ÎÁã¼ş£¬µ«ÊäÈëµÄ´ÎÁã¼ş½ØÃæÎª{prfSecL.ProfileText}");
+                    throw new UnAcceptableProfileException($"ä»…æ”¯æŒç­‰æˆªé¢æˆ–ç­‰å®½æ¥”å½¢æˆªé¢çš„æ¬¡é›¶ä»¶ï¼Œä½†è¾“å…¥çš„æ¬¡é›¶ä»¶æˆªé¢ä¸º{prfSecL.ProfileText}");
                 if (prfSecR.ProfileText.Contains("I_VAR_A") && prfSecR.h2 != prfSecR.h1 || prfSecR.b2 != prfSecR.b1)
-                    throw new UnAcceptableProfileException($"½öÖ§³ÖµÈ½ØÃæ»òµÈ¿íĞ¨ĞÎ½ØÃæµÄ´ÎÁã¼ş£¬µ«ÊäÈëµÄ´ÎÁã¼ş½ØÃæÎª{prfSecR.ProfileText}");
+                    throw new UnAcceptableProfileException($"ä»…æ”¯æŒç­‰æˆªé¢æˆ–ç­‰å®½æ¥”å½¢æˆªé¢çš„æ¬¡é›¶ä»¶ï¼Œä½†è¾“å…¥çš„æ¬¡é›¶ä»¶æˆªé¢ä¸º{prfSecR.ProfileText}");
             } catch (UnAcceptableProfileException) {
                 throw;
             }
         }
         /// <summary>
-        /// »ñÈ¡¹¤×÷Æ½Ãæ¡£
+        /// è·å–å·¥ä½œå¹³é¢ã€‚
         /// </summary>
-        /// <returns>Ô­µãÎªÖù¶¥µã£¬XÖáÎªÖùµÄÁã¼ş×ø±êÏµYÖá£¬YÖáÎªÖùµÄÁã¼ş×ø±êÏµXÖá£¬ÈôÖùÊÇ´ÓÉÏÍùÏÂ»æÖÆÔòYÖá·´Ïò¡£</returns>
+        /// <returns>åŸç‚¹ä¸ºæŸ±é¡¶ç‚¹ï¼ŒXè½´ä¸ºæŸ±çš„é›¶ä»¶åæ ‡ç³»Yè½´ï¼ŒYè½´ä¸ºæŸ±çš„é›¶ä»¶åæ ‡ç³»Xè½´ï¼Œè‹¥æŸ±æ˜¯ä»ä¸Šå¾€ä¸‹ç»˜åˆ¶åˆ™Yè½´åå‘ã€‚</returns>
         private TransformationPlane GetWorkTransformationPlane() {
             Point origin;
             Vector axisX, axisY;
@@ -267,8 +281,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
             var primPart = _model.SelectModelObject(Primary) as Beam;
             var secPart1 = _model.SelectModelObject(Secondaries[0]) as Beam;
             var secPart2 = _model.SelectModelObject(Secondaries[1]) as Beam;
-            #region ¶¨Òå×ó¡¢ÓÒÁº
-            //  ÓëÖùÁã¼ş×ø±êÏµYÖáÍ¬ÏòÎªÓÒÁº£¬·´ÏòÎª×óÁº
+            #region å®šä¹‰å·¦ã€å³æ¢
+            //  ä¸æŸ±é›¶ä»¶åæ ‡ç³»Yè½´åŒå‘ä¸ºå³æ¢ï¼Œåå‘ä¸ºå·¦æ¢
 
             var disStart = TSG3d.Distance.PointToPoint(origin, secPart1.StartPoint);
             var disEnd = TSG3d.Distance.PointToPoint(origin, secPart1.EndPoint);
@@ -284,7 +298,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
             #endregion
 
-            #region Ö÷´ÎÁã¼ş¹æ¸ñ¡¢±ßÏß
+            #region ä¸»æ¬¡é›¶ä»¶è§„æ ¼ã€è¾¹çº¿
             CoordinateSystem primCS, secLCS, secRCS;
             primCS = primPart.GetCoordinateSystem();
             secLCS = secPartL.GetCoordinateSystem();
@@ -294,7 +308,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             Line prim_CLine, prim_LLine, prim_RLine, secL_TLine, secL_BLine, secR_TLine, secR_BLine;
             ArrayList centerline;
             centerline = primPart.GetCenterLine(false);
-            //  ²»Çå³şÊ²Ã´Ô­Òò£¬ÓĞÊ±ºòZ×ø±ê»áÊÇÒ»¸öºÜĞ¡µÄÊı£¬ÕâÀïÒªÏû³ıÎó²î
+            //  ä¸æ¸…æ¥šä»€ä¹ˆåŸå› ï¼Œæœ‰æ—¶å€™Zåæ ‡ä¼šæ˜¯ä¸€ä¸ªå¾ˆå°çš„æ•°ï¼Œè¿™é‡Œè¦æ¶ˆé™¤è¯¯å·®
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
@@ -322,10 +336,10 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 prim_CLine.Direction *= -1;
                 prim_LLine.Direction *= -1;
                 prim_RLine.Direction *= -1;
-            }//  ·½ÏòÍ³Ò»³É´Óµ×Ö¸Ïò¶¥
+            }//  æ–¹å‘ç»Ÿä¸€æˆä»åº•æŒ‡å‘é¡¶
 
             centerline = secPartL.GetCenterLine(false);
-            //  ²»Çå³şÊ²Ã´Ô­Òò£¬ÓĞÊ±ºòZ×ø±ê»áÊÇÒ»¸öºÜĞ¡µÄÊı£¬ÕâÀïÒªÏû³ıÎó²î
+            //  ä¸æ¸…æ¥šä»€ä¹ˆåŸå› ï¼Œæœ‰æ—¶å€™Zåæ ‡ä¼šæ˜¯ä¸€ä¸ªå¾ˆå°çš„æ•°ï¼Œè¿™é‡Œè¦æ¶ˆé™¤è¯¯å·®
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
@@ -334,7 +348,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             point3 = new Point(point1);
             point4 = new Point(point2);
 
-            //  Ğ¨ĞÎÁºÖĞĞÄÏß´©¹ıÄ©¶Ë½ØÃæµÄÖĞµã£¬ËùÒÔ´Ë´¦¾ùÎªh2
+            //  æ¥”å½¢æ¢ä¸­å¿ƒçº¿ç©¿è¿‡æœ«ç«¯æˆªé¢çš„ä¸­ç‚¹ï¼Œæ‰€ä»¥æ­¤å¤„å‡ä¸ºh2
             point1.Translate(0, prfSecL.h2 * -0.5, 0);
             point2.Translate(0, prfSecL.h2 * -0.5, 0);
             point3.Translate(0, prfSecL.h1 - prfSecL.h2 * 0.5, 0);
@@ -350,10 +364,10 @@ namespace Muggle.TeklaPlugins.MG1002 {
             if (axisX.Dot(secLCS.AxisX) < 0) {
                 secL_TLine.Direction *= -1;
                 secL_BLine.Direction *= -1;
-            }//  ·½ÏòÍ³Ò»³É´ÓÔ¶¶ËÖ¸Ïò½ü¶Ë
+            }//  æ–¹å‘ç»Ÿä¸€æˆä»è¿œç«¯æŒ‡å‘è¿‘ç«¯
 
             centerline = secPartR.GetCenterLine(false);
-            //  ²»Çå³şÊ²Ã´Ô­Òò£¬ÓĞÊ±ºòZ×ø±ê»áÊÇÒ»¸öºÜĞ¡µÄÊı£¬ÕâÀïÒªÏû³ıÎó²î
+            //  ä¸æ¸…æ¥šä»€ä¹ˆåŸå› ï¼Œæœ‰æ—¶å€™Zåæ ‡ä¼šæ˜¯ä¸€ä¸ªå¾ˆå°çš„æ•°ï¼Œè¿™é‡Œè¦æ¶ˆé™¤è¯¯å·®
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
@@ -377,11 +391,11 @@ namespace Muggle.TeklaPlugins.MG1002 {
             if (axisX.Dot(secRCS.AxisX) > 0) {
                 secR_TLine.Direction *= -1;
                 secR_BLine.Direction *= -1;
-            }//  ·½ÏòÍ³Ò»³É´ÓÔ¶¶ËÖ¸Ïò½ü¶Ë
+            }//  æ–¹å‘ç»Ÿä¸€æˆä»è¿œç«¯æŒ‡å‘è¿‘ç«¯
 
             #endregion
 
-            #region ´´½¨¶Ë°å
+            #region åˆ›å»ºç«¯æ¿
             var e1 = Math.Sqrt(Math.Pow(prfEndPlate.t, 2) + Math.Pow(prfEndPlate.l * 0.5, 2));
             var secL_BLine_inside = secL_BLine.Offset(prfSecL.t2, LineExtension.OffsetDirectionEnum.LEFT);
             var secR_BLine_inside = secR_BLine.Offset(prfSecR.t2, LineExtension.OffsetDirectionEnum.RIGHT);
@@ -393,26 +407,26 @@ namespace Muggle.TeklaPlugins.MG1002 {
             var positionOfTriangle = Geometry3dOperation.PositionOfTriangleOnLines(
                     (secL_BLine_inside, secR_BLine_inside, prim_CLine),
                     (e1, e1, prfEndPlate.l));
-            if (positionOfTriangle.Count == 0) throw new Exception("¸ù¾İÏÖÓĞ²ÎÊı£¬¶Ë°åÎŞ·¨·ÅÖÃ£¬Çë¼ì²é²¢µ÷Õû²ÎÊı¡£");
+            if (positionOfTriangle.Count == 0) throw new Exception("æ ¹æ®ç°æœ‰å‚æ•°ï¼Œç«¯æ¿æ— æ³•æ”¾ç½®ï¼Œè¯·æ£€æŸ¥å¹¶è°ƒæ•´å‚æ•°ã€‚");
             foreach (var (P1, P2, P3) in positionOfTriangle) {
 
-                //  Å×ÆúP3ÔÚÉÏ·½µÄ×éºÏ
+                //  æŠ›å¼ƒP3åœ¨ä¸Šæ–¹çš„ç»„åˆ
                 translateVector = new Vector(P3 - (P1 + P2).Multiply(0.5));
                 if (Vector.Dot(translateVector, axisY) >= 0)
                     continue;
-                //  Å×ÆúP1ÔÚÑÓ³¤ÏßÉÏµÄ×éºÏ
+                //  æŠ›å¼ƒP1åœ¨å»¶é•¿çº¿ä¸Šçš„ç»„åˆ
                 if (Vector.Dot(new Vector(P1 - xPoint), secL_BLine_inside.Direction) >= 0)
                     continue;
-                //  Å×ÆúP2ÔÚÑÓ³¤ÏßÉÏµÄ×éºÏ
+                //  æŠ›å¼ƒP2åœ¨å»¶é•¿çº¿ä¸Šçš„ç»„åˆ
                 if (Vector.Dot(new Vector(P2 - xPoint), secR_BLine_inside.Direction) >= 0)
                     continue;
 
-                //  ×î¶à¿ÉÄÜÈÔÓĞ2×é½â£¬²»×öÇø·Ö£¬Ö±½ÓÊ¹ÓÃµÚ1×é½â
+                //  æœ€å¤šå¯èƒ½ä»æœ‰2ç»„è§£ï¼Œä¸åšåŒºåˆ†ï¼Œç›´æ¥ä½¿ç”¨ç¬¬1ç»„è§£
                 point1 = P1;
                 point2 = P2;
                 point3 = P3;
 
-                break;//  Ìø¹ı¿ÉÄÜ´æÔÚµÄµÚ2×é½â
+                break;//  è·³è¿‡å¯èƒ½å­˜åœ¨çš„ç¬¬2ç»„è§£
             }
             point1.Translate(translateVector);
             point2.Translate(translateVector);
@@ -436,7 +450,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 rotationEnum: Position.RotationEnum.TOP);
             #endregion
 
-            #region ÖùÄ©¶Ë¶ÔÆë£¬ÁºÄ©¶Ë¶ÔÆë¡¢ÇĞ¸î
+            #region æŸ±æœ«ç«¯å¯¹é½ï¼Œæ¢æœ«ç«¯å¯¹é½ã€åˆ‡å‰²
             var fitting = new Fitting {
                 Father = primPart,
                 Plane = new Plane {
@@ -485,7 +499,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             booleanOperator.Delete();
             #endregion
 
-            #region ´´½¨Êú°å
+            #region åˆ›å»ºç«–æ¿
             Beam vertPlate_LF, vertPlate_LB, vertPlate_RF, vertPlate_RB;
 
             if (prfVert.b == 0.0) prfVert.b = (prfPrim.b1 - prfSecL.s) * 0.5;
@@ -556,7 +570,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 rotationEnum: Position.RotationEnum.BELOW);
             #endregion
 
-            #region ´´½¨¶Ô½Ç°å
+            #region åˆ›å»ºå¯¹è§’æ¿
             Beam diagPlate_F = null, diagPlate_B = null;
             if (prfStr_DIAG == string.Empty)
                 goto SkipDiagPlate;
@@ -610,7 +624,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
         SkipDiagPlate:;
             #endregion
 
-            #region ´´½¨ÒíÔµ¼Ó¾¢°å
+            #region åˆ›å»ºç¿¼ç¼˜åŠ åŠ²æ¿
             var chamferNone = new Chamfer();
             var chamferLine_inside = new Chamfer(cmf_Inside, cmf_Inside, Chamfer.ChamferTypeEnum.CHAMFER_LINE);
             point1 = IntersectionExtension.LineToLine(endPlate_BLine, prim_LLine).StartPoint;
@@ -646,7 +660,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 materialStr: materialStr);
             #endregion
 
-            #region ´´½¨¸¹°å¼Ó¾¢°å
+            #region åˆ›å»ºè…¹æ¿åŠ åŠ²æ¿
             var transX = new Vector(endPlateLine.Direction);
             var transY = Vector.Cross(axisZ, transX);
             var transZ = new Vector(axisZ);
@@ -693,7 +707,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             }
             #endregion
 
-            #region ´´½¨ÂİË¨
+            #region åˆ›å»ºèºæ “
             var position = new Position {
                 Rotation = Position.RotationEnum.BELOW,
             };
@@ -702,7 +716,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 position: position, bolt_standard: bolt_Standard, bolt_size: bolt_Size);
             #endregion
 
-            #region º¸½Ó
+            #region ç„Šæ¥
             ModelOperation.CreatWeld(primPart, endPlate2);
             ModelOperation.CreatWeld(secPartL, endPlate1);
             ModelOperation.CreatWeld(secPartR, endPlate1);

@@ -1,3 +1,17 @@
+ï»¿/*==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures
+ *
+ *  Copyright Â© 2024 Huang YongXing.                 
+ *
+ *  This library is free software, licensed under the terms of the GNU 
+ *  General Public License as published by the Free Software Foundation, 
+ *  either version 3 of the License, or (at your option) any later version. 
+ *  You should have received a copy of the GNU General Public License 
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
+ *==============================================================================
+ *  FormWK1001.Designer.cs: form designer for "WK1001" connection
+ *  written by Huang YongXing - thinkerhua@hotmail.com
+ *==============================================================================*/
 namespace Muggle.TeklaPlugins.WK1001 {
     partial class FormWK1001 {
         /// <summary>
@@ -322,7 +336,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(77, 12);
             this.label15.TabIndex = 0;
-            this.label15.Text = "Á¬½ÓÍ²¹æ¸ñ a";
+            this.label15.Text = "è¿æ¥ç­’è§„æ ¼ a";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // filter_prfStr_Tube
@@ -369,7 +383,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(77, 12);
             this.label17.TabIndex = 0;
-            this.label17.Text = "ÉÏ¶Ë°åºñ¶È b";
+            this.label17.Text = "ä¸Šç«¯æ¿åšåº¦ b";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label19
@@ -384,7 +398,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(77, 12);
             this.label19.TabIndex = 0;
-            this.label19.Text = "ÏÂ¶Ë°åºñ¶È c";
+            this.label19.Text = "ä¸‹ç«¯æ¿åšåº¦ c";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label20
@@ -399,7 +413,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(77, 12);
             this.label20.TabIndex = 0;
-            this.label20.Text = "ÏÂ¶Ë°åÖ±¾¶ d";
+            this.label20.Text = "ä¸‹ç«¯æ¿ç›´å¾„ d";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tbox_diam_BEndplate
@@ -412,7 +426,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.tbox_diam_BEndplate.Name = "tbox_diam_BEndplate";
             this.tbox_diam_BEndplate.Size = new System.Drawing.Size(114, 21);
             this.tbox_diam_BEndplate.TabIndex = 10;
-            this.toolTip1.SetToolTip(this.tbox_diam_BEndplate, "²»ÌîÔò½ÚµãÀàĞÍÎªTYPE A£¬ÌîĞ´´ËÏîÔò½ÚµãÀàĞÍÎªTYPE B¡£");
+            this.toolTip1.SetToolTip(this.tbox_diam_BEndplate, "ä¸å¡«åˆ™èŠ‚ç‚¹ç±»å‹ä¸ºTYPE Aï¼Œå¡«å†™æ­¤é¡¹åˆ™èŠ‚ç‚¹ç±»å‹ä¸ºTYPE Bã€‚");
             // 
             // tbox_thick_TEndplate
             // 
@@ -437,7 +451,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(77, 12);
             this.label16.TabIndex = 0;
-            this.label16.Text = "¼Ó¾¢°åºñ¶È e";
+            this.label16.Text = "åŠ åŠ²æ¿åšåº¦ e";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label22
@@ -452,7 +466,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(89, 12);
             this.label22.TabIndex = 0;
-            this.label22.Text = "ÉÏ¶ËÉì³ö³¤¶È g";
+            this.label22.Text = "ä¸Šç«¯ä¼¸å‡ºé•¿åº¦ g";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label23
@@ -467,7 +481,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(89, 12);
             this.label23.TabIndex = 0;
-            this.label23.Text = "ÏÂ¶ËÉì³ö³¤¶È h";
+            this.label23.Text = "ä¸‹ç«¯ä¼¸å‡ºé•¿åº¦ h";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label24
@@ -482,7 +496,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(89, 12);
             this.label24.TabIndex = 0;
-            this.label24.Text = "½ÚµãÁã¼ş²ÄÖÊ  ";
+            this.label24.Text = "èŠ‚ç‚¹é›¶ä»¶æè´¨  ";
             this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label25
@@ -497,7 +511,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(41, 12);
             this.label25.TabIndex = 0;
-            this.label25.Text = "µÈ¼¶  ";
+            this.label25.Text = "ç­‰çº§  ";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label26
@@ -512,7 +526,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(101, 12);
             this.label26.TabIndex = 0;
-            this.label26.Text = "¸Ë¼ş¼ä×îĞ¡¼ä¾à f";
+            this.label26.Text = "æ†ä»¶é—´æœ€å°é—´è· f";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // filter_group_no
@@ -617,7 +631,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.tbox_prfStr_Tube.Name = "tbox_prfStr_Tube";
             this.tbox_prfStr_Tube.Size = new System.Drawing.Size(114, 21);
             this.tbox_prfStr_Tube.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.tbox_prfStr_Tube, "ĞÎÊ½ÎªOd*t£¬ÀıÈçO377*18¡£²»Ìî±íÊ¾¸ù¾İ²ÎÊı¡°¸Ë¼ş¼ä×îĞ¡¼ä¾à f¡±¡¢¡°ÉÏ¶Ë°åºñ¶È b¡±¡¢¡°ÏÂ¶Ë°åºñ¶È c¡±×Ô¶¯È·¶¨Ò»¸öºÏÊÊµÄ¹æ¸ñ¡£");
+            this.toolTip1.SetToolTip(this.tbox_prfStr_Tube, "å½¢å¼ä¸ºOd*tï¼Œä¾‹å¦‚O377*18ã€‚ä¸å¡«è¡¨ç¤ºæ ¹æ®å‚æ•°â€œæ†ä»¶é—´æœ€å°é—´è· fâ€ã€â€œä¸Šç«¯æ¿åšåº¦ bâ€ã€â€œä¸‹ç«¯æ¿åšåº¦ câ€è‡ªåŠ¨ç¡®å®šä¸€ä¸ªåˆé€‚çš„è§„æ ¼ã€‚");
             this.tbox_prfStr_Tube.TextChanged += new System.EventHandler(this.Tbox_prfStr_Tube_TextChanged);
             // 
             // tbox_minDis
@@ -911,7 +925,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormWK1001";
-            this.Text = "·½¹ÜÍø¿Ç¸Ë¼şÁ¬½Ó";
+            this.Text = "æ–¹ç®¡ç½‘å£³æ†ä»¶è¿æ¥";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.ParametersTabPage.ResumeLayout(false);

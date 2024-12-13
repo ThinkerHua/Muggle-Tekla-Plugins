@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures
+ *
+ *  Copyright © 2024 Huang YongXing.                 
+ *
+ *  This library is free software, licensed under the terms of the GNU 
+ *  General Public License as published by the Free Software Foundation, 
+ *  either version 3 of the License, or (at your option) any later version. 
+ *  You should have received a copy of the GNU General Public License 
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
+ *==============================================================================
+ *  MatrixExtension.cs: extension of Tekla.Structures.Geometry3d.Matrix
+ *  written by Huang YongXing - thinkerhua@hotmail.com
+ *==============================================================================*/
+using System;
 using Tekla.Structures.Geometry3d;
 
 namespace Muggle.TeklaPlugins.Common.Geometry3d {

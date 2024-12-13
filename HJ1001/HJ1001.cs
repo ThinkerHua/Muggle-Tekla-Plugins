@@ -1,3 +1,17 @@
+ï»¿/*==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures
+ *
+ *  Copyright Â© 2024 Huang YongXing.                 
+ *
+ *  This library is free software, licensed under the terms of the GNU 
+ *  General Public License as published by the Free Software Foundation, 
+ *  either version 3 of the License, or (at your option) any later version. 
+ *  You should have received a copy of the GNU General Public License 
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
+ *==============================================================================
+ *  HJ1001.cs: "HJ1001" connection
+ *  written by Huang YongXing - thinkerhua@hotmail.com
+ *==============================================================================*/
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
@@ -182,7 +196,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
 
         }
         /// <summary>
-        /// Ä¿Ç°½öÖ§³ÖÔ²¸Ö»òÔ²¹ÜµÄÕıÔ²ĞÎÊ½£¨º¬±ä½ØÃæÇéĞÎ£©£¬²»Ö§³ÖÍÖÔ²ĞÎÊ½¡£
+        /// ç›®å‰ä»…æ”¯æŒåœ†é’¢æˆ–åœ†ç®¡çš„æ­£åœ†å½¢å¼ï¼ˆå«å˜æˆªé¢æƒ…å½¢ï¼‰ï¼Œä¸æ”¯æŒæ¤­åœ†å½¢å¼ã€‚
         /// </summary>
         private void CheckIfAcceptableProfile() {
             var prim = (Part) Model.SelectModelObject(Primary);
@@ -257,7 +271,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             } else {
                 var cs = prim.GetCoordinateSystem();
                 axisX = new Vector(p2 - p1);
-                //  PolyBeamÄ©¶Î¿ÉÄÜÓëÆäÁã¼ş×ø±êÏµÈÎÒ»ÖáÆ½ĞĞ£¬²»Ó¦Ö±½Ó axisY = cs.AxisY;
+                //  PolyBeamæœ«æ®µå¯èƒ½ä¸å…¶é›¶ä»¶åæ ‡ç³»ä»»ä¸€è½´å¹³è¡Œï¼Œä¸åº”ç›´æ¥ axisY = cs.AxisY;
                 if (Parallel.VectorToVector(cs.AxisY, axisX))
                     axisY = cs.AxisX.Cross(cs.AxisY);
                 else
@@ -271,7 +285,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
 
         private void CreatConnection() {
 
-            #region ³õÊ¼ĞÅÏ¢
+            #region åˆå§‹ä¿¡æ¯
             var origin = new Point();
             var axisX = new Vector(1, 0, 0);
             var axisY = new Vector(0, 1, 0);
@@ -302,7 +316,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             Chamfer chamfer;
             ContourPoint cp1, cp2, cp3, cp4;
 
-            #region ¶ÔÆëÁã¼ş
+            #region å¯¹é½é›¶ä»¶
             var plane = new Plane {
                 Origin = new Point(endPlateTHK, 0, 0),
                 AxisX = axisY,
@@ -321,7 +335,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             fitting.Insert();
             #endregion
 
-            #region ´´½¨¶Ë°å²¢º¸½Ó
+            #region åˆ›å»ºç«¯æ¿å¹¶ç„Šæ¥
             var width = endPlateDIAM * 0.5;
             p1 = new Point(0, 0, width);
             p2 = new Point(0, width, 0);
@@ -349,7 +363,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
 
             if (quantity == 0) return;
 
-            #region ´´½¨¼Ó¾¢°å²¢º¸½Ó
+            #region åˆ›å»ºåŠ åŠ²æ¿å¹¶ç„Šæ¥
             var height = (endPlateDIAM - primDiameter) * 0.5 - margin;
 
             p1 = new Point(endPlateTHK, 0, height + primDiameter * 0.5);
@@ -399,7 +413,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
         skipSecStif:
             #endregion
 
-            #region ´´½¨ÂİË¨
+            #region åˆ›å»ºèºæ “
             if (creatBolt == 0) goto skipBolt;
             p2 = new Point(0, 0, 100);
             var rM = MatrixFactory.Rotate(rotationAngel * 0.5, axisX);
