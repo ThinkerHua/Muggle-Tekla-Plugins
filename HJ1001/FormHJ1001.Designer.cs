@@ -1,4 +1,17 @@
-
+Ôªø/*==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures             
+ *                                                                            
+ *  Copyright ¬© 2024 Huang YongXing (thinkerhua@hotmail.com).                 
+ *                                                                            
+ *  This library is free software, licensed under the terms of the GNU        
+ *  General Public License as published by the Free Software Foundation,      
+ *  either version 3 of the License, or (at your option) any later version.   
+ *  You should have received a copy of the GNU General Public License         
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>.      
+ *==============================================================================
+ *  FormHJ1001.Designer.cs: form designer for "HJ1001" connection
+ *  written by Huang YongXing
+ *==============================================================================*/
 using System.Drawing;
 
 namespace Muggle.TeklaPlugins.HJ1001 {
@@ -470,8 +483,8 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.structuresExtender.SetBindPropertyName(this.cBox_creatBolt, "SelectedIndex");
             this.cBox_creatBolt.FormattingEnabled = true;
             this.cBox_creatBolt.Items.AddRange(new object[] {
-            "∑Ò",
-            " «"});
+            "Âê¶",
+            "ÊòØ"});
             this.cBox_creatBolt.Location = new System.Drawing.Point(456, 274);
             this.cBox_creatBolt.Name = "cBox_creatBolt";
             this.cBox_creatBolt.Size = new System.Drawing.Size(100, 20);
@@ -485,8 +498,8 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.structuresExtender.SetBindPropertyName(this.cBox_creatSecStif, "SelectedIndex");
             this.cBox_creatSecStif.FormattingEnabled = true;
             this.cBox_creatSecStif.Items.AddRange(new object[] {
-            "∑Ò",
-            " «"});
+            "Âê¶",
+            "ÊòØ"});
             this.cBox_creatSecStif.Location = new System.Drawing.Point(456, 86);
             this.cBox_creatSecStif.Name = "cBox_creatSecStif";
             this.cBox_creatSecStif.Size = new System.Drawing.Size(100, 20);
@@ -500,8 +513,8 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.structuresExtender.SetBindPropertyName(this.cBox_creatPrimStif, "SelectedIndex");
             this.cBox_creatPrimStif.FormattingEnabled = true;
             this.cBox_creatPrimStif.Items.AddRange(new object[] {
-            "∑Ò",
-            " «"});
+            "Âê¶",
+            "ÊòØ"});
             this.cBox_creatPrimStif.Location = new System.Drawing.Point(456, 60);
             this.cBox_creatPrimStif.Name = "cBox_creatPrimStif";
             this.cBox_creatPrimStif.Size = new System.Drawing.Size(100, 20);
@@ -519,7 +532,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(107, 12);
             this.label13.TabIndex = 20;
-            this.label13.Text = "º”æ¢∞Â/¬›À® ˝¡ø  ";
+            this.label13.Text = "Âä†Âä≤Êùø/Ëû∫Ê†ìÊï∞Èáè  ";
             // 
             // label17
             // 
@@ -532,7 +545,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(77, 12);
             this.label17.TabIndex = 20;
-            this.label17.Text = "¬›À®◊È÷±æ∂ d";
+            this.label17.Text = "Ëû∫Ê†ìÁªÑÁõ¥ÂæÑ d";
             // 
             // label12
             // 
@@ -545,7 +558,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(137, 12);
             this.label12.TabIndex = 20;
-            this.label12.Text = "º”æ¢∞ÂµΩ∂À∞Â±ﬂ‘µº‰œ∂ a";
+            this.label12.Text = "Âä†Âä≤ÊùøÂà∞Á´ØÊùøËæπÁºòÈó¥Èöô a";
             // 
             // label11
             // 
@@ -558,7 +571,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(83, 12);
             this.label11.TabIndex = 20;
-            this.label11.Text = "º”æ¢∞ÂµπΩ«Y  ";
+            this.label11.Text = "Âä†Âä≤ÊùøÂÄíËßíY  ";
             // 
             // label10
             // 
@@ -571,7 +584,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(83, 12);
             this.label10.TabIndex = 20;
-            this.label10.Text = "º”æ¢∞ÂµπΩ«X  ";
+            this.label10.Text = "Âä†Âä≤ÊùøÂÄíËßíX  ";
             // 
             // label9
             // 
@@ -584,7 +597,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 12);
             this.label9.TabIndex = 19;
-            this.label9.Text = "º”æ¢∞ÂøÌ∂»  ";
+            this.label9.Text = "Âä†Âä≤ÊùøÂÆΩÂ∫¶  ";
             // 
             // label16
             // 
@@ -597,7 +610,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(65, 12);
             this.label16.TabIndex = 17;
-            this.label16.Text = "¬›À®≥ﬂ¥Á  ";
+            this.label16.Text = "Ëû∫Ê†ìÂ∞∫ÂØ∏  ";
             // 
             // label15
             // 
@@ -610,7 +623,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(65, 12);
             this.label15.TabIndex = 17;
-            this.label15.Text = "¬›À®±Í◊º  ";
+            this.label15.Text = "Ëû∫Ê†ìÊ†áÂáÜ  ";
             // 
             // label14
             // 
@@ -623,7 +636,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(53, 12);
             this.label14.TabIndex = 17;
-            this.label14.Text = "¬›À®◊È  ";
+            this.label14.Text = "Ëû∫Ê†ìÁªÑ  ";
             // 
             // label8
             // 
@@ -636,7 +649,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(77, 12);
             this.label8.TabIndex = 18;
-            this.label8.Text = "º”æ¢∞Â∫Ò∂»  ";
+            this.label8.Text = "Âä†Âä≤ÊùøÂéöÂ∫¶  ";
             // 
             // label7
             // 
@@ -649,7 +662,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(101, 12);
             this.label7.TabIndex = 17;
-            this.label7.Text = "¥Œ¡„º˛≤‡º”æ¢∞Â  ";
+            this.label7.Text = "Ê¨°Èõ∂‰ª∂‰æßÂä†Âä≤Êùø  ";
             // 
             // label6
             // 
@@ -662,7 +675,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(101, 12);
             this.label6.TabIndex = 16;
-            this.label6.Text = "÷˜¡„º˛≤‡º”æ¢∞Â  ";
+            this.label6.Text = "‰∏ªÈõ∂‰ª∂‰æßÂä†Âä≤Êùø  ";
             // 
             // label19
             // 
@@ -675,7 +688,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(41, 12);
             this.label19.TabIndex = 15;
-            this.label19.Text = "µ»º∂  ";
+            this.label19.Text = "Á≠âÁ∫ß  ";
             // 
             // label5
             // 
@@ -688,7 +701,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 15;
-            this.label5.Text = "∂À∞Â÷±æ∂ D";
+            this.label5.Text = "Á´ØÊùøÁõ¥ÂæÑ D";
             // 
             // label18
             // 
@@ -701,7 +714,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(77, 12);
             this.label18.TabIndex = 14;
-            this.label18.Text = "Ω⁄µ„∞Â≤ƒ÷   ";
+            this.label18.Text = "ËäÇÁÇπÊùøÊùêË¥®  ";
             // 
             // label4
             // 
@@ -714,7 +727,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 12);
             this.label4.TabIndex = 14;
-            this.label4.Text = "∂À∞Â∫Ò∂»  ";
+            this.label4.Text = "Á´ØÊùøÂéöÂ∫¶  ";
             // 
             // tBox_quantity
             // 
@@ -916,7 +929,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             this.MaximizeBox = false;
             this.Name = "FormHJ1001";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "‘≤π‹∂‘Ω”";
+            this.Text = "ÂúÜÁÆ°ÂØπÊé•";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.ParametersTabPage.ResumeLayout(false);

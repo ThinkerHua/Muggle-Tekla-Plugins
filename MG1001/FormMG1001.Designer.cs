@@ -1,4 +1,17 @@
-
+Ôªø/*==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures             
+ *                                                                            
+ *  Copyright ¬© 2024 Huang YongXing (thinkerhua@hotmail.com).                 
+ *                                                                            
+ *  This library is free software, licensed under the terms of the GNU        
+ *  General Public License as published by the Free Software Foundation,      
+ *  either version 3 of the License, or (at your option) any later version.   
+ *  You should have received a copy of the GNU General Public License         
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>.      
+ *==============================================================================
+ *  FormMG1001.Designer.cs: form designer for "MG1001" connection
+ *  written by Huang YongXing
+ *==============================================================================*/
 using System.Drawing;
 
 namespace Muggle.TeklaPlugins.MG1001
@@ -263,7 +276,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.ParametersTabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.ParametersTabPage1.Size = new System.Drawing.Size(760, 371);
             this.ParametersTabPage1.TabIndex = 2;
-            this.ParametersTabPage1.Text = "≤Œ ˝1";
+            this.ParametersTabPage1.Text = "ÂèÇÊï∞1";
             this.ParametersTabPage1.UseVisualStyleBackColor = true;
             // 
             // checkBox_bol_TOPHOR
@@ -276,7 +289,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.checkBox_bol_TOPHOR.Name = "checkBox_bol_TOPHOR";
             this.checkBox_bol_TOPHOR.Size = new System.Drawing.Size(72, 16);
             this.checkBox_bol_TOPHOR.TabIndex = 26;
-            this.checkBox_bol_TOPHOR.Text = "ÀÆ∆Ω≤º÷√";
+            this.checkBox_bol_TOPHOR.Text = "Ê∞¥Âπ≥Â∏ÉÁΩÆ";
             this.checkBox_bol_TOPHOR.UseVisualStyleBackColor = true;
             // 
             // filter_chamfer_HOR
@@ -357,13 +370,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label34, null);
             this.label34.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label34, null);
-            this.label34.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label34.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label34.Location = new System.Drawing.Point(376, 280);
             this.label34.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(105, 14);
             this.label34.TabIndex = 28;
-            this.label34.Text = "È‹ø⁄ ˙∞Â∫Ò∂»  ";
+            this.label34.Text = "Ê™êÂè£Á´ñÊùøÂéöÂ∫¶  ";
             // 
             // filter_slope_THK
             // 
@@ -677,13 +690,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label27, null);
             this.label27.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label27, null);
-            this.label27.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label27.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label27.Location = new System.Drawing.Point(362, 307);
             this.label27.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(119, 14);
             this.label27.TabIndex = 13;
-            this.label27.Text = "ø™∆¬◊Ó–°∞Â∫Ò≤Ó f";
+            this.label27.Text = "ÂºÄÂù°ÊúÄÂ∞èÊùøÂéöÂ∑Æ f";
             // 
             // label8
             // 
@@ -691,13 +704,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label8, null);
             this.label8.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label8, null);
-            this.label8.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label8.Location = new System.Drawing.Point(404, 334);
             this.label8.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(77, 14);
             this.label8.TabIndex = 13;
-            this.label8.Text = "∫Ò∞Âø™∆¬ g";
+            this.label8.Text = "ÂéöÊùøÂºÄÂù° g";
             // 
             // label18
             // 
@@ -705,13 +718,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label18, null);
             this.label18.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label18, null);
-            this.label18.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label18.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label18.Location = new System.Drawing.Point(618, 147);
             this.label18.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(35, 14);
             this.label18.TabIndex = 12;
-            this.label18.Text = "µπΩ«";
+            this.label18.Text = "ÂÄíËßí";
             // 
             // label9
             // 
@@ -719,13 +732,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label9, null);
             this.label9.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label9, null);
-            this.label9.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label9.Location = new System.Drawing.Point(618, 64);
             this.label9.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 14);
             this.label9.TabIndex = 12;
-            this.label9.Text = "µπΩ«";
+            this.label9.Text = "ÂÄíËßí";
             // 
             // label10
             // 
@@ -733,13 +746,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label10, null);
             this.label10.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label10, null);
-            this.label10.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label10.Location = new System.Drawing.Point(362, 199);
             this.label10.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(119, 14);
             this.label10.TabIndex = 11;
-            this.label10.Text = "∏π∞Âº”∫Ò«¯∂®Œª c";
+            this.label10.Text = "ËÖπÊùøÂä†ÂéöÂå∫ÂÆö‰Ωç c";
             // 
             // label11
             // 
@@ -747,13 +760,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label11, null);
             this.label11.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label11, null);
-            this.label11.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label11.Location = new System.Drawing.Point(390, 118);
             this.label11.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(91, 14);
             this.label11.TabIndex = 10;
-            this.label11.Text = "∂‘Ω«∞Â∂®Œª b";
+            this.label11.Text = "ÂØπËßíÊùøÂÆö‰Ωç b";
             // 
             // label39
             // 
@@ -761,13 +774,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label39, null);
             this.label39.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label39, null);
-            this.label39.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label39.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label39.Location = new System.Drawing.Point(362, 172);
             this.label39.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(119, 14);
             this.label39.TabIndex = 7;
-            this.label39.Text = "∏π∞Âº”∫Ò«¯∫Ò∂»  ";
+            this.label39.Text = "ËÖπÊùøÂä†ÂéöÂå∫ÂéöÂ∫¶  ";
             // 
             // label12
             // 
@@ -775,13 +788,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label12, null);
             this.label12.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label12, null);
-            this.label12.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label12.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label12.Location = new System.Drawing.Point(390, 91);
             this.label12.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(91, 14);
             this.label12.TabIndex = 9;
-            this.label12.Text = "∂‘Ω«∞Â∂®Œª a";
+            this.label12.Text = "ÂØπËßíÊùøÂÆö‰Ωç a";
             // 
             // label38
             // 
@@ -789,13 +802,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label38, null);
             this.label38.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label38, null);
-            this.label38.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label38.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label38.Location = new System.Drawing.Point(404, 145);
             this.label38.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(77, 14);
             this.label38.TabIndex = 7;
-            this.label38.Text = "∆Ω∞ÂπÊ∏Ò  ";
+            this.label38.Text = "Âπ≥ÊùøËßÑÊ†º  ";
             // 
             // label37
             // 
@@ -803,13 +816,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label37, null);
             this.label37.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label37, null);
-            this.label37.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label37.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label37.Location = new System.Drawing.Point(390, 64);
             this.label37.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(91, 14);
             this.label37.TabIndex = 7;
-            this.label37.Text = "∂‘Ω«∞ÂπÊ∏Ò  ";
+            this.label37.Text = "ÂØπËßíÊùøËßÑÊ†º  ";
             // 
             // label36
             // 
@@ -817,7 +830,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label36, null);
             this.label36.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label36, null);
-            this.label36.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F);
+            this.label36.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F);
             this.label36.Location = new System.Drawing.Point(507, 10);
             this.label36.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label36.Name = "label36";
@@ -831,13 +844,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label35, null);
             this.label35.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label35, null);
-            this.label35.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label35.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label35.Location = new System.Drawing.Point(390, 37);
             this.label35.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(91, 14);
             this.label35.TabIndex = 7;
-            this.label35.Text = "÷˘∂•∞ÂπÊ∏Ò  ";
+            this.label35.Text = "Êü±È°∂ÊùøËßÑÊ†º  ";
             // 
             // label13
             // 
@@ -845,13 +858,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label13, null);
             this.label13.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label13, null);
-            this.label13.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label13.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label13.Location = new System.Drawing.Point(404, 253);
             this.label13.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(77, 14);
             this.label13.TabIndex = 8;
-            this.label13.Text = "È‹ø⁄∏ﬂ∂» e";
+            this.label13.Text = "Ê™êÂè£È´òÂ∫¶ e";
             // 
             // label14
             // 
@@ -859,13 +872,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label14, null);
             this.label14.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label14, null);
-            this.label14.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label14.Location = new System.Drawing.Point(376, 226);
             this.label14.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(105, 14);
             this.label14.TabIndex = 7;
-            this.label14.Text = "È‹ø⁄ÃÙ≥ˆ≥§∂» d";
+            this.label14.Text = "Ê™êÂè£ÊåëÂá∫ÈïøÂ∫¶ d";
             // 
             // label7
             // 
@@ -873,7 +886,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label7, null);
             this.label7.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label7, null);
-            this.label7.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label7.Location = new System.Drawing.Point(339, 226);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(14, 14);
@@ -886,7 +899,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label6, null);
             this.label6.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label6, null);
-            this.label6.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label6.Location = new System.Drawing.Point(323, 261);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(14, 14);
@@ -899,7 +912,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label5, null);
             this.label5.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label5, null);
-            this.label5.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.Location = new System.Drawing.Point(20, 223);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(14, 14);
@@ -912,7 +925,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label4, null);
             this.label4.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label4, null);
-            this.label4.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.Location = new System.Drawing.Point(191, 228);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(14, 14);
@@ -925,7 +938,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label3, null);
             this.label3.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label3, null);
-            this.label3.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(46, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(14, 14);
@@ -938,7 +951,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label2, null);
             this.label2.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label2, null);
-            this.label2.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(1, 46);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 14);
@@ -951,7 +964,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label1, null);
             this.label1.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label1, null);
-            this.label1.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(25, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 14);
@@ -1020,7 +1033,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.ParametersTabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.ParametersTabPage2.Size = new System.Drawing.Size(760, 371);
             this.ParametersTabPage2.TabIndex = 3;
-            this.ParametersTabPage2.Text = "≤Œ ˝2";
+            this.ParametersTabPage2.Text = "ÂèÇÊï∞2";
             this.ParametersTabPage2.UseVisualStyleBackColor = true;
             // 
             // boltCatalogStandard1
@@ -1095,13 +1108,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label17, null);
             this.label17.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label17, null);
-            this.label17.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label17.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label17.Location = new System.Drawing.Point(618, 118);
             this.label17.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(49, 14);
             this.label17.TabIndex = 40;
-            this.label17.Text = "ƒ⁄µπΩ«";
+            this.label17.Text = "ÂÜÖÂÄíËßí";
             // 
             // textBox_chamfer_STIF_out
             // 
@@ -1122,13 +1135,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label33, null);
             this.label33.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label33, null);
-            this.label33.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label33.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label33.Location = new System.Drawing.Point(618, 145);
             this.label33.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(49, 14);
             this.label33.TabIndex = 40;
-            this.label33.Text = "Õ‚µπΩ«";
+            this.label33.Text = "Â§ñÂÄíËßí";
             // 
             // label32
             // 
@@ -1136,7 +1149,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label32, null);
             this.label32.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label32, null);
-            this.label32.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F);
+            this.label32.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F);
             this.label32.Location = new System.Drawing.Point(507, 10);
             this.label32.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label32.Name = "label32";
@@ -1407,13 +1420,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label31, null);
             this.label31.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label31, null);
-            this.label31.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label31.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label31.Location = new System.Drawing.Point(362, 172);
             this.label31.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(119, 14);
             this.label31.TabIndex = 18;
-            this.label31.Text = "∏π∞Âº”æ¢∞Âº‰æ‡ i";
+            this.label31.Text = "ËÖπÊùøÂä†Âä≤ÊùøÈó¥Ë∑ù i";
             // 
             // label41
             // 
@@ -1423,13 +1436,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label41, null);
             this.label41.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label41, null);
-            this.label41.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label41.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label41.Location = new System.Drawing.Point(404, 253);
             this.label41.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(77, 14);
             this.label41.TabIndex = 17;
-            this.label41.Text = "¬›À®±Í◊º  ";
+            this.label41.Text = "Ëû∫Ê†ìÊ†áÂáÜ  ";
             // 
             // label40
             // 
@@ -1439,13 +1452,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label40, null);
             this.label40.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label40, null);
-            this.label40.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label40.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label40.Location = new System.Drawing.Point(404, 280);
             this.label40.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(77, 14);
             this.label40.TabIndex = 17;
-            this.label40.Text = "¬›À®≥ﬂ¥Á  ";
+            this.label40.Text = "Ëû∫Ê†ìÂ∞∫ÂØ∏  ";
             // 
             // label30
             // 
@@ -1455,13 +1468,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label30, null);
             this.label30.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label30, null);
-            this.label30.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label30.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label30.Location = new System.Drawing.Point(397, 226);
             this.label30.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(84, 14);
             this.label30.TabIndex = 17;
-            this.label30.Text = "¬›À®º‰æ‡Y k";
+            this.label30.Text = "Ëû∫Ê†ìÈó¥Ë∑ùY k";
             // 
             // label29
             // 
@@ -1471,13 +1484,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label29, null);
             this.label29.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label29, null);
-            this.label29.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label29.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label29.Location = new System.Drawing.Point(397, 199);
             this.label29.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(84, 14);
             this.label29.TabIndex = 16;
-            this.label29.Text = "¬›À®º‰æ‡X j";
+            this.label29.Text = "Ëû∫Ê†ìÈó¥Ë∑ùX j";
             // 
             // label26
             // 
@@ -1487,13 +1500,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label26, null);
             this.label26.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label26, null);
-            this.label26.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label26.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label26.Location = new System.Drawing.Point(404, 91);
             this.label26.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(77, 14);
             this.label26.TabIndex = 13;
-            this.label26.Text = "∂À∞Â∂®Œª h";
+            this.label26.Text = "Á´ØÊùøÂÆö‰Ωç h";
             // 
             // label25
             // 
@@ -1503,13 +1516,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label25, null);
             this.label25.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label25, null);
-            this.label25.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label25.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label25.Location = new System.Drawing.Point(362, 145);
             this.label25.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(119, 14);
             this.label25.TabIndex = 12;
-            this.label25.Text = "∏π∞Âº”æ¢∞ÂπÊ∏Ò  ";
+            this.label25.Text = "ËÖπÊùøÂä†Âä≤ÊùøËßÑÊ†º  ";
             // 
             // label24
             // 
@@ -1519,13 +1532,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label24, null);
             this.label24.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label24, null);
-            this.label24.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label24.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label24.Location = new System.Drawing.Point(362, 118);
             this.label24.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(119, 14);
             this.label24.TabIndex = 11;
-            this.label24.Text = "“Ì‘µº”æ¢∞ÂπÊ∏Ò  ";
+            this.label24.Text = "ÁøºÁºòÂä†Âä≤ÊùøËßÑÊ†º  ";
             // 
             // label23
             // 
@@ -1535,13 +1548,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label23, null);
             this.label23.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label23, null);
-            this.label23.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label23.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label23.Location = new System.Drawing.Point(397, 63);
             this.label23.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(84, 14);
             this.label23.TabIndex = 10;
-            this.label23.Text = "∂À∞Â2πÊ∏Ò  ";
+            this.label23.Text = "Á´ØÊùø2ËßÑÊ†º  ";
             // 
             // label28
             // 
@@ -1551,13 +1564,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label28, null);
             this.label28.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label28, null);
-            this.label28.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label28.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label28.Location = new System.Drawing.Point(432, 334);
             this.label28.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(49, 14);
             this.label28.TabIndex = 9;
-            this.label28.Text = "µ»º∂  ";
+            this.label28.Text = "Á≠âÁ∫ß  ";
             // 
             // label22
             // 
@@ -1567,13 +1580,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label22, null);
             this.label22.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label22, null);
-            this.label22.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label22.Location = new System.Drawing.Point(397, 37);
             this.label22.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(84, 14);
             this.label22.TabIndex = 9;
-            this.label22.Text = "∂À∞Â1πÊ∏Ò  ";
+            this.label22.Text = "Á´ØÊùø1ËßÑÊ†º  ";
             // 
             // label21
             // 
@@ -1581,7 +1594,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label21, null);
             this.label21.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label21, null);
-            this.label21.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label21.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label21.Location = new System.Drawing.Point(56, 18);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(14, 14);
@@ -1594,7 +1607,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label20, null);
             this.label20.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label20, null);
-            this.label20.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label20.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label20.Location = new System.Drawing.Point(123, 25);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(14, 14);
@@ -1607,7 +1620,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label19, null);
             this.label19.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label19, null);
-            this.label19.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label19.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label19.Location = new System.Drawing.Point(250, 53);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(14, 14);
@@ -1620,7 +1633,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label16, null);
             this.label16.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label16, null);
-            this.label16.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label16.Location = new System.Drawing.Point(140, 47);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(14, 14);
@@ -1633,7 +1646,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label15, null);
             this.label15.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label15, null);
-            this.label15.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label15.Location = new System.Drawing.Point(9, 47);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(14, 14);
@@ -1719,13 +1732,13 @@ namespace Muggle.TeklaPlugins.MG1001
             this.structuresExtender.SetAttributeTypeName(this.label42, null);
             this.label42.AutoSize = true;
             this.structuresExtender.SetBindPropertyName(this.label42, null);
-            this.label42.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label42.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label42.Location = new System.Drawing.Point(376, 307);
             this.label42.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(105, 14);
             this.label42.TabIndex = 9;
-            this.label42.Text = "Ω⁄µ„¡„º˛≤ƒ÷   ";
+            this.label42.Text = "ËäÇÁÇπÈõ∂‰ª∂ÊùêË¥®  ";
             // 
             // materialCatalog1
             // 
@@ -1756,7 +1769,7 @@ namespace Muggle.TeklaPlugins.MG1001
             this.MaximizeBox = false;
             this.Name = "FormMG1001";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "√≈∏’±ﬂ÷˘”Î¡∫ ˙œÚ¡¨Ω”";
+            this.Text = "Èó®ÂàöËæπÊü±‰∏éÊ¢ÅÁ´ñÂêëËøûÊé•";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.ParametersTabPage1.ResumeLayout(false);

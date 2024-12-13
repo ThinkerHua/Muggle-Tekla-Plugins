@@ -1,3 +1,17 @@
+ï»¿/*==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures             
+ *                                                                            
+ *  Copyright Â© 2024 Huang YongXing (thinkerhua@hotmail.com).                 
+ *                                                                            
+ *  This library is free software, licensed under the terms of the GNU        
+ *  General Public License as published by the Free Software Foundation,      
+ *  either version 3 of the License, or (at your option) any later version.   
+ *  You should have received a copy of the GNU General Public License         
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>.      
+ *==============================================================================
+ *  WK1001.cs: "WK1001" connection
+ *  written by Huang YongXing
+ *==============================================================================*/
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
@@ -56,7 +70,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
         private List<Beam> parts;
         private List<ProfileRect_Invariant> profiles;
         private List<Line> centerlines;
-        private List<double> angles;//¸Ë¼ş¼äÒÀ´Î½Ç¶È£¬¼´2ºÅÓë1ºÅÖ®¼ä¡¢3ºÅÓë2ºÅÖ®¼ä...
+        private List<double> angles;//æ†ä»¶é—´ä¾æ¬¡è§’åº¦ï¼Œå³2å·ä¸1å·ä¹‹é—´ã€3å·ä¸2å·ä¹‹é—´...
         private bool ordered = false;
 
         private TransformationPlane globalTP, originTP, workTP;
@@ -164,14 +178,14 @@ namespace Muggle.TeklaPlugins.WK1001 {
                 point1 = centerline[0] as Point;
                 point2 = centerline[1] as Point;
                 centerlines.Add(Distance.PointToPoint(origin, point1) < Distance.PointToPoint(origin, point2) ?
-                    new Line(point1, point2) : new Line(point2, point1));//Í³Ò»³É´ÓÖĞĞÄÖ¸ÏòÍâÎ§
+                    new Line(point1, point2) : new Line(point2, point1));//ç»Ÿä¸€æˆä»ä¸­å¿ƒæŒ‡å‘å¤–å›´
             }
         }
         private TransformationPlane GetWorkTransformationPlane() {
 
             Vector normal;
 
-            //¸ù¾İÇ°Èı¸öÑ¡ÔñµÄ¸Ë¼şÇó¹²Í¬·¨Ïò£¨´ËÊ±Áã¼şÉĞÎ´ÅÅĞò£©
+            //æ ¹æ®å‰ä¸‰ä¸ªé€‰æ‹©çš„æ†ä»¶æ±‚å…±åŒæ³•å‘ï¼ˆæ­¤æ—¶é›¶ä»¶å°šæœªæ’åºï¼‰
             var origin = Math.Min(Distance.PointToPoint(parts[0].StartPoint, parts[1].StartPoint),
                                     Distance.PointToPoint(parts[0].StartPoint, parts[1].EndPoint))
                         < Math.Min(Distance.PointToPoint(parts[0].EndPoint, parts[1].StartPoint),
@@ -193,15 +207,15 @@ namespace Muggle.TeklaPlugins.WK1001 {
             var gplane = GeometricPlaneFactory.ByPoints(p0, p1, p2);
 
             if (origin == Projection.PointToPlane(origin, gplane)) {
-                //ÔÚÍ¬Ò»Æ½ÃæÉÏ
+                //åœ¨åŒä¸€å¹³é¢ä¸Š
                 normal = gplane.GetNormal();
             } else {
-                //²»ÔÚÍ¬Ò»Æ½ÃæÉÏ
+                //ä¸åœ¨åŒä¸€å¹³é¢ä¸Š
                 normal = new Vector(origin - Geometry3dOperation.CenterOfSphere(origin, p0, p1, p2));
             }
 
             if (Vector.Dot(normal, new Vector(0, 0, 500).TransformFrom(globalTP)) < 0)
-                normal *= -1;//Ê¹·¨Ïò»ù±¾³¯ÉÏ
+                normal *= -1;//ä½¿æ³•å‘åŸºæœ¬æœä¸Š
 
             var axisY = Vector.Cross(normal, v0);
             var axisX = Vector.Cross(axisY, normal);
@@ -209,9 +223,9 @@ namespace Muggle.TeklaPlugins.WK1001 {
             return new TransformationPlane(origin, axisX, axisY);
         }
         /// <summary>
-        /// °´Ä£ĞÍÖĞÊµ¼ÊµÄË³Ğò£¨ÄæÊ±Õë·½Ïò£©µ÷ÕûÁã¼şË³Ğò£¬
-        /// ×Ö¶Îparts, profiles, centerlines, angles¾ùµ÷Õû¡£
-        /// Í¬Ê±½«centerlinesµÄÔ­µãºÍ·½Ïò×ª»»µ½workTP¡£
+        /// æŒ‰æ¨¡å‹ä¸­å®é™…çš„é¡ºåºï¼ˆé€†æ—¶é’ˆæ–¹å‘ï¼‰è°ƒæ•´é›¶ä»¶é¡ºåºï¼Œ
+        /// å­—æ®µparts, profiles, centerlines, angleså‡è°ƒæ•´ã€‚
+        /// åŒæ—¶å°†centerlinesçš„åŸç‚¹å’Œæ–¹å‘è½¬æ¢åˆ°workTPã€‚
         /// </summary>
         private void OrderParts() {
 
@@ -222,7 +236,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             foreach (var line in centerlines) {
                 line.Origin = new Point();
                 line.Direction = line.Direction.TransformFrom(originTP);
-                //µ±Ç°ÏÈ¾ù°´ÓëXÖá¼ä½Ç¶È¸³Öµ£¬ºóÃæÔÙµ÷ÕûÎª¸Ë¼ş¼äÒÀ´Î½Ç¶È
+                //å½“å‰å…ˆå‡æŒ‰ä¸Xè½´é—´è§’åº¦èµ‹å€¼ï¼Œåé¢å†è°ƒæ•´ä¸ºæ†ä»¶é—´ä¾æ¬¡è§’åº¦
                 angles.Add(axisX.GetAngleBetween_WithDirection(
                     ProjectionExtension.VectorToPlane(line.Direction, XYPlane),
                     axisZ));
@@ -241,7 +255,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
                 newCenterlines[i] = centerlines[sortedIndex[i]];
                 newAngles[i] = angles[sortedIndex[i]];
             }
-            //µ÷ÕûÎª¸Ë¼ş¼äÒÀ´Î½Ç¶È
+            //è°ƒæ•´ä¸ºæ†ä»¶é—´ä¾æ¬¡è§’åº¦
             angles[0] = Math.PI * 2 + newAngles[0] - newAngles[newAngles.Length - 1];
             for (int i = 1; i < newAngles.Length; i++) {
                 angles[i] = newAngles[i] - newAngles[i - 1];
@@ -258,17 +272,17 @@ namespace Muggle.TeklaPlugins.WK1001 {
             var chamferNone = new Chamfer();
             var chamferArcPoint = new Chamfer(0, 0, Chamfer.ChamferTypeEnum.CHAMFER_ARC_POINT);
 
-            #region ´´½¨Á¬½ÓÍ²
+            #region åˆ›å»ºè¿æ¥ç­’
             if (_prfStr_Tube != string.Empty)
                 goto Skip_prfStr_Tube;
 
             var maxWidth = (from prf in profiles select prf.b1).Max();
             var minAngle = angles.Min();
 
-            //´Ë´¦Çó°ë¾¶×öÁË¼ò»¯´¦Àí£¬ÕıÈ·ÖµÓ¦µ±ÓÃÒÔÏÂ¹«Ê½¼ÆËã
+            //æ­¤å¤„æ±‚åŠå¾„åšäº†ç®€åŒ–å¤„ç†ï¼Œæ­£ç¡®å€¼åº”å½“ç”¨ä»¥ä¸‹å…¬å¼è®¡ç®—
             //arcsin(0.5a/r)+arcsin(0.5b/r)+2*arcsin(0.5w/r)=angle
-            //ÆäÖĞa, b·Ö±ğÎªÏàÁÚ¸Ë¼şµÄ¿í¶È£¬angleÎªÏàÁÚ¸Ë¼ş¼Ğ½Ç
-            //wÎªÏàÁÚ¸Ë¼ş¼ä×îĞ¡¼ä¾à£¬rÎªÁ¬½ÓÍ²°ë¾¶
+            //å…¶ä¸­a, båˆ†åˆ«ä¸ºç›¸é‚»æ†ä»¶çš„å®½åº¦ï¼Œangleä¸ºç›¸é‚»æ†ä»¶å¤¹è§’
+            //wä¸ºç›¸é‚»æ†ä»¶é—´æœ€å°é—´è·ï¼Œrä¸ºè¿æ¥ç­’åŠå¾„
             var diameter = (maxWidth + _minDis) / minAngle * 2;
             var diameterArray = from prf in ProfileCircular_Perfect.CommonlyUsed
                                 where prf.d1 > diameter
@@ -303,7 +317,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
                 partPrefix: "O");
             #endregion
 
-            #region ´´½¨¶Ë°å
+            #region åˆ›å»ºç«¯æ¿
             point1.X = (prfTube.d1 - prfTube.t * 2) * 0.5 - 2;
             point2 = new Point(0, point1.X, point1.Z);
             point3 = new Point(-point1.X, 0, point1.Z);
@@ -333,7 +347,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             var bEndPlate = ModelOperation.CreatContourPlate(contour, profileStr: "PL" + _thick_TEndplate, materialStr: _materialStr, depthEnum: Position.DepthEnum.FRONT);
             #endregion
 
-            #region ´´½¨¼Ó¾¢Àß
+            #region åˆ›å»ºåŠ åŠ²è‚‹
             point1 = tube.StartPoint;
             point1.Z -= _thick_TEndplate;
             point2 = tube.EndPoint;
@@ -359,7 +373,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
 
             #endregion
 
-            #region ÇĞ¸î¡¢º¸½Ó
+            #region åˆ‡å‰²ã€ç„Šæ¥
             point1 = tube.StartPoint;
             point2 = tube.EndPoint;
             point1.Z += 100;
