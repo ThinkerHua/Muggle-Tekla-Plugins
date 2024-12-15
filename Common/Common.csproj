@@ -82,7 +82,7 @@
     <Compile Include="Model\PolygonExtension.cs" />
     <Compile Include="Operation\NumberCompression.cs" />
     <Compile Include="Operation\StringCompression.cs" />
-    <Compile Include="Profile\IProfile.cs" />
+    <Compile Include="Profile\ProfileBase.cs" />
     <Compile Include="Profile\PatternCollection.cs" />
     <Compile Include="Profile\ProfileCircular.cs" />
     <Compile Include="Profile\ProfileCircular_Perfect.cs" />

@@ -12,12 +12,7 @@
  *  ProfileH_Symmetrical.cs: profile of symmetrical H
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Muggle.TeklaPlugins.Common.Profile {
     /// <summary>
@@ -29,75 +24,50 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// <br/><see cref="PatternCollection.H_6"/>：<inheritdoc cref="PatternCollection.H_6"/>
     /// <br/><see cref="PatternCollection.H_7"/>：<inheritdoc cref="PatternCollection.H_7"/>
     /// </summary>
-    public class ProfileH_Symmetrical : IProfile {
-        private string _profileText;
-        private ProfileTextChangedEventHandler _profileTextChangedEventHandler;
+    public class ProfileH_Symmetrical : ProfileBase {
         /// <summary>
         /// 
         /// </summary>
         public double h1, h2, b1, b2, s, t1, t2;
-
-
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public string ProfileText {
-            get => _profileText;
-            set {
-                var eventArgs = new ProfileTextChangedEventArgs(_profileText, value);
-                _profileText = value;
-                _profileTextChangedEventHandler?.Invoke(this, eventArgs);
-            }
-        }
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public event ProfileTextChangedEventHandler ProfileTextChanged {
-            add {
-                _profileTextChangedEventHandler += value;
-            }
-            remove {
-                _profileTextChangedEventHandler -= value;
-            }
-        }
         /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
         public ProfileH_Symmetrical() {
-            ProfileTextChanged += OnProfileTextChanged;
+            ProfileTextChanging += SetFieldsValue;
         }
         /// <summary>
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
         public ProfileH_Symmetrical(string profileText) {
-            ProfileTextChanged += OnProfileTextChanged;
+            ProfileTextChanging += SetFieldsValue;
             ProfileText = profileText;
         }
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        /// <param name="profile"><inheritdoc path="/param[1]"/></param>
-        /// <param name="args"><inheritdoc path="/param[2]"/></param>
-        public void OnProfileTextChanged(IProfile profile, ProfileTextChangedEventArgs args) {
-            h1 = h2 = b1 = b2 = s = t1 = t2 = 0;
+        /// <param name="sender"><inheritdoc path="/param[1]"/></param>
+        /// <param name="e"><inheritdoc path="/param[2]"/></param>
+        protected override void SetFieldsValue(ProfileBase sender, ProfileTextChangingEventArgs e) {
+            var temp = (h1, h2, b1, b2, s, t1, t2);
+            var text = e.NewText;
             try {
-                if (string.IsNullOrEmpty(ProfileText))
-                    throw new UnAcceptableProfileException(ProfileText);
+                if (string.IsNullOrEmpty(text))
+                    throw new UnAcceptableProfileException(text);
 
-                Match match = Regex.Match(ProfileText, PatternCollection.H_1);
+                Match match = Regex.Match(text, PatternCollection.H_1);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_2);
+                    match = Regex.Match(text, PatternCollection.H_2);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_4);
+                    match = Regex.Match(text, PatternCollection.H_4);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_5);
+                    match = Regex.Match(text, PatternCollection.H_5);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_6);
+                    match = Regex.Match(text, PatternCollection.H_6);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.H_7);
+                    match = Regex.Match(text, PatternCollection.H_7);
                 if (!match.Success)
-                    throw new UnAcceptableProfileException(ProfileText);
+                    throw new UnAcceptableProfileException(text);
 
                 double.TryParse(match.Groups["h1"].Value, out h1);
                 double.TryParse(match.Groups["h2"].Value, out h2);
@@ -111,10 +81,11 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 if (b2 == 0) b2 = b1;
                 if (t2 == 0) t2 = t1;
 
-                if (!ProfileText.Contains("I_VAR_A") && h2 != h1 || b2 != b1)
-                    throw new UnAcceptableProfileException(ProfileText);
+                if (!text.Contains("I_VAR_A") && h2 != h1 || b2 != b1)
+                    throw new UnAcceptableProfileException(text);
             } catch (UnAcceptableProfileException) {
-                h1 = h2 = b1 = b2 = s = t1 = t2 = 0;
+                h1 = temp.h1; h2 = temp.h2; b1 = temp.b1; b2 = temp.b2;
+                s = temp.s; t1 = temp.t1; t2 = temp.t2;
                 throw;
             }
         }

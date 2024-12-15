@@ -12,12 +12,6 @@
  *  ProfileRect_Invariant.cs: profile of invariant rect
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Muggle.TeklaPlugins.Common.Profile {
     /// <summary>
     /// 矩形管（等截面形式）。适用如下形式：
@@ -31,24 +25,6 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// <br/><see cref="PatternCollection.RECT_5"/>：<inheritdoc cref="PatternCollection.RECT_5"/>
     /// </summary>
     public class ProfileRect_Invariant : ProfileRect {
-        /// <inheritdoc cref="ProfileRect.ProfileText"/>
-        public new string ProfileText {
-            get { return base.ProfileText; }
-            set {
-                var temp = (h1, h2, b1, b2, s, t);
-                base.ProfileText = value;
-                if (h2 != h1 || b2 != b1) {
-                    h1 = temp.h1;
-                    h2 = temp.h2;
-                    b1 = temp.b1;
-                    b2 = temp.b2;
-                    s = temp.s;
-                    t = temp.t;
-
-                    throw new UnAcceptableProfileException(value);
-                }
-            }
-        }
         /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
@@ -57,9 +33,16 @@ namespace Muggle.TeklaPlugins.Common.Profile {
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
-        public ProfileRect_Invariant(string profileText) : base(profileText) {
+        public ProfileRect_Invariant(string profileText) : base(profileText) { }
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="sender"><inheritdoc path="/param[1]"/></param>
+        /// <param name="e"><inheritdoc path="/param[2]"/></param>
+        protected override void SetFieldsValue(ProfileBase sender, ProfileTextChangingEventArgs e) {
+            base.SetFieldsValue(sender, e);
             if (h2 != h1 || b2 != b1)
-                throw new UnAcceptableProfileException(profileText);
+                throw new UnAcceptableProfileException(e.NewText);
         }
     }
 }

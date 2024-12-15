@@ -12,12 +12,7 @@
  *  ProfileRect.cs: profile of rect
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Muggle.TeklaPlugins.Common.Profile {
     /// <summary>
@@ -31,82 +26,58 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// <br/><see cref="PatternCollection.RECT_4"/>：<inheritdoc cref="PatternCollection.RECT_4"/>
     /// <br/><see cref="PatternCollection.RECT_5"/>：<inheritdoc cref="PatternCollection.RECT_5"/>
     /// </summary>
-    public class ProfileRect : IProfile {
-        private string _profileText;
-        private ProfileTextChangedEventHandler _profileTextChangedEventHandler;
+    public class ProfileRect : ProfileBase {
         /// <summary>
         /// 
         /// </summary>
         public double h1, h2, b1, b2, s, t;
         /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public string ProfileText {
-            get => _profileText;
-            set {
-                var eventArgs = new ProfileTextChangedEventArgs(_profileText, value);
-                _profileText = value;
-                _profileTextChangedEventHandler?.Invoke(this, eventArgs);
-            }
-        }
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public event ProfileTextChangedEventHandler ProfileTextChanged {
-            add {
-                _profileTextChangedEventHandler += value;
-            }
-            remove {
-                _profileTextChangedEventHandler -= value;
-            }
-        }
-        /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
         public ProfileRect() {
-            ProfileTextChanged += OnProfileTextChanged;
+            ProfileTextChanging += SetFieldsValue;
         }
         /// <summary>
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
         public ProfileRect(string profileText) {
-            ProfileTextChanged += OnProfileTextChanged;
+            ProfileTextChanging += SetFieldsValue;
             ProfileText = profileText;
         }
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        /// <param name="profile"><inheritdoc path="/param[1]"/></param>
-        /// <param name="args"><inheritdoc path="/param[2]"/></param>
-        public void OnProfileTextChanged(IProfile profile, ProfileTextChangedEventArgs args) {
-
-            h1 = h2 = b1 = b2 = s = t = 0;
+        /// <param name="sender"><inheritdoc path="/param[1]"/></param>
+        /// <param name="e"><inheritdoc path="/param[2]"/></param>
+        protected override void SetFieldsValue(ProfileBase sender, ProfileTextChangingEventArgs e) {
+            var temp = (h1, h2, b1, b2, s, t);
+            var text = e.NewText;
             try {
-                if (string.IsNullOrEmpty(ProfileText))
-                    throw new UnAcceptableProfileException(ProfileText);
+                if (string.IsNullOrEmpty(text))
+                    throw new UnAcceptableProfileException(text);
 
-                var match = Regex.Match(ProfileText, PatternCollection.CFH_J_1);
+                var match = Regex.Match(text, PatternCollection.CFH_J_1);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.CFH_J_2);
+                    match = Regex.Match(text, PatternCollection.CFH_J_2);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.CFH_J_3);
+                    match = Regex.Match(text, PatternCollection.CFH_J_3);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_1);
+                    match = Regex.Match(text, PatternCollection.RECT_1);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_2);
+                    match = Regex.Match(text, PatternCollection.RECT_2);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_3);
+                    match = Regex.Match(text, PatternCollection.RECT_3);
                 if (!match.Success)
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_4);
+                    match = Regex.Match(text, PatternCollection.RECT_4);
                 if (match.Success) {
                     double.TryParse(match.Groups["b1"].Value, out b1);
                     double.TryParse(match.Groups["b2"].Value, out b2);
                 } else if (!match.Success) {
-                    match = Regex.Match(ProfileText, PatternCollection.RECT_5);
+                    match = Regex.Match(text, PatternCollection.RECT_5);
                 }
                 if (!match.Success)
-                    throw new UnAcceptableProfileException(ProfileText);
+                    throw new UnAcceptableProfileException(text);
 
                 double.TryParse(match.Groups["h1"].Value, out h1);
                 double.TryParse(match.Groups["h2"].Value, out h2);
@@ -119,7 +90,8 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 if (t == 0) t = s;
 
             } catch (UnAcceptableProfileException) {
-                h1 = h2 = b1 = b2 = s = t = 0;
+                h1 = temp.h1; h2 = temp.h2; b1 = temp.b1; b2 = temp.b2; 
+                s = temp.s; t = temp.t;
                 throw;
             }
         }

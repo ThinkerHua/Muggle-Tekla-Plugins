@@ -416,6 +416,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="secondaryObject">焊接对象</param>
         /// <param name="arroundWeld">环焊缝(true)或边缘焊缝(false)，默认值 true</param>
         /// <param name="shopWeld">车间焊接(true)或现场焊接(false)，默认值 true</param>
+        /// <param name="position">位置，默认值 <see cref="Weld.WeldPositionEnum.WELD_POSITION_PLUS_X"/></param>
         /// <param name="typeAbove">上焊缝类型，默认值 <see cref="BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET"/></param>
         /// <param name="sizeAbove">上焊缝尺寸，默认值 6.0</param>
         /// <param name="typeBelow">下焊缝类型，默认值 <see cref="BaseWeld.WeldTypeEnum.WELD_TYPE_NONE"/></param>
@@ -426,6 +427,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             ModelObject mainObject,
             ModelObject secondaryObject,
             bool arroundWeld = true, bool shopWeld = true,
+            Weld.WeldPositionEnum position = Weld.WeldPositionEnum.WELD_POSITION_PLUS_X,
             Weld.WeldTypeEnum typeAbove = BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET,
             double sizeAbove = 6,
             Weld.WeldTypeEnum typeBelow = BaseWeld.WeldTypeEnum.WELD_TYPE_NONE,
@@ -444,6 +446,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 SecondaryObject = secondaryObject,
                 AroundWeld = arroundWeld,
                 ShopWeld = shopWeld,
+                Position = position,
                 TypeAbove = typeAbove,
                 SizeAbove = sizeAbove,
                 TypeBelow = typeBelow,
