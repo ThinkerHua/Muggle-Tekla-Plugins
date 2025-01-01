@@ -71,12 +71,12 @@ namespace Muggle.TeklaPlugins.Common.Operation {
             if (interval < 3) interval = 3;
             if (interval % 2 == 0) interval++;
 
-            var resault = new List<int>();
+            var result = new List<int>();
             var midIndex = interval / 2;
 
             if (data.Count == 1) {
-                resault.Add(0);
-                return resault;
+                result.Add(0);
+                return result;
             }
 
             //          ...
@@ -114,12 +114,12 @@ namespace Muggle.TeklaPlugins.Common.Operation {
                 }
 
                 if (MaybeExtreme(subVariations, type)) {
-                    resault.Add(i);
+                    result.Add(i);
                     i += midIndex;//  成功找到极值点跳转到当前局部区间右侧下一个值
                 }
             }
 
-            return resault;
+            return result;
         }
         /// <summary>
         /// 判断变化集合 <paramref name="variations"/> 是否符合极值分布。

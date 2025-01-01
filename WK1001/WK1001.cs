@@ -242,7 +242,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
                     axisZ));
             }
 
-            var sort = angles.Select((value, index) => (Value: value, OriginalIndex: index)).OrderBy(resault => resault.Value).ToArray();
+            var sort = angles.Select((value, index) => (Value: value, OriginalIndex: index)).OrderBy(result => result.Value).ToArray();
             var sortedIndex = sort.Select(x => x.OriginalIndex).ToArray();
 
             var newParts = new Beam[sortedIndex.Length];

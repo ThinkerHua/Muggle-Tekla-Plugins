@@ -722,44 +722,44 @@ namespace Muggle.TeklaPlugins.UnitTest {
             #endregion
 
             List<int> indexes;
-            string resault = string.Empty;
+            string result = string.Empty;
             int cnt = 0;
 
             indexes = CommonOperation.GetLocalExtremeIndexes(data1, CommonOperation.ExtremeTypeEnum.LocalMinimum, 5);
             if (indexes != null) {
                 foreach (var item in indexes) {
-                    resault += data1[item] + ", ";
+                    result += data1[item] + ", ";
                     cnt++;
                     if (cnt % 10 == 0)
-                        resault += "\n";
+                        result += "\n";
                 }
-                Console.WriteLine("Local minimums of data1:\n" + resault);
+                Console.WriteLine("Local minimums of data1:\n" + result);
             }
 
-            resault = string.Empty;
+            result = string.Empty;
             cnt = 0;
             indexes = CommonOperation.GetLocalExtremeIndexes(data2, CommonOperation.ExtremeTypeEnum.LocalMinimum);
             if (indexes != null) {
                 foreach (var item in indexes) {
-                    resault += data2[item] + ", ";
+                    result += data2[item] + ", ";
                     cnt++;
                     if (cnt % 10 == 0)
-                        resault += "\n";
+                        result += "\n";
                 }
-                Console.WriteLine("Local minimums of data2:\n" + resault);
+                Console.WriteLine("Local minimums of data2:\n" + result);
             }
 
-            resault = string.Empty;
+            result = string.Empty;
             cnt = 0;
             indexes = CommonOperation.GetLocalExtremeIndexes(data2, CommonOperation.ExtremeTypeEnum.LocalMaximum);
             if (indexes != null) {
                 foreach (var item in indexes) {
-                    resault += data2[item] + ", ";
+                    result += data2[item] + ", ";
                     cnt++;
                     if (cnt % 10 == 0)
-                        resault += "\n";
+                        result += "\n";
                 }
-                Console.WriteLine("Local maximums of data2:\n" + resault);
+                Console.WriteLine("Local maximums of data2:\n" + result);
             }
         }
         [TestMethod]

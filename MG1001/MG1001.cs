@@ -183,7 +183,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
 
         #region Overrides
         public override bool Run() {
-            bool resault = false;
+            bool result = false;
             Beam PRIMPart, SECPart;
 
             try {
@@ -199,12 +199,12 @@ namespace Muggle.TeklaPlugins.MG1001 {
                     workTP = SetWorkTransformationPlane();//And get slope at the same time;
                 }
 
-                resault = CreatConnection(PRIMPart, SECPart);
+                result = CreatConnection(PRIMPart, SECPart);
             } catch (Exception Exc) {
                 MessageBox.Show(Exc.ToString());
             }
 
-            return resault;
+            return result;
         }
         #endregion
 

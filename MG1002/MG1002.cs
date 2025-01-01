@@ -114,7 +114,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
         #region Overrides
 
         public override bool Run() {
-            bool resault = false;
+            bool result = false;
             try {
                 if (Primary == null || Secondaries == null || Secondaries.Count != 2)
                     throw new Exception("需要一个主零件，两个次零件！");
@@ -134,12 +134,12 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
                 CreatConnection();
 
-                resault = true;
+                result = true;
             } catch (Exception Exc) {
                 MessageBox.Show(Exc.ToString());
             }
 
-            return resault;
+            return result;
         }
         #endregion
 

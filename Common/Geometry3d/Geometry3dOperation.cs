@@ -515,7 +515,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             #region 最终解
             double dis;
-            var resault = new List<(Point P1, Point P2, Point P3)>();
+            var result = new List<(Point P1, Point P2, Point P3)>();
             for (int i = 0; i < 4; i++) {
                 switch (i) {
                 case 0:
@@ -561,11 +561,11 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                     dis = Distance.PointToPoint(x1, x2);
 
                     if (Math.Abs(dis - e3) <= epsilon)
-                        resault.Add((x1, x2, itvlP3.GetPoint(value)));
+                        result.Add((x1, x2, itvlP3.GetPoint(value)));
                 }
             }
 
-            return resault;
+            return result;
             #endregion
 
         }
