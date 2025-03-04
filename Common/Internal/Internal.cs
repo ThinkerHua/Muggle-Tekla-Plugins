@@ -106,9 +106,9 @@ namespace Muggle.TeklaPlugins.Common.Internal {
             axisY.Normalize(500);
             axisZ.Normalize(500);
 
-            var plX = new PolyLine(new Point[] { cs.Origin, axisX });
-            var plY = new PolyLine(new Point[] { cs.Origin, axisY });
-            var plZ = new PolyLine(new Point[] { cs.Origin, axisZ });
+            var plX = new PolyLine(new Point[] { cs.Origin, cs.Origin + axisX });
+            var plY = new PolyLine(new Point[] { cs.Origin, cs.Origin + axisY });
+            var plZ = new PolyLine(new Point[] { cs.Origin, cs.Origin + axisZ });
 
             if (axisX_Color == null) axisX_Color = ColorExtension.Red;
             if (axisY_Color == null) axisY_Color = ColorExtension.Green;
