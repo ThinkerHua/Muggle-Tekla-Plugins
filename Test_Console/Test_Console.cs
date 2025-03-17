@@ -22,7 +22,7 @@ using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
 namespace Muggle.TeklaPlugins.Test {
-    internal class Test {
+    internal class Test_Console {
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
         static void Main() {
