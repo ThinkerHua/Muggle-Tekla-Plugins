@@ -49,5 +49,11 @@ namespace Muggle.TeklaPlugins.MainForm {
             WK1001_Outer.Run();
             WindowState = FormWindowState.Normal;
         }
+
+        private void Run_ReorderContourPoints(object sender, EventArgs e) {
+            WindowState = FormWindowState.Minimized;
+            ReorderContourPoints.Run();
+            WindowState = FormWindowState.Normal;
+        }
     }
 }
