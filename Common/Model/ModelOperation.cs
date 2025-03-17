@@ -54,7 +54,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 Material = { MaterialString = "ANTIMATERIAL" },
                 Class = BooleanPart.BooleanOperativeClassName,
             };
-            contourPlate.Insert();
+            if (!contourPlate.Insert())
+                throw new Exception("Failed to insert BooleanOperationPolygon.");
 
             return contourPlate;
         }
@@ -87,7 +88,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 Material = { MaterialString = "ANTIMATERIAL" },
                 Class = BooleanPart.BooleanOperativeClassName,
             };
-            contourPlate.Insert();
+            if (!contourPlate.Insert())
+                throw new Exception("Failed to insert BooleanOperationPolygon.");
 
             return contourPlate;
         }
@@ -112,7 +114,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 Material = { MaterialString = "ANTIMATERIAL" },
                 Class = BooleanPart.BooleanOperativeClassName,
             };
-            contourPlate.Insert();
+            if (!contourPlate.Insert())
+                throw new Exception("Failed to insert BooleanOperationPolygon.");
 
             return contourPlate;
         }
@@ -138,7 +141,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
             }
 
             if (operativePart.Class != BooleanPart.BooleanOperativeClassName) {
-                operativePart = Tekla.Structures.Model.Operations.Operation.CopyObject(operativePart, new Vector()) as Part;
+                //不需要下面这句，会产生重复对象。设置Class属性后，会自动生成BooleanPart对象
+                //operativePart = Tekla.Structures.Model.Operations.Operation.CopyObject(operativePart, new Vector()) as Part;
                 operativePart.Class = BooleanPart.BooleanOperativeClassName;
             }
 
@@ -239,7 +243,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                     Rotation = rotationEnum, RotationOffset = rotationOffset,
                 }
             };
-            beam.Insert();
+            if (!beam.Insert())
+                throw new Exception("Failed to insert Beam.");
 
             return beam;
         }
@@ -321,7 +326,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 Class = string.Copy(@class),
                 Position = { Depth = depthEnum, DepthOffset = depthOffset },
             };
-            contourPlate.Insert();
+            if (!contourPlate.Insert())
+                throw new Exception("Failed to insert ContourPlate.");
 
             return contourPlate;
         }
@@ -405,7 +411,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 Class = string.Copy(@class),
                 Position = { Depth = depthEnum, DepthOffset = depthOffset },
             };
-            contourPlate.Insert();
+            if (!contourPlate.Insert())
+                throw new Exception("Failed to insert ContourPlate.");
 
             return contourPlate;
         }
@@ -452,7 +459,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 TypeBelow = typeBelow,
                 SizeBelow = sizeBelow,
             };
-            weld.Insert();
+            if (!weld.Insert())
+                throw new Exception("Failed to insert Weld.");
 
             return weld;
         }
@@ -491,7 +499,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 AroundWeld = arroundWeld,
                 ShopWeld = shopWeld
             };
-            pw.Insert();
+            if (!pw.Insert())
+                throw new Exception("Failed to insert PolygonWeld.");
 
             return pw;
         }
@@ -592,7 +601,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 boltArray.AddBoltDistY(d.Value);
             }
 
-            boltArray.Insert();
+            if (!boltArray.Insert())
+                throw new Exception("Failed to insert BoltArray.");
 
             return boltArray;
         }
@@ -679,7 +689,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 }
             }
 
-            boltCircle.Insert();
+            if (!boltCircle.Insert())
+                throw new Exception("Failed to insert BoltCircle.");
 
             return boltCircle;
         }
