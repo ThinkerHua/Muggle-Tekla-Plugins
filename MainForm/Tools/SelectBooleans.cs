@@ -15,7 +15,6 @@
 using System;
 using System.Collections;
 using System.Windows.Forms;
-
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
@@ -41,7 +40,12 @@ namespace Muggle.TeklaPlugins.MainForm.Tools {
             if (!model.GetConnectionStatus()) return;
 
             var picker = new Picker();
-            var part = (Part) picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART);
+            Part part;
+            try {
+                part = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART) as Part;
+            } catch {
+                goto Interrupt;
+            }
 
             var objectEnumerator = part.GetBooleans();
             Type type;
@@ -94,6 +98,7 @@ namespace Muggle.TeklaPlugins.MainForm.Tools {
 
             model.CommitChanges();
 
+        Interrupt:
             WindowState = FormWindowState.Normal;
         }
     }

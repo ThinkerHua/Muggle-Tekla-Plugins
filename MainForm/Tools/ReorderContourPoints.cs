@@ -12,7 +12,13 @@ namespace Muggle.TeklaPlugins.MainForm.Tools {
             if (!model.GetConnectionStatus()) return;
 
             var picker = new Picker();
-            var plate = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select a contour plate:") as ContourPlate;
+            ContourPlate plate;
+            try {
+                plate = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select a contour plate:") as ContourPlate;
+            } catch {
+                return;
+            }
+
             if (plate == null) {
                 Operation.DisplayPrompt("No contour plate selected.");
                 return;
