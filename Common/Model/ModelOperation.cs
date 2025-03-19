@@ -593,9 +593,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
             }
 
             boltArray.StartPointOffset.Dx = bolt_dist_X[0].Value;
-            bolt_dist_X.RemoveAt(0);
-            foreach (var d in bolt_dist_X) {
-                boltArray.AddBoltDistX(d.Value);
+            for (int i = 1; i < bolt_dist_X.Count; i++) {
+                boltArray.AddBoltDistX(bolt_dist_X[i].Value);
             }
             foreach (var d in bolt_dist_Y) {
                 boltArray.AddBoltDistY(d.Value);
