@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<PropertyGroup>
-		<Copyright>Copyright © 2024 thinkerhua@hotmail.com</Copyright>
-		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<TargetFramework>net48</TargetFramework>
+		<PlatformTarget>AnyCPU</PlatformTarget>
 		<UseWindowsForms>true</UseWindowsForms>
 		<UseWPF>true</UseWPF>
-		<OutputPath>Installer/BuildDrop</OutputPath>
-		<RootNamespace>Muggle.TeklaPlugins.MG1001</RootNamespace>
 		<AssemblyName>MG1001</AssemblyName>
+		<Authors>thinkerhua@hotmail.com</Authors>
+		<RootNamespace>Muggle.TeklaPlugins.MG1001</RootNamespace>
 		<ApplicationIcon />
 		<Win32Resource />
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<Authors>thinkerhua@hotmail.com</Authors>
+		<Copyright>Copyright © 2024 thinkerhua@hotmail.com. All rights reserved.</Copyright>
+		<OutputPath>bin\$(Configuration)\</OutputPath>
+		<OutputPath>Installer/BuildDrop</OutputPath>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
