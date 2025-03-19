@@ -9,10 +9,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Tekla.Structures.Catalogs;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.Operations;
 using Tekla.Structures.Model.UI;
+using System.Linq;
 
 namespace Muggle.TeklaPlugins.UnitTest {
     [TestClass]
@@ -1230,6 +1232,132 @@ namespace Muggle.TeklaPlugins.UnitTest {
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
             }
+        }
+        [TestMethod]
+        public void TestPickFace() {
+            Picker Picker = new Picker();
+            try {
+                PickInput Input = Picker.PickFace("");
+                IEnumerator MyEnum = Input.GetEnumerator();
+                var i = 0;
+                while (MyEnum.MoveNext()) {
+                    Console.WriteLine("\nIndex {0}", i++);
+                    Console.WriteLine("InputItem's Type is {0}", MyEnum.Current.GetType());
+
+                    InputItem Item = MyEnum.Current as InputItem;
+                    Console.WriteLine("Item.GetData()'s Type is {0}", Item.GetData().GetType());
+
+                    switch (Item.GetInputType()) {
+                    case InputItem.InputTypeEnum.INPUT_1_POINT:
+                        Console.WriteLine("Input 1 Point");
+                        break;
+                    case InputItem.InputTypeEnum.INPUT_2_POINTS:
+                        Console.WriteLine("Input 2 Points");
+                        break;
+                    case InputItem.InputTypeEnum.INPUT_POLYGON:
+                        Console.WriteLine("Input Polygon");
+                        ArrayList Points = Item.GetData() as ArrayList;
+                        Console.WriteLine(string.Join("\n", Points.ToArray()));
+                        break;
+                    case InputItem.InputTypeEnum.INPUT_1_OBJECT:
+                        Console.WriteLine("Input 1 Object");
+                        ModelObject M = Item.GetData() as ModelObject;
+                        Console.WriteLine("ModelObject is a {0}, Identifier = {1}", M.GetType(), M.Identifier.ToString());
+                        break;
+                    case InputItem.InputTypeEnum.INPUT_N_OBJECTS:
+                        Console.WriteLine("Input N Objects");
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+        }
+        [TestMethod]
+        public void TestReorderContourPoints() {
+            var model = new Model();
+            if (!model.GetConnectionStatus()) return;
+
+            var picker = new Picker();
+            var plate = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select a contour plate:") as ContourPlate;
+            if (plate == null) {
+                Operation.DisplayPrompt("No contour plate selected.");
+                return;
+            }
+            var point = picker.PickPoint("Select a point as the first point:");
+
+            var contour = plate.Contour.ContourPoints.Cast<ContourPoint>();
+            var index = contour
+                .Select((p, i) => (i, Distance.PointToPoint(p, point)))
+                .OrderBy(item => item.Item2).First().i;
+
+            var newContour = contour.Skip(index).Concat(contour.Take(index)).ToList();
+            plate.Contour.ContourPoints = new ArrayList(newContour);
+            plate.Modify();
+            model.CommitChanges();
+        }
+        [TestMethod]
+        public void TestGetPolybeamCoordinateSystem() {
+            var model = new Model();
+            if (!model.GetConnectionStatus()) return;
+            var picker = new Picker();
+            var obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT, "Select a Polybeam:");
+            var polybeam = obj as PolyBeam;
+            if (polybeam == null) {
+                Operation.DisplayPrompt("No Polybeam selected.");
+                return;
+            }
+            var cs = polybeam.GetPolybeamCoordinateSystems().Cast<CoordinateSystem>();
+
+            foreach (var item in cs) {
+                Internal.ShowCoordinateSystem(item);
+            }
+        }
+        [TestMethod]
+        public void TestDifferenceTHICKNESS() {
+            var model = new Model();
+            if (!model.GetConnectionStatus()) return;
+            var picker = new Picker();
+            var part = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT) as Part;
+
+            var webThickness = 0.0;
+            var webThickness1 = 0.0;
+            var webThickness2 = 0.0;
+            var flangeThickness = 0.0;
+            var flangeThickness1 = 0.0;
+            var flangeThickness2 = 0.0;
+            var flangeThicknessB = 0.0;
+            var flangeThicknessU = 0.0;
+
+            if (part.GetReportProperty("WEB_THICKNESS", ref webThickness))
+                Console.WriteLine($"WEB_THICKNESS = {webThickness}");
+            if (part.GetReportProperty("WEB_THICKNESS_1", ref webThickness1))
+                Console.WriteLine($"WEB_THICKNESS_1 = {webThickness1}");
+            if (part.GetReportProperty("WEB_THICKNESS_2", ref webThickness2))
+                Console.WriteLine($"WEB_THICKNESS_2 = {webThickness2}");
+            if (part.GetReportProperty("FLANGE_THICKNESS", ref flangeThickness))
+                Console.WriteLine($"FLANGE_THICKNESS = {flangeThickness}");
+            if (part.GetReportProperty("FLANGE_THICKNESS_1", ref flangeThickness1))
+                Console.WriteLine($"FLANGE_THICKNESS_1 = {flangeThickness1}");
+            if (part.GetReportProperty("FLANGE_THICKNESS_2", ref flangeThickness2))
+                Console.WriteLine($"FLANGE_THICKNESS_2 = {flangeThickness2}");
+            if (part.GetReportProperty("FLANGE_THICKNESS_B", ref flangeThicknessB))
+                Console.WriteLine($"FLANGE_THICKNESS_B = {flangeThicknessB}");
+            if (part.GetReportProperty("FLANGE_THICKNESS_U", ref flangeThicknessU))
+                Console.WriteLine($"FLANGE_THICKNESS_U = {flangeThicknessU}");
+
+            //  Box profiles（B_BUILT400*200*10*15）：
+            //    WEB_THICKNESS = 0
+            //    FLANGE_THICKNESS_B = 0
+            //    FLANGE_THICKNESS_U = 0
+            //  I profiles（HN400*200*8*13）
+            //    WEB_THICKNESS = 8
+            //    FLANGE_THICKNESS_B = 13
+            //    FLANGE_THICKNESS_U = 13
+
+
         }
     }
 }
