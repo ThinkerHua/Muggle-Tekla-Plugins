@@ -1,20 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Internal;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.ModelUI;
 using Muggle.TeklaPlugins.Common.Operation;
 using Muggle.TeklaPlugins.Common.Profile;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using Tekla.Structures.Catalogs;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.Operations;
 using Tekla.Structures.Model.UI;
-using System.Linq;
 
 namespace Muggle.TeklaPlugins.UnitTest {
     [TestClass]

@@ -90,7 +90,7 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 if (t == 0) t = s;
 
             } catch (UnAcceptableProfileException) {
-                h1 = temp.h1; h2 = temp.h2; b1 = temp.b1; b2 = temp.b2; 
+                h1 = temp.h1; h2 = temp.h2; b1 = temp.b1; b2 = temp.b2;
                 s = temp.s; t = temp.t;
                 throw;
             }

@@ -12,11 +12,11 @@
  *  HJ1001.cs: "HJ1001" connection
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
+using System;
+using System.Collections;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
-using System;
-using System.Collections;
 using Tekla.Structures;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;

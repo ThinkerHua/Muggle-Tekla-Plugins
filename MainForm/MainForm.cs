@@ -12,10 +12,10 @@
  *  MainForm.cs: main form of tools and plugins
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using Muggle.TeklaPlugins.MainForm.Plugins;
-using Muggle.TeklaPlugins.MainForm.Tools;
 using System;
 using System.Windows.Forms;
+using Muggle.TeklaPlugins.MainForm.Plugins;
+using Muggle.TeklaPlugins.MainForm.Tools;
 
 namespace Muggle.TeklaPlugins.MainForm {
     public partial class MainForm : Form {

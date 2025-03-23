@@ -12,14 +12,14 @@
  *  WK1001.cs: "WK1001" connection
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using Muggle.TeklaPlugins.Common.Geometry3d;
-using Muggle.TeklaPlugins.Common.Model;
-using Muggle.TeklaPlugins.Common.Profile;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Model;
+using Muggle.TeklaPlugins.Common.Profile;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Plugins;
@@ -381,7 +381,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             var booleanPart = ModelOperation.CreatBeam(point1, point2, profileStr: $"D{prfTube.d1}", @class: BooleanPart.BooleanOperativeClassName);
             foreach (var part in parts) {
                 ModelOperation.ApplyBooleanOperation(part, booleanPart);
-                ModelOperation.CreatWeld(part, tube, position:Weld.WeldPositionEnum.WELD_POSITION_PLUS_Z);
+                ModelOperation.CreatWeld(part, tube, position: Weld.WeldPositionEnum.WELD_POSITION_PLUS_Z);
             }
             booleanPart.Delete();
 

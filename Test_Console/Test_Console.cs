@@ -12,11 +12,11 @@
  *  Test.cs: something testing method without GUI
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using Muggle.TeklaPlugins.Common.Geometry3d;
-using Muggle.TeklaPlugins.Common.ModelUI;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.ModelUI;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;

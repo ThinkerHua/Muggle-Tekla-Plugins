@@ -1,25 +1,19 @@
 using System;
-using System.Windows;
-using System.Runtime.CompilerServices;
-using Tekla.Structures.Datatype;
-using Tekla.Structures.Model;
-using Tekla.Structures.Plugins;
-using Tekla.Structures;
-using System.Collections.Generic;
-using Tekla.Structures.Model.UI;
-using Tekla.Structures.Dialog;
-using Tekla.Structures.Geometry3d;
 using System.Collections;
-using System.Collections.ObjectModel;
-using TSG = Tekla.Structures.Geometry3d;
-using TSD = Tekla.Structures.Datatype;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using Muggle.TeklaPlugins.Common.Geometry3d;
-using Muggle.TeklaPlugins.Common.Internal;
 using Muggle.TeklaPlugins.Common.Model;
-using System.Windows.Media.Media3D;
 using Muggle.TeklaPlugins.Common.Profile;
+using Tekla.Structures;
+using Tekla.Structures.Datatype;
+using Tekla.Structures.Geometry3d;
+using Tekla.Structures.Model;
+using Tekla.Structures.Model.UI;
+using Tekla.Structures.Plugins;
+using TSD = Tekla.Structures.Datatype;
+using TSG = Tekla.Structures.Geometry3d;
 
 namespace Muggle.TeklaPlugins.MJ1001 {
     public class PluginData {

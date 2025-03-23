@@ -13,10 +13,6 @@
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Muggle.TeklaPlugins.Common.Operation {
     /// <summary>

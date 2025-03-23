@@ -12,12 +12,12 @@
  *  WK1001_Outer.cs: outer executor of "WK1001" connection
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using Muggle.TeklaPlugins.Common.Geometry3d;
-using Muggle.TeklaPlugins.Common.Model;
 using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Model;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;

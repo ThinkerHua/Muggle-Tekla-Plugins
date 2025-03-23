@@ -12,13 +12,13 @@
  *  MG1001.cs: "MG1001" connection
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using Muggle.TeklaPlugins.Common.Geometry3d;
-using Muggle.TeklaPlugins.Common.Model;
-using Muggle.TeklaPlugins.Common.Profile;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Model;
+using Muggle.TeklaPlugins.Common.Profile;
 using Tekla.Structures;
 using Tekla.Structures.Datatype;
 using Tekla.Structures.Geometry3d;

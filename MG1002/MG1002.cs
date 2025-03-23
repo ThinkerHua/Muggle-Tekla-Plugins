@@ -12,16 +12,14 @@
  *  MG1002.cs: "WK1001" connection
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using Muggle.TeklaPlugins.Common.Geometry3d;
-using Muggle.TeklaPlugins.Common.Internal;
-using Muggle.TeklaPlugins.Common.Model;
-using Muggle.TeklaPlugins.Common.Profile;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Windows.Forms;
+using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Model;
+using Muggle.TeklaPlugins.Common.Profile;
 using Tekla.Structures;
 using Tekla.Structures.Datatype;
 using Tekla.Structures.Geometry3d;

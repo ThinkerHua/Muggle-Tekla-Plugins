@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
-using TD = Tekla.Structures.Datatype;
 using Tekla.Structures.Dialog;
-using System.Globalization;
+using TD = Tekla.Structures.Datatype;
 
 namespace Muggle.TeklaPlugins.MJ1001 {
     /// <summary>

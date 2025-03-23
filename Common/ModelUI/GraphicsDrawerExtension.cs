@@ -12,8 +12,8 @@
  *  GraphicsDrawerExtension.cs: extension of Tekla.Structures.Model.UI.GraphicsDrawer
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using Muggle.TeklaPlugins.Common.Geometry3d;
 using System;
+using Muggle.TeklaPlugins.Common.Geometry3d;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model.UI;
 

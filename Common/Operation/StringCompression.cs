@@ -13,12 +13,9 @@
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
-using System.Collections.Generic;
-using System.IO.Compression;
 using System.IO;
-using System.Linq;
+using System.IO.Compression;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Muggle.TeklaPlugins.Common.Operation {
     /// <summary>
