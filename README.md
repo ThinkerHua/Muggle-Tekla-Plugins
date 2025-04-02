@@ -35,6 +35,13 @@
 ## SelectWeldedModelObjects(选择焊缝的焊接对象)
 有时创建了大量的焊缝后，个别焊缝看起来很奇怪，又很难确定是哪两个零件之间的焊缝，使用此工具可解决此问题。
 
+## ReorderContourPoints(重排多边形板轮廓点顺序)
+不清楚是不是 BUG，有时候绘制多边形板时，实际生成的轮廓点顺序，总是与绘制顺序错一位。
+
+某些情况下顺序很重要时，则可以使用此工具指定顺序。
+
+![ReorderContourPoints](Resources/Introduction_ReorderContourPoints.gif)
+
 ## MG1001(门刚系列节点 - 门刚边柱与梁竖向连接)
 特点是可以根据端板尺寸自动调整柱高度。参数化组件做不到这一点，需要手动调整柱高。
 
@@ -60,3 +67,8 @@
 **已知问题：盖板与连接筒之间的焊缝，调整不出想要的效果，待解决。**
 
 ![WK1001](Resources/Introduction_WK1001.gif)
+
+## MJ1001(埋件 - H型梁端头埋件)
+适用于H型钢梁端头与混凝土连接。
+
+![MJ1001](Resources/Introduction_MJ1001.gif)
