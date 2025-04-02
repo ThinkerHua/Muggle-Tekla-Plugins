@@ -370,22 +370,34 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             var topIntersection = Intersection.LineToPlane(beamTopLine, embedmentPlane);
             var bottomIntersection = Intersection.LineToPlane(beamBottomLine, embedmentPlane);
 
-            var embedmentDirection = new TSG.Vector(topIntersection).GetNormal(1.0);
-            var point1 = topIntersection + embedmentDirection * embedment_exten;
-            var point2 = bottomIntersection - embedmentDirection * embedment_exten;
+            var embedmentWorkTP_AxisX = new TSG.Vector(topIntersection).GetNormal(1.0);
+            var point1 = topIntersection + embedmentWorkTP_AxisX * embedment_exten;
+            var point2 = bottomIntersection - embedmentWorkTP_AxisX * embedment_exten;
+
+            var embedmentWorkTP_AxisY = embedmentPlane.Normal.Cross(embedmentWorkTP_AxisX).GetNormal(1.0);
+            var embedmentWorkTP = new TransformationPlane(
+                embedmentPlane.Origin,
+                embedmentWorkTP_AxisY, 
+                embedmentWorkTP_AxisX);
+            Model.GetWorkPlaneHandler().SetCurrentTransformationPlane(embedmentWorkTP);
 
             var embedment = ModelOperation.CreatBeam(
-                point1, point2,
+                point1.Transform(workTP, embedmentWorkTP), 
+                point2.Transform(workTP, embedmentWorkTP),
                 name: "EMBEDMENT",
                 profileStr: $"PL{embedment_thickness}*{embedment_width}",
                 materialStr: embedment_material,
-                planeEnum: Position.PlaneEnum.RIGHT,
-                rotationEnum: Position.RotationEnum.TOP);
+                assemblyPrefix: "MJ-",
+                planeEnum: Position.PlaneEnum.MIDDLE,
+                depthEnum: Position.DepthEnum.FRONT,
+                rotationEnum: Position.RotationEnum.FRONT);
+            Model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
 
             ModelOperation.ApplyBooleanOperation(concrete, embedment);
             #endregion
 
             #region ²¼ÖÃÃª¸Ë
+            var anchorRod_StartOffset = embedmentPlane.Normal.GetNormal(embedment_thickness);
             var anchorRod_EndOffset = embedmentPlane.Normal.GetNormal(-anchorRod_length);
             var x = 0.0; var y = 0.0;
             var yTotal = anchorRod_disList_Y.Sum(y => y.Value);
@@ -393,7 +405,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
                 x += anchorRod_disList_X[i].Value;
                 for (int j = 0; j < anchorRod_disList_Y.Count; j++) {
                     y += anchorRod_disList_Y[j].Value;
-                    point2 = point1 - embedmentDirection * x + axisZ * (yTotal * 0.5 - y) - embedmentPlane.Normal.GetNormal(embedment_thickness);
+                    point2 = point1 - embedmentWorkTP_AxisX * x + embedmentWorkTP_AxisY * (yTotal * 0.5 - y) - anchorRod_StartOffset;
                     var rod = ModelOperation.CreatBeam(
                         point2, point2 + anchorRod_EndOffset,
                         name: "ANCHOR ROD",
@@ -406,16 +418,16 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             }
             #endregion
 
-            #region Ä©¶Ë¶ÔÆë
+            #region ÁºÄ©¶Ë¶ÔÆë
             var fittingGeometryPlane = new GeometricPlane(
                 (topIntersection + bottomIntersection).Multiply(0.5) + embedmentPlane.Normal.GetNormal(gap),
-                embedmentDirection,
+                embedmentWorkTP_AxisX,
                 axisZ);
             var fitting = new Fitting {
                 Father = beam,
                 Plane = new Plane {
                     Origin = fittingGeometryPlane.Origin,
-                    AxisX = embedmentDirection,
+                    AxisX = embedmentWorkTP_AxisX,
                     AxisY = axisZ
                 }
             };
@@ -466,7 +478,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
                 beamBottomLine.Offset(flangeThickness + cleat_dis_with_innerEdge, LineExtension.OffsetDirectionEnum.LEFT),
                 embedmentPlane);
 
-            var angle = axisX.GetAngleBetween_WithDirection(embedmentDirection, axisZ);
+            var angle = axisX.GetAngleBetween_WithDirection(embedmentWorkTP_AxisX, axisZ);
             var vector = axisX.GetNormal(cleat_width / Math.Sin(angle));
             point2 = point1 + vector;
             point3 = point4 + vector;
@@ -500,7 +512,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
                 point2 = point1 + axisX * (y / Math.Sin(angle));
                 ModelOperation.CreatBoltArray(
                     beam, cleat1, new[] { cleat2 },
-                    point2, point2 - embedmentDirection * 100,
+                    point2, point2 - embedmentWorkTP_AxisX * 100,
                     bolt_disList_X, zeroDisList,
                     position: new Position { Rotation = Position.RotationEnum.FRONT },
                     bolt_standard: bolt_standard, bolt_size: bolt_size);
