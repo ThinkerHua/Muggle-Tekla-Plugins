@@ -1,3 +1,17 @@
+ï»¿/*==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures
+ *
+ *  Copyright Â© 2025 Huang YongXing.                 
+ *
+ *  This library is free software, licensed under the terms of the GNU 
+ *  General Public License as published by the Free Software Foundation, 
+ *  either version 3 of the License, or (at your option) any later version. 
+ *  You should have received a copy of the GNU General Public License 
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
+ *==============================================================================
+ *  MJ1001.cs: H-beam connect to concrete
+ *  written by Huang YongXing - thinkerhua@hotmail.com
+ *==============================================================================*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -155,7 +169,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
                 workTP ??= GetWorkPlane();
 
                 Model.GetWorkPlaneHandler().SetCurrentTransformationPlane(workTP);
-                points = points.Select(p => p.Transform(originTP, workTP)).ToArray();//×ª»»µ½¹¤×÷Æ½Ãæ
+                points = points.Select(p => p.Transform(originTP, workTP)).ToArray();//è½¬æ¢åˆ°å·¥ä½œå¹³é¢
                 CreatConnection();
 
                 return true;
@@ -168,10 +182,10 @@ namespace Muggle.TeklaPlugins.MJ1001 {
         }
 
         /// <summary>
-        /// ¶¨ÒåÊäÈë¡£
+        /// å®šä¹‰è¾“å…¥ã€‚
         /// </summary>
-        /// <returns>¼¯ºÏµÚÒ»¸öÔªËØÎªÁºID£¬µÚ¶ş¸öÔªËØÎª°²·ÅÔ¤Âñ¼şµÄ»ìÄıÍÁ¹¹¼şID£¬
-        /// µÚÈı¸öÔªËØÊÇÃæ£¨µã¼¯ºÏ£¬ArraryListÀàĞÍ£©¡£</returns>
+        /// <returns>é›†åˆç¬¬ä¸€ä¸ªå…ƒç´ ä¸ºæ¢IDï¼Œç¬¬äºŒä¸ªå…ƒç´ ä¸ºå®‰æ”¾é¢„åŸ‹ä»¶çš„æ··å‡åœŸæ„ä»¶IDï¼Œ
+        /// ç¬¬ä¸‰ä¸ªå…ƒç´ æ˜¯é¢ï¼ˆç‚¹é›†åˆï¼ŒArraryListç±»å‹ï¼‰ã€‚</returns>
         public override List<InputDefinition> DefineInput() {
             InputDefinition beamInput = null, concreteInput = null, faceInput = null;
             try {
@@ -279,8 +293,8 @@ namespace Muggle.TeklaPlugins.MJ1001 {
                 anchorRod_disListStr_Y,
                 System.Globalization.CultureInfo.InvariantCulture,
                 TSD.Distance.CurrentUnitType);
-            //  Ôö¼Ó´Ë²Ù×÷ÊÇÎªÁËÄ£·ÂÏµÍ³ÂİË¨×éµÄĞĞÎª
-            //  ·ñÔòÊµ¼ÊÊ¹ÓÃÊ±£¬¾àÀëÁĞµÚÒ»¸öÖµÒªÊÖ¶¯ÌîĞ´Îª0
+            //  å¢åŠ æ­¤æ“ä½œæ˜¯ä¸ºäº†æ¨¡ä»¿ç³»ç»Ÿèºæ “ç»„çš„è¡Œä¸º
+            //  å¦åˆ™å®é™…ä½¿ç”¨æ—¶ï¼Œè·ç¦»åˆ—ç¬¬ä¸€ä¸ªå€¼è¦æ‰‹åŠ¨å¡«å†™ä¸º0
             if (anchorRod_disList_Y.First().Value != 0.0)
                 anchorRod_disList_Y.Insert(0, new TSD.Distance(0.0, TSD.Distance.CurrentUnitType));
             bolt_disList_X = DistanceList.Parse(
@@ -291,8 +305,8 @@ namespace Muggle.TeklaPlugins.MJ1001 {
                 bolt_distListStr_Y,
                 System.Globalization.CultureInfo.InvariantCulture,
                 TSD.Distance.CurrentUnitType);
-            //  Ôö¼Ó´Ë²Ù×÷ÊÇÎªÁËÄ£·ÂÏµÍ³ÂİË¨×éµÄĞĞÎª
-            //  ·ñÔòÊµ¼ÊÊ¹ÓÃÊ±£¬¾àÀëÁĞµÚÒ»¸öÖµÒªÊÖ¶¯ÌîĞ´Îª0
+            //  å¢åŠ æ­¤æ“ä½œæ˜¯ä¸ºäº†æ¨¡ä»¿ç³»ç»Ÿèºæ “ç»„çš„è¡Œä¸º
+            //  å¦åˆ™å®é™…ä½¿ç”¨æ—¶ï¼Œè·ç¦»åˆ—ç¬¬ä¸€ä¸ªå€¼è¦æ‰‹åŠ¨å¡«å†™ä¸º0
             if (bolt_disList_Y.First().Value != 0.0)
                 bolt_disList_Y.Insert(0, new TSD.Distance(0.0, TSD.Distance.CurrentUnitType));
         }
@@ -343,7 +357,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             if (!beam.GetReportProperty("HEIGHT", ref height) || !beam.GetReportProperty("WIDTH", ref width)) {
                 throw new Exception("Failed to get the height and width of the beam.");
             }
-            /*  Õâ¶Î´úÂë¶ÔÓÚÄ³Ğ©½ØÃæÀàĞÍ²»ÊÊÓÃ£¬»ñÈ¡²»µ½ÊıÖµ
+            /*  è¿™æ®µä»£ç å¯¹äºæŸäº›æˆªé¢ç±»å‹ä¸é€‚ç”¨ï¼Œè·å–ä¸åˆ°æ•°å€¼
              *  beam.GetReportProperty("WEB_THICKNESS", ref webThickness);
              *  if (!beam.GetReportProperty("FLANGE_THICKNESS", ref flangeThickness)) {
              *      beam.GetReportProperty("FlANGE_THICKNESS_U", ref flangeThickness);
@@ -351,7 +365,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             */
 
             var profile = new ProfileH_Symmetrical(beam.Profile.ProfileString);
-            if (profile.h1 != profile.h2 || profile.t1 != profile.t2)  //½ö´¦ÀíµÈ½ØÃæHĞÍ¸Ö
+            if (profile.h1 != profile.h2 || profile.t1 != profile.t2)  //ä»…å¤„ç†ç­‰æˆªé¢Hå‹é’¢
                 throw new UnAcceptableProfileException(beam.Profile.ProfileString);
             webThickness = profile.s;
             flangeThickness = profile.t1;
@@ -366,7 +380,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             var beamBottomLine = new Line(new TSG.Point(0, -height / 2, 0), axisX);
             var embedmentPlane = GeometricPlaneFactory.ByPoints(points[0], points[1], points[2]);
 
-            #region ´´½¨Ô¤Âñ°å
+            #region åˆ›å»ºé¢„åŸ‹æ¿
             var topIntersection = Intersection.LineToPlane(beamTopLine, embedmentPlane);
             var bottomIntersection = Intersection.LineToPlane(beamBottomLine, embedmentPlane);
 
@@ -377,12 +391,12 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             var embedmentWorkTP_AxisY = embedmentPlane.Normal.Cross(embedmentWorkTP_AxisX).GetNormal(1.0);
             var embedmentWorkTP = new TransformationPlane(
                 embedmentPlane.Origin,
-                embedmentWorkTP_AxisY, 
+                embedmentWorkTP_AxisY,
                 embedmentWorkTP_AxisX);
             Model.GetWorkPlaneHandler().SetCurrentTransformationPlane(embedmentWorkTP);
 
             var embedment = ModelOperation.CreatBeam(
-                point1.Transform(workTP, embedmentWorkTP), 
+                point1.Transform(workTP, embedmentWorkTP),
                 point2.Transform(workTP, embedmentWorkTP),
                 name: "EMBEDMENT",
                 profileStr: $"PL{embedment_thickness}*{embedment_width}",
@@ -396,7 +410,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             ModelOperation.ApplyBooleanOperation(concrete, embedment);
             #endregion
 
-            #region ²¼ÖÃÃª¸Ë
+            #region å¸ƒç½®é”šæ†
             var anchorRod_StartOffset = embedmentPlane.Normal.GetNormal(embedment_thickness);
             var anchorRod_EndOffset = embedmentPlane.Normal.GetNormal(-anchorRod_length);
             var x = 0.0; var y = 0.0;
@@ -418,7 +432,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             }
             #endregion
 
-            #region ÁºÄ©¶Ë¶ÔÆë
+            #region æ¢æœ«ç«¯å¯¹é½
             var fittingGeometryPlane = new GeometricPlane(
                 (topIntersection + bottomIntersection).Multiply(0.5) + embedmentPlane.Normal.GetNormal(gap),
                 embedmentWorkTP_AxisX,
@@ -434,7 +448,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             fitting.Insert();
             #endregion
 
-            #region ¿ªÊó¶´
+            #region å¼€é¼ æ´
             var chamferNone = new Chamfer();
             var chamferArcPoint = new Chamfer { Type = Chamfer.ChamferTypeEnum.CHAMFER_ARC_POINT };
             point1 = Intersection.LineToPlane(
@@ -470,7 +484,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             cutPart.Delete();
             #endregion
 
-            #region ´´½¨Á¬½Ó°å
+            #region åˆ›å»ºè¿æ¥æ¿
             point1 = Intersection.LineToPlane(
                 beamTopLine.Offset(flangeThickness + cleat_dis_with_innerEdge, LineExtension.OffsetDirectionEnum.RIGHT),
                 embedmentPlane);
@@ -502,7 +516,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             ModelOperation.CreatWeld(embedment, cleat2);
             #endregion
 
-            #region ²¼ÖÃÂİË¨
+            #region å¸ƒç½®èºæ “
             point1 += axisX.GetNormal((cleat_width + gap) * 0.5 / Math.Sin(angle));
             y = 0.0;
             yTotal = bolt_disList_Y.Sum(y => y.Value);
