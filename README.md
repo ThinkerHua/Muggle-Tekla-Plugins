@@ -42,6 +42,11 @@
 
 ![ReorderContourPoints](Resources/Introduction_ReorderContourPoints.gif)
 
+## CopyWithDirection(带基点和方向复制)
+适用于需要批量复制且带有旋转的情形，避免先复制再一个个旋转角度的繁琐操作。
+
+![CopyWithDirection](Resources/Introduction_CopyWithDirection.gif)
+
 ## MG1001(门刚系列节点 - 门刚边柱与梁竖向连接)
 特点是可以根据端板尺寸自动调整柱高度。参数化组件做不到这一点，需要手动调整柱高。
 

@@ -10,6 +10,7 @@ using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.ModelUI;
 using Muggle.TeklaPlugins.Common.Operation;
 using Muggle.TeklaPlugins.Common.Profile;
+using Tekla.Structures.Catalogs;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.Operations;
@@ -1357,6 +1358,38 @@ namespace Muggle.TeklaPlugins.UnitTest {
             //    FLANGE_THICKNESS_U = 13
 
 
+        }
+        [TestMethod]
+        public void TestBoltItemEnumerator() {
+            var model = new Model();
+            if (!model.GetConnectionStatus()) return;
+
+            var catalogHandler = new CatalogHandler();
+            var boltItemEnumerator = catalogHandler.GetBoltItems();
+            BoltItem boltItem;
+            while (boltItemEnumerator.MoveNext()) {
+                boltItem = boltItemEnumerator.Current;
+                Console.WriteLine($"\n" +
+                    $"Type = {boltItem.Type}, " +
+                    $"Standard = {boltItem.Standard}, " +
+                    $"Size = {boltItem.Size}, " +
+                    $"Length = {string.Join(", ", boltItem.Lengths)}");
+            }
+        }
+        [TestMethod]
+        public void TestGetFatherComponent() {
+            var model = new Model();
+            if (!model.GetConnectionStatus()) return;
+
+            var picker = new Picker();
+            var obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT, "Select a object:");
+            var component = obj.GetFatherComponent();
+            if (component == null) {
+                Console.WriteLine("No component selected.");
+                return;
+            }
+
+            Console.WriteLine($"Component's name is {component.Name}.");
         }
     }
 }

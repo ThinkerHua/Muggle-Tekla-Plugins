@@ -55,5 +55,11 @@ namespace Muggle.TeklaPlugins.MainForm {
             ReorderContourPoints.Run();
             WindowState = FormWindowState.Normal;
         }
+
+        private void Run_CopyWithDirection(object sender, EventArgs e) {
+            WindowState = FormWindowState.Minimized;
+            CopyWithDirection.Run();
+            WindowState = FormWindowState.Normal;
+        }
     }
 }

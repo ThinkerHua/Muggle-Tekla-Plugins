@@ -116,6 +116,7 @@
     <Compile Include="Plugins\WK1001_Outer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\CopyWithDirection.cs" />
     <Compile Include="Tools\ReorderContourPoints.cs" />
     <Compile Include="Tools\SelectBooleans.cs">
       <SubType>Form</SubType>

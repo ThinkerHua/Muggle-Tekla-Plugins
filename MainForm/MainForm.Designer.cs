@@ -42,6 +42,7 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnShowPartCoordinateSystem = new System.Windows.Forms.Button();
             this.btnSelectWeldedObjects = new System.Windows.Forms.Button();
+            this.btnReorderContourPoints = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -49,7 +50,7 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_WK1001 = new System.Windows.Forms.Button();
-            this.btnReorderContourPoints = new System.Windows.Forms.Button();
+            this.btnCopyWithOriginAndDirection = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -80,6 +81,7 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.tableLayoutPanel1.Controls.Add(this.btnSelectBooleans, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnSelectWeldedObjects, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnReorderContourPoints, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.btnCopyWithOriginAndDirection, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -122,6 +124,19 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.toolTip1.SetToolTip(this.btnSelectWeldedObjects, "有时个别焊缝比较怪异，但焊缝比较多，不清楚该焊缝的焊接对象是什么。本工具可解决此问题。");
             this.btnSelectWeldedObjects.UseVisualStyleBackColor = true;
             this.btnSelectWeldedObjects.Click += new System.EventHandler(this.Run_SelectWeldedObjects);
+            // 
+            // btnReorderContourPoints
+            // 
+            this.btnReorderContourPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReorderContourPoints.Location = new System.Drawing.Point(3, 99);
+            this.btnReorderContourPoints.Name = "btnReorderContourPoints";
+            this.btnReorderContourPoints.Size = new System.Drawing.Size(146, 26);
+            this.btnReorderContourPoints.TabIndex = 1;
+            this.btnReorderContourPoints.Text = "调整多边形板轮廓起始点";
+            this.btnReorderContourPoints.UseVisualStyleBackColor = true;
+            this.btnReorderContourPoints.Click += new System.EventHandler(this.Run_ReorderContourPoints);
             // 
             // tabControl1
             // 
@@ -199,18 +214,18 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.btn_WK1001.UseVisualStyleBackColor = true;
             this.btn_WK1001.Click += new System.EventHandler(this.Run_WK1001);
             // 
-            // btnReorderContourPoints
+            // btnCopyWithOriginAndDirection
             // 
-            this.btnReorderContourPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnCopyWithOriginAndDirection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReorderContourPoints.Location = new System.Drawing.Point(3, 99);
-            this.btnReorderContourPoints.Name = "btnReorderContourPoints";
-            this.btnReorderContourPoints.Size = new System.Drawing.Size(146, 26);
-            this.btnReorderContourPoints.TabIndex = 1;
-            this.btnReorderContourPoints.Text = "调整多边形板轮廓起始点";
-            this.btnReorderContourPoints.UseVisualStyleBackColor = true;
-            this.btnReorderContourPoints.Click += new System.EventHandler(this.Run_ReorderContourPoints);
+            this.btnCopyWithOriginAndDirection.Location = new System.Drawing.Point(3, 131);
+            this.btnCopyWithOriginAndDirection.Name = "btnCopyWithOriginAndDirection";
+            this.btnCopyWithOriginAndDirection.Size = new System.Drawing.Size(146, 26);
+            this.btnCopyWithOriginAndDirection.TabIndex = 1;
+            this.btnCopyWithOriginAndDirection.Text = "带基点和方向复制";
+            this.btnCopyWithOriginAndDirection.UseVisualStyleBackColor = true;
+            this.btnCopyWithOriginAndDirection.Click += new System.EventHandler(this.Run_CopyWithDirection);
             // 
             // MainForm
             // 
@@ -247,6 +262,7 @@ namespace Muggle.TeklaPlugins.MainForm {
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btn_WK1001;
         private System.Windows.Forms.Button btnReorderContourPoints;
+        private System.Windows.Forms.Button btnCopyWithOriginAndDirection;
     }
 }
 
