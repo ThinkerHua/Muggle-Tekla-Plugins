@@ -44,8 +44,13 @@ namespace Muggle.TeklaPlugins.MainForm.Tools {
             }
 
             var picker = new Picker();
-            var origin = picker.PickPoint("Select the source origin point:");
-            var directionPoint = picker.PickPoint("Select the source direction point:");
+            Point origin, directionPoint;
+            try {
+                origin = picker.PickPoint("Select the source origin point:");
+                directionPoint = picker.PickPoint("Select the source direction point:", origin);
+            } catch {
+                return;
+            }
             var direction = new Vector(directionPoint - origin);
             if (direction.IsZero()) {
                 Operation.DisplayPrompt("The direction vector cannot be zero.");
@@ -61,35 +66,35 @@ namespace Muggle.TeklaPlugins.MainForm.Tools {
                 sourceCS = new CoordinateSystem(origin, direction, axisZ.Cross(direction));
             }
 
-            try {
-                Point targetOrigin;
-                Point targetDirectionPoint;
-                Vector targetDirection;
-                CoordinateSystem targetCS;
-
-                while (true) {
-                    targetOrigin = picker.PickPoint("Select the target origin point:");
-                    targetDirectionPoint = picker.PickPoint("Select the target direction point:");
-                    targetDirection = new Vector(targetDirectionPoint - targetOrigin);
-                    if (targetDirection.IsZero()) {
-                        Operation.DisplayPrompt("The target direction vector cannot be zero.");
-                        continue;
-                    }
-
-                    if (G3d.Parallel.VectorToVector(targetDirection, axisZ)) {
-                        targetCS = new CoordinateSystem(targetOrigin, axisX, targetDirection.Cross(axisX));
-                    } else {
-                        targetCS = new CoordinateSystem(targetOrigin, targetDirection, axisZ.Cross(targetDirection));
-                    }
-
-                    foreach (ModelObject obj in selectedObjects) {
-                        Operation.CopyObject(obj, sourceCS, targetCS);
-                    }
-
-                    model.CommitChanges();
+            Point targetOrigin;
+            Point targetDirectionPoint;
+            Vector targetDirection;
+            CoordinateSystem targetCS;
+            while (true) {
+                try {
+                    targetOrigin = picker.PickPoint("Select the target origin point:", directionPoint);
+                    targetDirectionPoint = picker.PickPoint("Select the target direction point:", targetOrigin);
+                } catch {
+                    return;
                 }
-            } catch {
 
+                targetDirection = new Vector(targetDirectionPoint - targetOrigin);
+                if (targetDirection.IsZero()) {
+                    Operation.DisplayPrompt("The target direction vector cannot be zero.");
+                    continue;
+                }
+
+                if (G3d.Parallel.VectorToVector(targetDirection, axisZ)) {
+                    targetCS = new CoordinateSystem(targetOrigin, axisX, targetDirection.Cross(axisX));
+                } else {
+                    targetCS = new CoordinateSystem(targetOrigin, targetDirection, axisZ.Cross(targetDirection));
+                }
+
+                foreach (ModelObject obj in selectedObjects) {
+                    Operation.CopyObject(obj, sourceCS, targetCS);
+                }
+
+                model.CommitChanges();
             }
         }
     }
