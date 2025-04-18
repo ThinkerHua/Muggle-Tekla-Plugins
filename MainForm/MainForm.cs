@@ -20,6 +20,7 @@ using Muggle.TeklaPlugins.MainForm.Tools;
 namespace Muggle.TeklaPlugins.MainForm {
     public partial class MainForm : Form {
         private SelectBooleans formSelectBooleans;//  SelectBooleans子窗体
+        private ThreeDimensionalRotation form3DRotation;//  三维旋转子窗体
         public MainForm() {
             InitializeComponent();
         }
@@ -60,6 +61,14 @@ namespace Muggle.TeklaPlugins.MainForm {
             WindowState = FormWindowState.Minimized;
             CopyWithDirection.Run();
             WindowState = FormWindowState.Normal;
+        }
+
+        private void Run_ThreeDimensionalRotation(object sender, EventArgs e) {
+            if (form3DRotation == null || form3DRotation.IsDisposed) {
+                form3DRotation = new ThreeDimensionalRotation();
+            }
+            form3DRotation.Show();
+            form3DRotation.Activate();
         }
     }
 }

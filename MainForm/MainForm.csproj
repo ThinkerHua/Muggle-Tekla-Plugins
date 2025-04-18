@@ -126,6 +126,12 @@
     </Compile>
     <Compile Include="Tools\SelectWeldedObjects.cs" />
     <Compile Include="Tools\ShowModelObjectCoordinateSystem.cs" />
+    <Compile Include="Tools\ThreeDimensionalRotation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\ThreeDimensionalRotation.Designer.cs">
+      <DependentUpon>ThreeDimensionalRotation.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -141,6 +147,9 @@
     </Compile>
     <EmbeddedResource Include="Tools\SelectBooleans.resx">
       <DependentUpon>SelectBooleans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ThreeDimensionalRotation.resx">
+      <DependentUpon>ThreeDimensionalRotation.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -181,6 +190,7 @@
   <ItemGroup>
     <None Include="Resources\et_element_WK1001.bmp" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
