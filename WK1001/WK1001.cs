@@ -117,8 +117,8 @@ namespace Muggle.TeklaPlugins.WK1001 {
 
                 flag = CreatConnection();
 
-            } catch (Exception e) {
-                MessageBox.Show(e.ToString());
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return flag;

@@ -133,8 +133,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 CreatConnection();
 
                 result = true;
-            } catch (Exception Exc) {
-                MessageBox.Show(Exc.ToString());
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return result;

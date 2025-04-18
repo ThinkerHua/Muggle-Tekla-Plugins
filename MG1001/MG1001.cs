@@ -201,7 +201,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
 
                 result = CreatConnection(PRIMPart, SECPart);
             } catch (Exception Exc) {
-                MessageBox.Show(Exc.ToString());
+                MessageBox.Show(Exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return result;

@@ -14,6 +14,7 @@
  *==============================================================================*/
 using System;
 using System.Collections;
+using System.Windows.Forms;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
@@ -130,8 +131,9 @@ namespace Muggle.TeklaPlugins.HJ1001 {
                 //Test.ShowTransformationPlane(workTP);
 
                 CreatConnection();
-            } catch (Exception) {
-                throw;
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
 
             return true;
