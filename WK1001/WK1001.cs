@@ -318,6 +318,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             #endregion
 
             #region 创建端板
+            point1 = new Point(point1);
             point1.X = (prfTube.d1 - prfTube.t * 2) * 0.5 - 2;
             point2 = new Point(0, point1.X, point1.Z);
             point3 = new Point(-point1.X, 0, point1.Z);
@@ -330,6 +331,10 @@ namespace Muggle.TeklaPlugins.WK1001 {
             };
             var tEndPlate = ModelOperation.CreatContourPlate(contour, profileStr: "PL" + _thick_TEndplate, materialStr: _materialStr, depthEnum: Position.DepthEnum.BEHIND);
 
+            point1 = new Point(point1);
+            point2 = new Point(point2);
+            point3 = new Point(point3);
+            point4 = new Point(point4);
             point1.Z = typeA ? tube.EndPoint.Z : tube.EndPoint.Z - _thick_BEndplate;
             point2.Z = point1.Z;
             point3.Z = point1.Z;
@@ -348,9 +353,9 @@ namespace Muggle.TeklaPlugins.WK1001 {
             #endregion
 
             #region 创建加劲肋
-            point1 = tube.StartPoint;
+            point1 = new Point(tube.StartPoint);
             point1.Z -= _thick_TEndplate;
-            point2 = tube.EndPoint;
+            point2 = new Point(tube.EndPoint);
             point2.Z += typeA ? _thick_BEndplate : 0;
             var stif1 = ModelOperation.CreatBeam(
                 point1, point2,
@@ -374,8 +379,8 @@ namespace Muggle.TeklaPlugins.WK1001 {
             #endregion
 
             #region 切割、焊接
-            point1 = tube.StartPoint;
-            point2 = tube.EndPoint;
+            point1 = new Point(tube.StartPoint);
+            point2 = new Point(tube.EndPoint);
             point1.Z += 100;
             point2.Z -= 100;
             var booleanPart = ModelOperation.CreatBeam(point1, point2, profileStr: $"D{prfTube.d1}", @class: BooleanPart.BooleanOperativeClassName);

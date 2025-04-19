@@ -392,6 +392,10 @@ namespace Muggle.TeklaPlugins.HJ1001 {
         skipPrimStif:
 
             if (creatSecStif == 0) goto skipSecStif;
+            p1 = new Point(p1);
+            p2 = new Point(p2);
+            p3 = new Point(p3);
+            p4 = new Point(p4);
             p1.X *= -1;
             p2.X *= -1;
             p3.X *= -1;

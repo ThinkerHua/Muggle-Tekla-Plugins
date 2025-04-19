@@ -43,13 +43,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentOutOfRangeException($"“{nameof(thickness)}”不能是 double.NaN，也不应小于等于 0.0。");
             }
 
-
-            var cps = new ArrayList();
-            foreach (ContourPoint cp in contourPoints) {
-                cps.Add(cp.Clone());
-            }
             ContourPlate contourPlate = new ContourPlate {
-                Contour = { ContourPoints = cps },
+                Contour = { ContourPoints = contourPoints },
                 Profile = { ProfileString = "PL" + thickness },
                 Material = { MaterialString = "ANTIMATERIAL" },
                 Class = BooleanPart.BooleanOperativeClassName,
@@ -110,7 +105,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             }
             ContourPlate contourPlate = new ContourPlate {
                 Contour = { ContourPoints = cps },
-                Profile = { ProfileString = string.Copy(sourceContourPlate.Profile.ProfileString) },
+                Profile = { ProfileString = sourceContourPlate.Profile.ProfileString },
                 Material = { MaterialString = "ANTIMATERIAL" },
                 Class = BooleanPart.BooleanOperativeClassName,
             };
@@ -227,16 +222,15 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentException($"“{nameof(@class)}”不能为 null 或空。", nameof(@class));
             }
 
-            //使用new，防止引用类型值变化
             Beam beam = new Beam {
-                StartPoint = new Point(startPoint),
-                EndPoint = new Point(endPoint),
-                Name = string.Copy(name),
-                Profile = { ProfileString = string.Copy(profileStr) },
-                Material = { MaterialString = string.Copy(materialStr) },
-                AssemblyNumber = { Prefix = string.Copy(assemblyPrefix), StartNumber = assemblyStartNumber },
-                PartNumber = { Prefix = string.Copy(partPrefix), StartNumber = partStartNumber },
-                Class = string.Copy(@class),
+                StartPoint = startPoint,
+                EndPoint = endPoint,
+                Name = name,
+                Profile = { ProfileString = profileStr },
+                Material = { MaterialString = materialStr },
+                AssemblyNumber = { Prefix = assemblyPrefix, StartNumber = assemblyStartNumber },
+                PartNumber = { Prefix = partPrefix, StartNumber = partStartNumber },
+                Class = @class,
                 Position = {
                     Plane = planeEnum, PlaneOffset = planeOffset,
                     Depth = depthEnum, DepthOffset = depthOffset,
@@ -248,6 +242,184 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return beam;
         }
+
+        /// <summary>
+        /// 用给定轮廓点集合创建折梁。
+        /// </summary>
+        /// <param name="contour">折梁的轮廓</param>
+        /// <param name="name">折梁名称，默认值 "BEAM"</param>
+        /// <param name="profileStr">折梁截面，默认值 "HM244*175*7*11"</param>
+        /// <param name="materialStr">折梁材质，默认值 "Q345B"</param>
+        /// <param name="assemblyPrefix">折梁构件编号前缀，默认值 "GL-"</param>
+        /// <param name="assemblyStartNumber">折梁构件编号起始编号，默认值 1</param>
+        /// <param name="partPrefix">折梁零件编号前缀，默认值 "P"</param>
+        /// <param name="partStartNumber">折梁零件编号起始编号，默认值 1</param>
+        /// <param name="class">折梁的等级，默认值 "99"</param>
+        /// <param name="planeEnum">位置属性的平面类型，默认值 <see cref="Position.PlaneEnum.MIDDLE"/></param>
+        /// <param name="planeOffset">位置属性的平面偏移，默认值 0.0</param>
+        /// <param name="depthEnum">位置属性的深度类型，默认值 <see cref="Position.DepthEnum.MIDDLE"/></param>
+        /// <param name="depthOffset">位置属性的深度偏移，默认值 0.0</param>
+        /// <param name="rotationEnum">位置属性的旋转类型，默认值 <see cref="Position.RotationEnum.FRONT"/></param>
+        /// <param name="rotationOffset">位置属性的旋转偏移，默认值 0.0</param>
+        /// <returns>创建的折梁</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="name"/>、<paramref name="profileStr"/>、<paramref name="materialStr"/>、
+        /// <paramref name="assemblyPrefix"/>、<paramref name="partPrefix"/>、<paramref name="class"/>为 null 或 <see cref="string.Empty"/>
+        /// 时引发。</exception>
+        public static PolyBeam CreatPolyBeam(
+            Contour contour,
+            string name = "BEAM",
+            string profileStr = "HM244*175*7*11",
+            string materialStr = "Q345B",
+            string assemblyPrefix = "GL-", int assemblyStartNumber = 1,
+            string partPrefix = "P", int partStartNumber = 1,
+            string @class = "99",
+            Position.PlaneEnum planeEnum = Position.PlaneEnum.MIDDLE,
+            double planeOffset = 0.0,
+            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE,
+            double depthOffset = 0.0,
+            Position.RotationEnum rotationEnum = Position.RotationEnum.FRONT,
+            double rotationOffset = 0.0) {
+
+            if (contour is null) {
+                throw new ArgumentNullException(nameof(contour));
+            }
+
+            if (string.IsNullOrEmpty(name)) {
+                throw new ArgumentException($"“{nameof(name)}”不能为 null 或空。", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(profileStr)) {
+                throw new ArgumentException($"“{nameof(profileStr)}”不能为 null 或空。", nameof(profileStr));
+            }
+
+            if (string.IsNullOrEmpty(materialStr)) {
+                throw new ArgumentException($"“{nameof(materialStr)}”不能为 null 或空。", nameof(materialStr));
+            }
+
+            if (string.IsNullOrEmpty(assemblyPrefix)) {
+                throw new ArgumentException($"“{nameof(assemblyPrefix)}”不能为 null 或空。", nameof(assemblyPrefix));
+            }
+
+            if (string.IsNullOrEmpty(partPrefix)) {
+                throw new ArgumentException($"“{nameof(partPrefix)}”不能为 null 或空。", nameof(partPrefix));
+            }
+
+            if (string.IsNullOrEmpty(@class)) {
+                throw new ArgumentException($"“{nameof(@class)}”不能为 null 或空。", nameof(@class));
+            }
+
+            var polybeam = new PolyBeam {
+                Contour = contour,
+                Name = name,
+                Profile = { ProfileString = profileStr },
+                Material = { MaterialString = materialStr },
+                AssemblyNumber = { Prefix = assemblyPrefix, StartNumber = assemblyStartNumber },
+                PartNumber = { Prefix = partPrefix, StartNumber = partStartNumber },
+                Class = @class,
+                Position = {
+                    Plane = planeEnum, PlaneOffset = planeOffset,
+                    Depth = depthEnum, DepthOffset = depthOffset,
+                    Rotation = rotationEnum, RotationOffset = rotationOffset,
+                }
+            };
+            if (!polybeam.Insert())
+                throw new Exception("Failed to insert Beam.");
+
+            return polybeam;
+        }
+
+        /// <summary>
+        /// 用给定点集合创建折梁，各轮廓点倒角均为 <see cref="Chamfer.ChamferTypeEnum.CHAMFER_NONE"/>。
+        /// </summary>
+        /// <param name="points">折梁的控制点集合</param>
+        /// <param name="name">折梁名称，默认值 "BEAM"</param>
+        /// <param name="profileStr">折梁截面，默认值 "HM244*175*7*11"</param>
+        /// <param name="materialStr">折梁材质，默认值 "Q345B"</param>
+        /// <param name="assemblyPrefix">折梁构件编号前缀，默认值 "GL-"</param>
+        /// <param name="assemblyStartNumber">折梁构件编号起始编号，默认值 1</param>
+        /// <param name="partPrefix">折梁零件编号前缀，默认值 "P"</param>
+        /// <param name="partStartNumber">折梁零件编号起始编号，默认值 1</param>
+        /// <param name="class">折梁的等级，默认值 "99"</param>
+        /// <param name="planeEnum">位置属性的平面类型，默认值 <see cref="Position.PlaneEnum.MIDDLE"/></param>
+        /// <param name="planeOffset">位置属性的平面偏移，默认值 0.0</param>
+        /// <param name="depthEnum">位置属性的深度类型，默认值 <see cref="Position.DepthEnum.MIDDLE"/></param>
+        /// <param name="depthOffset">位置属性的深度偏移，默认值 0.0</param>
+        /// <param name="rotationEnum">位置属性的旋转类型，默认值 <see cref="Position.RotationEnum.FRONT"/></param>
+        /// <param name="rotationOffset">位置属性的旋转偏移，默认值 0.0</param>
+        /// <returns>创建的折梁</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="name"/>、<paramref name="profileStr"/>、<paramref name="materialStr"/>、
+        /// <paramref name="assemblyPrefix"/>、<paramref name="partPrefix"/>、<paramref name="class"/>为 null 或 <see cref="string.Empty"/>
+        /// 时引发。</exception>
+        public static PolyBeam CreatPolyBeam(
+            IEnumerable<Point> points,
+            string name = "BEAM",
+            string profileStr = "HM244*175*7*11",
+            string materialStr = "Q345B",
+            string assemblyPrefix = "GL-", int assemblyStartNumber = 1,
+            string partPrefix = "P", int partStartNumber = 1,
+            string @class = "99",
+            Position.PlaneEnum planeEnum = Position.PlaneEnum.MIDDLE,
+            double planeOffset = 0.0,
+            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE,
+            double depthOffset = 0.0,
+            Position.RotationEnum rotationEnum = Position.RotationEnum.FRONT,
+            double rotationOffset = 0.0) {
+
+            if (points is null) {
+                throw new ArgumentNullException(nameof(points));
+            }
+
+            if (string.IsNullOrEmpty(name)) {
+                throw new ArgumentException($"“{nameof(name)}”不能为 null 或空。", nameof(name));
+            }
+
+            if (string.IsNullOrEmpty(profileStr)) {
+                throw new ArgumentException($"“{nameof(profileStr)}”不能为 null 或空。", nameof(profileStr));
+            }
+
+            if (string.IsNullOrEmpty(materialStr)) {
+                throw new ArgumentException($"“{nameof(materialStr)}”不能为 null 或空。", nameof(materialStr));
+            }
+
+            if (string.IsNullOrEmpty(assemblyPrefix)) {
+                throw new ArgumentException($"“{nameof(assemblyPrefix)}”不能为 null 或空。", nameof(assemblyPrefix));
+            }
+
+            if (string.IsNullOrEmpty(partPrefix)) {
+                throw new ArgumentException($"“{nameof(partPrefix)}”不能为 null 或空。", nameof(partPrefix));
+            }
+
+            if (string.IsNullOrEmpty(@class)) {
+                throw new ArgumentException($"“{nameof(@class)}”不能为 null 或空。", nameof(@class));
+            }
+
+            var contour = new Contour();
+            foreach (var p in points) {
+                contour.ContourPoints.Add(new ContourPoint(p, new Chamfer()));
+            }
+
+            var polybeam = new PolyBeam {
+                Contour = contour,
+                Name = name,
+                Profile = { ProfileString = profileStr },
+                Material = { MaterialString = materialStr },
+                AssemblyNumber = { Prefix = assemblyPrefix, StartNumber = assemblyStartNumber },
+                PartNumber = { Prefix = partPrefix, StartNumber = partStartNumber },
+                Class = @class,
+                Position = {
+                    Plane = planeEnum, PlaneOffset = planeOffset,
+                    Depth = depthEnum, DepthOffset = depthOffset,
+                    Rotation = rotationEnum, RotationOffset = rotationOffset,
+                }
+            };
+            if (!polybeam.Insert())
+                throw new Exception("Failed to insert Beam.");
+
+            return polybeam;
+        }
+
         /// <summary>
         /// 用给定轮廓点集合创建多边形板。
         /// </summary>
@@ -312,18 +484,14 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentException($"“{nameof(@class)}”不能为 null 或空。", nameof(@class));
             }
 
-            var cps = new ArrayList();
-            foreach (ContourPoint cp in contourPoints) {
-                cps.Add(cp.Clone());
-            }
             ContourPlate contourPlate = new ContourPlate {
-                Contour = { ContourPoints = cps },
-                Name = string.Copy(name),
-                Profile = { ProfileString = string.Copy(profileStr) },
-                Material = { MaterialString = string.Copy(materialStr) },
-                AssemblyNumber = { Prefix = string.Copy(assemblyPrefix), StartNumber = assemblyStartNumber },
-                PartNumber = { Prefix = string.Copy(partPrefix), StartNumber = partStartNumber },
-                Class = string.Copy(@class),
+                Contour = { ContourPoints = contourPoints },
+                Name = name,
+                Profile = { ProfileString = profileStr },
+                Material = { MaterialString = materialStr },
+                AssemblyNumber = { Prefix = assemblyPrefix, StartNumber = assemblyStartNumber },
+                PartNumber = { Prefix = partPrefix, StartNumber = partStartNumber },
+                Class = @class,
                 Position = { Depth = depthEnum, DepthOffset = depthOffset },
             };
             if (!contourPlate.Insert())
@@ -403,12 +571,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             ContourPlate contourPlate = new ContourPlate {
                 Contour = { ContourPoints = contourPoints },
-                Name = string.Copy(name),
-                Profile = { ProfileString = string.Copy(profileStr) },
-                Material = { MaterialString = string.Copy(materialStr) },
-                AssemblyNumber = { Prefix = string.Copy(assemblyPrefix), StartNumber = assemblyStartNumber },
-                PartNumber = { Prefix = string.Copy(partPrefix), StartNumber = partStartNumber },
-                Class = string.Copy(@class),
+                Name = name,
+                Profile = { ProfileString = profileStr },
+                Material = { MaterialString = materialStr },
+                AssemblyNumber = { Prefix = assemblyPrefix, StartNumber = assemblyStartNumber },
+                PartNumber = { Prefix = partPrefix, StartNumber = partStartNumber },
+                Class = @class,
                 Position = { Depth = depthEnum, DepthOffset = depthOffset },
             };
             if (!contourPlate.Insert())
@@ -495,7 +663,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             PolygonWeld pw = new PolygonWeld {
                 MainObject = mainObject,
                 SecondaryObject = secondaryObject,
-                Polygon = polygon.Clone(),
+                Polygon = polygon,
                 AroundWeld = arroundWeld,
                 ShopWeld = shopWeld
             };
@@ -571,30 +739,21 @@ namespace Muggle.TeklaPlugins.Common.Model {
             if (bolt_dist_Y.Count < 1)
                 throw new ArgumentException($"“{nameof(bolt_dist_Y)}”中项目数至少需要1个。");
 
-            if (position == null)
-                position = new Position { Rotation = Position.RotationEnum.TOP };
-            else
-                position = position.Clone();
+            if (position == null) position = new Position { Rotation = Position.RotationEnum.TOP };
 
-            if (startOffset == null)
-                startOffset = new Offset();
-            else
-                startOffset = startOffset.Clone();
+            if (startOffset == null) startOffset = new Offset();
 
-            if (endOffset == null)
-                endOffset = new Offset();
-            else
-                endOffset = endOffset.Clone();
+            if (endOffset == null) endOffset = new Offset();
 
             BoltArray boltArray = new BoltArray {
                 PartToBoltTo = boltTo,
                 PartToBeBolted = beBolted,
-                FirstPosition = new Point(firstPosition),
-                SecondPosition = new Point(secondPosition),
+                FirstPosition = firstPosition,
+                SecondPosition = secondPosition,
                 Position = position,
                 StartPointOffset = startOffset,
                 EndPointOffset = endOffset,
-                BoltStandard = string.Copy(bolt_standard),
+                BoltStandard = bolt_standard,
                 BoltSize = bolt_size,
                 BoltType = bolttype,
                 Tolerance = tolerance,
@@ -614,6 +773,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             foreach (var d in bolt_dist_X) {
                 boltArray.AddBoltDistX(d.Value);
             }
+
             foreach (var d in bolt_dist_Y) {
                 boltArray.AddBoltDistY(d.Value);
             }
@@ -683,12 +843,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
             var boltCircle = new BoltCircle {
                 PartToBoltTo = boltTo,
                 PartToBeBolted = beBolted,
-                FirstPosition = new Point(firstPosition),
-                SecondPosition = new Point(secondPosition),
+                FirstPosition = firstPosition,
+                SecondPosition = secondPosition,
                 NumberOfBolts = num,
                 Diameter = diameter,
-                Position = position.Clone(),
-                BoltStandard = string.Copy(bolt_standard),
+                Position = position,
+                BoltStandard = bolt_standard,
                 BoltSize = bolt_size,
                 BoltType = bolttype,
                 Tolerance = tolerance,
@@ -779,30 +939,21 @@ namespace Muggle.TeklaPlugins.Common.Model {
             if (bolt_dist_Y.Count < 1)
                 throw new ArgumentException($"“{nameof(bolt_dist_Y)}”中项目数至少需要1个。");
 
-            if (position == null)
-                position = new Position { Rotation = Position.RotationEnum.TOP };
-            else
-                position = position.Clone();
+            if (position == null) position = new Position { Rotation = Position.RotationEnum.TOP };
 
-            if (startOffset == null)
-                startOffset = new Offset();
-            else
-                startOffset = startOffset.Clone();
+            if (startOffset == null) startOffset = new Offset();
 
-            if (endOffset == null)
-                endOffset = new Offset();
-            else
-                endOffset = endOffset.Clone();
+            if (endOffset == null) endOffset = new Offset();
 
             var boltXYList = new BoltXYList {
                 PartToBoltTo = boltTo,
                 PartToBeBolted = beBolted,
-                FirstPosition = new Point(firstPosition),
-                SecondPosition = new Point(secondPosition),
+                FirstPosition = firstPosition,
+                SecondPosition = secondPosition,
                 Position = position,
                 StartPointOffset = startOffset,
                 EndPointOffset = endOffset,
-                BoltStandard = string.Copy(bolt_standard),
+                BoltStandard = bolt_standard,
                 BoltSize = bolt_size,
                 BoltType = bolttype,
                 Tolerance = tolerance,

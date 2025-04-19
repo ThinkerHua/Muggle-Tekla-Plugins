@@ -534,6 +534,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 depthEnum: Position.DepthEnum.FRONT,
                 rotationEnum: Position.RotationEnum.TOP);
 
+            point1 = new Point(point1);
+            point2 = new Point(point2);
             point1.Z *= -1; point2.Z *= -1;
             vertPlate_LB = ModelOperation.CreatBeam(
                 point1, point2,
@@ -561,6 +563,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 depthEnum: Position.DepthEnum.FRONT,
                 rotationEnum: Position.RotationEnum.TOP);
 
+            point1 = new Point(point1);
+            point2 = new Point(point2);
             point1.Z *= -1; point2.Z *= -1;
             vertPlate_RB = ModelOperation.CreatBeam(
                 point1, point2,
@@ -615,6 +619,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 materialStr: materialStr,
                 depthEnum: Position.DepthEnum.FRONT,
                 rotationEnum: Position.RotationEnum.TOP);
+            point1 = new Point(point1);
+            point2 = new Point(point2);
             point1.Z *= -1; point2.Z *= -1;
             diagPlate_B = ModelOperation.CreatBeam(
                 point1, point2,
@@ -705,6 +711,11 @@ namespace Muggle.TeklaPlugins.MG1002 {
                     Geometry3dOperation.Mirror(Geometry3dOperation.Mirror(contourPoints, mirrorPlane_XY), mirrorPlane_endPlate),
                     profileStr: "PL" + prfStifWeb.t,
                     materialStr: materialStr));
+                var tmp = new ArrayList();
+                foreach (ContourPoint cp in contourPoints) {
+                    tmp.Add(cp.Clone());
+                }
+                contourPoints = tmp;
             }
             #endregion
 

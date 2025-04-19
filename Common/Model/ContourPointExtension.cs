@@ -33,7 +33,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             }
 
             var point = new Point(contourPoint.X, contourPoint.Y, contourPoint.Z);
-            var chamfer = new Chamfer() {
+            var chamfer = new Chamfer {
                 Type = contourPoint.Chamfer.Type,
                 X = contourPoint.Chamfer.X,
                 Y = contourPoint.Chamfer.Y,

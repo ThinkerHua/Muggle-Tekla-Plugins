@@ -544,6 +544,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
             endPlate1 = ModelOperation.CreatBeam(point1, point2, "MG1001", "PL" + prf_End1.t + "*" + prf_End1.b,
                 materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99",
                 planeEnum: Position.PlaneEnum.RIGHT, depthEnum: Position.DepthEnum.MIDDLE, rotationEnum: Position.RotationEnum.TOP);
+            point2 = new Point(point2);
             point2.Y += prf_End1.l - prf_End2.l;
             endPlate2 = ModelOperation.CreatBeam(point1, point2, "MG1001", "PL" + prf_End2.t + "*" + prf_End2.b,
                 materialStr, SEC_ASMNUM.Prefix, SEC_ASMNUM.StartNumber, "P", 1, "99",
@@ -667,6 +668,10 @@ namespace Muggle.TeklaPlugins.MG1001 {
             horPlate_Front = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3, cp4 }, "MG1001", "PL" + prf_HOR.t,
                 materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.BEHIND);
 
+            point1 = new Point(point1);
+            point2 = new Point(point2);
+            point3 = new Point(point3);
+            point4 = new Point(point4);
             point1.Z *= -1;
             point2.Z *= -1;
             point3.Z *= -1;
@@ -709,16 +714,16 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 cp3 = new ContourPoint(point3, chamfer_None);
                 cp4 = new ContourPoint(point4, chamfer_None);
 
-                thkedPlate = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3, cp4, cp5 }, "MG1001", "PL" + thk_THKED,
-                    materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
+                contourPoints = new ArrayList { cp1, cp2, cp3, cp4, cp5 };
             } else {
                 point4 = TSG3d.Intersection.LineToLine(ENDPlate_Line.Offset(prf_End1.t, LineExtension.OffsetDirectionEnum.RIGHT),
                     HORPlate_Line.Offset(pos_THKED, LineExtension.OffsetDirectionEnum.RIGHT)).StartPoint;
                 cp4 = new ContourPoint(point4, chamfer_None);
 
-                thkedPlate = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp4, cp5 }, "MG1001", "PL" + thk_THKED,
-                    materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
+                contourPoints = new ArrayList { cp1, cp2, cp4, cp5 };
             }
+            thkedPlate = ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + thk_THKED,
+                materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
 
         skip_THKED:
             #endregion
@@ -763,9 +768,14 @@ namespace Muggle.TeklaPlugins.MG1001 {
             cp2 = new ContourPoint(point2, chamfer_Line);
             cp3 = new ContourPoint(point3, chamfer_None);
             cp4 = new ContourPoint(point4, chamfer_None);
-            diagPlate_Front = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3, cp4 }, "MG1001", "PL" + prf_DIAG.t,
+            contourPoints = new ArrayList { cp1, cp2, cp3, cp4 };
+            diagPlate_Front = ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_DIAG.t,
                 materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
 
+            point1 = new Point(point1);
+            point2 = new Point(point2);
+            point3 = new Point(point3);
+            point4 = new Point(point4);
             point1.Z *= -1;
             point2.Z *= -1;
             point3.Z *= -1;
@@ -774,7 +784,8 @@ namespace Muggle.TeklaPlugins.MG1001 {
             cp2 = new ContourPoint(point2, chamfer_Line);
             cp3 = new ContourPoint(point3, chamfer_None);
             cp4 = new ContourPoint(point4, chamfer_None);
-            diagPlate_Behind = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3, cp4 }, "MG1001", "PL" + prf_DIAG.t,
+            contourPoints = new ArrayList { cp1, cp2, cp3, cp4 };
+            diagPlate_Behind = ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_DIAG.t,
                 materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
 
 
@@ -801,8 +812,9 @@ namespace Muggle.TeklaPlugins.MG1001 {
             cp1 = new ContourPoint(point1, chamfer_Line);
             cp2 = new ContourPoint(point2, chamfer_None);
             cp3 = new ContourPoint(point3, chamfer_None);
+            contourPoints = new ArrayList { cp1, cp2, cp3 };
 
-            stifFLNG_PRIMTOP = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3 }, "MG1001", "PL" + prf_STIF_FLNG.t,
+            stifFLNG_PRIMTOP = ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_FLNG.t,
                 materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
 
             point1 = TSG3d.Intersection.LineToLine(SEC_TOP_Line,
@@ -815,8 +827,9 @@ namespace Muggle.TeklaPlugins.MG1001 {
             cp1 = new ContourPoint(point1, chamfer_Line);
             cp2 = new ContourPoint(point2, chamfer_None);
             cp3 = new ContourPoint(point3, chamfer_None);
+            contourPoints = new ArrayList { cp1, cp2, cp3 };
 
-            stifFLNG_SECTOP = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3 }, "MG1001", "PL" + prf_STIF_FLNG.t,
+            stifFLNG_SECTOP = ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_FLNG.t,
                 materialStr, SEC_ASMNUM.Prefix, SEC_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
 
             point1 = TSG3d.Intersection.LineToLine(SEC_BTM_Line,
@@ -829,8 +842,9 @@ namespace Muggle.TeklaPlugins.MG1001 {
             cp1 = new ContourPoint(point1, chamfer_Line);
             cp2 = new ContourPoint(point2, chamfer_None);
             cp3 = new ContourPoint(point3, chamfer_None);
+            contourPoints = new ArrayList { cp1, cp2, cp3 };
 
-            stifFLNG_SECBTM = ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3 }, "MG1001", "PL" + prf_STIF_FLNG.t,
+            stifFLNG_SECBTM = ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_FLNG.t,
                 materialStr, SEC_ASMNUM.Prefix, SEC_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE);
 
             #endregion
@@ -873,10 +887,14 @@ namespace Muggle.TeklaPlugins.MG1001 {
                     cp1 = new ContourPoint(point1, chamfer_Line);
                     cp2 = new ContourPoint(point2, chamfer_None);
                     cp4 = new ContourPoint(point4, chamfer_None);
+                    contourPoints = new ArrayList { cp1, cp2, cp4 };
 
-                    stifWeb_SEC.Add(ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp4 }, "MG1001", "PL" + prf_STIF_Web.t,
+                    stifWeb_SEC.Add(ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_Web.t,
                         materialStr, SEC_ASMNUM.Prefix, SEC_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE));
 
+                    point1 = new Point(point1);
+                    point2 = new Point(point2);
+                    point4 = new Point(point4);
                     point1.Z *= -1;
                     point2.Z *= -1;
                     point4.Z *= -1;
@@ -884,11 +902,15 @@ namespace Muggle.TeklaPlugins.MG1001 {
                     cp1 = new ContourPoint(point1, chamfer_Line);
                     cp2 = new ContourPoint(point2, chamfer_None);
                     cp4 = new ContourPoint(point4, chamfer_None);
+                    contourPoints = new ArrayList { cp1, cp2, cp4 };
 
-                    stifWeb_SEC.Add(ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp4 }, "MG1001", "PL" + prf_STIF_Web.t,
+                    stifWeb_SEC.Add(ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_Web.t,
                         materialStr, SEC_ASMNUM.Prefix, SEC_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE));
                 }
 
+                point1 = new Point(point1);
+                point2 = new Point(point2);
+                point4 = new Point(point4);
                 point1.X -= prf_End1.t + prf_End2.t;
                 point2.X -= prf_End1.t + prf_End2.t + prf_STIF_Web.b * 2;
                 point4.X = point1.X;
@@ -906,10 +928,14 @@ namespace Muggle.TeklaPlugins.MG1001 {
                     cp1 = new ContourPoint(point1, chamfer_Line);
                     cp2 = new ContourPoint(point2, chamfer_None);
                     cp4 = new ContourPoint(point4, chamfer_None);
+                    contourPoints = new ArrayList { cp1, cp2, cp4 };
 
-                    stifWeb_PRIM.Add(ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp4 }, "MG1001", "PL" + prf_STIF_Web.t,
+                    stifWeb_PRIM.Add(ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_Web.t,
                         materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE));
 
+                    point1 = new Point(point1);
+                    point2 = new Point(point2);
+                    point4 = new Point(point4);
                     point1.Z *= -1;
                     point2.Z *= -1;
                     point4.Z *= -1;
@@ -917,8 +943,9 @@ namespace Muggle.TeklaPlugins.MG1001 {
                     cp1 = new ContourPoint(point1, chamfer_Line);
                     cp2 = new ContourPoint(point2, chamfer_None);
                     cp4 = new ContourPoint(point4, chamfer_None);
+                    contourPoints = new ArrayList { cp1, cp2, cp4 };
 
-                    stifWeb_PRIM.Add(ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp4 }, "MG1001", "PL" + prf_STIF_Web.t,
+                    stifWeb_PRIM.Add(ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_Web.t,
                         materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE));
 
                 }
@@ -933,10 +960,15 @@ namespace Muggle.TeklaPlugins.MG1001 {
                     cp2 = new ContourPoint(point2, chamfer_None);
                     cp3 = new ContourPoint(point3, chamfer_Line2);
                     cp4 = new ContourPoint(point4, chamfer_None);
+                    contourPoints = new ArrayList { cp1, cp2, cp3, cp4 };
 
-                    stifWeb_SEC.Add(ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3, cp4 }, "MG1001", "PL" + prf_STIF_Web.t,
+                    stifWeb_SEC.Add(ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_Web.t,
                         materialStr, SEC_ASMNUM.Prefix, SEC_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE));
 
+                    point1 = new Point(point1);
+                    point2 = new Point(point2);
+                    point3 = new Point(point3);
+                    point4 = new Point(point4);
                     point1.Z *= -1;
                     point2.Z *= -1;
                     point3.Z *= -1;
@@ -946,11 +978,16 @@ namespace Muggle.TeklaPlugins.MG1001 {
                     cp2 = new ContourPoint(point2, chamfer_None);
                     cp3 = new ContourPoint(point3, chamfer_Line2);
                     cp4 = new ContourPoint(point4, chamfer_None);
+                    contourPoints = new ArrayList { cp1, cp2, cp3, cp4 };
 
-                    stifWeb_SEC.Add(ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3, cp4 }, "MG1001", "PL" + prf_STIF_Web.t,
+                    stifWeb_SEC.Add(ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_Web.t,
                         materialStr, SEC_ASMNUM.Prefix, SEC_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE));
                 }
 
+                point1 = new Point(point1);
+                point2 = new Point(point2);
+                point3 = new Point(point3);
+                point4 = new Point(point4);
                 point1.X -= prf_End1.t + prf_End2.t;
                 point2.X -= prf_End1.t + prf_End2.t + prf_STIF_Web.b * 2;
                 point3.X = point2.X;
@@ -972,10 +1009,15 @@ namespace Muggle.TeklaPlugins.MG1001 {
                     cp2 = new ContourPoint(point2, chamfer_None);
                     cp3 = new ContourPoint(point3, chamfer_Line2);
                     cp4 = new ContourPoint(point4, chamfer_None);
+                    contourPoints = new ArrayList { cp1, cp2, cp3, cp4 };
 
-                    stifWeb_PRIM.Add(ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3, cp4 }, "MG1001", "PL" + prf_STIF_Web.t,
+                    stifWeb_PRIM.Add(ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_Web.t,
                         materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE));
 
+                    point1 = new Point(point1);
+                    point2 = new Point(point2);
+                    point3 = new Point(point3);
+                    point4 = new Point(point4);
                     point1.Z *= -1;
                     point2.Z *= -1;
                     point3.Z *= -1;
@@ -985,8 +1027,9 @@ namespace Muggle.TeklaPlugins.MG1001 {
                     cp2 = new ContourPoint(point2, chamfer_None);
                     cp3 = new ContourPoint(point3, chamfer_Line2);
                     cp4 = new ContourPoint(point4, chamfer_None);
+                    contourPoints = new ArrayList { cp1, cp2, cp3, cp4 };
 
-                    stifWeb_PRIM.Add(ModelOperation.CreatContourPlate(new ArrayList { cp1, cp2, cp3, cp4 }, "MG1001", "PL" + prf_STIF_Web.t,
+                    stifWeb_PRIM.Add(ModelOperation.CreatContourPlate(contourPoints, "MG1001", "PL" + prf_STIF_Web.t,
                         materialStr, PRIM_ASMNUM.Prefix, PRIM_ASMNUM.StartNumber, "P", 1, "99", Position.DepthEnum.MIDDLE));
 
                 }
@@ -1128,10 +1171,10 @@ namespace Muggle.TeklaPlugins.MG1001 {
             if (thk_THKED > prf_PRIM.s) {
                 //CreatWeld(PRIMPart, thkedPlate);//有时会不起作用，改用PolygonWeld
                 Polygon polygon = new Polygon();
-                point1 = (Point) thkedPlate.Contour.ContourPoints[0];
-                point2 = (Point) thkedPlate.Contour.ContourPoints[1];
+                point1 = new Point((Point) thkedPlate.Contour.ContourPoints[0]);
+                point2 = new Point((Point) thkedPlate.Contour.ContourPoints[1]);
                 point3 = new Point(point2);
-                point4 = (Point) thkedPlate.Contour.ContourPoints[2];
+                point4 = new Point((Point) thkedPlate.Contour.ContourPoints[2]);
                 point1.Z = thk_THKED * 0.5;
                 point2.Z = point1.Z;
                 point3.Z = prf_PRIM.s * 0.5;
@@ -1143,7 +1186,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 polygon.Points.Add(point4);
                 if (thkedPlate.Contour.ContourPoints.Count == 5) {
                     polygon.Points.Add(new Point(point4.X, point4.Y, thk_THKED * 0.5));
-                    point5 = (Point) thkedPlate.Contour.ContourPoints[3];
+                    point5 = new Point((Point) thkedPlate.Contour.ContourPoints[3]);
                     point5.Z = point1.Z;
                     polygon.Points.Add(point5);
                 }
