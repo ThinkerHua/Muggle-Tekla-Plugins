@@ -2,7 +2,6 @@
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
-		<UseWPF>true</UseWPF>
 		<AssemblyName>HJ1001</AssemblyName>
 		<RootNamespace>Muggle.TeklaPlugins.HJ1001</RootNamespace>
 		<Authors>thinkerhua@hotmail.com</Authors>

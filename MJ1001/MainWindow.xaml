@@ -21,10 +21,10 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:tsd="clr-namespace:Tekla.Structures.Dialog;assembly=Tekla.Structures.Dialog"
                       Title="{tsd:Loc albl_title}"
+                      d:Width="800"
                       ResizeMode="NoResize"
                       SizeToContent="WidthAndHeight"
-                      mc:Ignorable="d"
-                      d:Width="800">
+                      mc:Ignorable="d">
 	<d:UserControl.DataContext>
 		<local:MainWindowViewModel />
 	</d:UserControl.DataContext>
@@ -72,7 +72,8 @@
 		<UIControls:WpfSaveLoad DockPanel.Dock="Top" HelpOpenClicked="WpfSaveLoad_HelpOpenClicked" />
 		<UIControls:WpfOkApplyModifyGetOnOffCancel ApplyClicked="WPFOkApplyModifyGetOnOffCancel_ApplyClicked"
 		                                           CancelClicked="WPFOkApplyModifyGetOnOffCancel_CancelClicked"
-		                                           DockPanel.Dock="Bottom" GetClicked="WPFOkApplyModifyGetOnOffCancel_GetClicked"
+		                                           DockPanel.Dock="Bottom"
+		                                           GetClicked="WPFOkApplyModifyGetOnOffCancel_GetClicked"
 		                                           ModifyClicked="WPFOkApplyModifyGetOnOffCancel_ModifyClicked"
 		                                           OkClicked="WPFOkApplyModifyGetOnOffCancel_OkClicked"
 		                                           OnOffClicked="WPFOkApplyModifyGetOnOffCancel_OnOffClicked" />
@@ -151,11 +152,11 @@
 
 			<TextBlock Grid.Row="5" Grid.Column="0" Text="{tsd:Loc albl_embedment_MATL}" />
 			<UIControls:WpfFilterCheckBox Grid.Row="5" Grid.Column="2" AttributeName="embedment_MATL" />
-			<TextBox x:Name="tboxEmbedmentMaterial"
-			         Grid.Row="5" Grid.Column="3"
-			         Text="{Binding EmbedmentMaterial, Mode=TwoWay}" />
+			<TextBox x:Name="tboxEmbedmentMaterial" Grid.Row="5" Grid.Column="3" Text="{Binding EmbedmentMaterial, Mode=TwoWay}" />
 			<UIControls:WpfMaterialCatalog x:Name="catalogEmbedmentMaterial"
-			                               Grid.Row="5" Grid.Column="4" SelectClicked="EmbedmentMaterial_SelectClicked"
+			                               Grid.Row="5"
+			                               Grid.Column="4"
+			                               SelectClicked="EmbedmentMaterial_SelectClicked"
 			                               SelectionDone="EmbedmentMaterial_SelectionDone" />
 
 			<TextBlock Grid.Row="6" Grid.Column="0" Text="{tsd:Loc albl_anchorRod_LEN}" />
@@ -169,11 +170,11 @@
 
 			<TextBlock Grid.Row="8" Grid.Column="0" Text="{tsd:Loc albl_anchorRod_MATL}" />
 			<UIControls:WpfFilterCheckBox Grid.Row="8" Grid.Column="2" AttributeName="anchorRod_MATL" />
-			<TextBox x:Name="anchorRodMaterial"
-			         Grid.Row="8" Grid.Column="3"
-			         Text="{Binding AnchorRodMaterial}" />
+			<TextBox x:Name="anchorRodMaterial" Grid.Row="8" Grid.Column="3" Text="{Binding AnchorRodMaterial}" />
 			<UIControls:WpfMaterialCatalog x:Name="catalogAnchorRodMaterial"
-			                               Grid.Row="8" Grid.Column="4" SelectClicked="AnchorRodMaterial_SelectClicked"
+			                               Grid.Row="8"
+			                               Grid.Column="4"
+			                               SelectClicked="AnchorRodMaterial_SelectClicked"
 			                               SelectionDone="AnchorRodMaterial_SelectionDone" />
 
 			<TextBlock Grid.Row="9" Grid.Column="0" Text="{tsd:Loc albl_anchorRod_disList_X}" />
@@ -201,24 +202,20 @@
 
 			<TextBlock Grid.Row="14" Grid.Column="0" Text="{tsd:Loc albl_cleat_MATL}" />
 			<UIControls:WpfFilterCheckBox Grid.Row="14" Grid.Column="2" AttributeName="cleat_MATL" />
-			<TextBox x:Name="tboxCleatMaterial"
-			         Grid.Row="14" Grid.Column="3"
-			         Text="{Binding CleatMaterial, Mode=TwoWay}" />
+			<TextBox x:Name="tboxCleatMaterial" Grid.Row="14" Grid.Column="3" Text="{Binding CleatMaterial, Mode=TwoWay}" />
 			<UIControls:WpfMaterialCatalog x:Name="catalogCleatMaterial"
-			                               Grid.Row="14" Grid.Column="4" SelectClicked="CleatMaterial_SelectClicked"
+			                               Grid.Row="14"
+			                               Grid.Column="4"
+			                               SelectClicked="CleatMaterial_SelectClicked"
 			                               SelectionDone="CleatMaterial_SelectionDone" />
 
 			<TextBlock Grid.Row="15" Grid.Column="0" Text="{tsd:Loc albl_bolt_STD}" />
 			<UIControls:WpfFilterCheckBox Grid.Row="15" Grid.Column="2" AttributeName="bolt_STD" />
-			<UIControls:WpfBoltCatalogStandard x:Name="boltStandard"
-			                                   Grid.Row="15" Grid.Column="3"
-			                                   SelectedItem="{Binding BoltStandard}" />
+			<UIControls:WpfBoltCatalogStandard x:Name="boltStandard" Grid.Row="15" Grid.Column="3" SelectedItem="{Binding BoltStandard}" />
 
 			<TextBlock Grid.Row="16" Grid.Column="0" Text="{tsd:Loc albl_bolt_size}" />
 			<UIControls:WpfFilterCheckBox Grid.Row="16" Grid.Column="2" AttributeName="bolt_size" />
-			<UIControls:WpfBoltCatalogSize Grid.Row="16" Grid.Column="3"
-			                               ItemsSource="{Binding ElementName=boltStandard, Path=BoltSizes}"
-			                               SelectedItem="{Binding BoltSize}" />
+			<UIControls:WpfBoltCatalogSize Grid.Row="16" Grid.Column="3" ItemsSource="{Binding ElementName=boltStandard, Path=BoltSizes}" SelectedItem="{Binding BoltSize}" />
 
 			<TextBlock Grid.Row="17" Grid.Column="0" Text="{tsd:Loc albl_bolt_disList_X}" />
 			<TextBlock Grid.Row="17" Grid.Column="1" Text="h" />

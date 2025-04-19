@@ -127,6 +127,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
         private DistanceList anchorRod_disList_Y;
         private DistanceList bolt_disList_X;
         private DistanceList bolt_disList_Y;
+        private Offset bolt_startOffset;
 
         private TransformationPlane originTP;
         private TransformationPlane workTP;
@@ -301,6 +302,8 @@ namespace Muggle.TeklaPlugins.MJ1001 {
                 bolt_disListStr_X,
                 System.Globalization.CultureInfo.InvariantCulture,
                 TSD.Distance.CurrentUnitType);
+            bolt_startOffset = new Offset { Dx = bolt_disList_X.First().Value, Dy = 0.0, Dz = 0.0 };
+            bolt_disList_X.RemoveAt(0);
             bolt_disList_Y = DistanceList.Parse(
                 bolt_distListStr_Y,
                 System.Globalization.CultureInfo.InvariantCulture,
@@ -529,6 +532,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
                     point2, point2 - embedmentWorkTP_AxisX * 100,
                     bolt_disList_X, zeroDisList,
                     position: new Position { Rotation = Position.RotationEnum.FRONT },
+                    startOffset: bolt_startOffset,
                     bolt_standard: bolt_standard, bolt_size: bolt_size);
             }
             #endregion

@@ -512,9 +512,11 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="otherBeBolted">其他要栓接的零件集合</param>
         /// <param name="firstPosition">第一定位点</param>
         /// <param name="secondPosition">第二定位点</param>
-        /// <param name="bolt_dist_X">X方向距离列(<b>* 第一个值为起点偏移</b>)</param>
+        /// <param name="bolt_dist_X">X方向距离列</param>
         /// <param name="bolt_dist_Y">Y方向距离列</param>
         /// <param name="position">螺栓组定位，默认值旋转定位 <see cref="Position.RotationEnum.TOP"/>，平面定位 0.0，深度定位 0.0</param>
+        /// <param name="startOffset">起点偏移值，默认值 new Offset()</param>
+        /// <param name="endOffset">终点偏移值，默认值 new Offset()</param>
         /// <param name="bolt_standard">螺栓等级，默认值 "HS10.9"</param>
         /// <param name="bolt_size">螺栓尺寸，默认值 20.0</param>
         /// <param name="bolttype">车间(true)或现场(false)，默认值 true</param>
@@ -527,8 +529,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="nut2">是否使用螺母1，默认值 true</param>
         /// <returns>创建的阵列螺栓组。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"><paramref name="bolt_dist_X"/> 中元素数量少于 2，
-        /// 或 <paramref name="bolt_dist_Y"/> 中元素数量少于 1 时引发。</exception>
+        /// <exception cref="ArgumentException"><paramref name="bolt_dist_X"/> 或 <paramref name="bolt_dist_Y"/>
+        /// 中元素数量少于 1 时引发。</exception>
         public static BoltArray CreatBoltArray(
             Part boltTo,
             Part beBolted,
@@ -538,6 +540,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
             DistanceList bolt_dist_X,
             DistanceList bolt_dist_Y,
             Position position = default,
+            Offset startOffset = default,
+            Offset endOffset = default,
             string bolt_standard = "HS10.9",
             double bolt_size = 20.0,
             BoltGroup.BoltTypeEnum bolttype = BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE,
@@ -561,20 +565,35 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentNullException(nameof(secondPosition));
             }
 
-            if (bolt_dist_X.Count < 2 || bolt_dist_Y.Count < 1)
-                throw new ArgumentException($"“{nameof(bolt_dist_X)}”中项目数至少需要2个。");
+            if (bolt_dist_X.Count < 1)
+                throw new ArgumentException($"“{nameof(bolt_dist_X)}”中项目数至少需要1个。");
 
             if (bolt_dist_Y.Count < 1)
                 throw new ArgumentException($"“{nameof(bolt_dist_Y)}”中项目数至少需要1个。");
 
-            if (position == null) position = new Position { Rotation = Position.RotationEnum.TOP };
+            if (position == null)
+                position = new Position { Rotation = Position.RotationEnum.TOP };
+            else
+                position = position.Clone();
+
+            if (startOffset == null)
+                startOffset = new Offset();
+            else
+                startOffset = startOffset.Clone();
+
+            if (endOffset == null)
+                endOffset = new Offset();
+            else
+                endOffset = endOffset.Clone();
 
             BoltArray boltArray = new BoltArray {
                 PartToBoltTo = boltTo,
                 PartToBeBolted = beBolted,
                 FirstPosition = new Point(firstPosition),
                 SecondPosition = new Point(secondPosition),
-                Position = position.Clone(),
+                Position = position,
+                StartPointOffset = startOffset,
+                EndPointOffset = endOffset,
                 BoltStandard = string.Copy(bolt_standard),
                 BoltSize = bolt_size,
                 BoltType = bolttype,
@@ -592,9 +611,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 }
             }
 
-            boltArray.StartPointOffset.Dx = bolt_dist_X[0].Value;
-            for (int i = 1; i < bolt_dist_X.Count; i++) {
-                boltArray.AddBoltDistX(bolt_dist_X[i].Value);
+            foreach (var d in bolt_dist_X) {
+                boltArray.AddBoltDistX(d.Value);
             }
             foreach (var d in bolt_dist_Y) {
                 boltArray.AddBoltDistY(d.Value);
@@ -692,6 +710,128 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new Exception("Failed to insert BoltCircle.");
 
             return boltCircle;
+        }
+
+        /// <summary>
+        /// 创建列表螺栓组。
+        /// </summary>
+        /// <param name="boltTo">栓接到的零件</param>
+        /// <param name="beBolted">要栓接的零件</param>
+        /// <param name="otherBeBolted">其他要栓接的零件集合</param>
+        /// <param name="firstPosition">第一定位点</param>
+        /// <param name="secondPosition">第二定位点</param>
+        /// <param name="bolt_dist_X">X方向距离列</param>
+        /// <param name="bolt_dist_Y">Y方向距离列</param>
+        /// <param name="position">螺栓组定位，默认值旋转定位 <see cref="Position.RotationEnum.TOP"/>，平面定位 0.0，深度定位 0.0</param>
+        /// <param name="startOffset">起点偏移值，默认值 new Offset()</param>
+        /// <param name="endOffset">终点偏移值，默认值 new Offset()</param>
+        /// <param name="bolt_standard">螺栓等级，默认值 "HS10.9"</param>
+        /// <param name="bolt_size">螺栓尺寸，默认值 20.0</param>
+        /// <param name="bolttype">车间(true)或现场(false)，默认值 true</param>
+        /// <param name="tolerance">孔公差，默认值 2.0</param>
+        /// <param name="bolt">螺栓(true)或孔(false)，默认值 true</param>
+        /// <param name="washer1">是否使用垫圈1，默认值 true</param>
+        /// <param name="washer2">是否使用垫圈2，默认值 true</param>
+        /// <param name="washer3">是否使用垫圈3，默认值 true</param>
+        /// <param name="nut1">是否使用螺母1，默认值 true</param>
+        /// <param name="nut2">是否使用螺母1，默认值 true</param>
+        /// <returns>创建的阵列螺栓组。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"><paramref name="bolt_dist_X"/> 或 <paramref name="bolt_dist_Y"/>
+        /// 中元素数量少于 1 时引发。</exception>
+        public static BoltXYList CreatBoltXYList(
+            Part boltTo,
+            Part beBolted,
+            IEnumerable<Part> otherBeBolted,
+            Point firstPosition,
+            Point secondPosition,
+            DistanceList bolt_dist_X,
+            DistanceList bolt_dist_Y,
+            Position position = default,
+            Offset startOffset = default,
+            Offset endOffset = default,
+            string bolt_standard = "HS10.9",
+            double bolt_size = 20.0,
+            BoltGroup.BoltTypeEnum bolttype = BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE,
+            double tolerance = 2.0,
+            bool bolt = true,
+            bool washer1 = true,
+            bool washer2 = true,
+            bool washer3 = true,
+            bool nut1 = true,
+            bool nut2 = true) {
+
+            if (boltTo is null) {
+                throw new ArgumentNullException(nameof(boltTo));
+            }
+
+            if (firstPosition is null) {
+                throw new ArgumentNullException(nameof(firstPosition));
+            }
+
+            if (secondPosition is null) {
+                throw new ArgumentNullException(nameof(secondPosition));
+            }
+
+            if (bolt_dist_X.Count < 1)
+                throw new ArgumentException($"“{nameof(bolt_dist_X)}”中项目数至少需要1个。");
+
+            if (bolt_dist_Y.Count < 1)
+                throw new ArgumentException($"“{nameof(bolt_dist_Y)}”中项目数至少需要1个。");
+
+            if (position == null)
+                position = new Position { Rotation = Position.RotationEnum.TOP };
+            else
+                position = position.Clone();
+
+            if (startOffset == null)
+                startOffset = new Offset();
+            else
+                startOffset = startOffset.Clone();
+
+            if (endOffset == null)
+                endOffset = new Offset();
+            else
+                endOffset = endOffset.Clone();
+
+            var boltXYList = new BoltXYList {
+                PartToBoltTo = boltTo,
+                PartToBeBolted = beBolted,
+                FirstPosition = new Point(firstPosition),
+                SecondPosition = new Point(secondPosition),
+                Position = position,
+                StartPointOffset = startOffset,
+                EndPointOffset = endOffset,
+                BoltStandard = string.Copy(bolt_standard),
+                BoltSize = bolt_size,
+                BoltType = bolttype,
+                Tolerance = tolerance,
+                Bolt = bolt,
+                Washer1 = washer1,
+                Washer2 = washer2,
+                Washer3 = washer3,
+                Nut1 = nut1,
+                Nut2 = nut2,
+            };
+            if (otherBeBolted != null) {
+                foreach (var part in otherBeBolted) {
+                    boltXYList.AddOtherPartToBolt(part);
+                }
+            }
+
+            foreach (var d in bolt_dist_X) {
+                boltXYList.AddBoltDistX(d.Value);
+            }
+
+            foreach (var d in bolt_dist_Y) {
+                boltXYList.AddBoltDistY(d.Value);
+            }
+
+            if (!boltXYList.Insert())
+                throw new Exception("Failed to insert BoltXYList.");
+
+            return boltXYList;
+
         }
         /// <summary>
         /// 沿给定轴线每隔给定角度旋转复制一份对象。

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>8.0</LangVersion>
-    <AssemblyTitle>WPFPlugin</AssemblyTitle>
+    <AssemblyTitle>MJ1001</AssemblyTitle>
     <Authors>thinkerhua@hotmail.com</Authors>
     <Copyright>Copyright © 2025 thinkerhua@hotmail.com. All rights reserved.</Copyright>
     <UseWPF>true</UseWPF>

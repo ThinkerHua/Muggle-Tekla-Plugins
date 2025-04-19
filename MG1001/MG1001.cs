@@ -15,6 +15,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Model;
@@ -164,6 +165,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
         private DistanceList disLst_STIF_Web;
         private DistanceList disLst_Bolt_X;
         private DistanceList disLst_Bolt_Y;
+        private Offset bolt_startOffset;
         private string bolt_Standard;
         private double bolt_Size;
         private string materialStr;
@@ -304,6 +306,8 @@ namespace Muggle.TeklaPlugins.MG1001 {
 
             disLst_STIF_Web = DistanceList.Parse(disLstStr_STIF_Web, System.Globalization.CultureInfo.InvariantCulture, TSDatatype.Distance.CurrentUnitType);
             disLst_Bolt_X = DistanceList.Parse(disLstStr_Bolt_X, System.Globalization.CultureInfo.InvariantCulture, TSDatatype.Distance.CurrentUnitType);
+            bolt_startOffset = new Offset { Dx = disLst_Bolt_X.First().Value, Dy = 0.0, Dz = 0.0 };
+            disLst_Bolt_X.RemoveAt(0);
             disLst_Bolt_Y = DistanceList.Parse(disLstStr_Bolt_Y, System.Globalization.CultureInfo.InvariantCulture, TSDatatype.Distance.CurrentUnitType);
         }
         /// <summary>
@@ -1200,7 +1204,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
             ModelOperation.CreatBoltArray(endPlate1, endPlate2, null,
                 endPlate1.StartPoint, endPlate1.EndPoint,
                 disLst_Bolt_X, disLst_Bolt_Y,
-                null,
+                null, bolt_startOffset, null,
                 bolt_Standard, bolt_Size);
             #endregion
 

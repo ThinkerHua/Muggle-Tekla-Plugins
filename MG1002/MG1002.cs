@@ -92,6 +92,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
         private DistanceList disList_bolt_X;
         private string disListStr_bolt_Y;
         private DistanceList disList_bolt_Y;
+        private Offset bolt_startOffset;
         private string materialStr;
         private int group_no;
 
@@ -223,6 +224,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
             disList_STIF_WEB = DistanceList.Parse(disListStr_STIF_WEB, System.Globalization.CultureInfo.InvariantCulture, Tekla.Structures.Datatype.Distance.CurrentUnitType);
             disList_bolt_X = DistanceList.Parse(disListStr_bolt_X, System.Globalization.CultureInfo.InvariantCulture, Tekla.Structures.Datatype.Distance.CurrentUnitType);
+            bolt_startOffset = new Offset { Dx = disList_bolt_X.First().Value, Dy = 0.0, Dz = 0.0 };
+            disList_bolt_X.RemoveAt(0);
             disList_bolt_Y = DistanceList.Parse(disListStr_bolt_Y, System.Globalization.CultureInfo.InvariantCulture, Tekla.Structures.Datatype.Distance.CurrentUnitType);
         }
         /// <summary>
@@ -711,7 +714,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             };
             ModelOperation.CreatBoltArray(
                 endPlate1, endPlate2, null, endPlate1.StartPoint, endPlate1.EndPoint, disList_bolt_X, disList_bolt_Y,
-                position: position, bolt_standard: bolt_Standard, bolt_size: bolt_Size);
+                position: position, startOffset: bolt_startOffset, bolt_standard: bolt_Standard, bolt_size: bolt_Size);
             #endregion
 
             #region 焊接
