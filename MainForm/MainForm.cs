@@ -70,5 +70,11 @@ namespace Muggle.TeklaPlugins.MainForm {
             form3DRotation.Show();
             form3DRotation.Activate();
         }
+
+        private void Run_KJ2001(object sender, EventArgs e) {
+            WindowState = FormWindowState.Minimized;
+            KJ2001_Outter.Run();
+            WindowState = FormWindowState.Normal;
+        }
     }
 }

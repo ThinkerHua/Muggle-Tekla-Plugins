@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -1361,8 +1362,8 @@ namespace Muggle.TeklaPlugins.UnitTest {
         }
         [TestMethod]
         public void TestBoltItemEnumerator() {
-            var model = new Model();
-            if (!model.GetConnectionStatus()) return;
+            //var model = new Model();
+            //if (!model.GetConnectionStatus()) return;
 
             var catalogHandler = new CatalogHandler();
             var boltItemEnumerator = catalogHandler.GetBoltItems();
@@ -1390,6 +1391,47 @@ namespace Muggle.TeklaPlugins.UnitTest {
             }
 
             Console.WriteLine($"Component's name is {component.Name}.");
+        }
+        [TestMethod]
+        public void TestKJ2001() {
+            try {
+                var model = new Model();
+                if (!model.GetConnectionStatus()) return;
+
+                Picker picker;
+                Point position;
+                ModelObject mainPart;
+                Detail kj2001;
+                ArrayList modelObjects;
+                while (true) {
+                    Tekla.Structures.Model.UI.ModelObjectSelector uiSelecter;
+                    picker = new Picker();
+                    mainPart = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Pick main part");
+                    position = picker.PickPoint("Pick a position");
+
+                    kj2001 = new Detail {
+                        Name = "KJ2001",
+                        Number = BaseComponent.PLUGIN_OBJECT_NUMBER,
+                        PositionType = Tekla.Structures.PositionTypeEnum.END_END_PLANE,
+                        AutoDirectionType = Tekla.Structures.AutoDirectionTypeEnum.AUTODIR_DETAIL,
+                        Class = -1,
+                    };
+                    kj2001.SetPrimaryObject(mainPart);
+                    kj2001.SetReferencePoint(position);
+
+                    if (!kj2001.Insert())
+                        throw new Exception("\"KJ2001\"细部创建失败");
+
+                    modelObjects = new ArrayList { kj2001 };
+                    uiSelecter = new Tekla.Structures.Model.UI.ModelObjectSelector();
+                    uiSelecter.Select(modelObjects);
+                    model.CommitChanges();
+                }
+            } catch (Exception e) {
+                Debug.WriteLine(e.Message);
+            } finally {
+
+            }
         }
     }
 }

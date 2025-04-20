@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJ1001", "MJ1001\MJ1001.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_WPF", "Test_WPF\Test_WPF.csproj", "{7EBD5A11-B31C-4A0D-97D0-76D4AEAA717E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KJ2001", "KJ2001\KJ2001.csproj", "{717671A2-058E-4114-AEBF-463DF46C4D52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{7EBD5A11-B31C-4A0D-97D0-76D4AEAA717E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EBD5A11-B31C-4A0D-97D0-76D4AEAA717E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EBD5A11-B31C-4A0D-97D0-76D4AEAA717E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{717671A2-058E-4114-AEBF-463DF46C4D52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{717671A2-058E-4114-AEBF-463DF46C4D52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{717671A2-058E-4114-AEBF-463DF46C4D52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{717671A2-058E-4114-AEBF-463DF46C4D52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

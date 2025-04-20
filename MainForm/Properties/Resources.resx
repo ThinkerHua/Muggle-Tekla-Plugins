@@ -121,4 +121,7 @@
   <data name="et_element_WK1001" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\et_element_WK1001.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="et_element_KJ2001" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\et_element_KJ2001.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

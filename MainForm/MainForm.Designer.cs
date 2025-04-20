@@ -44,19 +44,22 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.btnSelectWeldedObjects = new System.Windows.Forms.Button();
             this.btnReorderContourPoints = new System.Windows.Forms.Button();
             this.btnCopyWithDirection = new System.Windows.Forms.Button();
+            this.btnThreeDimensionalRotation = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_WK1001 = new System.Windows.Forms.Button();
-            this.btnThreeDimensionalRotation = new System.Windows.Forms.Button();
+            this.btn_KJ2001 = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -153,6 +156,19 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.btnCopyWithDirection.UseVisualStyleBackColor = true;
             this.btnCopyWithDirection.Click += new System.EventHandler(this.Run_CopyWithDirection);
             // 
+            // btnThreeDimensionalRotation
+            // 
+            this.btnThreeDimensionalRotation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnThreeDimensionalRotation.Location = new System.Drawing.Point(3, 163);
+            this.btnThreeDimensionalRotation.Name = "btnThreeDimensionalRotation";
+            this.btnThreeDimensionalRotation.Size = new System.Drawing.Size(146, 26);
+            this.btnThreeDimensionalRotation.TabIndex = 1;
+            this.btnThreeDimensionalRotation.Text = "三维旋转";
+            this.btnThreeDimensionalRotation.UseVisualStyleBackColor = true;
+            this.btnThreeDimensionalRotation.Click += new System.EventHandler(this.Run_ThreeDimensionalRotation);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -190,10 +206,12 @@ namespace Muggle.TeklaPlugins.MainForm {
             // 
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 114F));
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btn_WK1001, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.btn_KJ2001, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
@@ -204,6 +222,42 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(370, 229);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // btn_WK1001
+            // 
+            this.btn_WK1001.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_WK1001.Location = new System.Drawing.Point(3, 131);
+            this.btn_WK1001.Name = "btn_WK1001";
+            this.btn_WK1001.Size = new System.Drawing.Size(122, 23);
+            this.btn_WK1001.TabIndex = 1;
+            this.btn_WK1001.Text = "WK1001";
+            this.btn_WK1001.UseVisualStyleBackColor = true;
+            this.btn_WK1001.Click += new System.EventHandler(this.Run_WK1001);
+            // 
+            // btn_KJ2001
+            // 
+            this.btn_KJ2001.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_KJ2001.Location = new System.Drawing.Point(131, 131);
+            this.btn_KJ2001.Name = "btn_KJ2001";
+            this.btn_KJ2001.Size = new System.Drawing.Size(122, 23);
+            this.btn_KJ2001.TabIndex = 3;
+            this.btn_KJ2001.Text = "KJ2001";
+            this.btn_KJ2001.UseVisualStyleBackColor = true;
+            this.btn_KJ2001.Click += new System.EventHandler(this.Run_KJ2001);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::Muggle.TeklaPlugins.MainForm.Properties.Resources.et_element_WK1001;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox2.Image = global::Muggle.TeklaPlugins.MainForm.Properties.Resources.et_element_KJ2001;
+            this.pictureBox2.Location = new System.Drawing.Point(128, 0);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 2;
+            this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -217,30 +271,6 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.Run_WK1001);
-            // 
-            // btn_WK1001
-            // 
-            this.btn_WK1001.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_WK1001.Location = new System.Drawing.Point(3, 131);
-            this.btn_WK1001.Name = "btn_WK1001";
-            this.btn_WK1001.Size = new System.Drawing.Size(122, 23);
-            this.btn_WK1001.TabIndex = 1;
-            this.btn_WK1001.Text = "WK1001";
-            this.btn_WK1001.UseVisualStyleBackColor = true;
-            this.btn_WK1001.Click += new System.EventHandler(this.Run_WK1001);
-            // 
-            // btnThreeDimensionalRotation
-            // 
-            this.btnThreeDimensionalRotation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThreeDimensionalRotation.Location = new System.Drawing.Point(3, 163);
-            this.btnThreeDimensionalRotation.Name = "btnThreeDimensionalRotation";
-            this.btnThreeDimensionalRotation.Size = new System.Drawing.Size(146, 26);
-            this.btnThreeDimensionalRotation.TabIndex = 1;
-            this.btnThreeDimensionalRotation.Text = "三维旋转";
-            this.btnThreeDimensionalRotation.UseVisualStyleBackColor = true;
-            this.btnThreeDimensionalRotation.Click += new System.EventHandler(this.Run_ThreeDimensionalRotation);
             // 
             // MainForm
             // 
@@ -258,6 +288,7 @@ namespace Muggle.TeklaPlugins.MainForm {
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -279,6 +310,8 @@ namespace Muggle.TeklaPlugins.MainForm {
         private System.Windows.Forms.Button btnReorderContourPoints;
         private System.Windows.Forms.Button btnCopyWithDirection;
         private System.Windows.Forms.Button btnThreeDimensionalRotation;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button btn_KJ2001;
     }
 }
 
