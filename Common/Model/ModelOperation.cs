@@ -54,6 +54,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return contourPlate;
         }
+
         /// <summary>
         /// 用给定点集合创建布尔操作多边形。倒角为 <see cref="Chamfer.ChamferTypeEnum.CHAMFER_NONE"/>。
         /// </summary>
@@ -88,6 +89,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return contourPlate;
         }
+
         /// <summary>
         /// 用给定多边形板创建布尔操作多边形。
         /// </summary>
@@ -114,6 +116,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return contourPlate;
         }
+
         /// <summary>
         /// 应用布尔操作。
         /// </summary>
@@ -150,6 +153,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return bp.Insert();
         }
+
         /// <summary>
         /// 创建梁。
         /// </summary>
@@ -210,12 +214,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentException($"“{nameof(materialStr)}”不能为 null 或空。", nameof(materialStr));
             }
 
-            if (string.IsNullOrEmpty(assemblyPrefix)) {
-                throw new ArgumentException($"“{nameof(assemblyPrefix)}”不能为 null 或空。", nameof(assemblyPrefix));
+            if (assemblyPrefix is null) {
+                assemblyPrefix = string.Empty;
             }
 
-            if (string.IsNullOrEmpty(partPrefix)) {
-                throw new ArgumentException($"“{nameof(partPrefix)}”不能为 null 或空。", nameof(partPrefix));
+            if (partPrefix is null) {
+                partPrefix = string.Empty;
             }
 
             if (string.IsNullOrEmpty(@class)) {
@@ -297,12 +301,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentException($"“{nameof(materialStr)}”不能为 null 或空。", nameof(materialStr));
             }
 
-            if (string.IsNullOrEmpty(assemblyPrefix)) {
-                throw new ArgumentException($"“{nameof(assemblyPrefix)}”不能为 null 或空。", nameof(assemblyPrefix));
+            if (assemblyPrefix is null) {
+                assemblyPrefix = string.Empty;
             }
 
-            if (string.IsNullOrEmpty(partPrefix)) {
-                throw new ArgumentException($"“{nameof(partPrefix)}”不能为 null 或空。", nameof(partPrefix));
+            if (partPrefix is null) {
+                partPrefix = string.Empty;
             }
 
             if (string.IsNullOrEmpty(@class)) {
@@ -383,12 +387,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentException($"“{nameof(materialStr)}”不能为 null 或空。", nameof(materialStr));
             }
 
-            if (string.IsNullOrEmpty(assemblyPrefix)) {
-                throw new ArgumentException($"“{nameof(assemblyPrefix)}”不能为 null 或空。", nameof(assemblyPrefix));
+            if (assemblyPrefix is null) {
+                assemblyPrefix = string.Empty;
             }
 
-            if (string.IsNullOrEmpty(partPrefix)) {
-                throw new ArgumentException($"“{nameof(partPrefix)}”不能为 null 或空。", nameof(partPrefix));
+            if (partPrefix is null) {
+                partPrefix = string.Empty;
             }
 
             if (string.IsNullOrEmpty(@class)) {
@@ -472,12 +476,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentException($"“{nameof(materialStr)}”不能为 null 或空。", nameof(materialStr));
             }
 
-            if (string.IsNullOrEmpty(assemblyPrefix)) {
-                throw new ArgumentException($"“{nameof(assemblyPrefix)}”不能为 null 或空。", nameof(assemblyPrefix));
+            if (assemblyPrefix is null) {
+                assemblyPrefix = string.Empty;
             }
 
-            if (string.IsNullOrEmpty(partPrefix)) {
-                throw new ArgumentException($"“{nameof(partPrefix)}”不能为 null 或空。", nameof(partPrefix));
+            if (partPrefix is null) {
+                partPrefix = string.Empty;
             }
 
             if (string.IsNullOrEmpty(@class)) {
@@ -499,6 +503,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return contourPlate;
         }
+
         /// <summary>
         /// 用给定点集合创建多边形板。倒角为 <see cref="Chamfer.ChamferTypeEnum.CHAMFER_NONE"/>。
         /// </summary>
@@ -551,12 +556,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentException($"“{nameof(materialStr)}”不能为 null 或空。", nameof(materialStr));
             }
 
-            if (string.IsNullOrEmpty(assemblyPrefix)) {
-                throw new ArgumentException($"“{nameof(assemblyPrefix)}”不能为 null 或空。", nameof(assemblyPrefix));
+            if (assemblyPrefix is null) {
+                assemblyPrefix = string.Empty;
             }
 
-            if (string.IsNullOrEmpty(partPrefix)) {
-                throw new ArgumentException($"“{nameof(partPrefix)}”不能为 null 或空。", nameof(partPrefix));
+            if (partPrefix is null) {
+                partPrefix = string.Empty;
             }
 
             if (string.IsNullOrEmpty(@class)) {
@@ -584,6 +589,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return contourPlate;
         }
+
         /// <summary>
         /// 创建焊缝。
         /// </summary>
@@ -632,6 +638,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return weld;
         }
+
         /// <summary>
         /// 创建多边形焊缝。
         /// </summary>
@@ -672,6 +679,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return pw;
         }
+
         /// <summary>
         /// 创建阵列螺栓组。
         /// </summary>
@@ -783,6 +791,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return boltArray;
         }
+
         /// <summary>
         /// 创建环形螺栓组。
         /// </summary>
@@ -984,6 +993,327 @@ namespace Muggle.TeklaPlugins.Common.Model {
             return boltXYList;
 
         }
+
+        /// <summary>
+        /// 创建锚杆。
+        /// </summary>
+        /// <remarks>参考1047系统组件，锚杆、垫圈、螺母等均用零件模拟。</remarks>
+        /// <param name="firstPosition">锚杆第一控制点，一般为底板底标高处</param>
+        /// <param name="secondPosition">锚杆第二控制点</param>
+        /// <param name="length1">锚杆上端至第一控制点长度</param>
+        /// <param name="length2">锚杆第一控制点到螺纹截止处长度</param>
+        /// <param name="length3">螺纹截止处到锚杆终点或第一弯折点长度</param>
+        /// <param name="length4">锚杆第一弯折点到锚杆终点或第二弯折点长度，默认值 0.0</param>
+        /// <param name="length5">锚杆第二弯折点到锚杆终点长度，默认值 0.0</param>
+        /// <param name="hookDirection">弯钩朝向，不应与锚杆控制方向平行，默认值 null</param>
+        /// <param name="bendRadiusFactor">弯曲半径相对于锚杆尺寸的系数，默认值 3.5</param>
+        /// <param name="material">锚杆材质，默认值 "Q235B"</param>
+        /// <param name="size">锚杆尺寸，默认值 20.0</param>
+        /// <param name="tolerance">孔公差，默认值 2.0</param>
+        /// <param name="class">等级，默认值 "0"</param>
+        /// <param name="useWasherPlate">是否使用垫板，默认值 true</param>
+        /// <param name="washerPlateThickness">垫板厚度，默认值 10.0</param>
+        /// <param name="washerPlateWidth">垫板宽度，默认值 70.0</param>
+        /// <param name="washerPlatePosition">垫板到锚杆第一控制点的距离，默认值 20.0</param>
+        /// <param name="washerPlateHoleDiameter">垫板开孔孔径，默认值 26.0</param>
+        /// <param name="useWasher1">是否使用垫圈1，默认值 true</param>
+        /// <param name="useWasher2">是否使用垫圈2，默认值 true</param>
+        /// <param name="useWasher3">是否使用垫圈3，默认值 true</param>
+        /// <param name="useNut1">是否使用螺母1，默认值 true</param>
+        /// <param name="useNut2">是否使用螺母2，默认值 true</param>
+        /// <param name="useNut3">是否使用螺母3，默认值 true</param>
+        /// <returns>创建的锚杆。</returns>
+        public static List<Part> CreatAnchorRod(
+            Point firstPosition,
+            Point secondPosition,
+            double length1,
+            double length2,
+            double length3,
+            double length4 = 0.0,
+            double length5 = 0.0,
+            Vector hookDirection = null,
+            double bendRadiusFactor = 3.5,
+            string material = "Q235B",
+            double size = 20.0,
+            double tolerance = 2.0,
+            string @class = "0",
+            bool useWasherPlate = true,
+            double washerPlateThickness = 10.0,
+            double washerPlateWidth = 70.0,
+            double washerPlatePosition = 20.0,
+            double washerPlateHoleDiameter = 26.0,
+            bool useWasher1 = true,
+            bool useWasher2 = true,
+            bool useWasher3 = true,
+            bool useNut1 = true,
+            bool useNut2 = true,
+            bool useNut3 = true) {
+
+            #region 参数检查
+            if (firstPosition is null) {
+                throw new ArgumentNullException(nameof(firstPosition));
+            }
+
+            if (secondPosition is null) {
+                throw new ArgumentNullException(nameof(secondPosition));
+            }
+
+            var anchorDirection = new Vector(secondPosition - firstPosition).GetNormal();
+            if (anchorDirection.IsZero()) {
+                throw new ArgumentException($"锚杆控制方向不能为零向量。");
+            }
+            if (length4 > 0.0 || length5 > 0.0) {
+                if (hookDirection is null) {
+                    throw new ArgumentNullException(nameof(hookDirection));
+                }
+
+                if (hookDirection.IsZero()) {
+                    throw new ArgumentException($"弯钩方向不能为零向量。");
+                }
+
+                var cross = anchorDirection.Cross(hookDirection);
+                if (cross.IsZero()) {
+                    throw new ArgumentException($"弯钩方向不能与锚杆控制方向平行。");
+                }
+
+                hookDirection = cross.Cross(anchorDirection).GetNormal();
+            }
+
+            if (string.IsNullOrEmpty(material)) {
+                throw new ArgumentException($"“{nameof(material)}”不能为 null 或空。", nameof(material));
+            }
+
+            if (length1 <= 0.0) {
+                throw new ArgumentException($"“{nameof(length1)}”不应小于等于 0。", nameof(length1));
+            }
+            if (length2 <= 0.0) {
+                throw new ArgumentException($"“{nameof(length2)}”不应小于等于 0。", nameof(length2));
+            }
+            if (length3 <= 0.0) {
+                throw new ArgumentException($"“{nameof(length3)}”不应小于等于 0。", nameof(length3));
+            }
+            if (length4 < 0.0) {
+                throw new ArgumentException($"“{nameof(length4)}”不应小于 0。", nameof(length4));
+            }
+            if (length5 < 0.0) {
+                throw new ArgumentException($"“{nameof(length5)}”不应小于 0。", nameof(length5));
+            }
+            if (size <= 0.0) {
+                throw new ArgumentException($"“{nameof(size)}”不应小于等于 0。", nameof(size));
+            }
+            if (tolerance < 0.0) {
+                throw new ArgumentException($"“{nameof(tolerance)}”不应小于 0。", nameof(tolerance));
+            }
+
+            if (useWasherPlate) {
+                if (washerPlateThickness <= 0.0) {
+                    throw new ArgumentException($"“{nameof(washerPlateThickness)}”不应小于等于 0。", nameof(washerPlateThickness));
+                }
+                if (washerPlateWidth <= 0.0) {
+                    throw new ArgumentException($"“{nameof(washerPlateWidth)}”不应小于等于 0。", nameof(washerPlateWidth));
+                }
+                if (washerPlateHoleDiameter <= 0.0) {
+                    throw new ArgumentException($"“{nameof(washerPlateHoleDiameter)}”不应小于等于 0。", nameof(washerPlateHoleDiameter));
+                }
+            }
+
+            if (!useWasher1 && useWasher2) {
+                useWasher1 = true;
+                useWasher2 = false;
+            }
+
+            if (!useNut1 && useNut2) {
+                useNut1 = true;
+                useNut2 = false;
+            }
+            #endregion
+
+            if (length5 > 0.0) {
+                if (length5 < bendRadiusFactor * size) {
+                    length5 = bendRadiusFactor * size;
+                }
+
+                if (length4 < 2 * bendRadiusFactor * size) {
+                    length4 = 2 * bendRadiusFactor * size;
+                }
+            } else {
+                if (length4 < bendRadiusFactor * size) {
+                    length4 = bendRadiusFactor * size;
+                }
+            }
+
+            Part anchorRod = null, screw = null, washerPlate = null,
+                washer1 = null, washer2 = null, washer3 = null,
+                nut1 = null, nut2 = null, nut3 = null;
+
+            var point1 = firstPosition - anchorDirection * length1;
+            var point2 = firstPosition + anchorDirection * length2;
+            screw = CreatBeam(point1, point2, "SCREW", $"D{size - 1}", material,
+                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+
+            var point3 = point2 + anchorDirection * length3;
+            Point point4 = null, point5 = null, point6 = null;
+            if (length4 == 0.0) {
+                anchorRod = CreatBeam(point2, point3, "ANCHORROD", $"D{size}", material,
+                    assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+            } else {
+                var chamferNone = new Chamfer();
+                var chamferRounding = new Chamfer {
+                    Type = Chamfer.ChamferTypeEnum.CHAMFER_ROUNDING,
+                    X = bendRadiusFactor * size,
+                    Y = bendRadiusFactor * size,
+                };
+                ContourPoint cp2, cp3, cp4, cp5;
+                cp2 = new ContourPoint(point2, chamferNone);
+                cp3 = new ContourPoint(point3, chamferRounding);
+
+                point4 = point3 + hookDirection * length4;
+                if (length5 == 0.0) {
+                    cp4 = new ContourPoint(point4, chamferNone);
+
+                    anchorRod = CreatPolyBeam(
+                        new Contour { ContourPoints = new ArrayList { cp2, cp3, cp4 } },
+                        "ANCHORROD", $"D{size}", material,
+                        assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+                } else {
+                    point5 = point4 - anchorDirection * length5;
+                    cp4 = new ContourPoint(point4, chamferRounding);
+                    cp5 = new ContourPoint(point5, chamferNone);
+
+                    anchorRod = CreatPolyBeam(
+                        new Contour { ContourPoints = new ArrayList { cp2, cp3, cp4, cp5 } },
+                        "ANCHORROD", $"D{size}", material,
+                        assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+                }
+            }
+
+            if (!useWasherPlate)
+                goto SkipWasherPlate;
+            point1 = firstPosition - anchorDirection * washerPlatePosition + hookDirection * (washerPlateWidth * 0.5);
+            point2 = point1 - hookDirection * washerPlateWidth;
+            washerPlate = CreatBeam(
+                point1, point2, "WASHERPLATE", $"PL{washerPlateThickness}*{washerPlateWidth}", material,
+                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class, depthEnum: Position.DepthEnum.FRONT);
+
+            point1 = firstPosition - anchorDirection * washerPlatePosition;
+            point2 = point1 - anchorDirection * washerPlateThickness;
+            var hole = CreatBeam(
+                point1, point2, "HOLE", $"D{washerPlateHoleDiameter}", "ANTIMATERIAL",
+                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: BooleanPart.BooleanOperativeClassName);
+            ApplyBooleanOperation(washerPlate, hole, BooleanPart.BooleanTypeEnum.BOOLEAN_CUT);
+            hole.Delete();
+        SkipWasherPlate:
+
+            if (!useWasher1)
+                goto SkipWasher1;
+            point1 = firstPosition - anchorDirection * (washerPlatePosition + (useWasherPlate ? washerPlateThickness : 0.0));
+            point2 = point1 - anchorDirection * (size * 0.5);
+            washer1 = CreatBeam(
+                point1, point2, "WASHER", $"O{size * 2 + 6}*{size * 0.5 + 3}", material,
+                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+        SkipWasher1:
+
+            if (!useWasher2)
+                goto SkipWasher2;
+            point1 = firstPosition - anchorDirection * (washerPlatePosition + (useWasherPlate ? washerPlateThickness : 0.0) + size * 0.5);
+            point2 = point1 - anchorDirection * (size * 0.5);
+            washer2 = CreatBeam(
+                point1, point2, "WASHER", $"O{size * 2 + 6}*{size * 0.5 + 3}", material,
+                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+        SkipWasher2:
+
+            if (!useWasher3)
+                goto SkipWasher3;
+            point1 = firstPosition;
+            point2 = point1 + anchorDirection * (size * 0.5);
+            washer3 = CreatBeam(
+                point1, point2, "WASHER", $"O{size * 2 + 6}*{size * 0.5 + 3}", material,
+                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+        SkipWasher3:
+
+            var matrix = MatrixFactoryExtension.Rotate(new Line(firstPosition, secondPosition), Math.PI / 3);
+            if (!useNut1)
+                goto SkipNut1;
+            point1 = firstPosition - anchorDirection *
+                (washerPlatePosition + (useWasherPlate ? washerPlateThickness : 0.0) +
+                (useWasher1 ? (useWasher2 ? size : size * 0.5) : 0.0)) + hookDirection * size;
+            point2 = matrix.Transform(point1);
+            point3 = matrix.Transform(point2);
+            point4 = matrix.Transform(point3);
+            point5 = matrix.Transform(point4);
+            point6 = matrix.Transform(point5);
+            nut1 = CreatContourPlate(
+                new[] { point1, point2, point3, point4, point5, point6 }, "NUT", $"PL{size}", material,
+                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class, depthEnum: Position.DepthEnum.FRONT);
+        SkipNut1:
+
+            if (!useNut2)
+                goto SkipNut2;
+            point1 = firstPosition - anchorDirection *
+                (washerPlatePosition + (useWasherPlate ? washerPlateThickness : 0.0) +
+                (useWasher1 ? (useWasher2 ? size : size * 0.5) : 0.0) +
+                (useNut1 ? size : 0.0)) + hookDirection * size;
+            point2 = matrix.Transform(point1);
+            point3 = matrix.Transform(point2);
+            point4 = matrix.Transform(point3);
+            point5 = matrix.Transform(point4);
+            point6 = matrix.Transform(point5);
+            nut2 = CreatContourPlate(
+                new[] { point1, point2, point3, point4, point5, point6 }, "NUT", $"PL{size}", material,
+                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class, depthEnum: Position.DepthEnum.FRONT);
+        SkipNut2:
+
+            if (!useNut3)
+                goto SkipNut3;
+            point1 = firstPosition + anchorDirection * (useWasher3 ? size * 0.5 : 0.0) + hookDirection * size;
+            point2 = matrix.Transform(point1);
+            point3 = matrix.Transform(point2);
+            point4 = matrix.Transform(point3);
+            point5 = matrix.Transform(point4);
+            point6 = matrix.Transform(point5);
+            nut3 = CreatContourPlate(
+                new[] { point1, point2, point3, point4, point5, point6 }, "NUT", $"PL{size}", material,
+                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class, depthEnum: Position.DepthEnum.BEHIND);
+        SkipNut3:
+
+            ApplyBooleanOperation(anchorRod, screw, BooleanPart.BooleanTypeEnum.BOOLEAN_ADD);
+
+            var parts = new List<Part> { anchorRod };
+
+            hole = CreatBeam(
+                firstPosition + anchorDirection * (size * 1.5),
+                firstPosition - anchorDirection * (washerPlatePosition + washerPlateThickness + size * 3),
+                "HOLE", $"D{size}", "ANTIMATERIAL", @class: BooleanPart.BooleanOperativeClassName,
+                assemblyPrefix: string.Empty, partPrefix: string.Empty);
+            if (washer1 != null) {
+                ApplyBooleanOperation(washer1, hole, BooleanPart.BooleanTypeEnum.BOOLEAN_CUT);
+                parts.Add(washer1);
+            }
+            if (washer2 != null) {
+                ApplyBooleanOperation(washer2, hole, BooleanPart.BooleanTypeEnum.BOOLEAN_CUT);
+                parts.Add(washer2);
+            }
+            if (washer3 != null) {
+                ApplyBooleanOperation(washer3, hole, BooleanPart.BooleanTypeEnum.BOOLEAN_CUT);
+                parts.Add(washer3);
+            }
+            if (nut1 != null) {
+                ApplyBooleanOperation(nut1, hole, BooleanPart.BooleanTypeEnum.BOOLEAN_CUT);
+                parts.Add(nut1);
+            }
+            if (nut2 != null) {
+                ApplyBooleanOperation(nut2, hole, BooleanPart.BooleanTypeEnum.BOOLEAN_CUT);
+                parts.Add(nut2);
+            }
+            if (nut3 != null) {
+                ApplyBooleanOperation(nut3, hole, BooleanPart.BooleanTypeEnum.BOOLEAN_CUT);
+                parts.Add(nut3);
+            }
+            hole.Delete();
+
+            return parts;
+        }
+
         /// <summary>
         /// 沿给定轴线每隔给定角度旋转复制一份对象。
         /// </summary>
@@ -1028,6 +1358,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return objs;
         }
+
         /// <summary>
         /// 沿给定轴线和角度旋转移动对象。
         /// </summary>
@@ -1062,6 +1393,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return Tekla.Structures.Model.Operations.Operation.MoveObject(obj, currentCS, targetCS);
         }
+
         /// <summary>
         /// 按给定矩阵移动模型对象。
         /// </summary>
@@ -1086,6 +1418,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
             return Tekla.Structures.Model.Operations.Operation.MoveObject(obj, currentCS, targetCS);
         }
+
         /// <summary>
         /// 按给定矩阵连续复制模型对象。
         /// </summary>
