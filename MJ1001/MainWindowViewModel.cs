@@ -29,7 +29,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
         private double embedment_exten = 90.0;
         private string embedment_material = "Q345B";
         private double anchorRod_length = 150.0;
-        private TD.Distance anchorRod_size = new TD.Distance(20.0);
+        private double anchorRod_size = 20.0;
         private string anchorRod_material = "Q345B";
         private string anchorRod_disListStr_X = "250 4*125";
         private string anchorRod_disListStr_Y = "160";
@@ -88,7 +88,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
         }
 
         [StructuresDialog("anchorRod_size", typeof(TD.Double))]
-        public TD.Distance AnchorRodSize {
+        public double AnchorRodSize {
             get => anchorRod_size;
             set { anchorRod_size = value; RaisePropertyChanged("AnchorRodSize"); }
         }
@@ -141,7 +141,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
             set { bolt_standard = value; RaisePropertyChanged("BoltStandard"); }
         }
 
-        [StructuresDialog("bolt_size", typeof(TD.Double))]
+        [StructuresDialog("bolt_size", typeof(TD.Distance))]
         public TD.Distance BoltSize {
             get => bolt_size;
             set { bolt_size = value; RaisePropertyChanged("BoltSize"); }
