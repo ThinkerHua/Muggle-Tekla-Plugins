@@ -3,6 +3,33 @@
 
 基于 2021 版本的 Tekla Open API 开发，其他版本未经测试。
 
+---
+
+## 目录
+
+>开发工具类库
+
+- [Common](#common)
+
+>建模辅助工具
+
+- [ShowModelObjectCoordinateSystem (显示模型零件坐标系)](#showmodelobjectcoordinatesystem-显示模型零件坐标系)
+- [SelectBooleans (选择布尔操作对象)](#selectbooleans-选择布尔操作对象)
+- [SelectWeldedModelObjects (选择焊缝的焊接对象)](#selectweldedmodelobjects-选择焊缝的焊接对象)
+- [ReorderContourPoints (重排多边形板轮廓点顺序)](#reordercontourpoints-重排多边形板轮廓点顺序)
+- [CopyWithDirection (带基点和方向复制)](#copywithdirection-带基点和方向复制)
+
+>组件
+
+- [MG1001 (门刚系列节点 - 门刚边柱与梁竖向连接)](#mg1001-门刚系列节点---门刚边柱与梁竖向连接)
+- [MG1002 (门刚系列节点 - 门刚中柱与梁横向连接)](#mg1002-门刚系列节点---门刚中柱与梁横向连接)
+- [HJ1001 (桁架系列节点 - 圆管对接)](#hj1001-桁架系列节点---圆管对接)
+- [WK1001 (网壳系列节点 - 方管杆件连接)](#wk1001-网壳系列节点---方管杆件连接)
+- [MJ5001 (埋件 - H型梁端头埋件)](#mj1001-埋件---h型梁端头埋件)
+- [KJ2001 (框架系列细部 - 箱型柱外包柱脚)](#kj2001-框架系列细部---箱型柱外包柱脚)
+
+---
+
 ## Common
 定义了一些实用的类型、方法，以及对一些官方实现的方法进行了重写，例如：
 
@@ -20,51 +47,51 @@
 
 - ...
 
-更多内容参见[API Reference of Common.chm](Documents/API%20Reference%20of%20Common.chm)。
+更多内容参见 [API Reference of Common.chm](Documents/API%20Reference%20of%20Common.chm)。
 
-## ShowModelObjectCoordinateSystem(显示模型零件坐标系)
+## ShowModelObjectCoordinateSystem (显示模型零件坐标系)
 软件自带的宏每次均需双击启动，且只能运行一次。本工具可以一次启动，多次点选并显示零件的坐标系。调试时很有用。
 
 ![ShowModelObjectCoordinateSystem](Resources/Introduction_ShowModelObjectCoordinateSystem.gif)
 
-## SelectBooleans(选择布尔操作对象)
+## SelectBooleans (选择布尔操作对象)
 在管桁架建模时很有用，当有很多布尔操作对象重叠在一起时，要选中某一个零件的布尔操作对象很困难，此工具可派上用场，即使视图中关闭了“切割”或“末端对齐”显示也依然能够选中。
 
 ![SelectBooleans](Resources/Introduction_SelectBooleans.gif)
 
-## SelectWeldedModelObjects(选择焊缝的焊接对象)
+## SelectWeldedModelObjects (选择焊缝的焊接对象)
 有时创建了大量的焊缝后，个别焊缝看起来很奇怪，又很难确定是哪两个零件之间的焊缝，使用此工具可解决此问题。
 
-## ReorderContourPoints(重排多边形板轮廓点顺序)
+## ReorderContourPoints (重排多边形板轮廓点顺序)
 不清楚是不是 BUG，有时候绘制多边形板时，实际生成的轮廓点顺序，总是与绘制顺序错一位。
 
 某些情况下顺序很重要时，则可以使用此工具指定顺序。
 
 ![ReorderContourPoints](Resources/Introduction_ReorderContourPoints.gif)
 
-## CopyWithDirection(带基点和方向复制)
+## CopyWithDirection (带基点和方向复制)
 适用于需要批量复制且带有旋转的情形，避免先复制再一个个旋转角度的繁琐操作。
 
 ![CopyWithDirection](Resources/Introduction_CopyWithDirection.gif)
 
-## MG1001(门刚系列节点 - 门刚边柱与梁竖向连接)
+## MG1001 (门刚系列节点 - 门刚边柱与梁竖向连接)
 特点是可以根据端板尺寸自动调整柱高度。参数化组件做不到这一点，需要手动调整柱高。
 
 ![MG1001](Resources/Introduction_MG1001.gif)
 
-## MG1002(门刚系列节点 - 门刚中柱与梁横向连接)
+## MG1002 (门刚系列节点 - 门刚中柱与梁横向连接)
 没什么特点，不过在编写过程中对端板定位的问题费了点脑筋。
 
 ![MG1002](Resources/Introduction_MG1002.gif)
 
-## HJ1001(桁架系列节点 - 圆管对接)
+## HJ1001 (桁架系列节点 - 圆管对接)
 特点是对曲线梁，即用 CurvedBeam (曲梁)或 PolyBeam (多边形梁)绘制的梁也适用。参数化组件只能用于直线梁对接，对于曲线梁无法胜任。
 
 缺点是用在多边形梁上时，节点符号的位置会有错位，这是API自身的问题，无法解决。不过不影响使用，无伤大雅。
 
 ![HJ1001](Resources/Introduction_HJ1001.gif)
 
-## WK1001(网壳系列节点 - 方管杆件连接)
+## WK1001 (网壳系列节点 - 方管杆件连接)
 特点是可以自动调整杆件的法向。（目前只能从主界面启动实现此功能，从组件目录启动不会调整法向）
 
 也可以根据指定的最小净间距自动确定连接筒的直径。
@@ -73,12 +100,12 @@
 
 ![WK1001](Resources/Introduction_WK1001.gif)
 
-## MJ1001(埋件 - H型梁端头埋件)
+## MJ5001 (埋件 - H型梁端头埋件)
 适用于H型钢梁端头与混凝土连接。
 
-![MJ1001](Resources/Introduction_MJ1001.gif)
+![MJ5001](Resources/Introduction_MJ5001.gif)
 
-## KJ2001(框架系列细部 - 箱型柱外包柱脚)
+## KJ2001 (框架系列细部 - 箱型柱外包柱脚)
 柱脚锚栓，外侧栓钉，内部隔板。
 
 **已知问题：无法从组件目录启动运行，不清楚是 BUG 还是什么地方没做对。目前只能从主界面启动运行。**
