@@ -9,7 +9,7 @@
  *  You should have received a copy of the GNU General Public License 
  *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
  *==============================================================================
- *  MJ1001.cs: H-beam connect to concrete
+ *  MJ5001.cs: H-beam connect to concrete
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
@@ -29,7 +29,7 @@ using Tekla.Structures.Plugins;
 using TSD = Tekla.Structures.Datatype;
 using TSG = Tekla.Structures.Geometry3d;
 
-namespace Muggle.TeklaPlugins.MJ1001 {
+namespace Muggle.TeklaPlugins.MJ5001 {
     public class PluginData {
         #region Fields
         [StructuresField("gap")]
@@ -94,10 +94,10 @@ namespace Muggle.TeklaPlugins.MJ1001 {
         #endregion
     }
 
-    [Plugin("MJ1001")]
-    [PluginUserInterface("Muggle.TeklaPlugins.MJ1001.MainWindow")]
+    [Plugin("MJ5001")]
+    [PluginUserInterface("Muggle.TeklaPlugins.MJ5001.MainWindow")]
     [InputObjectDependency(InputObjectDependency.DEPENDENT)]
-    public class LT1001 : PluginBase {
+    public class MJ5001 : PluginBase {
         #region Fields
         private Model _Model;
         private PluginData _Data;
@@ -150,7 +150,7 @@ namespace Muggle.TeklaPlugins.MJ1001 {
         #endregion
 
         #region Constructor
-        public LT1001(PluginData data) {
+        public MJ5001(PluginData data) {
             Model = new Model();
             Data = data;
         }

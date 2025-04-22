@@ -9,14 +9,14 @@
  *  You should have received a copy of the GNU General Public License 
  *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
  *==============================================================================
- *  MainWindowViewModel.cs: view model for main window of MJ1001
+ *  MainWindowViewModel.cs: view model for main window of MJ5001
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System.ComponentModel;
 using Tekla.Structures.Dialog;
 using TD = Tekla.Structures.Datatype;
 
-namespace Muggle.TeklaPlugins.MJ1001 {
+namespace Muggle.TeklaPlugins.MJ5001 {
     /// <summary>
     /// Data logic for MainWindow
     /// </summary>

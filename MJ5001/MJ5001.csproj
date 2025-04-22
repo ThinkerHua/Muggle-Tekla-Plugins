@@ -2,13 +2,13 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>8.0</LangVersion>
-    <AssemblyTitle>MJ1001</AssemblyTitle>
+    <AssemblyTitle>MJ5001</AssemblyTitle>
     <Authors>thinkerhua@hotmail.com</Authors>
     <Copyright>Copyright © 2025 thinkerhua@hotmail.com. All rights reserved.</Copyright>
     <UseWPF>true</UseWPF>
     <OutputPath>Installer/BuildDrop</OutputPath>
-    <RootNamespace>Muggle.TeklaPlugins.MJ1001</RootNamespace>
-    <AssemblyName>MJ1001</AssemblyName>
+    <RootNamespace>Muggle.TeklaPlugins.MJ5001</RootNamespace>
+    <AssemblyName>MJ5001</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -25,7 +25,7 @@
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="MJ1001.ail">
+    <None Update="MJ5001.ail">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -9,13 +9,13 @@
  *  You should have received a copy of the GNU General Public License 
  *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
  *==============================================================================
- *  MainWindow.xaml.cs: code behind for main window of MJ1001
+ *  MainWindow.xaml.cs: code behind for main window of MJ5001
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
 using Tekla.Structures.Dialog;
 
-namespace Muggle.TeklaPlugins.MJ1001 {
+namespace Muggle.TeklaPlugins.MJ5001 {
     /// <summary>
     /// Interaction logic for MainPluginWindow.xaml
     /// </summary>
