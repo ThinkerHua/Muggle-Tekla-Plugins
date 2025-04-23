@@ -45,14 +45,20 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.OkApplyModifyGetOnOffCancel = new Tekla.Structures.Dialog.UIControls.OkApplyModifyGetOnOffCancel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tBox_DIS_WSeam_FSeam = new System.Windows.Forms.TextBox();
+            this.tBox_THK_SPLC_WEB = new System.Windows.Forms.TextBox();
             this.tBox_pos_DIAG2 = new System.Windows.Forms.TextBox();
             this.tBox_pos_DIAG1 = new System.Windows.Forms.TextBox();
             this.tBox_prfStr_DIAG = new System.Windows.Forms.TextBox();
+            this.filter_DIS_WSeam_FSeam = new System.Windows.Forms.CheckBox();
             this.tBox_prfStr_VERT = new System.Windows.Forms.TextBox();
+            this.filter_width_splicingWeb = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.filter_pos_DIAG2 = new System.Windows.Forms.CheckBox();
             this.filter_pos_DIAG1 = new System.Windows.Forms.CheckBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.filter_prfStr_DIAG = new System.Windows.Forms.CheckBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.filter_prfStr_VERT = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -172,14 +178,20 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.tabPage1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage1.BackgroundImage")));
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.structuresExtender.SetBindPropertyName(this.tabPage1, null);
+            this.tabPage1.Controls.Add(this.tBox_DIS_WSeam_FSeam);
+            this.tabPage1.Controls.Add(this.tBox_THK_SPLC_WEB);
             this.tabPage1.Controls.Add(this.tBox_pos_DIAG2);
             this.tabPage1.Controls.Add(this.tBox_pos_DIAG1);
             this.tabPage1.Controls.Add(this.tBox_prfStr_DIAG);
+            this.tabPage1.Controls.Add(this.filter_DIS_WSeam_FSeam);
             this.tabPage1.Controls.Add(this.tBox_prfStr_VERT);
+            this.tabPage1.Controls.Add(this.filter_width_splicingWeb);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.filter_pos_DIAG2);
             this.tabPage1.Controls.Add(this.filter_pos_DIAG1);
+            this.tabPage1.Controls.Add(this.label28);
             this.tabPage1.Controls.Add(this.filter_prfStr_DIAG);
+            this.tabPage1.Controls.Add(this.label27);
             this.tabPage1.Controls.Add(this.filter_prfStr_VERT);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.label8);
@@ -197,6 +209,26 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "参数 1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tBox_DIS_WSeam_FSeam
+            // 
+            this.structuresExtender.SetAttributeName(this.tBox_DIS_WSeam_FSeam, "DIS_WSeam_FSeam");
+            this.structuresExtender.SetAttributeTypeName(this.tBox_DIS_WSeam_FSeam, "Double");
+            this.structuresExtender.SetBindPropertyName(this.tBox_DIS_WSeam_FSeam, "Text");
+            this.tBox_DIS_WSeam_FSeam.Location = new System.Drawing.Point(491, 159);
+            this.tBox_DIS_WSeam_FSeam.Name = "tBox_DIS_WSeam_FSeam";
+            this.tBox_DIS_WSeam_FSeam.Size = new System.Drawing.Size(100, 21);
+            this.tBox_DIS_WSeam_FSeam.TabIndex = 8;
+            // 
+            // tBox_THK_SPLC_WEB
+            // 
+            this.structuresExtender.SetAttributeName(this.tBox_THK_SPLC_WEB, "THK_SPLC_WEB");
+            this.structuresExtender.SetAttributeTypeName(this.tBox_THK_SPLC_WEB, "Double");
+            this.structuresExtender.SetBindPropertyName(this.tBox_THK_SPLC_WEB, "Text");
+            this.tBox_THK_SPLC_WEB.Location = new System.Drawing.Point(491, 132);
+            this.tBox_THK_SPLC_WEB.Name = "tBox_THK_SPLC_WEB";
+            this.tBox_THK_SPLC_WEB.Size = new System.Drawing.Size(100, 21);
+            this.tBox_THK_SPLC_WEB.TabIndex = 8;
             // 
             // tBox_pos_DIAG2
             // 
@@ -231,6 +263,21 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.tBox_prfStr_DIAG.TabIndex = 4;
             this.tBox_prfStr_DIAG.TextChanged += new System.EventHandler(this.TBox_prfStr_DIAG_TextChanged);
             // 
+            // filter_DIS_WSeam_FSeam
+            // 
+            this.structuresExtender.SetAttributeName(this.filter_DIS_WSeam_FSeam, "DIS_WSeam_FSeam");
+            this.structuresExtender.SetAttributeTypeName(this.filter_DIS_WSeam_FSeam, null);
+            this.filter_DIS_WSeam_FSeam.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.filter_DIS_WSeam_FSeam, "Checked");
+            this.filter_DIS_WSeam_FSeam.Checked = true;
+            this.filter_DIS_WSeam_FSeam.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.structuresExtender.SetIsFilter(this.filter_DIS_WSeam_FSeam, true);
+            this.filter_DIS_WSeam_FSeam.Location = new System.Drawing.Point(470, 162);
+            this.filter_DIS_WSeam_FSeam.Name = "filter_DIS_WSeam_FSeam";
+            this.filter_DIS_WSeam_FSeam.Size = new System.Drawing.Size(15, 14);
+            this.filter_DIS_WSeam_FSeam.TabIndex = 7;
+            this.filter_DIS_WSeam_FSeam.UseVisualStyleBackColor = true;
+            // 
             // tBox_prfStr_VERT
             // 
             this.structuresExtender.SetAttributeName(this.tBox_prfStr_VERT, "prfStr_VERT");
@@ -240,6 +287,21 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.tBox_prfStr_VERT.Name = "tBox_prfStr_VERT";
             this.tBox_prfStr_VERT.Size = new System.Drawing.Size(100, 21);
             this.tBox_prfStr_VERT.TabIndex = 2;
+            // 
+            // filter_width_splicingWeb
+            // 
+            this.structuresExtender.SetAttributeName(this.filter_width_splicingWeb, "WDTH_SPLC_WEB");
+            this.structuresExtender.SetAttributeTypeName(this.filter_width_splicingWeb, null);
+            this.filter_width_splicingWeb.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.filter_width_splicingWeb, "Checked");
+            this.filter_width_splicingWeb.Checked = true;
+            this.filter_width_splicingWeb.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.structuresExtender.SetIsFilter(this.filter_width_splicingWeb, true);
+            this.filter_width_splicingWeb.Location = new System.Drawing.Point(470, 135);
+            this.filter_width_splicingWeb.Name = "filter_width_splicingWeb";
+            this.filter_width_splicingWeb.Size = new System.Drawing.Size(15, 14);
+            this.filter_width_splicingWeb.TabIndex = 7;
+            this.filter_width_splicingWeb.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
@@ -286,6 +348,19 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.filter_pos_DIAG1.TabIndex = 5;
             this.filter_pos_DIAG1.UseVisualStyleBackColor = true;
             // 
+            // label28
+            // 
+            this.structuresExtender.SetAttributeName(this.label28, null);
+            this.structuresExtender.SetAttributeTypeName(this.label28, null);
+            this.label28.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.label28, null);
+            this.label28.Location = new System.Drawing.Point(399, 164);
+            this.label28.Margin = new System.Windows.Forms.Padding(3);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(65, 12);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "拼缝间距  ";
+            // 
             // filter_prfStr_DIAG
             // 
             this.structuresExtender.SetAttributeName(this.filter_prfStr_DIAG, "prfStr_DIAG");
@@ -300,6 +375,19 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.filter_prfStr_DIAG.Size = new System.Drawing.Size(15, 14);
             this.filter_prfStr_DIAG.TabIndex = 3;
             this.filter_prfStr_DIAG.UseVisualStyleBackColor = true;
+            // 
+            // label27
+            // 
+            this.structuresExtender.SetAttributeName(this.label27, null);
+            this.structuresExtender.SetAttributeTypeName(this.label27, null);
+            this.label27.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.label27, null);
+            this.label27.Location = new System.Drawing.Point(375, 137);
+            this.label27.Margin = new System.Windows.Forms.Padding(3);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(89, 12);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "拼接腹板厚度  ";
             // 
             // filter_prfStr_VERT
             // 
@@ -491,7 +579,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.structuresExtender.SetAttributeTypeName(this.materialCatalog1, null);
             this.materialCatalog1.BackColor = System.Drawing.Color.Transparent;
             this.structuresExtender.SetBindPropertyName(this.materialCatalog1, null);
-            this.materialCatalog1.ButtonText = "albl_Select__";
+            this.materialCatalog1.ButtonText = "Select...";
             this.materialCatalog1.Location = new System.Drawing.Point(483, 265);
             this.materialCatalog1.Name = "materialCatalog1";
             this.materialCatalog1.SelectedMaterial = "";
@@ -1145,5 +1233,11 @@ namespace Muggle.TeklaPlugins.MG1002 {
         private System.Windows.Forms.CheckBox filter_materialStr;
         private System.Windows.Forms.Label label26;
         private Tekla.Structures.Dialog.UIControls.MaterialCatalog materialCatalog1;
+        private System.Windows.Forms.TextBox tBox_THK_SPLC_WEB;
+        private System.Windows.Forms.CheckBox filter_width_splicingWeb;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox tBox_DIS_WSeam_FSeam;
+        private System.Windows.Forms.CheckBox filter_DIS_WSeam_FSeam;
+        private System.Windows.Forms.Label label28;
     }
 }

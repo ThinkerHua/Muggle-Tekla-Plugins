@@ -9,7 +9,7 @@
  *  You should have received a copy of the GNU General Public License 
  *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
  *==============================================================================
- *  MG1002.cs: "WK1001" connection
+ *  MG1002.cs: "MG1002" connection
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
@@ -51,6 +51,10 @@ namespace Muggle.TeklaPlugins.MG1002 {
         public double pos_DIAG1;
         [StructuresField("pos_DIAG2")]
         public double pos_DIAG2;
+        [StructuresField("THK_SPLC_WEB")]
+        public double thickness_splicingWeb;
+        [StructuresField("DIS_WSeam_FSeam")]
+        public double distance_webSeam_flanggSeam;
         [StructuresField("bolt_Standard")]
         public string bolt_Standard;
         [StructuresField("bolt_Size")]
@@ -86,6 +90,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
         private string prfStr_DIAG;
         private double pos_DIAG1;
         private double pos_DIAG2;
+        private double thickness_splicingWeb;
+        private double distance_webSeam_flangeSeam;
         private string bolt_Standard;
         private double bolt_Size;
         private string disListStr_bolt_X;
@@ -106,7 +112,6 @@ namespace Muggle.TeklaPlugins.MG1002 {
         public MG1002(MG1002Data data) {
             _model = new Model();
             _data = data;
-            GetValuesFromDialog();
         }
         #endregion
 
@@ -123,6 +128,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 var SECPart2 = (Beam) _model.SelectModelObject(Secondaries[1]);
 
                 CheckIfAcceptableProfile();
+
+                GetValuesFromDialog();
 
                 if (originTP == null)
                     originTP = _model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
@@ -155,6 +162,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
             prfStr_DIAG = _data.prfStr_DIAG;
             pos_DIAG1 = _data.pos_DIAG1;
             pos_DIAG2 = _data.pos_DIAG2;
+            thickness_splicingWeb = _data.thickness_splicingWeb;
+            distance_webSeam_flangeSeam = _data.distance_webSeam_flanggSeam;
             bolt_Standard = _data.bolt_Standard;
             bolt_Size = _data.bolt_Size;
             disListStr_bolt_X = _data.disListStr_bolt_X;
@@ -209,6 +218,10 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 pos_DIAG1 = 100;
             if (IsDefaultValue(pos_DIAG2))
                 pos_DIAG2 = 100;
+            if (IsDefaultValue(thickness_splicingWeb) || thickness_splicingWeb <= 0)
+                thickness_splicingWeb = Math.Max(prfSecL.s, prfSecR.s);
+            if (IsDefaultValue(distance_webSeam_flangeSeam) || distance_webSeam_flangeSeam < 200)
+                distance_webSeam_flangeSeam = 200;
             if (IsDefaultValue(bolt_Standard) || bolt_Standard == string.Empty)
                 bolt_Standard = "HS10.9";
             if (IsDefaultValue(bolt_Size) || bolt_Size == 0)
@@ -283,16 +296,13 @@ namespace Muggle.TeklaPlugins.MG1002 {
             var secPart1 = _model.SelectModelObject(Secondaries[0]) as Beam;
             var secPart2 = _model.SelectModelObject(Secondaries[1]) as Beam;
             #region 定义左、右梁
-            //  与柱零件坐标系Y轴同向为右梁，反向为左梁
-
-            var disStart = TSG3d.Distance.PointToPoint(origin, secPart1.StartPoint);
-            var disEnd = TSG3d.Distance.PointToPoint(origin, secPart1.EndPoint);
-            var direction = new Vector(disStart > disEnd ? secPart1.StartPoint : secPart1.EndPoint);
-
+            //  与柱零件坐标系Y轴(即工作变换平面X轴)同向为右梁，反向为左梁
             var secPartL = secPart1;
             var secPartR = secPart2;
 
-            if (direction.Dot(axisX) > 0) {
+            var disStart = TSG3d.Distance.PointToPoint(origin, secPartL.StartPoint);
+            var disEnd = TSG3d.Distance.PointToPoint(origin, secPartL.EndPoint);
+            if (new Vector(disStart > disEnd ? secPartL.StartPoint : secPartL.EndPoint).Dot(axisX) > 0) {
                 (secPartL, secPartR) = (secPartR, secPartL);
                 (prfSecL, prfSecR) = (prfSecR, prfSecL);
             }
@@ -317,16 +327,16 @@ namespace Muggle.TeklaPlugins.MG1002 {
             point2 = (Point) centerline[1];
             prim_CLine = new Line(point1, point2);
 
-            point3 = new Point(point1).TransformTo(primCS);
-            point4 = new Point(point2).TransformTo(primCS);
+            point3 = point1.TransformTo(primCS);
+            point4 = point2.TransformTo(primCS);
             point3.Translate(0, prfPrim.h1 * -0.5, 0);
             point4.Translate(0, prfPrim.h2 * -0.5, 0);
             point3 = point3.TransformFrom(primCS);
             point4 = point4.TransformFrom(primCS);
             prim_LLine = new Line(point3, point4);
 
-            point5 = new Point(point1).TransformTo(primCS);
-            point6 = new Point(point2).TransformTo(primCS);
+            point5 = point1.TransformTo(primCS);
+            point6 = point2.TransformTo(primCS);
             point5.Translate(0, prfPrim.h1 * 0.5, 0);
             point6.Translate(0, prfPrim.h2 * 0.5, 0);
             point5 = point5.TransformFrom(primCS);
@@ -344,8 +354,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
-            point1 = new Point((Point) centerline[0]).TransformTo(secLCS);
-            point2 = new Point((Point) centerline[1]).TransformTo(secLCS);
+            point1 = ((Point) centerline[0]).TransformTo(secLCS);
+            point2 = ((Point) centerline[1]).TransformTo(secLCS);
             point3 = new Point(point1);
             point4 = new Point(point2);
 
@@ -372,8 +382,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
-            point1 = new Point((Point) centerline[0]).TransformTo(secRCS);
-            point2 = new Point((Point) centerline[1]).TransformTo(secRCS);
+            point1 = ((Point) centerline[0]).TransformTo(secRCS);
+            point2 = ((Point) centerline[1]).TransformTo(secRCS);
             point3 = new Point(point1);
             point4 = new Point(point2);
 
@@ -396,30 +406,28 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
             #endregion
 
-            #region 创建端板
+            #region 创建端板、柱末端对齐
             var e1 = Math.Sqrt(Math.Pow(prfEndPlate.t, 2) + Math.Pow(prfEndPlate.l * 0.5, 2));
             var secL_BLine_inside = secL_BLine.Offset(prfSecL.t2, LineExtension.OffsetDirectionEnum.LEFT);
             var secR_BLine_inside = secR_BLine.Offset(prfSecR.t2, LineExtension.OffsetDirectionEnum.RIGHT);
+            var positionOfTriangle = Geometry3dOperation.PositionOfTriangleOnLines(
+                    (secL_BLine_inside, secR_BLine_inside, prim_CLine),
+                    (e1, e1, prfEndPlate.l));
+            if (positionOfTriangle.Count == 0) throw new Exception("根据现有参数，端板无法放置，请检查并调整参数。");
 
             Line endPlateLine;
             Beam endPlate1, endPlate2;
             Vector translateVector = null;
             var xPoint = IntersectionExtension.LineToLine(secL_BLine_inside, secR_BLine_inside).StartPoint;
-            var positionOfTriangle = Geometry3dOperation.PositionOfTriangleOnLines(
-                    (secL_BLine_inside, secR_BLine_inside, prim_CLine),
-                    (e1, e1, prfEndPlate.l));
-            if (positionOfTriangle.Count == 0) throw new Exception("根据现有参数，端板无法放置，请检查并调整参数。");
             foreach (var (P1, P2, P3) in positionOfTriangle) {
 
                 //  抛弃P3在上方的组合
                 translateVector = new Vector(P3 - (P1 + P2).Multiply(0.5));
-                if (Vector.Dot(translateVector, axisY) >= 0)
+                if (translateVector.Y >= 0)
                     continue;
-                //  抛弃P1在延长线上的组合
-                if (Vector.Dot(new Vector(P1 - xPoint), secL_BLine_inside.Direction) >= 0)
-                    continue;
-                //  抛弃P2在延长线上的组合
-                if (Vector.Dot(new Vector(P2 - xPoint), secR_BLine_inside.Direction) >= 0)
+
+                //  抛弃P1或P2在延长线上的组合
+                if (P1.X >= P2.X)
                     continue;
 
                 //  最多可能仍有2组解，不做区分，直接使用第1组解
@@ -433,88 +441,102 @@ namespace Muggle.TeklaPlugins.MG1002 {
             point2.Translate(translateVector);
             point3.Translate(translateVector);
 
+            //  端板线从左指向右
             endPlateLine = new Line(point1, point2);
+            var endPlate_TLine = endPlateLine.Offset(-1 * translateVector);
+            var endPlate_BLine = endPlateLine.Offset(translateVector);
 
             endPlate1 =
                 ModelOperation.CreatBeam(
-                point1, point2,
-                profileStr: $"PL{prfEndPlate.t}*{prfEndPlate.b}",
-                materialStr: materialStr,
+                point1, point2, "ENDPLATE", $"PL{prfEndPlate.t}*{prfEndPlate.b}", materialStr,
                 planeEnum: Position.PlaneEnum.LEFT,
                 rotationEnum: Position.RotationEnum.TOP);
             endPlate2 =
                 ModelOperation.CreatBeam(
-                point1, point2,
-                profileStr: $"PL{prfEndPlate.t}*{prfEndPlate.b}",
-                materialStr: materialStr,
+                point1, point2, "ENDPLATE", $"PL{prfEndPlate.t}*{prfEndPlate.b}", materialStr,
                 planeEnum: Position.PlaneEnum.RIGHT,
                 rotationEnum: Position.RotationEnum.TOP);
-            #endregion
 
-            #region 柱末端对齐，梁末端对齐、切割
+            var primFittingPlane = new Plane {
+                Origin = endPlate1.StartPoint + translateVector,
+                AxisX = endPlateLine.Direction.GetNormal(),
+                AxisY = new Vector(axisZ),
+            };
             var fitting = new Fitting {
                 Father = primPart,
-                Plane = new Plane {
-                    Origin = new Point(point3),
-                    AxisX = endPlateLine.Direction.GetNormal(),
-                    AxisY = new Vector(axisZ),
-                },
+                Plane = primFittingPlane,
             };
             fitting.Insert();
+            #endregion
 
+            #region 创建拼接腹板、梁末端对齐、切割
+            var secL_TLine_inside = secL_TLine.Offset(prfSecL.t1, LineExtension.OffsetDirectionEnum.RIGHT);
+            var secR_TLine_inside = secR_TLine.Offset(prfSecR.t1, LineExtension.OffsetDirectionEnum.LEFT);
+            var splicingWeb_LLine = new Line(new Point(-distance_webSeam_flangeSeam * 0.5, 0.0, 0.0), axisY);
+            var splicingWeb_RLine = new Line(new Point(distance_webSeam_flangeSeam * 0.5, 0.0, 0.0), axisY);
+
+            point2 = new Point(endPlate_TLine.Origin) + secL_BLine_inside.Direction.GetNormal() * -distance_webSeam_flangeSeam;
+            point1 = Projection.PointToLine(point2, secL_TLine_inside);
+            point3 = new Point(endPlate_TLine.Origin);
+            point4 = new Point(endPlate_TLine.Origin) + new Vector(endPlate1.EndPoint - endPlate1.StartPoint);
+            point5 = point4 + secR_BLine_inside.Direction.GetNormal() * -distance_webSeam_flangeSeam;
+            point6 = Projection.PointToLine(point5, secR_TLine_inside);
+            var point7 = Parallel.VectorToVector(secL_TLine_inside.Direction, secR_TLine_inside.Direction) ?
+                IntersectionExtension.LineToLine(secL_TLine_inside, prim_CLine).StartPoint :
+                IntersectionExtension.LineToLine(secL_TLine_inside, secR_TLine_inside).StartPoint;
+
+            var splicingWeb = ModelOperation.CreatContourPlate(
+                new[] { point1, point2, point3, point4, point5, point6, point7 },
+                "SPLICINGWEB", $"PL{thickness_splicingWeb}", materialStr);
+
+            var secFittingPlane = new Plane {
+                Origin = secL_TLine.Direction.Cross(secR_TLine.Direction).IsZero() ?
+                        IntersectionExtension.LineToLine(prim_CLine, secL_TLine).StartPoint :
+                        IntersectionExtension.LineToLine(secL_TLine, secR_TLine).StartPoint,
+                AxisX = axisY,
+                AxisY = axisZ,
+            };
             fitting = new Fitting {
                 Father = secPartL,
-                Plane = new Plane {
-                    Origin = new Point(origin),
-                    AxisX = new Vector(axisY),
-                    AxisY = new Vector(axisZ),
-                }
+                Plane = secFittingPlane,
             };
             fitting.Insert();
-
             fitting = new Fitting {
                 Father = secPartR,
-                Plane = new Plane {
-                    Origin = new Point(origin),
-                    AxisX = new Vector(axisY),
-                    AxisY = new Vector(axisZ),
-                }
+                Plane = secFittingPlane,
             };
             fitting.Insert();
 
-            var endPlate_TLine = endPlateLine.Offset(-1 * translateVector);
-            var endPlate_BLine = endPlateLine.Offset(translateVector);
-            point1 = IntersectionExtension.LineToLine(secL_BLine_inside, endPlate_TLine).StartPoint;
-            point2 = IntersectionExtension.LineToLine(prim_CLine, endPlate_TLine).StartPoint;
-            point3 = IntersectionExtension.LineToLine(prim_CLine, secL_BLine).StartPoint;
-            point4 = point1 + translateVector;
-            var booleanOperator = ModelOperation.CreatBooleanOperationPolygon(new Point[] { point1, point2, point3, point4 }, prfSecL.b1);
-            ModelOperation.ApplyBooleanOperation(secPartL, booleanOperator);
-            booleanOperator.Delete();
+            var point3_1 = IntersectionExtension.LineToLine(secL_BLine, new Line(point3, translateVector)).StartPoint;
+            var point4_1 = IntersectionExtension.LineToLine(secR_BLine, new Line(point4, translateVector)).StartPoint;
+            var point7_1 = Parallel.VectorToVector(secL_BLine.Direction, secR_BLine.Direction) ?
+                new[] {
+                    IntersectionExtension.LineToLine(secL_BLine, prim_CLine).StartPoint,
+                    IntersectionExtension.LineToLine(secR_BLine, prim_CLine).StartPoint
+                }.OrderBy(p => p.Y).First() :
+                IntersectionExtension.LineToLine(secL_BLine, secR_BLine).StartPoint;
+            var cuttingPart = ModelOperation.CreatBooleanOperationPolygon(
+                new[] { point1, point2, point3, point3_1, point7_1, point4_1, point4, point5, point6, point7 },
+                Math.Max(prfSecL.b1, prfSecR.b1));
+            ModelOperation.ApplyBooleanOperation(secPartL, cuttingPart);
+            ModelOperation.ApplyBooleanOperation(secPartR, cuttingPart);
+            cuttingPart.Delete();
 
-            point1 = IntersectionExtension.LineToLine(secR_BLine_inside, endPlate_TLine).StartPoint;
-            point3 = IntersectionExtension.LineToLine(prim_CLine, secR_BLine).StartPoint;
-            point4 = point1 + translateVector;
-            booleanOperator = ModelOperation.CreatBooleanOperationPolygon(new Point[] { point1, point2, point3, point4 }, prfSecR.b1);
-            ModelOperation.ApplyBooleanOperation(secPartR, booleanOperator);
-            booleanOperator.Delete();
             #endregion
 
             #region 创建竖板
             Beam vertPlate_LF, vertPlate_LB, vertPlate_RF, vertPlate_RB;
 
-            if (prfVert.b == 0.0) prfVert.b = (prfPrim.b1 - prfSecL.s) * 0.5;
+            if (prfVert.b == 0.0) prfVert.b = (prfPrim.b1 - thickness_splicingWeb) * 0.5;
 
-            var secL_TLine_inside = secL_TLine.Offset(prfSecL.t1, LineExtension.OffsetDirectionEnum.RIGHT);
-            var secR_TLine_inside = secR_TLine.Offset(prfSecR.t1, LineExtension.OffsetDirectionEnum.LEFT);
-            var vert_LLine = new Line {
-                Origin = IntersectionExtension.LineToLine(prim_LLine, endPlate_BLine).StartPoint,
-                Direction = new Vector(axisY),
-            };
-            var vert_RLine = new Line {
-                Origin = IntersectionExtension.LineToLine(prim_RLine, endPlate_BLine).StartPoint,
-                Direction = new Vector(axisY),
-            };
+            var vert_LLine = new Line (
+                IntersectionExtension.LineToLine(prim_LLine, endPlate_BLine).StartPoint,
+                new Vector(axisY)
+            );
+            var vert_RLine = new Line (
+                IntersectionExtension.LineToLine(prim_RLine, endPlate_BLine).StartPoint,
+                new Vector(axisY)
+            );
 
             point1 = IntersectionExtension.LineToLine(vert_LLine, secL_TLine_inside).StartPoint;
             point2 = IntersectionExtension.LineToLine(vert_LLine, endPlate_TLine).StartPoint;
@@ -577,12 +599,13 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
             #region 创建对角板
             Beam diagPlate_F = null, diagPlate_B = null;
+            double dis_vertL_to_primC = 0.0;
             if (prfStr_DIAG == string.Empty)
                 goto SkipDiagPlate;
 
-            if (prfDiag.b == 0.0) prfDiag.b = (prfPrim.b1 - prfSecL.s) * 0.5;
+            if (prfDiag.b == 0.0) prfDiag.b = (prfPrim.b1 - thickness_splicingWeb) * 0.5;
 
-            var dis_vertL_to_primC = DistanceExtension.LineToLine(vert_LLine, prim_CLine);
+            dis_vertL_to_primC = DistanceExtension.LineToLine(vert_LLine, prim_CLine);
             var diagLine = new Line(
                 IntersectionExtension.LineToLine(
                     pos_DIAG1 < dis_vertL_to_primC ? secL_TLine_inside : secR_TLine_inside,
@@ -674,7 +697,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             transY.Normalize(prfStifWeb.b);
             transZ.Normalize(prfStifWeb.l);
             point1 = IntersectionExtension.LineToLine(vert_LLine, endPlate_TLine).StartPoint;
-            point1.Z = prfSecL.s > prfSecR.s ? prfSecL.s * 0.5 : prfSecR.s * 0.5;
+            point1.Z = thickness_splicingWeb * 0.5;
             point2 = point1 + transY;
             point3 = point2 + transZ;
             point4 = point1 + transZ;
@@ -699,23 +722,45 @@ namespace Muggle.TeklaPlugins.MG1002 {
                     contourPoints,
                     profileStr: "PL" + prfStifWeb.t,
                     materialStr: materialStr));
+
+                var contourPoints_UB = Geometry3dOperation.Mirror(contourPoints, mirrorPlane_XY);
                 list_StifWeb_Up.Add(ModelOperation.CreatContourPlate(
-                    Geometry3dOperation.Mirror(contourPoints, mirrorPlane_XY),
+                    contourPoints_UB,
                     profileStr: "PL" + prfStifWeb.t,
                     materialStr: materialStr));
-                list_StifWeb_Down.Add(ModelOperation.CreatContourPlate(
-                    Geometry3dOperation.Mirror(contourPoints, mirrorPlane_endPlate),
-                    profileStr: "PL" + prfStifWeb.t,
-                    materialStr: materialStr));
-                list_StifWeb_Down.Add(ModelOperation.CreatContourPlate(
-                    Geometry3dOperation.Mirror(Geometry3dOperation.Mirror(contourPoints, mirrorPlane_XY), mirrorPlane_endPlate),
-                    profileStr: "PL" + prfStifWeb.t,
-                    materialStr: materialStr));
-                var tmp = new ArrayList();
-                foreach (ContourPoint cp in contourPoints) {
-                    tmp.Add(cp.Clone());
+
+                ArrayList tmp;
+                if (prfPrim.s != thickness_splicingWeb) {
+                    tmp = new ArrayList();
+                    foreach (ContourPoint cp in contourPoints) {
+                        var clone = cp.Clone();
+                        clone.Z += prfPrim.s - thickness_splicingWeb;
+                        tmp.Add(cp.Clone());
+                    }
+                    contourPoints = tmp;
                 }
-                contourPoints = tmp;
+
+                var contourPoints_DF = Geometry3dOperation.Mirror(contourPoints, mirrorPlane_endPlate);
+                list_StifWeb_Down.Add(ModelOperation.CreatContourPlate(
+                    contourPoints_DF,
+                    profileStr: "PL" + prfStifWeb.t,
+                    materialStr: materialStr));
+
+                var contourPoints_DB = Geometry3dOperation.Mirror(contourPoints_DF, mirrorPlane_XY);
+                list_StifWeb_Down.Add(ModelOperation.CreatContourPlate(
+                    contourPoints_DB,
+                    profileStr: "PL" + prfStifWeb.t,
+                    materialStr: materialStr));
+
+                if (prfPrim.s != thickness_splicingWeb) {
+                    tmp = new ArrayList();
+                    foreach (ContourPoint cp in contourPoints) {
+                        var clone = cp.Clone();
+                        clone.Z -= prfPrim.s - thickness_splicingWeb;
+                        tmp.Add(cp.Clone());
+                    }
+                    contourPoints = tmp;
+                }
             }
             #endregion
 
@@ -730,43 +775,45 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
             #region 焊接
             ModelOperation.CreatWeld(primPart, endPlate2);
-            ModelOperation.CreatWeld(secPartL, endPlate1);
-            ModelOperation.CreatWeld(secPartR, endPlate1);
+            ModelOperation.CreatWeld(primPart, stifFlange_L);
+            ModelOperation.CreatWeld(primPart, stifFlange_R);
             ModelOperation.CreatWeld(secPartL, secPartR);
+            ModelOperation.CreatWeld(secPartL, endPlate1);
             ModelOperation.CreatWeld(secPartL, vertPlate_LF);
             ModelOperation.CreatWeld(secPartL, vertPlate_LB);
+            ModelOperation.CreatWeld(secPartR, endPlate1);
             ModelOperation.CreatWeld(secPartR, vertPlate_RF);
             ModelOperation.CreatWeld(secPartR, vertPlate_RB);
+            ModelOperation.CreatWeld(splicingWeb, endPlate1);
+            ModelOperation.CreatWeld(splicingWeb, secPartL);
+            ModelOperation.CreatWeld(splicingWeb, secPartR);
+            ModelOperation.CreatWeld(splicingWeb, vertPlate_LF);
+            ModelOperation.CreatWeld(splicingWeb, vertPlate_LB);
+            ModelOperation.CreatWeld(splicingWeb, vertPlate_RF);
+            ModelOperation.CreatWeld(splicingWeb, vertPlate_RB);
             ModelOperation.CreatWeld(endPlate1, vertPlate_LF);
             ModelOperation.CreatWeld(endPlate1, vertPlate_LB);
             ModelOperation.CreatWeld(endPlate1, vertPlate_RF);
             ModelOperation.CreatWeld(endPlate1, vertPlate_RB);
+            ModelOperation.CreatWeld(endPlate2, stifFlange_L);
+            ModelOperation.CreatWeld(endPlate2, stifFlange_R);
             if (prfStr_DIAG != string.Empty) {
-                ModelOperation.CreatWeld(secPartL, diagPlate_F);
-                ModelOperation.CreatWeld(secPartL, diagPlate_B);
-                ModelOperation.CreatWeld(secPartR, diagPlate_F);
-                ModelOperation.CreatWeld(secPartR, diagPlate_B);
+                ModelOperation.CreatWeld(splicingWeb, diagPlate_F);
+                ModelOperation.CreatWeld(splicingWeb, diagPlate_B);
                 ModelOperation.CreatWeld(endPlate1, diagPlate_F);
                 ModelOperation.CreatWeld(endPlate1, diagPlate_B);
+
+                if (pos_DIAG1 < dis_vertL_to_primC) {
+                    ModelOperation.CreatWeld(secPartL, diagPlate_F);
+                    ModelOperation.CreatWeld(secPartL, diagPlate_B);
+                } else {
+                    ModelOperation.CreatWeld(secPartR, diagPlate_F);
+                    ModelOperation.CreatWeld(secPartR, diagPlate_B);
+                }
             }
-            ModelOperation.CreatWeld(primPart, stifFlange_L);
-            ModelOperation.CreatWeld(endPlate2, stifFlange_L);
-            ModelOperation.CreatWeld(primPart, stifFlange_R);
-            ModelOperation.CreatWeld(endPlate2, stifFlange_R);
 
             foreach (var stifWeb in list_StifWeb_Up) {
-                var query = from p in stifWeb.Contour.ContourPoints.Cast<ContourPoint>()
-                            select p.X;
-                var isLeft = from x in query
-                             where x <= 0
-                             select x;
-                var isRight = from x in query
-                              where x >= 0
-                              select x;
-                if (isLeft.Count() > 0)
-                    ModelOperation.CreatWeld(secPartL, stifWeb);
-                if (isRight.Count() > 0)
-                    ModelOperation.CreatWeld(secPartR, stifWeb);
+                ModelOperation.CreatWeld(splicingWeb, stifWeb);
                 ModelOperation.CreatWeld(endPlate1, stifWeb);
             }
 
