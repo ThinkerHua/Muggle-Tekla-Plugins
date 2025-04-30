@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Internal;
@@ -980,7 +981,7 @@ namespace Muggle.TeklaPlugins.UnitTest {
                     Z = 0
                 },
             };*/
-            var line1 = new Line {
+            /*var line1 = new Line {
                 Origin = new Point(16463.9147592418, 8641.7048158889, 0),
                 Direction = new Vector(-2030.38042685396, 109.147295669016, 0)
             };
@@ -993,9 +994,19 @@ namespace Muggle.TeklaPlugins.UnitTest {
                 Direction = new Vector(0, -1881.45235694476, 0)
             };
             var e1 = Math.Sqrt(122900);
+            var e2 = e1;
+            var e3 = 700.0;*/
+
+            var line1 = new Line(new Point(-5975.687, -780.974, 0.000), new Vector(6024.914, 201.036, 0.000));
+            var line2 = new Line(new Point(5975.687, -780.974, 0.000), new Vector(-6024.914, 201.036, 0.000));
+            var line3 = new Line(new Point(0.000, -7200.000, 0.000), new Vector(0.000, 7200.000, 0.000));
+            var e1 = 547.322802375344;
+            var e2 = e1;
+            var e3 = 1093.0;
+
             try {
                 var position = Geometry3dOperation.PositionOfTriangleOnLines(
-                    (line1, line2, line3), (e1, e1, 700));
+                    (line1, line2, line3), (e1, e2, e3));
                 if (position.Count == 0) {
                     Console.WriteLine("\nNo solution!");
                 } else {

@@ -15,10 +15,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Muggle.TeklaPlugins.Common.Operation;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
+using Task = System.Threading.Tasks.Task;
 
 namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
@@ -40,6 +44,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return direction;
         }
+
         /// <summary>
         /// 对点进行镜像。
         /// </summary>
@@ -62,6 +67,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return p;
         }
+
         /// <summary>
         /// 对轮廓点进行镜像。
         /// </summary>
@@ -83,6 +89,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return new ContourPoint(point, contourPoint.Chamfer);
         }
+
         /// <summary>
         /// 对 ContourPoints 进行镜像。
         /// </summary>
@@ -111,6 +118,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return arrayList;
         }
+
         /// <summary>
         /// 在平面上，有一个固定形状的三角形（位置不固定）和三条已知直线（位置固定）。求当三角形三个顶点分别落在三条直线上时的位置（即三个顶点值）。
         /// </summary>
@@ -321,254 +329,345 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             }
             if (samplingSpacingAtStart < epsilon)
                 samplingSpacingAtStart = epsilon;
+
+            itvlP3.EnumInterval = samplingSpacingAtStart;
             #endregion
 
-            var spacing = samplingSpacingAtStart; //  循环体内使用的采样间距
-
-            //  半径e1的圆与l1的交点，半径e2的圆与l2的交点
-            //  已对取值区间判断过，X1、X2必定不等于null
-            (Point X1, Point X2) intersection_l1, intersection_l2;
-            Point x1 = null, x2 = null, point; //  循环体内使用的引用
-            List<double>
-                disList11 = new List<double>(), //  itst1.X1 <-> itst2.X1
-                disList12 = new List<double>(), //  itst1.X1 <-> itst2.X2
-                disList21 = new List<double>(), //  itst1.X2 <-> itst2.X1
-                disList22 = new List<double>(), //  itst1.X2 <-> itst2.X2
-                disList = null; //  循环体内使用的引用
-            List<double>
-                values_11 = new List<double>(), //  disList11对应的P3_Value集合
-                values_12 = new List<double>(), //  disList12对应的P3_Value集合
-                values_21 = new List<double>(), //  disList21对应的P3_Value集合
-                values_22 = new List<double>(), //  disList22对应的P3_Value集合
-                values; //  循环体内使用的引用
-            List<double>
-                minExtremeValues_11 = new List<double>(), //  disList11对应的极小值P3_Value集合
-                minExtremeValues_12 = new List<double>(), //  disList12对应的极小值P3_Value集合
-                minExtremeValues_21 = new List<double>(), //  disList21对应的极小值P3_Value集合
-                minExtremeValues_22 = new List<double>(), //  disList22对应的极小值P3_Value集合
-                minExtremeValues = null; //  循环体内使用的引用
-            List<int> minExtremeIndex; //  极小值索引
-            List<double> tmpList;
-
-            #region 求初始极小值点集合
-            itvlP3.EnumInterval = spacing;
-            values = values_11;
-            int j = 0;
-            foreach (var p in itvlP3) {
-                values.Add(itvlP3.Start + j++ * spacing);
-                intersection_l1 = IntersectionExtension.CircleToLine_2D(p, e1, l1);
-                intersection_l2 = IntersectionExtension.CircleToLine_2D(p, e2, l2);
-                for (int i = 0; i < 4; i++) {
-                    //  每次循环分别对四个组合求解
-                    switch (i) {
-                    case 0:
-                        disList = disList11;
-                        x1 = intersection_l1.X1;
-                        x2 = intersection_l2.X1;
-                        break;
-                    case 1:
-                        disList = disList12;
-                        x1 = intersection_l1.X1;
-                        x2 = intersection_l2.X2;
-                        break;
-                    case 2:
-                        disList = disList21;
-                        x1 = intersection_l1.X2;
-                        x2 = intersection_l2.X1;
-                        break;
-                    case 3:
-                        disList = disList22;
-                        x1 = intersection_l1.X2;
-                        x2 = intersection_l2.X2;
-                        break;
-                    default:
-                        break;
-                    }
-                    disList.Add(Math.Abs(Distance.PointToPoint(x1, x2) - e3)); //  构造一个最小值为e3的集合
-                }
+            var initialVertex3Values_11 = new List<double>();
+            for (int i = 0; i < itvlP3.Width / samplingSpacingAtStart; i++) {
+                initialVertex3Values_11.Add(itvlP3.Start + i * samplingSpacingAtStart);
             }
-            if (itvlP3.Start + --j * spacing < itvlP3.End) {
-                values.Add(itvlP3.End);
-                var endPoint = itvlP3.GetPoint(itvlP3.End);
-                intersection_l1 = IntersectionExtension.CircleToLine_2D(endPoint, e1, l1);
-                intersection_l2 = IntersectionExtension.CircleToLine_2D(endPoint, e2, l2);
-                disList11.Add(Math.Abs(Distance.PointToPoint(intersection_l1.X1, intersection_l2.X1) - e3));
-                disList12.Add(Math.Abs(Distance.PointToPoint(intersection_l1.X1, intersection_l2.X2) - e3));
-                disList21.Add(Math.Abs(Distance.PointToPoint(intersection_l1.X2, intersection_l2.X1) - e3));
-                disList22.Add(Math.Abs(Distance.PointToPoint(intersection_l1.X2, intersection_l2.X2) - e3));
-            }//  避免遗漏区间终点
-
-            for (int i = 0; i < 4; i++) {
-                //  每次循环分别对四个组合求解
-                switch (i) {
-                case 0:
-                    disList = disList11;
-                    minExtremeValues = minExtremeValues_11;
-                    break;
-                case 1:
-                    disList = disList12;
-                    minExtremeValues = minExtremeValues_12;
-                    break;
-                case 2:
-                    disList = disList21;
-                    minExtremeValues = minExtremeValues_21;
-                    break;
-                case 3:
-                    disList = disList22;
-                    minExtremeValues = minExtremeValues_22;
-                    break;
-                default:
-                    break;
-                }
-
-                minExtremeIndex = CommonOperation.GetLocalExtremeIndexes(disList, CommonOperation.ExtremeTypeEnum.LocalMinimum);
-                minExtremeValues.Clear();
-                foreach (var index in minExtremeIndex) {
-                    minExtremeValues.Add(values[index]);
-                }
-                tmpList = Enumerable.Distinct(minExtremeValues).ToList(); //  剔除重复值
-                minExtremeValues.Clear();
-                minExtremeValues.AddRange(tmpList);
+            if (itvlP3.Width % samplingSpacingAtStart >= epsilon) {
+                initialVertex3Values_11.Add(itvlP3.End);
             }
-            #endregion
+            var initialVertex3Values_12 = new List<double>(initialVertex3Values_11);
+            var initialVertex3Values_21 = new List<double>(initialVertex3Values_11);
+            var initialVertex3Values_22 = new List<double>(initialVertex3Values_11);
 
-            #region 迭代求极小值点集合
-            while (spacing > epsilon) {
+            var initialVertices = GetVertices(itvlP3, initialVertex3Values_11, l1, l2, e1, e2);
 
-                spacing *= 0.1;//  每步进一次缩小一个数量级
-
-                for (int i = 0; i < 4; i++) {
-                    //  每次循环分别对四个组合求解
-                    switch (i) {
-                    case 0:
-                        disList = disList11;
-                        values = values_11;
-                        minExtremeValues = minExtremeValues_11;
-                        break;
-                    case 1:
-                        disList = disList12;
-                        values = values_12;
-                        minExtremeValues = minExtremeValues_12;
-                        break;
-                    case 2:
-                        disList = disList21;
-                        values = values_21;
-                        minExtremeValues = minExtremeValues_21;
-                        break;
-                    case 3:
-                        disList = disList22;
-                        values = values_22;
-                        minExtremeValues = minExtremeValues_22;
-                        break;
-                    default:
-                        break;
-                    }
-
-                    values.Clear();
-                    foreach (var value in minExtremeValues) {
-                        values.AddRange(itvlP3.GetValuesArround(value, spacing, 10));
-                    }
-                    tmpList = Enumerable.Distinct(values).ToList(); //  剔除重复值
-                    values.Clear();
-                    values.AddRange(tmpList);
-
-                    disList.Clear();
-                    foreach (var value in values) {
-                        point = itvlP3.GetPoint(value);
-                        intersection_l1 = IntersectionExtension.CircleToLine_2D(point, e1, l1);
-                        intersection_l2 = IntersectionExtension.CircleToLine_2D(point, e2, l2);
-                        switch (i) {
-                        case 0:
-                            x1 = intersection_l1.X1;
-                            x2 = intersection_l2.X1;
-                            break;
-                        case 1:
-                            x1 = intersection_l1.X1;
-                            x2 = intersection_l2.X2;
-                            break;
-                        case 2:
-                            x1 = intersection_l1.X2;
-                            x2 = intersection_l2.X1;
-                            break;
-                        case 3:
-                            x1 = intersection_l1.X2;
-                            x2 = intersection_l2.X2;
-                            break;
-                        default:
-                            break;
-                        }
-                        disList.Add(Math.Abs(Distance.PointToPoint(x1, x2) - e3)); //  构造一个最小值为e3的集合
-                    }
-
-                    minExtremeIndex = CommonOperation.GetLocalExtremeIndexes(disList, CommonOperation.ExtremeTypeEnum.LocalMinimum);
-                    minExtremeValues.Clear();
-                    foreach (var index in minExtremeIndex) {
-                        minExtremeValues.Add(values[index]);
-                    }
-                    tmpList = Enumerable.Distinct(minExtremeValues).ToList(); //  剔除重复值
-                    minExtremeValues.Clear();
-                    minExtremeValues.AddRange(tmpList);
+            var solution = new Func<List<double>, int, IEnumerable<(Point vertex1, Point vertex2, Point vertex3)>>(
+                (initialVertex3Values, combinationEnum) => {
+                    var initialCombinations = GetSpecificCombinationsOfVertices(initialVertices, combinationEnum);
+                    return FinalSolutionOfVertices(
+                        IterativeGetVertex3MinExtremeValues(initialCombinations, initialVertex3Values,
+                            itvlP3, l1, l2, e1, e2, e3, combinationEnum, samplingSpacingAtStart, epsilon),
+                        itvlP3, l1, l2, e1, e2, e3, combinationEnum, epsilon);
                 }
+            );
 
+            var task11 = new Task<IEnumerable<(Point vertex1, Point vertex2, Point vertex3)>>(
+                () => solution(initialVertex3Values_11, 11));
+            var task12 = new Task<IEnumerable<(Point vertex1, Point vertex2, Point vertex3)>>(
+                () => solution(initialVertex3Values_12, 12));
+            var task21 = new Task<IEnumerable<(Point vertex1, Point vertex2, Point vertex3)>>(
+                () => solution(initialVertex3Values_21, 21));
+            var task22 = new Task<IEnumerable<(Point vertex1, Point vertex2, Point vertex3)>>(
+                () => solution(initialVertex3Values_22, 22));
+            var taskList = new[] { task11, task12, task21, task22 };
+            foreach (var task in taskList) {
+                task.Start();
             }
-            #endregion
+            Task.WaitAll(taskList);
 
-            #region 最终解
-            double dis;
-            var result = new List<(Point P1, Point P2, Point P3)>();
-            for (int i = 0; i < 4; i++) {
-                switch (i) {
-                case 0:
-                    minExtremeValues = minExtremeValues_11;
-                    break;
-                case 1:
-                    minExtremeValues = minExtremeValues_12;
-                    break;
-                case 2:
-                    minExtremeValues = minExtremeValues_21;
-                    break;
-                case 3:
-                    minExtremeValues = minExtremeValues_22;
-                    break;
-                default:
-                    break;
-                }
-
-                foreach (var value in minExtremeValues) {
-                    point = itvlP3.GetPoint(value);
-                    intersection_l1 = IntersectionExtension.CircleToLine_2D(point, e1, l1);
-                    intersection_l2 = IntersectionExtension.CircleToLine_2D(point, e2, l2);
-                    switch (i) {
-                    case 0:
-                        x1 = intersection_l1.X1;
-                        x2 = intersection_l2.X1;
-                        break;
-                    case 1:
-                        x1 = intersection_l1.X1;
-                        x2 = intersection_l2.X2;
-                        break;
-                    case 2:
-                        x1 = intersection_l1.X2;
-                        x2 = intersection_l2.X1;
-                        break;
-                    case 3:
-                        x1 = intersection_l1.X2;
-                        x2 = intersection_l2.X2;
-                        break;
-                    default:
-                        break;
-                    }
-                    dis = Distance.PointToPoint(x1, x2);
-
-                    if (Math.Abs(dis - e3) <= epsilon)
-                        result.Add((x1, x2, itvlP3.GetPoint(value)));
+            var results = new List<(Point vertex1, Point vertex2, Point vertex3)>();
+            foreach (var task in taskList) {
+                if (task.IsCompleted && task.Result != null) {
+                    results.AddRange(task.Result);
                 }
             }
 
-            return result;
-            #endregion
-
+            return results;
         }
+
+        /// <summary>
+        /// 根据3#顶点区间和给定数值，求1#和2#顶点（未分组）集合。
+        /// </summary>
+        /// <param name="vertex3Interval">3#顶点区间</param>
+        /// <param name="vertex3Values">3#顶点的数值</param>
+        /// <param name="line1">直线1</param>
+        /// <param name="line2">直线2</param>
+        /// <param name="edge1">边长1</param>
+        /// <param name="edge2">边长2</param>
+        /// <returns>1#和2#顶点（未分组）集合。</returns>
+        internal static IEnumerable<((Point X1, Point X2) intersection_l1, (Point X1, Point X2) intersection_l2)> GetVertices(
+            PointsInterval vertex3Interval,
+            IEnumerable<double> vertex3Values,
+            Line line1,
+            Line line2,
+            double edge1,
+            double edge2) {
+
+            if (vertex3Interval is null) {
+                throw new ArgumentNullException(nameof(vertex3Interval));
+            }
+
+            if (vertex3Values is null) {
+                throw new ArgumentNullException(nameof(vertex3Values));
+            }
+
+            if (vertex3Values.Count() == 0) {
+                throw new ArgumentException($"“{nameof(vertex3Values)}”的元素数量不应为0。");
+            }
+
+            (Point X1, Point X2) intersection_l1, intersection_l2;
+            foreach (var value in vertex3Values) {
+                var p = vertex3Interval.GetPoint(value);
+                intersection_l1 = IntersectionExtension.CircleToLine_2D(p, edge1, line1);
+                intersection_l2 = IntersectionExtension.CircleToLine_2D(p, edge2, line2);
+                yield return (intersection_l1, intersection_l2);
+            }
+        }
+
+        /// <summary>
+        /// 从给定的顶点集合中，获取指定组合的顶点。
+        /// </summary>
+        /// <param name="vertices">1#和2#顶点集合</param>
+        /// <param name="combinationEnum">指定组合：<br/>
+        /// 11 - 1#顶点取直线1上的第1个交点，2#顶点取直线2上的第1个交点 <br/>
+        /// 12 - 1#顶点取直线1上的第1个交点，2#顶点取直线2上的第2个交点 <br/>
+        /// 21 - 1#顶点取直线1上的第2个交点，2#顶点取直线2上的第1个交点 <br/>
+        /// 22 - 1#顶点取直线1上的第2个交点，2#顶点取直线2上的第2个交点 <br/>
+        /// </param>
+        /// <returns>指定顶点组合的集合。</returns>
+        internal static IEnumerable<(Point vertex1, Point vertex2)> GetSpecificCombinationsOfVertices(
+            IEnumerable<((Point X1, Point X2) intersection_l1, (Point X1, Point X2) intersection_l2)> vertices,
+            int combinationEnum) {
+            if (vertices is null) {
+                throw new ArgumentNullException(nameof(vertices));
+            }
+
+            if (vertices.Count() == 0) {
+                throw new ArgumentException($"“{nameof(vertices)}”的元素数量不应为0。");
+            }
+
+            foreach (var (intersection_l1, intersection_l2) in vertices) {
+                switch (combinationEnum) {
+                case 11:
+                    yield return (intersection_l1.X1, intersection_l2.X1);
+                    break;
+                case 12:
+                    yield return (intersection_l1.X1, intersection_l2.X2);
+                    break;
+                case 21:
+                    yield return (intersection_l1.X2, intersection_l2.X1);
+                    break;
+                case 22:
+                    yield return (intersection_l1.X2, intersection_l2.X2);
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 根据给定的1#和2#顶点组合，求出最接近给定的边长3时对应的3#顶点数值。
+        /// </summary>
+        /// <param name="combinations">1#和2#顶点组合的集合，
+        /// 元素数量应与 <paramref name="vertex3Values"/> 一致</param>
+        /// <param name="vertex3Values">与1#和2#顶点组合对应的3#顶点数值集合，
+        /// 元素数量应与 <paramref name="combinations"/> 一致</param>
+        /// <param name="edge3">给定边长3</param>
+        /// <returns>最接近给定的边长3时对应的3#顶点数值集合。</returns>
+        internal static IEnumerable<double> GetVertex3MinExtremeValues(
+            IEnumerable<(Point vertex1, Point vertex2)> combinations,
+            IEnumerable<double> vertex3Values,
+            double edge3) {
+            if (combinations is null) {
+                throw new ArgumentNullException(nameof(combinations));
+            }
+
+            if (vertex3Values is null) {
+                throw new ArgumentNullException(nameof(vertex3Values));
+            }
+
+            var cntC = combinations.Count();
+            var cntV = vertex3Values.Count();
+
+            if (cntC == 0) {
+                throw new ArgumentException($"“{nameof(combinations)}”的元素数量不应为0。");
+            }
+
+            if (cntV == 0) {
+                throw new ArgumentException($"“{nameof(vertex3Values)}”的元素数量不应为0。");
+            }
+
+            if (cntC != cntV) {
+                throw new ArgumentException(
+                    $"“{nameof(combinations)}”的元素数量" +
+                    $"与“{nameof(vertex3Values)}”的元素数量不一致。");
+            }
+
+            var distances = new List<double>();
+            foreach (var (vertex1, vertex2) in combinations) {
+                distances.Add(Math.Abs(Distance.PointToPoint(vertex1, vertex2) - edge3));
+            }
+
+            var minExtremeIndexes = CommonOperation.GetLocalExtremeIndexes(distances, CommonOperation.ExtremeTypeEnum.LocalMinimum);
+
+            if (minExtremeIndexes.Count > 10) {
+                minExtremeIndexes = distances.Select((dis, index) => (dis, index))
+                    .OrderBy(x => x.dis).Take(10).OrderBy(x => x.index)
+                    .Select(x => x.index).ToList();
+            }
+
+            foreach (var index in minExtremeIndexes) {
+                yield return vertex3Values.ElementAt(index);
+            }
+        }
+
+        /// <summary>
+        /// 迭代求解最接近给定的边长3时对应的3#顶点数值集合。
+        /// </summary>
+        /// <param name="initialCombinations">初始1#和2#顶点组合集合</param>
+        /// <param name="initialVertex3Values">与初始1#和2#顶点组合对应的初始3#顶点数值集合</param>
+        /// <param name="vertex3Interval">3#顶点区间</param>
+        /// <param name="line1">直线1</param>
+        /// <param name="line2">直线2</param>
+        /// <param name="edge1">边长1</param>
+        /// <param name="edge2">边长2</param>
+        /// <param name="edge3">边长3</param>
+        /// <param name="combinationEnum">
+        /// <inheritdoc cref="GetSpecificCombinationsOfVertices(
+        /// IEnumerable{ValueTuple{ValueTuple{Point, Point}, ValueTuple{Point, Point}}}, int)" 
+        /// path="/param[2]"/></param>
+        /// <param name="samplingSpacingAtStart">初始采样间距</param>
+        /// <param name="epsilon">容许误差</param>
+        /// <returns>最接近给定的边长3时对应的3#顶点数值集合。</returns>
+        internal static IEnumerable<double> IterativeGetVertex3MinExtremeValues(
+            IEnumerable<(Point vertex1, Point vertex2)> initialCombinations,
+            IEnumerable<double> initialVertex3Values,
+            PointsInterval vertex3Interval,
+            Line line1,
+            Line line2,
+            double edge1,
+            double edge2,
+            double edge3,
+            int combinationEnum,
+            double samplingSpacingAtStart,
+            double epsilon = GeometryConstants.DISTANCE_EPSILON) {
+            if (initialCombinations is null) {
+                throw new ArgumentNullException(nameof(initialCombinations));
+            }
+
+            if (initialVertex3Values is null) {
+                throw new ArgumentNullException(nameof(initialVertex3Values));
+            }
+
+            var cntC = initialCombinations.Count();
+            var cntV = initialVertex3Values.Count();
+
+            if (cntC == 0) {
+                throw new ArgumentException($"“{nameof(initialCombinations)}”的元素数量不应为0。");
+            }
+
+            if (cntV == 0) {
+                throw new ArgumentException($"“{nameof(initialVertex3Values)}”的元素数量不应为0。");
+            }
+
+            if (cntC != cntV) {
+                throw new ArgumentException(
+                    $"“{nameof(initialCombinations)}”的元素数量" +
+                    $"与“{nameof(initialVertex3Values)}”的元素数量不一致。");
+            }
+
+            if (vertex3Interval is null) {
+                throw new ArgumentNullException(nameof(vertex3Interval));
+            }
+
+            if (line1 is null) {
+                throw new ArgumentNullException(nameof(line1));
+            }
+
+            if (line2 is null) {
+                throw new ArgumentNullException(nameof(line2));
+            }
+
+            var minExtremeValues = GetVertex3MinExtremeValues(initialCombinations, initialVertex3Values, edge3);
+
+            var spacing = samplingSpacingAtStart;
+            var cnt = 0;
+            while (spacing > epsilon) {
+                spacing *= 0.1;
+                cnt++;
+
+                var vertex3Values = new List<double>();
+                foreach (var value in minExtremeValues) {
+                    foreach (var v in vertex3Interval.GetValuesArround(value, spacing, 10)) {
+                        if (vertex3Values.Any() && v <= vertex3Values.Last()) continue;
+                        vertex3Values.Add(v);
+                    }
+                }
+
+                var vertices = GetVertices(vertex3Interval, vertex3Values, line1, line2, edge1, edge2);
+
+                var combinations = GetSpecificCombinationsOfVertices(vertices, combinationEnum);
+                minExtremeValues = GetVertex3MinExtremeValues(combinations, vertex3Values, edge3);
+            }
+
+            return minExtremeValues;
+        }
+
+        /// <summary>
+        /// 求最终解。
+        /// </summary>
+        /// <param name="vertex3MinExtremeValues">最接近给定的边长3时对应的3#顶点数值</param>
+        /// <param name="vertex3Interval">3#顶点区间</param>
+        /// <param name="line1">直线1</param>
+        /// <param name="line2">直线2</param>
+        /// <param name="edge1">边长1</param>
+        /// <param name="edge2">边长2</param>
+        /// <param name="edge3">边长3</param>
+        /// <param name="combinationEnum">
+        /// <inheritdoc cref="GetSpecificCombinationsOfVertices(
+        /// IEnumerable{ValueTuple{ValueTuple{Point, Point}, ValueTuple{Point, Point}}}, int)" 
+        /// path="/param[2]"/></param>
+        /// <param name="epsilon">容许误差</param>
+        /// <returns>最终有效解的三个顶点组合的集合。</returns>
+        internal static IEnumerable<(Point vertex1, Point vertex2, Point vertex3)> FinalSolutionOfVertices(
+            IEnumerable<double> vertex3MinExtremeValues,
+            PointsInterval vertex3Interval,
+            Line line1,
+            Line line2,
+            double edge1,
+            double edge2,
+            double edge3,
+            int combinationEnum,
+            double epsilon = GeometryConstants.DISTANCE_EPSILON) {
+
+            if (vertex3MinExtremeValues is null) {
+                throw new ArgumentNullException(nameof(vertex3MinExtremeValues));
+            }
+
+            if (vertex3MinExtremeValues.Count() == 0) {
+                yield break;
+            }
+
+            if (vertex3Interval is null) {
+                throw new ArgumentNullException(nameof(vertex3Interval));
+            }
+
+            if (line1 is null) {
+                throw new ArgumentNullException(nameof(line1));
+            }
+
+            if (line2 is null) {
+                throw new ArgumentNullException(nameof(line2));
+            }
+
+            var count = -1;
+            var vertices = GetVertices(vertex3Interval, vertex3MinExtremeValues, line1, line2, edge1, edge2);
+
+            foreach (var (vertex1, vertex2) in GetSpecificCombinationsOfVertices(vertices, combinationEnum)) {
+
+                count++;
+                if (Math.Abs(Distance.PointToPoint(vertex1, vertex2) - edge3) <= epsilon) {
+                    yield return (vertex1, vertex2, vertex3Interval.GetPoint(vertex3MinExtremeValues.ElementAt(count)));
+                }
+            }
+        }
+
         /// <summary>
         /// 根据任意四个不相同的点求球体中心点。
         /// </summary>
