@@ -31,13 +31,46 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// 在具体问题中，使用实数来讨论，得出结论后，再将实数转换成点。</para>
     /// <para>同时本类还实现了枚举，在枚举前应先设置枚举间隔 <see cref="PointsInterval.EnumInterval"/>。</para>
     /// </remarks>
-    public class PointsInterval : IEnumerable, IEnumerator<Point> {
+    public class PointsInterval : IEnumerable, IEnumerable<Point> {
         private readonly Point _origin = new Point();
         private readonly Vector _direction = new Vector(1, 0, 0);
         private double _start = 0;
         private double _end = 0;
         private double _enumInterval = GeometryConstants.DISTANCE_EPSILON;
         private int _position = -1;
+        /// <summary>
+        /// 点区间的枚举器。
+        /// </summary>
+        public struct Enumerator : IEnumerator<Point> {
+            private readonly Point _origin;
+            private readonly Vector _direction;
+            private readonly double _width;
+            private int _index;
+            private readonly double _interval;
+            public Enumerator(PointsInterval itvl) {
+                _origin = new Point(itvl.Origin);
+                _direction = new Vector(itvl.Direction);
+                _width = itvl.Width;
+                _index = -1;
+                _interval = itvl.EnumInterval;
+            }
+            public Point Current => _origin + _direction * (_index * _interval);
+
+            object IEnumerator.Current => Current;
+
+            public void Dispose() {
+                
+            }
+
+            public bool MoveNext() {
+                _index++;
+                return _index * _interval <= _width;
+            }
+
+            public void Reset() {
+                _index = -1;
+            }
+        }
         /// <summary>
         /// 数轴的原点。
         /// </summary>
@@ -110,14 +143,6 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             }
         }
         /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public Point Current => GetPoint(_start + _position * _enumInterval);
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        object IEnumerator.Current => Current;
-        /// <summary>
         /// 使用默认值构造点区间，<see cref="Origin"/> 为零点，
         /// <see cref="Direction"/> 为单位 X 向量，<see cref="Start"/> 和 <see cref="End"/> 均为 0.0。
         /// </summary>
@@ -186,6 +211,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             Direction = itvl.Direction;
             Start = itvl.Start;
             End = itvl.End;
+            EnumInterval = itvl.EnumInterval;
         }
         /// <summary>
         /// 获取当前点区间的字符串表示形式。
@@ -473,32 +499,15 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 return new PointsInterval(itvl1.Origin, itvl1.Direction, value, value);
             }
         }
+
+        /// <inheritdoc cref="IEnumerable.GetEnumerator"/>
+        public IEnumerator GetEnumerator() {
+            return new Enumerator(this);
+        }
+
         /// <inheritdoc cref="IEnumerable{T}.GetEnumerator"/>
-        public IEnumerator<Point> GetEnumerator() {
-            return this;
-        }
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() {
-            return this;
-        }
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public void Dispose() { }
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public bool MoveNext() {
-            _position++;
-            return _position * _enumInterval <= Width;
-        }
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public void Reset() {
-            _position = -1;
+        IEnumerator<Point> IEnumerable<Point>.GetEnumerator() {
+            return new Enumerator(this);
         }
     }
 }
