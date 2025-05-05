@@ -598,21 +598,28 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="arroundWeld">环焊缝(true)或边缘焊缝(false)，默认值 true</param>
         /// <param name="shopWeld">车间焊接(true)或现场焊接(false)，默认值 true</param>
         /// <param name="position">位置，默认值 <see cref="Weld.WeldPositionEnum.WELD_POSITION_PLUS_X"/></param>
+        /// <param name="preparation">焊接准备，默认值 <see cref="BaseWeld.WeldPreparationTypeEnum.PREPARATION_NONE"/></param>
         /// <param name="typeAbove">上焊缝类型，默认值 <see cref="BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET"/></param>
         /// <param name="sizeAbove">上焊缝尺寸，默认值 6.0</param>
+        /// <param name="angleAbove">上焊缝角度，默认值 0.0</param>
         /// <param name="typeBelow">下焊缝类型，默认值 <see cref="BaseWeld.WeldTypeEnum.WELD_TYPE_NONE"/></param>
         /// <param name="sizeBelow">下焊缝尺寸，默认值 0.0</param>
+        /// <param name="angleBelow">下焊缝角度，默认值 0.0</param>
         /// <returns>创建的焊缝</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static Weld CreatWeld(
             ModelObject mainObject,
             ModelObject secondaryObject,
-            bool arroundWeld = true, bool shopWeld = true,
+            bool arroundWeld = true, 
+            bool shopWeld = true,
             Weld.WeldPositionEnum position = Weld.WeldPositionEnum.WELD_POSITION_PLUS_X,
+            BaseWeld.WeldPreparationTypeEnum preparation = BaseWeld.WeldPreparationTypeEnum.PREPARATION_NONE,
             Weld.WeldTypeEnum typeAbove = BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET,
-            double sizeAbove = 6,
+            double sizeAbove = 6.0,
+            double angleAbove = 0.0,
             Weld.WeldTypeEnum typeBelow = BaseWeld.WeldTypeEnum.WELD_TYPE_NONE,
-            double sizeBelow = 0) {
+            double sizeBelow = 0.0, 
+            double angleBelow = 0.0) {
 
             if (mainObject is null) {
                 throw new ArgumentNullException(nameof(mainObject));
@@ -628,10 +635,13 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 AroundWeld = arroundWeld,
                 ShopWeld = shopWeld,
                 Position = position,
+                Preparation = preparation,
                 TypeAbove = typeAbove,
                 SizeAbove = sizeAbove,
+                AngleAbove = angleAbove,
                 TypeBelow = typeBelow,
                 SizeBelow = sizeBelow,
+                AngleBelow = angleBelow,
             };
             if (!weld.Insert())
                 throw new Exception("Failed to insert Weld.");
@@ -647,13 +657,27 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="polygon">多边形</param>
         /// <param name="arroundWeld">环焊缝(true)或边缘焊缝(false)，默认值 true</param>
         /// <param name="shopWeld">车间焊接(true)或现场焊接(false)，默认值 true</param>
+        /// <param name="preparation">焊接准备，默认值 <see cref="BaseWeld.WeldPreparationTypeEnum.PREPARATION_NONE"/></param>
+        /// <param name="typeAbove">上焊缝类型，默认值 <see cref="BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET"/></param>
+        /// <param name="sizeAbove">上焊缝尺寸，默认值 6.0</param>
+        /// <param name="angleAbove">上焊缝角度，默认值 0.0</param>
+        /// <param name="typeBelow">下焊缝类型，默认值 <see cref="BaseWeld.WeldTypeEnum.WELD_TYPE_NONE"/></param>
+        /// <param name="sizeBelow">下焊缝尺寸，默认值 0.0</param>
+        /// <param name="angleBelow">下焊缝角度，默认值 0.0</param>
         /// <returns>创建的多边形焊缝</returns>
         public static PolygonWeld CreatPolygonWeld(
             ModelObject mainObject,
             ModelObject secondaryObject,
             Polygon polygon,
             bool arroundWeld = false,
-            bool shopWeld = true) {
+            bool shopWeld = true,
+            BaseWeld.WeldPreparationTypeEnum preparation = BaseWeld.WeldPreparationTypeEnum.PREPARATION_NONE,
+            Weld.WeldTypeEnum typeAbove = BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET,
+            double sizeAbove = 6.0,
+            double angleAbove = 0.0,
+            Weld.WeldTypeEnum typeBelow = BaseWeld.WeldTypeEnum.WELD_TYPE_NONE,
+            double sizeBelow = 0.0,
+            double angleBelow = 0.0) {
 
             if (mainObject is null) {
                 throw new ArgumentNullException(nameof(mainObject));
@@ -672,7 +696,14 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 SecondaryObject = secondaryObject,
                 Polygon = polygon,
                 AroundWeld = arroundWeld,
-                ShopWeld = shopWeld
+                ShopWeld = shopWeld,
+                Preparation = preparation,
+                TypeAbove = typeAbove,
+                SizeAbove = sizeAbove,
+                AngleAbove = angleAbove,
+                TypeBelow = typeBelow,
+                SizeBelow = sizeBelow,
+                AngleBelow = angleBelow,
             };
             if (!pw.Insert())
                 throw new Exception("Failed to insert PolygonWeld.");
