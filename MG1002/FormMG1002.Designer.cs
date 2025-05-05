@@ -65,6 +65,9 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -198,6 +201,9 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.label31);
+            this.tabPage1.Controls.Add(this.label30);
+            this.tabPage1.Controls.Add(this.label29);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
@@ -218,7 +224,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.tBox_DIS_WSeam_FSeam.Location = new System.Drawing.Point(491, 159);
             this.tBox_DIS_WSeam_FSeam.Name = "tBox_DIS_WSeam_FSeam";
             this.tBox_DIS_WSeam_FSeam.Size = new System.Drawing.Size(100, 21);
-            this.tBox_DIS_WSeam_FSeam.TabIndex = 8;
+            this.tBox_DIS_WSeam_FSeam.TabIndex = 12;
             // 
             // tBox_THK_SPLC_WEB
             // 
@@ -228,7 +234,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.tBox_THK_SPLC_WEB.Location = new System.Drawing.Point(491, 132);
             this.tBox_THK_SPLC_WEB.Name = "tBox_THK_SPLC_WEB";
             this.tBox_THK_SPLC_WEB.Size = new System.Drawing.Size(100, 21);
-            this.tBox_THK_SPLC_WEB.TabIndex = 8;
+            this.tBox_THK_SPLC_WEB.TabIndex = 10;
             // 
             // tBox_pos_DIAG2
             // 
@@ -275,7 +281,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.filter_DIS_WSeam_FSeam.Location = new System.Drawing.Point(470, 162);
             this.filter_DIS_WSeam_FSeam.Name = "filter_DIS_WSeam_FSeam";
             this.filter_DIS_WSeam_FSeam.Size = new System.Drawing.Size(15, 14);
-            this.filter_DIS_WSeam_FSeam.TabIndex = 7;
+            this.filter_DIS_WSeam_FSeam.TabIndex = 11;
             this.filter_DIS_WSeam_FSeam.UseVisualStyleBackColor = true;
             // 
             // tBox_prfStr_VERT
@@ -300,7 +306,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.filter_width_splicingWeb.Location = new System.Drawing.Point(470, 135);
             this.filter_width_splicingWeb.Name = "filter_width_splicingWeb";
             this.filter_width_splicingWeb.Size = new System.Drawing.Size(15, 14);
-            this.filter_width_splicingWeb.TabIndex = 7;
+            this.filter_width_splicingWeb.TabIndex = 9;
             this.filter_width_splicingWeb.UseVisualStyleBackColor = true;
             // 
             // label10
@@ -359,7 +365,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(65, 12);
             this.label28.TabIndex = 0;
-            this.label28.Text = "拼缝间距  ";
+            this.label28.Text = "拼缝间距 f";
             // 
             // filter_prfStr_DIAG
             // 
@@ -387,7 +393,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(89, 12);
             this.label27.TabIndex = 0;
-            this.label27.Text = "拼接腹板厚度  ";
+            this.label27.Text = "拼接腹板厚度 e";
             // 
             // filter_prfStr_VERT
             // 
@@ -467,6 +473,42 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label5.Size = new System.Drawing.Size(11, 12);
             this.label5.TabIndex = 4;
             this.label5.Text = "d";
+            // 
+            // label31
+            // 
+            this.structuresExtender.SetAttributeName(this.label31, null);
+            this.structuresExtender.SetAttributeTypeName(this.label31, null);
+            this.label31.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.label31, null);
+            this.label31.Location = new System.Drawing.Point(301, 223);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(11, 12);
+            this.label31.TabIndex = 0;
+            this.label31.Text = "f";
+            // 
+            // label30
+            // 
+            this.structuresExtender.SetAttributeName(this.label30, null);
+            this.structuresExtender.SetAttributeTypeName(this.label30, null);
+            this.label30.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.label30, null);
+            this.label30.Location = new System.Drawing.Point(73, 223);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(11, 12);
+            this.label30.TabIndex = 0;
+            this.label30.Text = "f";
+            // 
+            // label29
+            // 
+            this.structuresExtender.SetAttributeName(this.label29, null);
+            this.structuresExtender.SetAttributeTypeName(this.label29, null);
+            this.label29.AutoSize = true;
+            this.structuresExtender.SetBindPropertyName(this.label29, null);
+            this.label29.Location = new System.Drawing.Point(224, 16);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(11, 12);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "e";
             // 
             // label4
             // 
@@ -839,7 +881,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(71, 12);
             this.label23.TabIndex = 0;
-            this.label23.Text = "螺栓间距Y g";
+            this.label23.Text = "螺栓间距Y i";
             // 
             // label22
             // 
@@ -852,7 +894,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(71, 12);
             this.label22.TabIndex = 0;
-            this.label22.Text = "螺栓间距X f";
+            this.label22.Text = "螺栓间距X h";
             // 
             // label21
             // 
@@ -891,7 +933,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(101, 12);
             this.label19.TabIndex = 0;
-            this.label19.Text = "腹板加劲板间距 e";
+            this.label19.Text = "腹板加劲板间距 g";
             // 
             // label18
             // 
@@ -1097,7 +1139,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(11, 12);
             this.label13.TabIndex = 0;
-            this.label13.Text = "g";
+            this.label13.Text = "i";
             // 
             // label12
             // 
@@ -1109,7 +1151,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(11, 12);
             this.label12.TabIndex = 0;
-            this.label12.Text = "f";
+            this.label12.Text = "h";
             // 
             // label11
             // 
@@ -1121,7 +1163,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(11, 12);
             this.label11.TabIndex = 0;
-            this.label11.Text = "e";
+            this.label11.Text = "g";
             // 
             // saveLoad
             // 
@@ -1239,5 +1281,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
         private System.Windows.Forms.TextBox tBox_DIS_WSeam_FSeam;
         private System.Windows.Forms.CheckBox filter_DIS_WSeam_FSeam;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
     }
 }

@@ -404,6 +404,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 secR_BLine.Direction *= -1;
             }//  方向统一成从远端指向近端
 
+            var parallel_TLine = secL_TLine.Direction.Cross(secR_TLine.Direction).IsZero(GeometryConstants.DISTANCE_EPSILON);
+            var parallel_BLine = secL_BLine.Direction.Cross(secR_BLine.Direction).IsZero(GeometryConstants.DISTANCE_EPSILON);
             #endregion
 
             #region 创建端板、柱末端对齐
@@ -481,7 +483,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             point4 = new Point(endPlate_TLine.Origin) + new Vector(endPlate1.EndPoint - endPlate1.StartPoint);
             point5 = point4 + secR_BLine_inside.Direction.GetNormal() * -distance_webSeam_flangeSeam;
             point6 = Projection.PointToLine(point5, secR_TLine_inside);
-            var point7 = Parallel.VectorToVector(secL_TLine_inside.Direction, secR_TLine_inside.Direction) ?
+            var point7 = parallel_TLine ?
                 IntersectionExtension.LineToLine(secL_TLine_inside, prim_CLine).StartPoint :
                 IntersectionExtension.LineToLine(secL_TLine_inside, secR_TLine_inside).StartPoint;
 
@@ -490,7 +492,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 "SPLICINGWEB", $"PL{thickness_splicingWeb}", materialStr);
 
             var secFittingPlane = new Plane {
-                Origin = secL_TLine.Direction.Cross(secR_TLine.Direction).IsZero() ?
+                Origin = parallel_TLine ?
                         IntersectionExtension.LineToLine(prim_CLine, secL_TLine).StartPoint :
                         IntersectionExtension.LineToLine(secL_TLine, secR_TLine).StartPoint,
                 AxisX = axisY,
@@ -509,12 +511,10 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
             var point3_1 = IntersectionExtension.LineToLine(secL_BLine, new Line(point3, translateVector)).StartPoint;
             var point4_1 = IntersectionExtension.LineToLine(secR_BLine, new Line(point4, translateVector)).StartPoint;
-            var point7_1 = Parallel.VectorToVector(secL_BLine.Direction, secR_BLine.Direction) ?
-                new[] {
+            var point7_1 = new[] {
                     IntersectionExtension.LineToLine(secL_BLine, prim_CLine).StartPoint,
                     IntersectionExtension.LineToLine(secR_BLine, prim_CLine).StartPoint
-                }.OrderBy(p => p.Y).First() :
-                IntersectionExtension.LineToLine(secL_BLine, secR_BLine).StartPoint;
+                }.OrderBy(p => p.Y).First();
             var cuttingPart = ModelOperation.CreatBooleanOperationPolygon(
                 new[] { point1, point2, point3, point3_1, point7_1, point4_1, point4, point5, point6, point7 },
                 Math.Max(prfSecL.b1, prfSecR.b1));
@@ -527,13 +527,13 @@ namespace Muggle.TeklaPlugins.MG1002 {
             #region 创建竖板
             Beam vertPlate_LF, vertPlate_LB, vertPlate_RF, vertPlate_RB;
 
-            if (prfVert.b == 0.0) prfVert.b = (prfPrim.b1 - thickness_splicingWeb) * 0.5;
+            if (prfVert.b == 0.0) prfVert.b = (new[] { prfPrim.b1, prfSecL.b1, prfSecR.b1 }.Min() - thickness_splicingWeb) * 0.5;
 
-            var vert_LLine = new Line (
+            var vert_LLine = new Line(
                 IntersectionExtension.LineToLine(prim_LLine, endPlate_BLine).StartPoint,
                 new Vector(axisY)
             );
-            var vert_RLine = new Line (
+            var vert_RLine = new Line(
                 IntersectionExtension.LineToLine(prim_RLine, endPlate_BLine).StartPoint,
                 new Vector(axisY)
             );
@@ -603,7 +603,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             if (prfStr_DIAG == string.Empty)
                 goto SkipDiagPlate;
 
-            if (prfDiag.b == 0.0) prfDiag.b = (prfPrim.b1 - thickness_splicingWeb) * 0.5;
+            if (prfDiag.b == 0.0) prfDiag.b = (new[] { prfPrim.b1, prfSecL.b1, prfSecR.b1 }.Min() - thickness_splicingWeb) * 0.5;
 
             dis_vertL_to_primC = DistanceExtension.LineToLine(vert_LLine, prim_CLine);
             var diagLine = new Line(
@@ -775,28 +775,35 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
             #region 焊接
             ModelOperation.CreatWeld(primPart, endPlate2);
-            ModelOperation.CreatWeld(primPart, stifFlange_L);
-            ModelOperation.CreatWeld(primPart, stifFlange_R);
-            ModelOperation.CreatWeld(secPartL, secPartR);
-            ModelOperation.CreatWeld(secPartL, endPlate1);
-            ModelOperation.CreatWeld(secPartL, vertPlate_LF);
-            ModelOperation.CreatWeld(secPartL, vertPlate_LB);
-            ModelOperation.CreatWeld(secPartR, endPlate1);
-            ModelOperation.CreatWeld(secPartR, vertPlate_RF);
-            ModelOperation.CreatWeld(secPartR, vertPlate_RB);
+            ModelOperation.CreatWeld(primPart, stifFlange_L, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(primPart, stifFlange_R, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(secPartL, secPartR, false, false,
+                typeAbove: BaseWeld.WeldTypeEnum.WELD_TYPE_NONE,
+                typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET,
+                sizeBelow: 6);
+            ModelOperation.CreatWeld(secPartL, endPlate1, shopWeld: false);
+            ModelOperation.CreatWeld(secPartL, vertPlate_LF, false, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(secPartL, vertPlate_LB, false, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(secPartR, endPlate1, shopWeld: false);
+            ModelOperation.CreatWeld(secPartR, vertPlate_RF, false, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(secPartR, vertPlate_RB, false, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
             ModelOperation.CreatWeld(splicingWeb, endPlate1);
-            ModelOperation.CreatWeld(splicingWeb, secPartL);
-            ModelOperation.CreatWeld(splicingWeb, secPartR);
-            ModelOperation.CreatWeld(splicingWeb, vertPlate_LF);
-            ModelOperation.CreatWeld(splicingWeb, vertPlate_LB);
-            ModelOperation.CreatWeld(splicingWeb, vertPlate_RF);
-            ModelOperation.CreatWeld(splicingWeb, vertPlate_RB);
-            ModelOperation.CreatWeld(endPlate1, vertPlate_LF);
-            ModelOperation.CreatWeld(endPlate1, vertPlate_LB);
-            ModelOperation.CreatWeld(endPlate1, vertPlate_RF);
-            ModelOperation.CreatWeld(endPlate1, vertPlate_RB);
-            ModelOperation.CreatWeld(endPlate2, stifFlange_L);
-            ModelOperation.CreatWeld(endPlate2, stifFlange_R);
+            ModelOperation.CreatWeld(splicingWeb, secPartL, shopWeld: false);
+            ModelOperation.CreatWeld(splicingWeb, secPartR, shopWeld: false);
+            ModelOperation.CreatWeld(splicingWeb, vertPlate_LF, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(splicingWeb, vertPlate_LB, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(splicingWeb, vertPlate_RF, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(splicingWeb, vertPlate_RB, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(endPlate1, vertPlate_LF, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(endPlate1, vertPlate_LB, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(endPlate1, vertPlate_RF, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(endPlate1, vertPlate_RB, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(endPlate2, stifFlange_L, false,
+                position: Weld.WeldPositionEnum.WELD_POSITION_PLUS_Z,
+                typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+            ModelOperation.CreatWeld(endPlate2, stifFlange_R, false,
+                position: Weld.WeldPositionEnum.WELD_POSITION_PLUS_Z,
+                typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
             if (prfStr_DIAG != string.Empty) {
                 ModelOperation.CreatWeld(splicingWeb, diagPlate_F);
                 ModelOperation.CreatWeld(splicingWeb, diagPlate_B);
@@ -804,22 +811,22 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 ModelOperation.CreatWeld(endPlate1, diagPlate_B);
 
                 if (pos_DIAG1 < dis_vertL_to_primC) {
-                    ModelOperation.CreatWeld(secPartL, diagPlate_F);
-                    ModelOperation.CreatWeld(secPartL, diagPlate_B);
+                    ModelOperation.CreatWeld(secPartL, diagPlate_F, shopWeld: false);
+                    ModelOperation.CreatWeld(secPartL, diagPlate_B, shopWeld: false);
                 } else {
-                    ModelOperation.CreatWeld(secPartR, diagPlate_F);
-                    ModelOperation.CreatWeld(secPartR, diagPlate_B);
+                    ModelOperation.CreatWeld(secPartR, diagPlate_F, shopWeld: false);
+                    ModelOperation.CreatWeld(secPartR, diagPlate_B, shopWeld: false);
                 }
             }
 
             foreach (var stifWeb in list_StifWeb_Up) {
-                ModelOperation.CreatWeld(splicingWeb, stifWeb);
-                ModelOperation.CreatWeld(endPlate1, stifWeb);
+                ModelOperation.CreatWeld(splicingWeb, stifWeb, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+                ModelOperation.CreatWeld(endPlate1, stifWeb, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
             }
 
             foreach (var stifWeb in list_StifWeb_Down) {
-                ModelOperation.CreatWeld(primPart, stifWeb);
-                ModelOperation.CreatWeld(endPlate2, stifWeb);
+                ModelOperation.CreatWeld(primPart, stifWeb, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
+                ModelOperation.CreatWeld(endPlate2, stifWeb, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
             }
             #endregion
         }

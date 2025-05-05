@@ -80,7 +80,7 @@
 ![MG1001](Resources/Introduction_MG1001.gif)
 
 ## MG1002 (门刚系列节点 - 门刚中柱与梁横向连接)
-没什么特点，不过在编写过程中对端板定位的问题费了点脑筋。
+适用于门刚结构等截面或对称变截面中柱，与等截面或楔形梁横向连接。
 
 ![MG1002](Resources/Introduction_MG1002.gif)
 
