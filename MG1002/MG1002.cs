@@ -778,9 +778,10 @@ namespace Muggle.TeklaPlugins.MG1002 {
             ModelOperation.CreatWeld(primPart, stifFlange_L, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
             ModelOperation.CreatWeld(primPart, stifFlange_R, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
             ModelOperation.CreatWeld(secPartL, secPartR, false, false,
-                typeAbove: BaseWeld.WeldTypeEnum.WELD_TYPE_NONE,
-                typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET,
-                sizeBelow: 6);
+                preparation: BaseWeld.WeldPreparationTypeEnum.PREPARATION_AUTO,
+                typeAbove: BaseWeld.WeldTypeEnum.WELD_TYPE_SINGLE_V_BUTT_WITH_BROAD_ROOT_FACE,
+                sizeAbove: Math.Min(prfSecL.t1, prfSecR.t1) - 4,
+                angleAbove: 60.0);
             ModelOperation.CreatWeld(secPartL, endPlate1, shopWeld: false);
             ModelOperation.CreatWeld(secPartL, vertPlate_LF, false, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
             ModelOperation.CreatWeld(secPartL, vertPlate_LB, false, false, typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
