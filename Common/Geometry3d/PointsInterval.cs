@@ -305,7 +305,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <returns>区间内给定实数值左右各数个连续间距的值的集合。</returns>
         /// <exception cref="ArgumentException"><paramref name="value"/>不在区间内。</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="dis"/> &lt;= 0.0 或 <paramref name="num"/> &lt;= 0.0 时引发。</exception>
-        public double[] GetValuesArround(double value, double dis, int num) {
+        public IEnumerable<double> GetValuesArround(double value, double dis, int num) {
             if (double.IsNaN(value) || value < _start || value > _end) {
                 var msg = ToString(null);
                 msg = msg.Replace("\n", " ");
@@ -323,12 +323,9 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             var num_Left = (value - num * dis) > _start ? num : (int) ((value - _start) / dis);
             var num_Right = (value + num * dis) < _end ? num : (int) ((_end - value) / dis);
             value -= dis * num_Left;
-            var values = new double[num_Left + num_Right + 1];
             for (int i = 0; i <= num_Left + num_Right; i++) {
-                values[i] = value + i * dis;
+                yield return value + i * dis;
             }
-
-            return values;
         }
         /// <summary>
         /// 获取<b>区间内</b>给定点左右各数个连续间距的点的集合。
@@ -342,7 +339,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="dis"/> &lt;= 0.0 或 <paramref name="num"/> &lt;= 0.0 时引发。</exception>
         [Obsolete("由于计算精度问题，可能出现误判参数“point”不在区间内，谨慎使用。" +
             "应优先转换思路，使用“PointsInterval.GetPointsArround(double value, double dis, int num)”方法。", false)]
-        public Point[] GetPointsArround(Point point, double dis, int num) {
+        public IEnumerable<Point> GetPointsArround(Point point, double dis, int num) {
             if (point is null) {
                 throw new ArgumentNullException(nameof(point));
             }
@@ -372,7 +369,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         /// <returns>区间内给定实数值对应的点左右各数个连续间距的点的集合。</returns>
         /// <exception cref="ArgumentException"><paramref name="value"/>不在区间内。</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="dis"/> &lt;= 0.0 或 <paramref name="num"/> &lt;= 0.0 时引发。</exception>
-        public Point[] GetPointsArround(double value, double dis, int num) {
+        public IEnumerable<Point> GetPointsArround(double value, double dis, int num) {
             if (double.IsNaN(value) || value < _start || value > _end) {
                 var msg = ToString(null);
                 msg = msg.Replace("\n", " ");
@@ -390,12 +387,9 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             var num_Left = (value - num * dis) > _start ? num : (int) ((value - _start) / dis);
             var num_Right = (value + num * dis) < _end ? num : (int) ((_end - value) / dis);
             value -= dis * num_Left;
-            var points = new Point[num_Left + num_Right + 1];
             for (int i = 0; i <= num_Left + num_Right; i++) {
-                points[i] = GetPoint(value + i * dis);
+                yield return GetPoint(value + i * dis);
             }
-
-            return points;
         }
         /// <summary>
         /// 用当前点区间的原点和方向变换给定点区间。
