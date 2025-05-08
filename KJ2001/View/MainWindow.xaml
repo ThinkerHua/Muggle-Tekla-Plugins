@@ -21,7 +21,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:tsd="clr-namespace:Tekla.Structures.Dialog;assembly=Tekla.Structures.Dialog"
                       xmlns:viewModel="clr-namespace:Muggle.TeklaPlugins.KJ2001.ViewModel"
-                      Title="{tsd:Loc albl_title}"
+                      Title="{tsd:Loc albl_KJ2001_title}"
                       ResizeMode="NoResize"
                       SizeToContent="WidthAndHeight"
                       mc:Ignorable="d">

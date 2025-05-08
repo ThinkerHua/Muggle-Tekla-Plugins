@@ -1,4 +1,4 @@
-﻿string_utf8 albl_title {
+﻿string_utf8 albl_KJ2001_title {
 	entry = ("enu", "KJ2001 - Box column outer column base");
 	entry = ("chs", "KJ2001 - 箱型柱外包式柱脚");
 };
