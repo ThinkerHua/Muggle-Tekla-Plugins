@@ -1,4 +1,4 @@
-﻿string_utf8 albl_title {
+﻿string_utf8 albl_MJ5001_title {
     entry = ("enu", "MJ5001 - H-beam connect to concrete");
     entry = ("chs", "MJ5001 - H型钢梁与混凝土连接");
 };
