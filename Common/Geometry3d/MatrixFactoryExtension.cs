@@ -13,13 +13,14 @@
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
+using System.Xml.Linq;
 using Tekla.Structures.Geometry3d;
 
 namespace Muggle.TeklaPlugins.Common.Geometry3d {
     /// <summary>
     /// <see cref="Tekla.Structures.Geometry3d"/>.<see cref="MatrixFactory"/> 的扩展。
     /// </summary>
-    /// <remarks><b>* Tekla Open API内部，矩阵操作对象为坐标系。
+    /// <remarks><b>* Tekla Open API 内部，矩阵操作对象为坐标系。
     /// 参考官方库的 <see cref="MatrixFactory.Rotate(double, Vector)"/> 方法，
     /// 产生的矩阵对点进行变换操作，实际得到的结果是反方向旋转的。
     /// 本类中的扩展方法创建的矩阵，保持与官方实现行为一致。</b></remarks>
@@ -42,6 +43,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return matrix;
         }
+
         /// <summary>
         /// 以给定直线为旋转轴创建旋转矩阵。
         /// </summary>
@@ -73,6 +75,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return rM * tM;
         }
+
         /// <summary>
         /// 使用镜像平面的法向及镜像平面上的任意一点创建镜像矩阵。
         /// </summary>
@@ -105,6 +108,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return mirror * translate;
         }
+
         /// <summary>
         /// 使用镜像平面的法向及坐标系原点与镜像平面之间的距离创建镜像矩阵。
         /// </summary>
@@ -131,6 +135,25 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             mirror[2, 0] = -2 * normal.Z * normal.X; mirror[2, 1] = -2 * normal.Z * normal.Y; mirror[2, 2] = 1 - 2 * normal.Z * normal.Z;
 
             return mirror * translate;
+        }
+
+        /// <summary>
+        /// 创建切变矩阵。
+        /// </summary>
+        /// <param name="xY">沿X轴切变，Y轴切变值</param>
+        /// <param name="xZ">沿X轴切变，Z轴切变值</param>
+        /// <param name="yX">沿Y轴切变，X轴切变值</param>
+        /// <param name="yZ">沿Y轴切变，Z轴切变值</param>
+        /// <param name="zX">沿Z轴切变，X轴切变值</param>
+        /// <param name="zY">沿Z轴切变，Y轴切变值</param>
+        /// <returns>切变矩阵。</returns>
+        public static Matrix Shear(double xY = 0, double xZ = 0, double yX = 0, double yZ = 0, double zX = 0, double zY = 0) {
+            var matrix = new Matrix();
+            matrix[0, 0] = 1.0; matrix[0, 1] = yX; matrix[0, 2] = zX;
+            matrix[1, 0] = xY; matrix[1, 1] = 1.0; matrix[1, 2] = zY;
+            matrix[2, 0] = xZ; matrix[2, 1] = yZ; matrix[2, 2] = 1.0;
+
+            return matrix;
         }
     }
 }

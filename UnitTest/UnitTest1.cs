@@ -1444,5 +1444,24 @@ namespace Muggle.TeklaPlugins.UnitTest {
 
             }
         }
+        [TestMethod]
+        public void TestShearMatrix() {
+            var point = new Point(3, 4, 5);
+
+            var matrix = MatrixFactoryExtension.Shear(2);
+            Console.WriteLine(matrix.Transform(point));
+
+            matrix = MatrixFactoryExtension.Shear(0, 3);
+            Console.WriteLine(matrix.Transform(point));
+
+            matrix = MatrixFactoryExtension.Shear(2, 3);
+            Console.WriteLine(matrix.Transform(point));
+
+            matrix = MatrixFactoryExtension.Shear(2) * MatrixFactoryExtension.Shear(0, 3);
+            Console.WriteLine(matrix.Transform(point));
+
+            point = new Point(-5, -3, -4);
+            Console.WriteLine(matrix.Transform(point));
+        }
     }
 }
