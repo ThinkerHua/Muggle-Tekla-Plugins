@@ -744,8 +744,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
             IEnumerable<Part> otherBeBolted,
             Point firstPosition,
             Point secondPosition,
-            DistanceList bolt_dist_X,
-            DistanceList bolt_dist_Y,
+            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_X,
+            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_Y,
             Position position = default,
             Offset startOffset = default,
             Offset endOffset = default,
@@ -772,10 +772,10 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentNullException(nameof(secondPosition));
             }
 
-            if (bolt_dist_X.Count < 1)
+            if (bolt_dist_X.Count() < 1)
                 throw new ArgumentException($"“{nameof(bolt_dist_X)}”中项目数至少需要1个。");
 
-            if (bolt_dist_Y.Count < 1)
+            if (bolt_dist_Y.Count() < 1)
                 throw new ArgumentException($"“{nameof(bolt_dist_Y)}”中项目数至少需要1个。");
 
             if (position == null) position = new Position { Rotation = Position.RotationEnum.TOP };
@@ -945,8 +945,8 @@ namespace Muggle.TeklaPlugins.Common.Model {
             IEnumerable<Part> otherBeBolted,
             Point firstPosition,
             Point secondPosition,
-            DistanceList bolt_dist_X,
-            DistanceList bolt_dist_Y,
+            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_X,
+            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_Y,
             Position position = default,
             Offset startOffset = default,
             Offset endOffset = default,
@@ -973,10 +973,10 @@ namespace Muggle.TeklaPlugins.Common.Model {
                 throw new ArgumentNullException(nameof(secondPosition));
             }
 
-            if (bolt_dist_X.Count < 1)
+            if (bolt_dist_X.Count() < 1)
                 throw new ArgumentException($"“{nameof(bolt_dist_X)}”中项目数至少需要1个。");
 
-            if (bolt_dist_Y.Count < 1)
+            if (bolt_dist_Y.Count() < 1)
                 throw new ArgumentException($"“{nameof(bolt_dist_Y)}”中项目数至少需要1个。");
 
             if (position == null) position = new Position { Rotation = Position.RotationEnum.TOP };
