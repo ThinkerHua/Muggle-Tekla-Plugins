@@ -1,3 +1,17 @@
+ï»¿/*==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures
+ *
+ *  Copyright Â© 2025 Huang YongXing.                 
+ *
+ *  This library is free software, licensed under the terms of the GNU 
+ *  General Public License as published by the Free Software Foundation, 
+ *  either version 3 of the License, or (at your option) any later version. 
+ *  You should have received a copy of the GNU General Public License 
+ *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
+ *==============================================================================
+ *  KJ1001.cs: connection between box column and H-beam
+ *  written by Huang YongXing - thinkerhua@hotmail.com
+ *==============================================================================*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,9 +34,9 @@ namespace Muggle.TeklaPlugins.KJ1001 {
     public class PluginData {
         /// <summary>
         /// <list type="bullet">
-        ///     <item>0 - ÒíÔµº¸½Ó£¬¸¹°åË¨½Ó</item>
-        ///     <item>1 - º¸¶ÌÁº£¬Ë¨½Ó</item>
-        ///     <item>2 - º¸¶ÌÁº£¬ÒíÔµº¸½Ó£¬¸¹°åË¨½Ó</item>
+        ///     <item>0 - ç¿¼ç¼˜ç„Šæ¥ï¼Œè…¹æ¿æ “æ¥</item>
+        ///     <item>1 - ç„ŠçŸ­æ¢ï¼Œæ “æ¥</item>
+        ///     <item>2 - ç„ŠçŸ­æ¢ï¼Œç¿¼ç¼˜ç„Šæ¥ï¼Œè…¹æ¿æ “æ¥</item>
         /// </list>
         /// </summary>
         [StructuresField("type")]
@@ -67,11 +81,11 @@ namespace Muggle.TeklaPlugins.KJ1001 {
         [StructuresField("cover_MATL")]
         public string cover_materialStr;
         /// <summary>
-        /// ¸¹°åÁ¬½Ó°å´´½¨ÀàĞÍÃ¶¾Ù
+        /// è…¹æ¿è¿æ¥æ¿åˆ›å»ºç±»å‹æšä¸¾
         /// <list type="bullet">
-        ///     <item>0 - ½öÇ°Ãæ</item>
-        ///     <item>1 - ½öºóÃæ</item>
-        ///     <item>2 - Ç°ºó</item>
+        ///     <item>0 - ä»…å‰é¢</item>
+        ///     <item>1 - ä»…åé¢</item>
+        ///     <item>2 - å‰å</item>
         /// </list>
         /// </summary>
         [StructuresField("webCNXPL_enum")]
@@ -488,7 +502,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
 
         private void CreatConnection() {
 
-            #region ¹²ÓÃ±äÁ¿¡¢·½·¨
+            #region å…±ç”¨å˜é‡ã€æ–¹æ³•
             var prim = Model.SelectModelObject(Primary) as Part;
             var sec = Model.SelectModelObject(Secondaries[0]) as Part;
 
@@ -532,8 +546,8 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 ProjectionExtension.VectorToPlane(secCenterLine.Direction, new GeometricPlane(origin, axisZ)));
             var orthogonal = secAngle_XY == 0.0;
 
-            //  Õı³£×ö·¨ÊÇ¾ØÕóÁ¬³Ë½øĞĞ×éºÏ
-            //  ÓÉÓÚTeklaÄÚ²¿ÊµÏÖµÄÎÊÌâ£¬ÇĞ±ä¾ØÕó²»ÄÜÓëÆäËû¾ØÕó×éºÏ£¬·ñÔò±ä»»ºóµÄµã»áÓĞÆ«²î
+            //  æ­£å¸¸åšæ³•æ˜¯çŸ©é˜µè¿ä¹˜è¿›è¡Œç»„åˆ
+            //  ç”±äºTeklaå†…éƒ¨å®ç°çš„é—®é¢˜ï¼Œåˆ‡å˜çŸ©é˜µä¸èƒ½ä¸å…¶ä»–çŸ©é˜µç»„åˆï¼Œå¦åˆ™å˜æ¢åçš„ç‚¹ä¼šæœ‰åå·®
             static void TransformPoint(IEnumerable<Matrix> matrices, IEnumerable<Point> points) {
                 foreach (var m in matrices) {
                     foreach (var p in points) {
@@ -548,7 +562,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             var ratHoleCornerOffset = ratHoel_radius / Math.Pow(2, 0.5);
             #endregion
 
-            #region Öù¼Óºñ²¹Ç¿°å
+            #region æŸ±åŠ åšè¡¥å¼ºæ¿
             Beam thickenedStiffener1 = null, thickenedStiffener2 = null;
             if (thickenedStiffener_thickness <= (strong ? prfPrim.s : prfPrim.t))
                 goto Skip_THKDSTF;
@@ -590,7 +604,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
         Skip_THKDSTF:;
             #endregion
 
-            #region ÖùÄÚ²¿¼ÓÇ¿°å
+            #region æŸ±å†…éƒ¨åŠ å¼ºæ¿
             static ContourPlate CreatAndWeldInnerStiffener(
                 Part prim, Part thickenedStiffener1, Part thickenedStiffener2,
                 Point point1, Point point2, Point point3, Point point4,
@@ -676,7 +690,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             if (type != 0) goto ShortBeam;
 
             #region Type0
-            #region Áº¶ÔÆëÇĞ¸î
+            #region æ¢å¯¹é½åˆ‡å‰²
             var fittingPlane = new Plane { Origin = primRightBoundaryPlane.Origin, AxisX = axisY, AxisY = axisZ };
             var fitting = new Fitting { Father = sec, Plane = fittingPlane };
             fitting.Insert();
@@ -708,8 +722,8 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             cutting.Delete();
 
             var polygon = new Polygon { Points = new ArrayList { secTFxPrimR, secTBxPrimR } };
-            //  ´Ë´¦º¸½Ó×¼±¸£¬Õı½»Áº£¨¿ÉÉÏÏÂÇãĞ±£©Õı³££¬µ«ÍáÁº£¨×óÓÒÇãĞ±£©»áµ¼ÖÂÁºÄ£ĞÍÏûÊ§¡£
-            //  Ê¹ÓÃ°åÆ´Áº»ò¿É½â¾ö´ËÎÊÌâ
+            //  æ­¤å¤„ç„Šæ¥å‡†å¤‡ï¼Œæ­£äº¤æ¢ï¼ˆå¯ä¸Šä¸‹å€¾æ–œï¼‰æ­£å¸¸ï¼Œä½†æ­ªæ¢ï¼ˆå·¦å³å€¾æ–œï¼‰ä¼šå¯¼è‡´æ¢æ¨¡å‹æ¶ˆå¤±ã€‚
+            //  ä½¿ç”¨æ¿æ‹¼æ¢æˆ–å¯è§£å†³æ­¤é—®é¢˜
             var weld = ModelOperation.CreatPolygonWeld(prim, sec, polygon, false, false,
                 orthogonal ? BaseWeld.WeldPreparationTypeEnum.PREPARATION_SECONDARY : BaseWeld.WeldPreparationTypeEnum.PREPARATION_NONE,
                 BaseWeld.WeldTypeEnum.WELD_TYPE_SINGLE_BEVEL_BUTT_WITH_BROAD_ROOT_FACE,
@@ -719,10 +733,10 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             weld.Modify();
 
             polygon = new Polygon { Points = new ArrayList { secBFxPrimR + secAxisY * prfSec.t2, secBBxPrimR + secAxisY * prfSec.t2 } };
-            //  ´Ë´¦º¸½Ó×¼±¸£¬
-            //  Õı½»Áº£¨¿ÉÉÏÏÂÇãĞ±£©Ö»ÔÚ¸¹°å´¦Õı³££¬ÆäÓàµØ·½Ö»ÓĞroot openingÆğ×÷ÓÃ£¬root face²»Æğ×÷ÓÃ¡£
-            //  ÍáÁº£¨×óÓÒÇãĞ±£©»áµ¼ÖÂÁºÄ£ĞÍÏûÊ§¡£
-            //  Ê¹ÓÃ°åÆ´Áº»ò¿É½â¾ö´ËÎÊÌâ
+            //  æ­¤å¤„ç„Šæ¥å‡†å¤‡ï¼Œ
+            //  æ­£äº¤æ¢ï¼ˆå¯ä¸Šä¸‹å€¾æ–œï¼‰åªåœ¨è…¹æ¿å¤„æ­£å¸¸ï¼Œå…¶ä½™åœ°æ–¹åªæœ‰root openingèµ·ä½œç”¨ï¼Œroot faceä¸èµ·ä½œç”¨ã€‚
+            //  æ­ªæ¢ï¼ˆå·¦å³å€¾æ–œï¼‰ä¼šå¯¼è‡´æ¢æ¨¡å‹æ¶ˆå¤±ã€‚
+            //  ä½¿ç”¨æ¿æ‹¼æ¢æˆ–å¯è§£å†³æ­¤é—®é¢˜
             weld = ModelOperation.CreatPolygonWeld(prim, sec, polygon, false, false,
                 orthogonal ? BaseWeld.WeldPreparationTypeEnum.PREPARATION_SECONDARY : BaseWeld.WeldPreparationTypeEnum.PREPARATION_NONE,
                 BaseWeld.WeldTypeEnum.WELD_TYPE_SINGLE_BEVEL_BUTT_WITH_BROAD_ROOT_FACE,
@@ -732,7 +746,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
 
             #endregion
 
-            #region ¸¹°åÁ¬½Ó°å
+            #region è…¹æ¿è¿æ¥æ¿
             Part webConnectionPlate_F = null, webConnectionPlate_B = null;
             point1 = new Point(0, prfSec.h1 * 0.5 - webPosition_distanceList_Y[0].Value, 0);
             point2 = new Point(gap + webPosition_distanceList_X.Sum(dis => dis.Value), point1.Y, 0);
@@ -768,7 +782,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
 
             #endregion
 
-            #region ¸¹°åË¨½Ó
+            #region è…¹æ¿æ “æ¥
             var cnt = webPosition_distanceList_Y.Count;
             point1 = new Point(gap, prfSec.h1 * 0.5 - webPosition_distanceList_Y[0].Value, 0);
             point2 = new Point(point1.X, point1.Y - 100, point1.Z);
@@ -788,7 +802,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             }
             #endregion
 
-            #region ¸Ç°å
+            #region ç›–æ¿
             static ContourPlate CreatCoverPlate(
                 Part prim, Point p1, Point p2, Point p3, Point p4, Point p5, Point p6,
                 Chamfer chamfer, Matrix shearMatrix, Matrix transferMatrix,
@@ -807,7 +821,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                     };
                 var plate = ModelOperation.CreatContourPlate(
                     contourPoints, name, $"PL{thickness}", materialStr, depthEnum: depthEnum);
-                plate.Contour.ContourPoints = contourPoints;//  ÂÖÀªµãË³ĞòÓĞÊ±»á´íÂÒ£¬´Ë´¦×÷ÓÃÎªĞŞÕıË³Ğò
+                plate.Contour.ContourPoints = contourPoints;//  è½®å»“ç‚¹é¡ºåºæœ‰æ—¶ä¼šé”™ä¹±ï¼Œæ­¤å¤„ä½œç”¨ä¸ºä¿®æ­£é¡ºåº
                 plate.Modify();
 
                 var weld = ModelOperation.CreatWeld(prim, plate, false, false,
@@ -869,7 +883,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
 
         ShortBeam:;
 
-            #region ¶ÌÁº
+            #region çŸ­æ¢
             var shortBeam = ModelOperation.CreatBeam(secOrigin, secOrigin + secAxisX * shortBeamLength,
                 "SHORT_BEAM", shortBeam_prfStr, shortBeam_materialStr,
                 sec.AssemblyNumber.Prefix, partPrefix: sec.PartNumber.Prefix,
@@ -917,7 +931,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
 
             point1 = Intersection.LineToPlane(new Line(secBFxPrimR + secAxisY * prfShort.t2, secAxisX), primRightBoundaryPlane);
             point2 = Intersection.LineToPlane(new Line(secBBxPrimR + secAxisY * prfShort.t2, secAxisX), primRightBoundaryPlane);
-            // Ğ±½»Áº´Ë´¦º¸½Ó×¼±¸»áµ¼ÖÂÁºÄ£ĞÍÏûÊ§
+            // æ–œäº¤æ¢æ­¤å¤„ç„Šæ¥å‡†å¤‡ä¼šå¯¼è‡´æ¢æ¨¡å‹æ¶ˆå¤±
             weld = ModelOperation.CreatPolygonWeld(prim, shortBeam,
                 new Polygon { Points = new ArrayList { point1, point2 } },
                 preparation: orthogonal ? BaseWeld.WeldPreparationTypeEnum.PREPARATION_SECONDARY : BaseWeld.WeldPreparationTypeEnum.PREPARATION_NONE,
@@ -941,7 +955,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             Model.GetWorkPlaneHandler().SetCurrentTransformationPlane(
                 new TransformationPlane(shortBeam.EndPoint, secAxisX, secAxisY));
 
-            #region ¸¹°åÁ¬½Ó°åË¨½Ó
+            #region è…¹æ¿è¿æ¥æ¿æ “æ¥
             point1 = new Point(gap * 0.5, prfShort.h1 * 0.5 - webPosition_distanceList_Y[0].Value, 0);
             point2 = new Point(point1) { Y = prfShort.h1 * 0.5 - webPosition_distanceList_Y.Sum(dis => dis.Value) };
             webConnectionPlate_F = ModelOperation.CreatBeam(point1, point2,
@@ -972,13 +986,13 @@ namespace Muggle.TeklaPlugins.KJ1001 {
 
             #region Type1
 
-            #region Ô­Áº¶ÔÆë
+            #region åŸæ¢å¯¹é½
             fittingPlane = new Plane { Origin = origin + axisX * gap, AxisX = axisY, AxisY = axisZ };
             fitting = new Fitting { Father = sec, Plane = fittingPlane };
             fitting.Insert();
             #endregion
 
-            #region ÒíÔµÁ¬½Ó°åË¨½Ó
+            #region ç¿¼ç¼˜è¿æ¥æ¿æ “æ¥
             point1 = new Point(flangePosition_distanceList_X.Sum(dis => dis.Value) * -0.5 + gap * 0.5, prfShort.h1 * 0.5, 0);
             point2 = new Point(point1) { X = -point1.X + gap };
             var flangConnectionPlate_TO = ModelOperation.CreatBeam(point1, point2, "FLANGE_CONNECTION_PLATE",
@@ -1049,13 +1063,13 @@ namespace Muggle.TeklaPlugins.KJ1001 {
         #region Type2
         Type2:;
 
-            #region Ô­Áº¶ÔÆë
+            #region åŸæ¢å¯¹é½
             fittingPlane = new Plane { Origin = origin, AxisX = axisY, AxisY = axisZ };
             fitting = new Fitting { Father = sec, Plane = fittingPlane };
             fitting.Insert();
             #endregion
 
-            #region ÇĞ¸î
+            #region åˆ‡å‰²
             point1 = new Point(-ratHoel_radius, prfShort.h1 * 0.5 - prfShort.t1, 0);
             point2 = new Point(-ratHoleCornerOffset, point1.Y - ratHoleCornerOffset, 0);
             point3 = new Point(0, point1.Y - ratHoel_radius, 0);
@@ -1088,12 +1102,12 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             cutting.Delete();
             #endregion
 
-            #region º¸½Ó
+            #region ç„Šæ¥
             point1 = new Point(0, prfShort.h1 * 0.5, prfShort.b1 * 0.5);
             point2 = new Point(point1) { Z = -point1.Z };
             weld = ModelOperation.CreatPolygonWeld(sec, shortBeam, new Polygon { Points = new ArrayList { point1, point2 } },
                 shopWeld: false, preparation: BaseWeld.WeldPreparationTypeEnum.PREPARATION_MAIN,
-                typeAbove: BaseWeld.WeldTypeEnum.WELD_TYPE_SINGLE_BEVEL_BUTT_WITH_BROAD_ROOT_FACE, 
+                typeAbove: BaseWeld.WeldTypeEnum.WELD_TYPE_SINGLE_BEVEL_BUTT_WITH_BROAD_ROOT_FACE,
                 sizeAbove: prfShort.t1 - weld_root_face, angleAbove: weld_angle);
             weld.Placement = BaseWeld.WeldPlacementTypeEnum.PLACEMENT_MAIN;
             weld.RootFaceAbove = weld_root_face;
