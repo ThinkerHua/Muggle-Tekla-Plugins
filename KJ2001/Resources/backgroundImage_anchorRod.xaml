@@ -14,8 +14,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M117.884830935393,278.505733083002L117.884830935393,277.422127232188" FillRule="Nonzero" />
@@ -28,8 +32,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279677182,278.505733083002L128.563279677182,277.422127232188" FillRule="Nonzero" />
@@ -47,8 +55,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M132.938744082581,277.443197619054L132.938744082581,270.142629296053" FillRule="Nonzero" />
@@ -61,8 +73,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M123.22405530652,277.422127232188L123.22405530652,270.142629296053" FillRule="Nonzero" />
@@ -75,8 +91,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M114.622363280039,277.443197619054L114.622363280039,270.142629296053" FillRule="Nonzero" />
@@ -84,8 +104,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M111.689191391226,277.422127232188L135.871915971395,277.422127232188 135.871915971395,270.142629296053 111.689191391226,270.142629296053 111.689191391226,277.422127232188" FillRule="Nonzero" />
@@ -123,8 +147,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M111.689191391226,285.785231018672L135.871915971395,285.785231018672 135.871915971395,278.505733083002 111.689191391226,278.505733083002 111.689191391226,285.785231018672" FillRule="Nonzero" />
@@ -132,8 +160,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M114.622363280039,285.806301405886L114.622363280039,278.505733083002" FillRule="Nonzero" />
@@ -141,8 +173,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M123.22405530652,285.785231018672L123.22405530652,278.505733083002" FillRule="Nonzero" />
@@ -150,8 +186,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M132.938744082581,285.806301405886L132.938744082581,278.505733083002" FillRule="Nonzero" />
@@ -169,8 +209,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M117.884830935393,299.375517578446L128.563279677182,299.375517578446" FillRule="Nonzero" />
@@ -198,8 +242,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M117.884830935393,245.702970506158L128.563279677182,247.174797350075" FillRule="Nonzero" />
@@ -217,8 +265,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M117.884830935393,242.907218534499L128.563279677182,244.379045378533" FillRule="Nonzero" />
@@ -236,8 +288,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M132.938744082581,254.816842139466L132.938744082581,247.516273816465" FillRule="Nonzero" />
@@ -250,8 +306,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M123.22405530652,254.795771752251L123.22405530652,247.516273816465" FillRule="Nonzero" />
@@ -279,8 +339,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M117.884830935393,299.375517578446L117.884830935393,285.785231018672" FillRule="Nonzero" />
@@ -308,8 +372,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279677182,299.375517578446L128.563279677182,285.785231018672" FillRule="Nonzero" />
@@ -322,8 +390,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M114.622363280039,254.816842139466L114.622363280039,247.516273816465" FillRule="Nonzero" />
@@ -331,8 +403,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M111.689191391226,254.795771752251L135.871915971395,254.795771752251 135.871915971395,247.516273816465 111.689191391226,247.516273816465 111.689191391226,254.795771752251" FillRule="Nonzero" />
@@ -340,8 +416,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M117.884830935393,73.117506292183L117.884830935393,153.401414555381" FillRule="Nonzero" />
@@ -349,8 +429,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279677182,73.117506292183L128.563279677182,153.401414555381" FillRule="Nonzero" />
@@ -388,8 +472,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FFFF0000" DashCap="Flat" EndLineCap="Flat" LineJoin="Round"
-							     StartLineCap="Flat" Thickness="0.273670345544815">
+							<Pen Brush="#FFFF0000"
+							     DashCap="Flat"
+							     EndLineCap="Flat"
+							     LineJoin="Round"
+							     StartLineCap="Flat"
+							     Thickness="0.273670345544815">
 								<Pen.DashStyle>
 									<DashStyle Dashes="35.9648017887251 7.19296018350724 7.19296018350724 7.19296018350724" Offset="0" />
 								</Pen.DashStyle>
@@ -401,8 +489,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M51.678448736202,85.9985404642066L40.9999999944121,85.9985404642066" FillRule="Nonzero" />
@@ -410,8 +502,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M65.9163803919218,41.0821600665804L103.646899279673,41.0821600665804" FillRule="Nonzero" />
@@ -419,8 +515,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M65.9163803919218,51.7606088083703L103.646899279673,51.7606088083703" FillRule="Nonzero" />
@@ -428,8 +528,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M117.884830531199,65.9985404642066L117.850147303659,65.0053525598487 117.746268328745,64.0170034797629 117.573697146494,63.0383082063636 117.333276805002,62.0740347536048 117.02617841633,61.1288810403785 116.653896388132,60.2074518831214 116.218246516306,59.314236703678 115.721349772532,58.453586641117 115.165627535898,57.6296945245704 114.55378728779,56.8465743692359 113.888810214121,56.1080423028907 113.173934992868,55.4176955850562 112.412645396311,54.7788978250464 111.60864931019,54.1947608621558 110.765864905436,53.6681304605445 109.888397749979,53.2015729577979 108.980522212107,52.7973609598121 108.046661910135,52.457462850376 107.09136658581,52.183537069126 106.119290169794,51.9769149454078 105.135168370325,51.8386064203223 103.646899279673,51.7606092126807" FillRule="Nonzero" />
@@ -437,8 +541,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279208262,65.9985404642066L128.502583560068,64.2604616315803 128.320794161875,62.5308507116279 128.018796023447,60.818133893772 127.598061617929,59.1306553514441 127.060637530405,57.4766364725074 126.409144457895,55.8641353280982 125.646756228525,54.3010087640723 124.777188357431,52.7948709161719 123.80467325123,51.3530593545875 122.733954485971,49.9826007516822 121.57024293812,48.690167966648 120.31921106251,47.4820609720191 118.986954745371,46.3641658456763 117.579961833078,45.3419261606177 116.105089243967,44.4203220041236 114.569521006662,43.6038470895728 112.980739649851,42.8964744241675 111.34648424061,42.3016544015845 109.674717005808,41.822284284397 107.973583277781,41.460696759983 106.251370247919,41.2186542184791 103.646899279673,41.0821605356177" FillRule="Nonzero" />
@@ -446,8 +554,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M117.884830935393,247.516273816465L117.884830935393,65.9985404642066" FillRule="Nonzero" />
@@ -455,8 +567,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279677182,247.516273816465L128.563279677182,65.9985404642066" FillRule="Nonzero" />
@@ -464,8 +580,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M117.884830935393,240.111466562608L128.563279677182,241.583293406991" FillRule="Nonzero" />
@@ -473,8 +593,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M159.375987902749,254.795771752251L89.3759879027493,254.795771752251 89.3759879027493,264.004207095364 159.375987902749,264.004207095364 159.375987902749,254.795771752251" FillRule="Nonzero" />
@@ -482,8 +606,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M105.058396697044,270.142629296053L142.497264734469,270.142629296053 142.497264734469,264.004207095364 105.058396697044,264.004207095364 105.058396697044,270.142629296053" FillRule="Nonzero" />
@@ -492,8 +620,12 @@
 					<DrawingGroup>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M171.375987903681,254.795771751786L200.375987916719,254.795771751786" FillRule="Nonzero" />
@@ -501,8 +633,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M171.375987903681,299.375517577981L200.375987916719,299.375517577981" FillRule="Nonzero" />
@@ -510,8 +646,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987916719,258.795771751786L194.375987916719,295.375517577981" FillRule="Nonzero" />
@@ -519,8 +659,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.0315252762716105" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.0315252762716105" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M196.497308260279,252.674451408226L192.25466757316,256.917092095345" FillRule="Nonzero" />
@@ -528,8 +672,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987916719,258.795771751786L194.375987916719,250.795771751786" FillRule="Nonzero" />
@@ -537,8 +685,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.0315252762716104" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.0315252762716104" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M192.25466757316,301.49683792154L196.497308260279,297.254197234421" FillRule="Nonzero" />
@@ -546,8 +698,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987916719,295.375517577981L194.375987916719,303.375517577981" FillRule="Nonzero" />
@@ -557,8 +713,12 @@
 					<DrawingGroup>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M171.375987903681,240.111466562143L200.375987918582,240.111466562143" FillRule="Nonzero" />
@@ -566,8 +726,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M171.375987903681,254.795771751786L200.375987918582,254.795771751786" FillRule="Nonzero" />
@@ -575,8 +739,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987918582,236.111466562143L194.375987918582,232.111466562143" FillRule="Nonzero" />
@@ -584,8 +752,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987918582,258.795771751786L194.375987918582,262.795771751786" FillRule="Nonzero" />
@@ -593,8 +765,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987918582,240.111466562143L194.375987918582,254.795771751786" FillRule="Nonzero" />
@@ -602,8 +778,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.0315252762716104" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.0315252762716104" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M192.254667575022,242.232786905702L196.497308262141,237.990146218583" FillRule="Nonzero" />
@@ -611,8 +791,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987918582,236.111466562143L194.375987918582,244.111466562143" FillRule="Nonzero" />
@@ -620,8 +804,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.0315252762716105" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.0315252762716105" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M196.497308262141,252.674451408226L192.254667575022,256.917092095345" FillRule="Nonzero" />
@@ -629,8 +817,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987918582,258.795771751786L194.375987918582,250.795771751786" FillRule="Nonzero" />
@@ -640,8 +832,12 @@
 					<DrawingGroup>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M171.375987903681,46.4213844370097L200.375987918582,46.4213844370097" FillRule="Nonzero" />
@@ -649,8 +845,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M171.375987903681,240.111466562143L200.375987918582,240.111466562143" FillRule="Nonzero" />
@@ -658,8 +858,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987918582,50.4213844370097L194.375987918582,236.111466562143" FillRule="Nonzero" />
@@ -667,8 +871,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.0315252762716105" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.0315252762716105" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M196.497308262141,44.30006409345L192.254667575022,48.5427047805693" FillRule="Nonzero" />
@@ -676,8 +884,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987918582,50.4213844370097L194.375987918582,42.4213844370097" FillRule="Nonzero" />
@@ -685,8 +897,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.0315252762716104" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.0315252762716104" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M192.254667575022,242.232786905702L196.497308262141,237.990146218583" FillRule="Nonzero" />
@@ -694,8 +910,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M194.375987918582,236.111466562143L194.375987918582,244.111466562143" FillRule="Nonzero" />
@@ -704,8 +924,12 @@
 					</DrawingGroup>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M51.678449140396,65.9985404642066L51.713132367935,65.0053525598487 51.8170113428496,64.0170034797629 51.9895825251006,63.0383082063636 52.2300028665923,62.0740347536048 52.5371012552641,61.1288810403785 52.9093832834624,60.2074518831214 53.3450331552885,59.314236703678 53.841929899063,58.453586641117 54.3976521356963,57.6296945245704 55.0094923838042,56.8465743692359 55.6744694574736,56.1080423028907 56.389344678726,55.4176955850562 57.1506342752837,54.7788978250464 57.9546303614043,54.1947608621558 58.7974147661589,53.6681304605445 59.6748819216155,53.2015729577979 60.5827574594878,52.7973609598121 61.5166177614592,52.457462850376 62.4719130857848,52.183537069126 63.4439895018004,51.9769149454078 64.4281113012694,51.8386064203223 65.9163803919218,51.7606092126807" FillRule="Nonzero" />
@@ -713,8 +937,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M41.000000463333,65.9985404642066L41.0606961115263,64.2604616315803 41.2424855097197,62.5308507116279 41.5444836481474,60.818133893772 41.965218053665,59.1306553514441 42.5026421411894,57.4766364725074 43.1541352136992,55.8641353280982 43.9165234430693,54.3010087640723 44.7860913141631,52.7948709161719 45.7586064203642,51.3530593545875 46.829325185623,49.9826007516822 47.9930367334746,48.690167966648 49.2440686090849,47.4820609720191 50.5763249262236,46.3641658456763 51.9833178385161,45.3419261606177 53.4581904276274,44.4203220041236 54.9937586649321,43.6038470895728 56.5825400217436,42.8964744241675 58.2167954309843,42.3016544015845 59.8885626657866,41.822284284397 61.5896963938139,41.460696759983 63.3119094236754,41.2186542184791 65.9163803919218,41.0821605356177" FillRule="Nonzero" />
@@ -722,8 +950,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M40.9999999944121,85.9985404642066L40.9999999944121,65.9985404642066" FillRule="Nonzero" />
@@ -731,8 +963,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M51.678448736202,85.9985404642066L51.678448736202,65.9985404642066" FillRule="Nonzero" />
@@ -741,8 +977,12 @@
 					<DrawingGroup>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M46.3564447616227,29.082172422437L46.3981786817312,0" FillRule="Nonzero" />
@@ -750,8 +990,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M123.61177648278,29.1930364872096L123.653510402888,0.110864064772613" FillRule="Nonzero" />
@@ -759,8 +1003,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M50.3895643651485,6.00573395413812L119.644904323854,6.10511775489431" FillRule="Nonzero" />
@@ -768,8 +1016,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="1.5999983549118" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="1.5999983549118" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M44.2712944893039,3.87563149805022L48.5078424785414,8.12435614609318" FillRule="Nonzero" />
@@ -777,8 +1029,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M50.3895643652811,6.00573395408073L42.3895726025642,5.99425369006267" FillRule="Nonzero" />
@@ -786,8 +1042,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="1.5999983549118" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="1.5999983549118" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M125.763174199698,8.2352202108658L121.526626210461,3.98649556282283" FillRule="Nonzero" />
@@ -795,8 +1055,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M119.644904323721,6.10511775483528L127.644896086438,6.11659801885335" FillRule="Nonzero" />
@@ -806,8 +1070,12 @@
 					<DrawingGroup>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M28.9999999953434,85.9985404637409L0,85.9985404637409" FillRule="Nonzero" />
@@ -815,8 +1083,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M28.9999999944121,46.4213844371261L0,46.4213844371261" FillRule="Nonzero" />
@@ -824,8 +1096,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M6,81.9985404637409L6,50.4213844371261" FillRule="Nonzero" />
@@ -833,8 +1109,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.0315252762716104" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.0315252762716104" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M3.87867965644036,88.1198608073006L8.12132034355964,83.8772201201813" FillRule="Nonzero" />
@@ -842,8 +1122,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M6,81.9985404637409L6,89.9985404637409" FillRule="Nonzero" />
@@ -851,8 +1135,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.0315252762716105" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.0315252762716105" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M8.12132034355964,44.3000640935665L3.87867965644036,48.5427047806858" FillRule="Nonzero" />
@@ -860,8 +1148,12 @@
 						</GeometryDrawing>
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
-								<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-								     StartLineCap="Round" Thickness="0.273670345544815" />
+								<Pen Brush="Black"
+								     EndLineCap="Round"
+								     LineJoin="Round"
+								     MiterLimit="1"
+								     StartLineCap="Round"
+								     Thickness="0.273670345544815" />
 							</GeometryDrawing.Pen>
 							<GeometryDrawing.Geometry>
 								<PathGeometry Figures="M6,50.4213844371261L6,42.4213844371261" FillRule="Nonzero" />
@@ -870,8 +1162,12 @@
 					</DrawingGroup>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279677182,299.375517578563L117.884830935393,297.874759479193" FillRule="Nonzero" />
@@ -879,8 +1175,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279677182,296.578731178539L117.884830935393,295.077973078936" FillRule="Nonzero" />
@@ -888,8 +1188,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279677182,293.781944778399L117.884830935393,292.281186678796" FillRule="Nonzero" />
@@ -897,8 +1201,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279677182,290.985158378258L117.884830935393,289.484400278539" FillRule="Nonzero" />
@@ -906,8 +1214,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="#FF000000" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="#FF000000"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M128.563279677182,288.188371978467L117.884830935393,286.687613878748" FillRule="Nonzero" />
@@ -915,8 +1227,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="Black"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M1.37598790274933,266.795771752135L57.3759879027493,266.795771752135 45.3759879027493,254.795771752135 33.3759879027493,266.795771752135" FillRule="Nonzero" />
@@ -924,8 +1240,12 @@
 					</GeometryDrawing>
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
-							<Pen Brush="Black" EndLineCap="Round" LineJoin="Round" MiterLimit="1"
-							     StartLineCap="Round" Thickness="0.273670345544815" />
+							<Pen Brush="Black"
+							     EndLineCap="Round"
+							     LineJoin="Round"
+							     MiterLimit="1"
+							     StartLineCap="Round"
+							     Thickness="0.273670345544815" />
 						</GeometryDrawing.Pen>
 						<GeometryDrawing.Geometry>
 							<PathGeometry Figures="M89.3759879027493,254.795771752251L45.3759879027493,254.795771752135" FillRule="Nonzero" />
