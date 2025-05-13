@@ -101,6 +101,7 @@ namespace Muggle.TeklaPlugins.KJ2001 {
     [SecondaryType(SecondaryType.SECONDARYTYPE_ZERO)]
     [DetailType(Tekla.Structures.DetailTypeEnum.END)]
     [PositionType(Tekla.Structures.PositionTypeEnum.END_END_PLANE)]
+    [AutoDirectionType(Tekla.Structures.AutoDirectionTypeEnum.AUTODIR_DETAIL)]
     public class KJ2001 : ConnectionBase {
         #region Fields
         private Model _Model;
@@ -323,7 +324,15 @@ namespace Muggle.TeklaPlugins.KJ2001 {
         }
 
         private TransformationPlane GetWorkTransformationPlane() {
-            return new TransformationPlane(new TSG.Point(), new TSG.Vector(0.0, 0.0, 1000.0), new TSG.Vector(0.0, 1000.0, 0.0));
+            var primPart = Model.SelectModelObject(Primary) as Part;
+            var partCS = primPart.GetCoordinateSystem();
+
+            var axisY = new TSG.Vector(0.0, 1000.0, 0.0);
+            var axisZ = new TSG.Vector(0.0, 0.0, 1000.0);
+            axisY = axisY.TransformFrom(partCS);
+            axisZ = axisZ.TransformFrom(partCS);
+
+            return new TransformationPlane(new TSG.Point(), axisY, axisZ);
         }
 
         private void CreatDetail() {
