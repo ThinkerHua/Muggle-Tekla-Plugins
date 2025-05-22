@@ -13,6 +13,7 @@
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using Muggle.TeklaPlugins.Common.Internal;
+using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
@@ -25,10 +26,16 @@ namespace Muggle.TeklaPlugins.MainForm.Tools {
             var picker = new Picker();
             ModelObject obj;
             try {
-                obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT);
-                while (obj != null) {
-                    Internal.ShowCoordinateSystem(obj.GetCoordinateSystem());
+                while (true) {
                     obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT);
+                    if (obj is PolyBeam polyBeam) {
+                        var css = polyBeam.GetPolybeamCoordinateSystems();
+                        foreach (CoordinateSystem cs in css) {
+                            Internal.ShowCoordinateSystem(cs);
+                        }
+                    } else {
+                        Internal.ShowCoordinateSystem(obj.GetCoordinateSystem());
+                    }
                 }
             } catch {
 

@@ -40,5 +40,24 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             // GeometricPlane.Normal 不可能是零向量，不需要验证
             return new Vector(vector - Vector.Dot(vector, gPlane.Normal) / Math.Pow(gPlane.Normal.GetLength(), 2) * gPlane.Normal);
         }
+
+        /// <summary>
+        /// 获取点在线段或其延长线上的投影点。
+        /// </summary>
+        /// <param name="point">给定点</param>
+        /// <param name="lineSegment">给定线段</param>
+        /// <returns>点在线段或其延长线上的投影点。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static Point PointToLineSegment(Point point, LineSegment lineSegment) {
+            if (point is null) {
+                throw new ArgumentNullException(nameof(point));
+            }
+            if (lineSegment is null) {
+                throw new ArgumentNullException(nameof(lineSegment));
+            }
+            var line = new Line(lineSegment.Point1, lineSegment.Point2);
+            var projection = Projection.PointToLine(point, line);
+            return projection;
+        }
     }
 }
