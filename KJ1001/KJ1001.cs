@@ -605,6 +605,12 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             #endregion
 
             #region 柱内部加强板
+            var chamferNone = new Chamfer();
+            var chamferLine = new Chamfer(innerStiffener_chamferSize, innerStiffener_chamferSize, Chamfer.ChamferTypeEnum.CHAMFER_LINE);
+            var chamferArcPoint = new Chamfer { Type = Chamfer.ChamferTypeEnum.CHAMFER_ARC_POINT };
+
+            if (innerStiffener_thickness <= 0.0) goto Skip_InnerSfiffener;
+
             static ContourPlate CreatAndWeldInnerStiffener(
                 Part prim, Part thickenedStiffener1, Part thickenedStiffener2,
                 Point point1, Point point2, Point point3, Point point4,
@@ -640,25 +646,15 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 return plate;
             }
 
-            var chamferNone = new Chamfer();
-            var chamferLine = new Chamfer(innerStiffener_chamferSize, innerStiffener_chamferSize, Chamfer.ChamferTypeEnum.CHAMFER_LINE);
-            var chamferArcPoint = new Chamfer { Type = Chamfer.ChamferTypeEnum.CHAMFER_ARC_POINT };
-
             point1 = new Point(secTxPrimR) {
                 X = strong ? prfPrim.h1 * -0.5 + prfPrim.t : prfPrim.b1 * -0.5 + prfPrim.s,
                 Z = thickenedStiffener1 is null ?
                     (strong ? prfPrim.b1 * 0.5 - prfPrim.s : prfPrim.h1 * 0.5 - prfPrim.t) :
                     (strong ? prfPrim.b1 * 0.5 - thickenedStiffener_thickness : prfPrim.h1 * 0.5 - thickenedStiffener_thickness)
             };
-            point2 = new Point(point1) {
-                X = -point1.X
-            };
-            var point3 = new Point(point2) {
-                Z = -point2.Z
-            };
-            var point4 = new Point(point3) {
-                X = -point3.X
-            };
+            point2 = new Point(point1) { X = -point1.X };
+            var point3 = new Point(point2) { Z = -point2.Z };
+            var point4 = new Point(point3) { X = -point3.X };
             CreatAndWeldInnerStiffener(prim, thickenedStiffener1, thickenedStiffener2,
                 point1, point2, point3, point4,
                 "INNER_STIFFENER", innerStiffener_thickness, stiffener_materialStr, chamferLine, Position.DepthEnum.BEHIND);
@@ -685,6 +681,8 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             CreatAndWeldInnerStiffener(prim, thickenedStiffener1, thickenedStiffener2,
                 point1, point2, point3, point4,
                 "INNER_STIFFENER", innerStiffener_thickness, stiffener_materialStr, chamferLine, Position.DepthEnum.FRONT);
+
+        Skip_InnerSfiffener:;
             #endregion
 
             if (type != 0) goto ShortBeam;
@@ -882,7 +880,6 @@ namespace Muggle.TeklaPlugins.KJ1001 {
         #endregion
 
         ShortBeam:;
-
             #region 短梁
             var shortBeam = ModelOperation.CreatBeam(secOrigin, secOrigin + secAxisX * shortBeamLength,
                 "SHORT_BEAM", shortBeam_prfStr, shortBeam_materialStr,
@@ -1058,10 +1055,11 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             #endregion
 
             return;
+
         #endregion
 
-        #region Type2
         Type2:;
+            #region Type2
 
             #region 原梁对齐
             fittingPlane = new Plane { Origin = origin, AxisX = axisY, AxisY = axisZ };
@@ -1125,7 +1123,9 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             weld.RootOpeningAbove = weld_root_opening;
             weld.Modify();
             #endregion
+
             return;
+
             #endregion
 
         }
