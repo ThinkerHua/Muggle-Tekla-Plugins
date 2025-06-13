@@ -1180,13 +1180,13 @@ namespace Muggle.TeklaPlugins.Common.Model {
             var point1 = firstPosition - anchorDirection * length1;
             var point2 = firstPosition + anchorDirection * length2;
             screw = CreatBeam(point1, point2, "SCREW", $"D{size - 1}", material,
-                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+                partPrefix: "D", @class: @class);
 
             var point3 = point2 + anchorDirection * length3;
             Point point4 = null, point5 = null, point6 = null;
             if (length4 == 0.0) {
                 anchorRod = CreatBeam(point2, point3, "ANCHORROD", $"D{size}", material,
-                    assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+                    partPrefix: "D", @class: @class);
             } else {
                 var chamferNone = new Chamfer();
                 var chamferRounding = new Chamfer {
@@ -1204,8 +1204,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
                     anchorRod = CreatPolyBeam(
                         new Contour { ContourPoints = new ArrayList { cp2, cp3, cp4 } },
-                        "ANCHORROD", $"D{size}", material,
-                        assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+                        "ANCHORROD", $"D{size}", material, partPrefix: "D", @class: @class);
                 } else {
                     point5 = point4 - anchorDirection * length5;
                     cp4 = new ContourPoint(point4, chamferRounding);
@@ -1213,10 +1212,11 @@ namespace Muggle.TeklaPlugins.Common.Model {
 
                     anchorRod = CreatPolyBeam(
                         new Contour { ContourPoints = new ArrayList { cp2, cp3, cp4, cp5 } },
-                        "ANCHORROD", $"D{size}", material,
-                        assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+                        "ANCHORROD", $"D{size}", material, partPrefix: "D", @class: @class);
                 }
             }
+
+            ApplyBooleanOperation(anchorRod, screw, BooleanPart.BooleanTypeEnum.BOOLEAN_ADD);
 
             if (!useWasherPlate)
                 goto SkipWasherPlate;
@@ -1224,13 +1224,13 @@ namespace Muggle.TeklaPlugins.Common.Model {
             point2 = point1 - hookDirection * washerPlateWidth;
             washerPlate = CreatBeam(
                 point1, point2, "WASHERPLATE", $"PL{washerPlateThickness}*{washerPlateWidth}", material,
-                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class, depthEnum: Position.DepthEnum.FRONT);
+                @class: @class, depthEnum: Position.DepthEnum.FRONT);
 
             point1 = firstPosition - anchorDirection * washerPlatePosition;
             point2 = point1 - anchorDirection * washerPlateThickness;
             var hole = CreatBeam(
                 point1, point2, "HOLE", $"D{washerPlateHoleDiameter}", "ANTIMATERIAL",
-                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: BooleanPart.BooleanOperativeClassName);
+                partPrefix: "D", @class: BooleanPart.BooleanOperativeClassName);
             ApplyBooleanOperation(washerPlate, hole, BooleanPart.BooleanTypeEnum.BOOLEAN_CUT);
             hole.Delete();
         SkipWasherPlate:
@@ -1241,7 +1241,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             point2 = point1 - anchorDirection * (size * 0.5);
             washer1 = CreatBeam(
                 point1, point2, "WASHER", $"O{size * 2 + 6}*{size * 0.5 + 3}", material,
-                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+                partPrefix: "O", @class: @class);
         SkipWasher1:
 
             if (!useWasher2)
@@ -1250,7 +1250,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             point2 = point1 - anchorDirection * (size * 0.5);
             washer2 = CreatBeam(
                 point1, point2, "WASHER", $"O{size * 2 + 6}*{size * 0.5 + 3}", material,
-                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+                partPrefix: "O", @class: @class);
         SkipWasher2:
 
             if (!useWasher3)
@@ -1259,7 +1259,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             point2 = point1 + anchorDirection * (size * 0.5);
             washer3 = CreatBeam(
                 point1, point2, "WASHER", $"O{size * 2 + 6}*{size * 0.5 + 3}", material,
-                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class);
+                partPrefix: "O", @class: @class);
         SkipWasher3:
 
             var matrix = MatrixFactoryExtension.Rotate(new Line(firstPosition, secondPosition), Math.PI / 3);
@@ -1275,7 +1275,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             point6 = matrix.Transform(point5);
             nut1 = CreatContourPlate(
                 new[] { point1, point2, point3, point4, point5, point6 }, "NUT", $"PL{size}", material,
-                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class, depthEnum: Position.DepthEnum.FRONT);
+                @class: @class, depthEnum: Position.DepthEnum.FRONT);
         SkipNut1:
 
             if (!useNut2)
@@ -1291,7 +1291,7 @@ namespace Muggle.TeklaPlugins.Common.Model {
             point6 = matrix.Transform(point5);
             nut2 = CreatContourPlate(
                 new[] { point1, point2, point3, point4, point5, point6 }, "NUT", $"PL{size}", material,
-                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class, depthEnum: Position.DepthEnum.FRONT);
+                @class: @class, depthEnum: Position.DepthEnum.FRONT);
         SkipNut2:
 
             if (!useNut3)
@@ -1304,18 +1304,16 @@ namespace Muggle.TeklaPlugins.Common.Model {
             point6 = matrix.Transform(point5);
             nut3 = CreatContourPlate(
                 new[] { point1, point2, point3, point4, point5, point6 }, "NUT", $"PL{size}", material,
-                assemblyPrefix: string.Empty, partPrefix: string.Empty, @class: @class, depthEnum: Position.DepthEnum.BEHIND);
+                @class: @class, depthEnum: Position.DepthEnum.BEHIND);
         SkipNut3:
 
-            ApplyBooleanOperation(anchorRod, screw, BooleanPart.BooleanTypeEnum.BOOLEAN_ADD);
-
             var parts = new List<Part> { anchorRod };
+            if (washerPlate != null) parts.Add(washerPlate);
 
             hole = CreatBeam(
                 firstPosition + anchorDirection * (size * 1.5),
                 firstPosition - anchorDirection * (washerPlatePosition + washerPlateThickness + size * 3),
-                "HOLE", $"D{size}", "ANTIMATERIAL", @class: BooleanPart.BooleanOperativeClassName,
-                assemblyPrefix: string.Empty, partPrefix: string.Empty);
+                "HOLE", $"D{size}", "ANTIMATERIAL", @class: BooleanPart.BooleanOperativeClassName);
             if (washer1 != null) {
                 ApplyBooleanOperation(washer1, hole, BooleanPart.BooleanTypeEnum.BOOLEAN_CUT);
                 parts.Add(washer1);

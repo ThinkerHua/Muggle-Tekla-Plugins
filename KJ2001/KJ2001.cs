@@ -373,38 +373,55 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             #endregion
 
             #region 创建锚栓
+            var assembly = primPart.GetAssembly();
             var matrix = MatrixFactoryExtension.Rotate(new Line(origin, axisZ), Math.PI);
             point1 = new TSG.Point(basePlate_length * 0.5 - anchorRod_distance_to_edge, 0.0, -basePlate_thickness);
             point2 = point1 - axisZ;
-            ModelOperation.CreatAnchorRod(
+            var anchorRods = ModelOperation.CreatAnchorRod(
                 point1, point2,
                 anchorRod_length1, anchorRod_length2, anchorRod_length3, anchorRod_length4, anchorRod_length5,
                 axisX, material: anchorRod_material, size: anchorRod_size, @class: "0",
                 washerPlateThickness: washerPlate_thickness, washerPlateWidth: washerPlate_width,
                 washerPlatePosition: basePlate_thickness, washerPlateHoleDiameter: washerPlate_holeDiameter);
-            ModelOperation.CreatAnchorRod(
+            foreach (var obj in anchorRods) {
+                assembly.Add(obj);
+            }
+
+            anchorRods = ModelOperation.CreatAnchorRod(
                 matrix.Transform(point1), matrix.Transform(point2),
                 anchorRod_length1, anchorRod_length2, anchorRod_length3, anchorRod_length4, anchorRod_length5,
                 MatrixExtension.Transform(matrix, axisX), material: anchorRod_material, size: anchorRod_size,
                 @class: "0",
                 washerPlateThickness: washerPlate_thickness, washerPlateWidth: washerPlate_width,
                 washerPlatePosition: basePlate_thickness, washerPlateHoleDiameter: washerPlate_holeDiameter);
+            foreach (var obj in anchorRods) {
+                assembly.Add(obj);
+            }
 
             point1 = new TSG.Point(0.0, basePlate_width * 0.5 - anchorRod_distance_to_edge, -basePlate_thickness);
             point2 = point1 - axisZ;
-            ModelOperation.CreatAnchorRod(
+            anchorRods = ModelOperation.CreatAnchorRod(
                 point1, point2,
                 anchorRod_length1, anchorRod_length2, anchorRod_length3, anchorRod_length4, anchorRod_length5,
                 axisY, material: anchorRod_material, size: anchorRod_size, @class: "0",
                 washerPlateThickness: washerPlate_thickness, washerPlateWidth: washerPlate_width,
                 washerPlatePosition: basePlate_thickness, washerPlateHoleDiameter: washerPlate_holeDiameter);
-            ModelOperation.CreatAnchorRod(
+            foreach (var obj in anchorRods) {
+                assembly.Add(obj);
+            }
+
+            anchorRods = ModelOperation.CreatAnchorRod(
                 matrix.Transform(point1), matrix.Transform(point2),
                 anchorRod_length1, anchorRod_length2, anchorRod_length3, anchorRod_length4, anchorRod_length5,
                 MatrixExtension.Transform(matrix, axisY), material: anchorRod_material, size: anchorRod_size,
                 @class: "0",
                 washerPlateThickness: washerPlate_thickness, washerPlateWidth: washerPlate_width,
                 washerPlatePosition: basePlate_thickness, washerPlateHoleDiameter: washerPlate_holeDiameter);
+            foreach (var obj in anchorRods) {
+                assembly.Add(obj);
+            }
+
+            assembly.Modify();
             #endregion
 
             #region 创建栓钉
