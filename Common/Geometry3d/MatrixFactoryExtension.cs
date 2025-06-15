@@ -13,7 +13,6 @@
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
-using System.Xml.Linq;
 using Tekla.Structures.Geometry3d;
 
 namespace Muggle.TeklaPlugins.Common.Geometry3d {

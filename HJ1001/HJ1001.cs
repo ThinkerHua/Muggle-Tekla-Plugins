@@ -14,7 +14,6 @@
  *==============================================================================*/
 using System;
 using System.Collections;
-using System.Windows.Forms;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
@@ -22,6 +21,9 @@ using Tekla.Structures;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Plugins;
+using MessageBox = System.Windows.MessageBox;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxImage = System.Windows.MessageBoxImage;
 using TSG = Tekla.Structures.Geometry3d;
 
 namespace Muggle.TeklaPlugins.HJ1001 {
@@ -63,7 +65,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
     }
 
     [Plugin("HJ1001")]
-    [PluginUserInterface("Muggle.TeklaPlugins.HJ1001.FormHJ1001")]
+    [PluginUserInterface("Muggle.TeklaPlugins.HJ1001.Views.MainWindow")]
     [InputObjectType(InputObjectType.INPUTOBJECT_PART)]
     [SecondaryType(SecondaryType.SECONDARYTYPE_ONE)]
     [PositionType(PositionTypeEnum.END_END_PLANE)]
@@ -132,7 +134,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
 
                 CreatConnection();
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 

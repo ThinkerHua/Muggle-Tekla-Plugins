@@ -37,7 +37,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
         private double _start = 0;
         private double _end = 0;
         private double _enumInterval = GeometryConstants.DISTANCE_EPSILON;
-        private int _position = -1;
+
         /// <summary>
         /// 点区间的枚举器。
         /// </summary>
@@ -47,6 +47,11 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             private readonly double _width;
             private int _index;
             private readonly double _interval;
+
+            /// <summary>
+            /// 使用给定点区间的属性初始化枚举器。
+            /// </summary>
+            /// <param name="itvl">给定点区间</param>
             public Enumerator(PointsInterval itvl) {
                 _origin = new Point(itvl.Origin);
                 _direction = new Vector(itvl.Direction);
@@ -54,23 +59,29 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 _index = -1;
                 _interval = itvl.EnumInterval;
             }
-            public Point Current => _origin + _direction * (_index * _interval);
 
-            object IEnumerator.Current => Current;
+            /// <inheritdoc cref="IEnumerator{T}.Current"/>
+            public readonly Point Current => _origin + _direction * (_index * _interval);
 
-            public void Dispose() {
-                
+            readonly object IEnumerator.Current => Current;
+
+            /// <inheritdoc cref="IDisposable.Dispose"/>
+            public readonly void Dispose() {
+
             }
 
+            /// <inheritdoc cref="IEnumerator.MoveNext"/>
             public bool MoveNext() {
                 _index++;
                 return _index * _interval <= _width;
             }
 
+            /// <inheritdoc cref="IEnumerator.Reset"/>
             public void Reset() {
                 _index = -1;
             }
         }
+
         /// <summary>
         /// 数轴的原点。
         /// </summary>
@@ -79,6 +90,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             get => _origin;
             set => _origin.Copy(value);
         }
+
         /// <summary>
         /// 数轴的方向。
         /// </summary>
@@ -94,6 +106,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 }
             }
         }
+
         /// <summary>
         /// 区间起点值。
         /// </summary>
@@ -107,6 +120,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 if (_start > _end) _end = _start;
             }
         }
+
         /// <summary>
         /// 区间终点值。
         /// </summary>
@@ -120,18 +134,22 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 if (_start > _end) _start = _end;
             }
         }
+
         /// <summary>
         /// 区间的宽度。
         /// </summary>
         public double Width => _end - _start;
+
         /// <summary>
         /// 区间起点。
         /// </summary>
         public Point StartPoint => _origin + _start * _direction;
+
         /// <summary>
         /// 区间终点。
         /// </summary>
         public Point EndPoint => _origin + _end * _direction;
+
         /// <summary>
         /// 枚举间隔。
         /// </summary>
@@ -142,11 +160,13 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 if (value >= 0) _enumInterval = value;
             }
         }
+
         /// <summary>
         /// 使用默认值构造点区间，<see cref="Origin"/> 为零点，
         /// <see cref="Direction"/> 为单位 X 向量，<see cref="Start"/> 和 <see cref="End"/> 均为 0.0。
         /// </summary>
         public PointsInterval() { }
+
         /// <summary>
         /// 使用给定属性值构造点区间。
         /// </summary>
@@ -161,6 +181,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             Start = start;
             End = end;
         }
+
         /// <summary>
         /// 用一条直线构造点区间，<see cref="Start"/> 为 <see cref="double.NegativeInfinity"/>，
         /// <see cref="End"/> 为 <see cref="double.PositiveInfinity"/>。
@@ -180,6 +201,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             Start = double.NegativeInfinity;
             End = double.PositiveInfinity;
         }
+
         /// <summary>
         /// 用一条线段构造点区间，<see cref="Start"/> 为 0.0，<see cref="End"/> 为线段长度。
         /// </summary>
@@ -198,6 +220,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             Origin = lineSegment.StartPoint;
             End = lineSegment.Length();
         }
+
         /// <summary>
         /// 使用给定点区间构造新实例。
         /// </summary>
@@ -213,6 +236,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             End = itvl.End;
             EnumInterval = itvl.EnumInterval;
         }
+
         /// <summary>
         /// 获取当前点区间的字符串表示形式。
         /// </summary>
@@ -228,6 +252,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 $"Start = {_start.ToString(format)}, StartPoint = {StartPoint.ToString(format)},\n" +
                 $"End = {_end.ToString(format)}, EndPoint = {EndPoint.ToString(format)}\n";
         }
+
         /// <summary>
         /// 判断区间是否包含给定点。
         /// </summary>
@@ -249,6 +274,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return true;
         }
+
         /// <summary>
         /// 判断区间是否包含给定实数。
         /// </summary>
@@ -258,6 +284,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             if (double.IsNaN(value) || value < Start || value > End) return false;
             return true;
         }
+
         /// <summary>
         /// 获取给定点在整个数轴上对应的实数值。
         /// </summary>
@@ -283,6 +310,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             //  由于 Direction 是单位向量，其自身的点积必定等于1，所以除数可以简化掉
             return Vector.Dot(vector, Direction);
         }
+
         /// <summary>
         /// 获取给定实数值在整个数轴上对应的点。
         /// </summary>
@@ -296,6 +324,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return Origin + value * Direction;
         }
+
         /// <summary>
         /// 获取<b>区间内</b>给定实数值左右各数个连续间距的值的集合。
         /// </summary>
@@ -327,6 +356,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 yield return value + i * dis;
             }
         }
+
         /// <summary>
         /// 获取<b>区间内</b>给定点左右各数个连续间距的点的集合。
         /// </summary>
@@ -360,6 +390,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return GetPointsArround(value, dis, num);
         }
+
         /// <summary>
         /// 获取<b>区间内</b>给定实数值对应的点左右各数个连续间距的点的集合。
         /// </summary>
@@ -391,6 +422,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
                 yield return GetPoint(value + i * dis);
             }
         }
+
         /// <summary>
         /// 用当前点区间的原点和方向变换给定点区间。
         /// </summary>
@@ -425,6 +457,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return true;
         }
+
         /// <summary>
         /// 获取当前点区间与给定点区间的交集。交集原点和方向与当前点区间相同。
         /// </summary>
@@ -438,6 +471,7 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
 
             return Intersect(this, itvl);
         }
+
         /// <summary>
         /// 获取两个给定点区间的交集，其原点和方向与 <paramref name="itvl1"/> 相同。
         /// </summary>

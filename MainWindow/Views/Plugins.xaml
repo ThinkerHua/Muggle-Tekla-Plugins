@@ -1,0 +1,73 @@
+﻿<!--==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures
+ *
+ *  Copyright © 2025 Huang YongXing.
+ *
+ *  This library is free software, licensed under the terms of the GNU
+ *  General Public License as published by the Free Software Foundation,
+ *  either version 3 of the License, or (at your option) any later version.
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see<http://www.gnu.org/licenses/> .
+ *==============================================================================
+ *  Plugins.xaml: view for the plugins.
+ *  written by Huang YongXing - thinkerhua@hotmail.com
+ *==============================================================================-->
+<Page x:Class="Muggle.TeklaPlugins.MainWindow.Views.Plugins"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Muggle.TeklaPlugins.MainWindow.Views"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:vm="clr-namespace:Muggle.TeklaPlugins.MainWindow.ViewModels"
+      Title="Plugins"
+      d:DesignHeight="200"
+      d:DesignWidth="300"
+      d:Background="AliceBlue"
+      d:DataContext="{d:DesignInstance Type=vm:PluginsViewModel}"
+      mc:Ignorable="d">
+
+	<Page.Resources>
+		<ResourceDictionary>
+			<Style TargetType="Button">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="BorderBrush" Value="Transparent" />
+				<Setter Property="BorderThickness" Value="0" />
+			</Style>
+			<DataTemplate x:Key="pluginCardView">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="auto" />
+					</Grid.RowDefinitions>
+
+					<Image Grid.Row="0" Margin="2" Stretch="Uniform" Source="{Binding PluginName, Converter={StaticResource pluginNameToIcon}}" />
+					<TextBlock Grid.Row="1" Margin="2" Text="{Binding PluginName}" />
+				</Grid>
+			</DataTemplate>
+		</ResourceDictionary>
+	</Page.Resources>
+
+	<UniformGrid>
+		<UniformGrid.Columns>
+			<Binding RelativeSource="{x:Static RelativeSource.Self}" Path="ActualWidth" Converter="{StaticResource multiples}">
+				<Binding.ConverterParameter>
+					<sys:Double>64</sys:Double>
+				</Binding.ConverterParameter>
+			</Binding>
+		</UniformGrid.Columns>
+		<UniformGrid.Rows>
+			<Binding RelativeSource="{x:Static RelativeSource.Self}" Path="ActualHeight" Converter="{StaticResource multiples}">
+				<Binding.ConverterParameter>
+					<sys:Double>64</sys:Double>
+				</Binding.ConverterParameter>
+			</Binding>
+		</UniformGrid.Rows>
+		<Button ContentTemplate="{StaticResource pluginCardView}" Command="{Binding RunPluginCommand}" CommandParameter="KJ2001">
+			<vm:PluginCard PluginName="KJ2001" />
+		</Button>
+		<Button ContentTemplate="{StaticResource pluginCardView}" Command="{Binding RunPluginCommand}" CommandParameter="WK1001">
+			<vm:PluginCard PluginName="WK1001" />
+		</Button>
+	</UniformGrid>
+</Page>

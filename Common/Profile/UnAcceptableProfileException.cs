@@ -27,7 +27,7 @@ namespace Muggle.TeklaPlugins.Common.Profile {
         /// 根据给定引发异常的信息创建实例。
         /// </summary>
         /// <param name="message">引发异常的信息</param>
-        public UnAcceptableProfileException(string message) 
+        public UnAcceptableProfileException(string message)
             : base(string.Format("不支持此类型截面 或 不支持此类型截面的当前参数：{0}", message)) {
 
         }

@@ -58,7 +58,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF4C9900"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -76,7 +76,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -144,7 +144,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -171,7 +171,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -204,7 +204,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -226,7 +226,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -243,7 +243,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -260,7 +260,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -273,7 +273,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -286,7 +286,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -299,7 +299,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -317,7 +317,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -334,7 +334,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -351,7 +351,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -368,7 +368,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -385,7 +385,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -402,7 +402,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -424,7 +424,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -441,7 +441,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -458,7 +458,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -475,7 +475,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -507,7 +507,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -525,7 +525,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -543,7 +543,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -556,7 +556,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -569,7 +569,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -582,7 +582,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -595,7 +595,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -608,7 +608,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -621,7 +621,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -634,7 +634,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -647,7 +647,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -660,7 +660,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -673,7 +673,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -690,7 +690,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -707,7 +707,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -720,7 +720,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -734,7 +734,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -747,7 +747,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -760,7 +760,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -786,7 +786,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -812,7 +812,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -827,7 +827,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -840,7 +840,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -853,7 +853,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -879,7 +879,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -905,7 +905,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -920,7 +920,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -933,7 +933,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -946,7 +946,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -972,7 +972,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -998,7 +998,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1017,7 +1017,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -1034,7 +1034,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -1051,7 +1051,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -1068,7 +1068,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF000000"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Flat"
 							     EndLineCap="Flat"
 							     DashCap="Flat"
@@ -1086,7 +1086,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1099,7 +1099,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1112,7 +1112,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1138,7 +1138,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1164,7 +1164,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1179,7 +1179,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1192,7 +1192,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1205,7 +1205,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1218,7 +1218,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1231,7 +1231,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1257,7 +1257,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1283,7 +1283,7 @@
 						<GeometryDrawing>
 							<GeometryDrawing.Pen>
 								<Pen Brush="Black"
-								     Thickness="0.752684354782104"
+								     Thickness="2"
 								     StartLineCap="Round"
 								     EndLineCap="Round"
 								     LineJoin="Round"
@@ -1310,7 +1310,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="Black"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -1323,7 +1323,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="Black"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -1336,7 +1336,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF4C9900"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -1349,7 +1349,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF4C9900"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -1362,7 +1362,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="#FF4C9900"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -1388,7 +1388,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="Black"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"
@@ -1401,7 +1401,7 @@
 					<GeometryDrawing>
 						<GeometryDrawing.Pen>
 							<Pen Brush="Black"
-							     Thickness="0.752684354782104"
+							     Thickness="2"
 							     StartLineCap="Round"
 							     EndLineCap="Round"
 							     LineJoin="Round"

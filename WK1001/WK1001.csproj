@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
-		<PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
 		<UseWindowsForms>true</UseWindowsForms>
 		<UseWPF>true</UseWPF>
 		<AssemblyName>WK1001</AssemblyName>
 		<RootNamespace>Muggle.TeklaPlugins.WK1001</RootNamespace>
+		<Copyright>Copyright © 2025 thinkerhua@hotmail.com. All rights reserved.</Copyright>
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<OutputPath>Installer/BuildDrop</OutputPath>
-		<Copyright>Copyright © 2025 thinkerhua@hotmail.com. All rights reserved.</Copyright>
 	</PropertyGroup>
 	<ItemGroup>
 	  <PackageReference Include="Tekla.Structures" Version="2021.0.0" />
@@ -21,28 +21,7 @@
 	  <ProjectReference Include="..\Common\Common.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Properties\Resources.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Resources.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="Properties\Settings.Designer.cs">
-	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Settings.settings</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Update="Properties\Resources.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-	  <None Update="Properties\Settings.settings">
-	    <Generator>SettingsSingleFileGenerator</Generator>
-	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-	  </None>
+	  <Folder Include="Properties\" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 	  <Exec Command="xcopy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTeklaPlugins\&quot; /Y /C /Q /R" />

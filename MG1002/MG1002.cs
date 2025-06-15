@@ -16,7 +16,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
@@ -25,6 +24,9 @@ using Tekla.Structures.Datatype;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Plugins;
+using MessageBox = System.Windows.MessageBox;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxImage = System.Windows.MessageBoxImage;
 using TSG3d = Tekla.Structures.Geometry3d;
 
 namespace Muggle.TeklaPlugins.MG1002 {
@@ -54,7 +56,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
         [StructuresField("THK_SPLC_WEB")]
         public double thickness_splicingWeb;
         [StructuresField("DIS_WSeam_FSeam")]
-        public double distance_webSeam_flanggSeam;
+        public double distance_webSeam_flangeSeam;
         [StructuresField("bolt_Standard")]
         public string bolt_Standard;
         [StructuresField("bolt_Size")]
@@ -70,7 +72,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
     }
 
     [Plugin("MG1002")]
-    [PluginUserInterface("Muggle.TeklaPlugins.MG1002.FormMG1002")]
+    [PluginUserInterface("Muggle.TeklaPlugins.MG1002.Views.MainWindow")]
     [SecondaryType(SecondaryType.SECONDARYTYPE_TWO)]
     [AutoDirectionType(AutoDirectionTypeEnum.AUTODIR_BASIC)]
     public class MG1002 : ConnectionBase {
@@ -142,7 +144,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
                 result = true;
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return result;
@@ -163,7 +165,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
             pos_DIAG1 = _data.pos_DIAG1;
             pos_DIAG2 = _data.pos_DIAG2;
             thickness_splicingWeb = _data.thickness_splicingWeb;
-            distance_webSeam_flangeSeam = _data.distance_webSeam_flanggSeam;
+            distance_webSeam_flangeSeam = _data.distance_webSeam_flangeSeam;
             bolt_Standard = _data.bolt_Standard;
             bolt_Size = _data.bolt_Size;
             disListStr_bolt_X = _data.disListStr_bolt_X;

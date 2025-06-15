@@ -1,159 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{191F0900-2601-42FD-9334-4F0319628EBA}</ProjectGuid>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>8.0</LangVersion>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Muggle.TeklaPlugins.Common</RootNamespace>
-    <AssemblyName>Common</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Common.xml</DocumentationFile>
+    <Authors>thinkerhua@hotmail.com</Authors>
+    <Copyright>Copyright © 2024 thinkerhua@hotmail.com. All rights reserved.</Copyright>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Tekla.Structures, Version=2021.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Program Files\Tekla Structures\2021.0\nt\bin\plugins\Tekla.Structures.dll</HintPath>
-    </Reference>
-    <Reference Include="Tekla.Structures.Datatype, Version=2021.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Program Files\Tekla Structures\2021.0\nt\bin\plugins\Tekla.Structures.Datatype.dll</HintPath>
-    </Reference>
-    <Reference Include="Tekla.Structures.Model, Version=2021.0.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Program Files\Tekla Structures\2021.0\nt\bin\plugins\Tekla.Structures.Model.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Tekla.Structures" Version="2021.0.0" />
+    <PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" />
+    <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Internal\Internal.cs" />
-    <Compile Include="Model\ContourPointExtension.cs" />
-    <Compile Include="Model\OffsetExtension.cs" />
-    <Compile Include="Model\PositionExtension.cs" />
-    <Compile Include="Operation\CommonOperation.cs" />
-    <Compile Include="Geometry3d\ArcExtension.cs" />
-    <Compile Include="Geometry3d\CoordinateSystemExtension.cs" />
-    <Compile Include="Geometry3d\DistanceExtension.cs" />
-    <Compile Include="Geometry3d\GeometricPlaneFactory.cs" />
-    <Compile Include="Geometry3d\Geometry3dOperation.cs" />
-    <Compile Include="Geometry3d\IntersectionExtension.cs" />
-    <Compile Include="Geometry3d\LineExtension.cs" />
-    <Compile Include="Geometry3d\MatrixExtension.cs" />
-    <Compile Include="Geometry3d\MatrixFactoryExtension.cs" />
-    <Compile Include="Geometry3d\PointComparer.cs" />
-    <Compile Include="Geometry3d\PointExtension.cs" />
-    <Compile Include="Geometry3d\PointsInterval.cs" />
-    <Compile Include="Geometry3d\ProjectionExtension.cs" />
-    <Compile Include="Geometry3d\VectorExtension.cs" />
-    <Compile Include="ModelUI\ColorExtension.cs" />
-    <Compile Include="ModelUI\GraphicsDrawerExtension.cs" />
-    <Compile Include="Model\ModelOperation.cs" />
-    <Compile Include="Model\PolygonExtension.cs" />
-    <Compile Include="Operation\NumberCompression.cs" />
-    <Compile Include="Operation\StringCompression.cs" />
-    <Compile Include="Profile\ProfileBase.cs" />
-    <Compile Include="Profile\PatternCollection.cs" />
-    <Compile Include="Profile\ProfileCircular.cs" />
-    <Compile Include="Profile\ProfileCircular_Perfect.cs" />
-    <Compile Include="Profile\ProfileH.cs" />
-    <Compile Include="Profile\ProfileH_Symmetrical.cs" />
-    <Compile Include="Profile\ProfilePlate.cs" />
-    <Compile Include="Profile\ProfileRect.cs" />
-    <Compile Include="Profile\ProfileRect_Invariant.cs" />
-    <Compile Include="Profile\UnAcceptableProfileException.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_14.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_0.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_1.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_2.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_3.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_4.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_5.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_6.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_7.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_8.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_9.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_10.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_11.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_12.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\class_13.bmp" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).dll" "D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTeklaPlugins\" /Y /C /Q /R</PostBuildEvent>
-  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTeklaPlugins\&quot; /Y /C /Q /R" />
+  </Target>
 </Project>

@@ -24,11 +24,11 @@ namespace Muggle.TeklaPlugins.KJ1001 {
     /// </summary>
     public partial class MainWindow : PluginWindowBase {
         // define event
-        public MainWindowViewModel dataModel;
+        private readonly MainWindowViewModel _dataModel;
 
         public MainWindow(MainWindowViewModel DataModel) {
             InitializeComponent();
-            dataModel = DataModel;
+            _dataModel = DataModel;
         }
 
         private void WPFOkApplyModifyGetOnOffCancel_ApplyClicked(object sender, EventArgs e) {
@@ -61,7 +61,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfMaterialCatalog;
-            catalog.SelectedMaterial = dataModel.StiffenerMaterial;
+            catalog.SelectedMaterial = _dataModel.StiffenerMaterial;
         }
 
         private void STF_MATL_SelectionDone(object sender, EventArgs e) {
@@ -69,7 +69,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfMaterialCatalog;
-            dataModel.StiffenerMaterial = catalog.SelectedMaterial;
+            _dataModel.StiffenerMaterial = catalog.SelectedMaterial;
         }
 
         private void Cover_MATL_SelectClicked(object sender, EventArgs e) {
@@ -77,7 +77,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfMaterialCatalog;
-            catalog.SelectedMaterial = dataModel.CoverMaterial;
+            catalog.SelectedMaterial = _dataModel.CoverMaterial;
         }
 
         private void Cover_MATL_SelectionDone(object sender, EventArgs e) {
@@ -85,7 +85,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfMaterialCatalog;
-            dataModel.CoverMaterial = catalog.SelectedMaterial;
+            _dataModel.CoverMaterial = catalog.SelectedMaterial;
         }
 
         private void CNXPL_MATL_SelectClicked(object sender, EventArgs e) {
@@ -93,7 +93,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfMaterialCatalog;
-            catalog.SelectedMaterial = dataModel.ConnectionPlateMaterial;
+            catalog.SelectedMaterial = _dataModel.ConnectionPlateMaterial;
         }
 
         private void CNXPL_MATL_SelectionDone(object sender, EventArgs e) {
@@ -101,7 +101,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfMaterialCatalog;
-            dataModel.ConnectionPlateMaterial = catalog.SelectedMaterial;
+            _dataModel.ConnectionPlateMaterial = catalog.SelectedMaterial;
         }
 
         private void ShortBeam_PRF_SelectClicked(object sender, EventArgs e) {
@@ -109,7 +109,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfProfileCatalog;
-            catalog.SelectedProfile = dataModel.ShortBeamProfile;
+            catalog.SelectedProfile = _dataModel.ShortBeamProfile;
         }
 
         private void ShortBeam_PRF_SelectionDone(object sender, EventArgs e) {
@@ -117,7 +117,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfProfileCatalog;
-            dataModel.ShortBeamProfile = catalog.SelectedProfile;
+            _dataModel.ShortBeamProfile = catalog.SelectedProfile;
         }
 
         private void ShortBeam_MATL_SelectClicked(object sender, EventArgs e) {
@@ -125,7 +125,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfMaterialCatalog;
-            catalog.SelectedMaterial = dataModel.ShortBeamMaterial;
+            catalog.SelectedMaterial = _dataModel.ShortBeamMaterial;
         }
 
         private void ShortBeam_MATL_SelectionDone(object sender, EventArgs e) {
@@ -133,7 +133,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
                 sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
             }
             var catalog = sender as WpfMaterialCatalog;
-            dataModel.ShortBeamMaterial = catalog.SelectedMaterial;
+            _dataModel.ShortBeamMaterial = catalog.SelectedMaterial;
         }
     }
 }

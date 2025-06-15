@@ -17,18 +17,23 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.ModelUI;
+using Tekla.Structures;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
 namespace Muggle.TeklaPlugins.Test {
     internal class Test_Console {
+        private const string NOTRUNNING_MESSAGE = "Tekla structures not running.";
+        private const string USER_INTERRUPT = "User interrupt";
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
         static void Main() {
         Start:
             Console.WriteLine("选择要运行的测试：");
-            Console.WriteLine("[1] PositionOfTriangleOnLines");
+            Console.WriteLine("[1] Position of triangle on lines");
+            Console.WriteLine("[2] Tekla structures infomation");
+            Console.WriteLine("[3] Get model object type");
             Console.WriteLine("[0] 结束运行");
             int CASE;
             while (true) {
@@ -45,14 +50,23 @@ namespace Muggle.TeklaPlugins.Test {
                 TestPositionOfTriangleOnLines();
                 Console.WriteLine();
                 goto Start;
+            case 2:
+                TSInfo();
+                Console.WriteLine();
+                goto Start;
+            case 3:
+                GetModelObjectType();
+                Console.WriteLine();
+                goto Start;
             default:
                 Console.WriteLine("没有此选项，请重新选择。");
                 goto Start;
             }
         }
-        public static void TestPositionOfTriangleOnLines() {
+
+        private static void TestPositionOfTriangleOnLines() {
             if (!new Model().GetConnectionStatus()) {
-                Console.WriteLine("Tekla structures 不在运行。");
+                Console.WriteLine(NOTRUNNING_MESSAGE);
                 return;
             }
 
@@ -122,6 +136,45 @@ namespace Muggle.TeklaPlugins.Test {
                         num++;
                     }
                 }
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private static void TSInfo() {
+            var model = new Model();
+            if (!model.GetConnectionStatus()) {
+                Console.WriteLine(NOTRUNNING_MESSAGE);
+                return;
+            }
+
+            var info = TeklaStructuresInfo.GetFullTSRegistryKeyText();
+            var commonAppDataFolder = TeklaStructuresInfo.GetCommonAppDataFolder();
+            var localAppDataFolder = TeklaStructuresInfo.GetLocalAppDataFolder();
+            var XSDATADIR = string.Empty;
+            TeklaStructuresSettings.GetAdvancedOption("XSDATADIR", ref XSDATADIR);
+            Console.WriteLine(string.Format("Full registry key: {0}", info));
+            Console.WriteLine(string.Format("Common app data folder: {0}", commonAppDataFolder));
+            Console.WriteLine(string.Format("Local app data folder: {0}", localAppDataFolder));
+            Console.WriteLine(string.Format("XSDATADIR: {0}", XSDATADIR));
+        }
+
+        private static void GetModelObjectType() {
+            var model = new Model();
+            if (!model.GetConnectionStatus()) {
+                Console.WriteLine(NOTRUNNING_MESSAGE);
+                return;
+            }
+
+            var picker = new Picker();
+            try {
+                while (true) {
+                    var mo = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT);
+                    var type = mo.GetType();
+                    Console.WriteLine(string.Format("Selected object's type is {0}, full name is {1}", type.Name, type.FullName));
+                }
+            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
             }

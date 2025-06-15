@@ -1,0 +1,85 @@
+﻿<!--==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures
+ *
+ *  Copyright © 2025 Huang YongXing.
+ *
+ *  This library is free software, licensed under the terms of the GNU
+ *  General Public License as published by the Free Software Foundation,
+ *  either version 3 of the License, or (at your option) any later version.
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see<http://www.gnu.org/licenses/> .
+ *==============================================================================
+ *  MainWindow.xaml: view for all tools and plugins.
+ *  written by Huang YongXing - thinkerhua@hotmail.com
+ *==============================================================================-->
+<Window x:Class="Muggle.TeklaPlugins.MainWindow.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Muggle.TeklaPlugins.MainWindow.Views"
+        xmlns:vm="clr-namespace:Muggle.TeklaPlugins.MainWindow.ViewModels"
+        xmlns:svs="clr-namespace:Muggle.TeklaPlugins.MainWindow.Services"
+        Title="MainWindow"
+        Width="500"
+        Height="300"
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+
+	<Window.Resources>
+		<ResourceDictionary>
+			<Style x:Key="element" TargetType="FrameworkElement">
+				<Setter Property="Margin" Value="2" />
+			</Style>
+			<Style TargetType="Button" BasedOn="{StaticResource element}">
+				<Setter Property="Height" Value="30" />
+			</Style>
+			<Style TargetType="Expander" BasedOn="{StaticResource element}">
+				<Setter Property="Padding" Value="2" />
+				<Setter Property="BorderBrush" Value="LightGray" />
+			</Style>
+		</ResourceDictionary>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="160" />
+			<ColumnDefinition Width="auto" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+			<StackPanel>
+				<Expander Header="Tools" IsExpanded="True">
+					<StackPanel>
+						<Button Content="Normal" Command="{Binding NavigateCommand}">
+							<Button.CommandParameter>
+								<local:NormalTools />
+							</Button.CommandParameter>
+						</Button>
+						<Button Content="SelectBooleans" Command="{Binding NavigateCommand}">
+							<Button.CommandParameter>
+								<local:SelectBooleans />
+							</Button.CommandParameter>
+						</Button>
+						<Button Content="ThreeDimensionalRotation" Command="{Binding NavigateCommand}">
+							<Button.CommandParameter>
+								<local:ThreeDimensionalRotation />
+							</Button.CommandParameter>
+						</Button>
+					</StackPanel>
+				</Expander>
+				<Button Content="Plugins" Command="{Binding NavigateCommand}">
+					<Button.CommandParameter>
+						<local:Plugins />
+					</Button.CommandParameter>
+				</Button>
+			</StackPanel>
+		</ScrollViewer>
+
+		<GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" ShowsPreview="True" />
+
+		<Frame x:Name="frame" Grid.Column="2" NavigationUIVisibility="Hidden" Source="NormalTools.xaml" />
+	</Grid>
+</Window>

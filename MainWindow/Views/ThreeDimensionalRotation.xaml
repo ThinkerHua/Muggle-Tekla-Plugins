@@ -1,0 +1,87 @@
+﻿<!--==============================================================================
+ *  Muggle Tekla-Plugins - tools and plugins for Tekla Structures
+ *
+ *  Copyright © 2025 Huang YongXing.
+ *
+ *  This library is free software, licensed under the terms of the GNU
+ *  General Public License as published by the Free Software Foundation,
+ *  either version 3 of the License, or (at your option) any later version.
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see<http://www.gnu.org/licenses/> .
+ *==============================================================================
+ *  ThreeDimensionalRotation.xaml: view for the ThreeDimensionalRotation tool.
+ *  written by Huang YongXing - thinkerhua@hotmail.com
+ *==============================================================================-->
+<Page x:Class="Muggle.TeklaPlugins.MainWindow.Views.ThreeDimensionalRotation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Muggle.TeklaPlugins.MainWindow.Views"
+      xmlns:vm="clr-namespace:Muggle.TeklaPlugins.MainWindow.ViewModels"
+      Title="ThreeDimensionalRotation"
+      d:DesignHeight="300"
+      d:DesignWidth="300"
+      d:DataContext="{d:DesignInstance Type=vm:ThreeDimensionalRotationViewModel}"
+      d:Background="AliceBlue"
+      mc:Ignorable="d">
+
+	<Page.Resources>
+		<ResourceDictionary>
+			<Style x:Key="element" TargetType="FrameworkElement">
+				<Setter Property="Margin" Value="2" />
+				<Setter Property="VerticalAlignment" Value="Center" />
+			</Style>
+			<Style TargetType="GroupBox" BasedOn="{StaticResource element}">
+				<Setter Property="Padding" Value="2" />
+			</Style>
+			<Style TargetType="RadioButton" BasedOn="{StaticResource element}" />
+			<Style TargetType="Button" BasedOn="{StaticResource element}" />
+			<Style TargetType="TextBox" BasedOn="{StaticResource element}">
+				<Setter Property="Height" Value="20" />
+			</Style>
+		</ResourceDictionary>
+	</Page.Resources>
+
+	<StackPanel Margin="5">
+		<GroupBox Header="Rotation axis">
+			<StackPanel>
+				<RadioButton Content="X axis of part coordinate system" IsChecked="{Binding Axis, Converter={StaticResource enumToBool}, ConverterParameter={x:Static vm:ThreeDimensionalRotationViewModel+AxisEnum.PartCS_AxisX}}" />
+				<RadioButton Content="Y axis of part coordinate system" IsChecked="{Binding Axis, Converter={StaticResource enumToBool}, ConverterParameter={x:Static vm:ThreeDimensionalRotationViewModel+AxisEnum.PartCS_AxisY}}" />
+				<RadioButton Content="Z axis of part coordinate system" IsChecked="{Binding Axis, Converter={StaticResource enumToBool}, ConverterParameter={x:Static vm:ThreeDimensionalRotationViewModel+AxisEnum.PartCS_AxisZ}}" />
+				<RadioButton Content="Manually specify" IsChecked="{Binding Axis, Converter={StaticResource enumToBool}, ConverterParameter={x:Static vm:ThreeDimensionalRotationViewModel+AxisEnum.ManualSelect}}" />
+			</StackPanel>
+		</GroupBox>
+
+		<GroupBox Header="Rotation angle">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<RadioButton Grid.Row="0" Grid.Column="0" Content="Angle value" IsChecked="{Binding Angle, Converter={StaticResource enumToBool}, ConverterParameter={x:Static vm:ThreeDimensionalRotationViewModel+AngleEnum.AngleValue}}" />
+				<TextBox Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" Text="{Binding Degrees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				<RadioButton Grid.Row="1"
+				             Grid.Column="0"
+				             Grid.ColumnSpan="2"
+				             Content="Manually specify the start and end direction"
+				             IsChecked="{Binding Angle, Converter={StaticResource enumToBool}, ConverterParameter={x:Static vm:ThreeDimensionalRotationViewModel+AngleEnum.ManualSelect}}" />
+				<CheckBox Grid.Row="2"
+				          Grid.Column="0"
+				          Grid.ColumnSpan="2"
+				          Margin="16,5,5,5"
+				          Content="The end direction is the normal direction of plane"
+				          IsChecked="{Binding TargetDirectionIsNormalOfPlane, Mode=TwoWay}"
+				          IsEnabled="{Binding Angle, Converter={StaticResource enumToBool}, ConverterParameter={x:Static vm:ThreeDimensionalRotationViewModel+AngleEnum.ManualSelect}}" />
+			</Grid>
+		</GroupBox>
+
+		<Button Width="100" Height="30" Content="Action" Command="{Binding ThreeDimensionalRotationCommand}" />
+	</StackPanel>
+</Page>

@@ -26,19 +26,19 @@ using Tekla.Structures.Plugins;
 
 namespace Muggle.TeklaPlugins.WK1001 {
     public class PluginData {
-        [StructuresField("prfStr_Tube")]
-        public string prfStr_Tube;
+        [StructuresField("prfStr_Pipe")]
+        public string prfStr_Pipe;
         [StructuresField("thick_TEndplate")]
         public double thick_TEndplate;
         [StructuresField("thick_BEndplate")]
         public double thick_BEndplate;
         [StructuresField("diam_BEndplate")]
         public double diam_BEndplate;
-        [StructuresField("thick_Stiffneer")]
+        [StructuresField("thick_Stiffener")]
         public double thick_Stiffneer;
         [StructuresField("minDis")]
         public double minDis;
-        [StructuresField("extLenght_T")]
+        [StructuresField("extLength_T")]
         public double extLenght_T;
         [StructuresField("extLength_B")]
         public double extLength_B;
@@ -49,14 +49,14 @@ namespace Muggle.TeklaPlugins.WK1001 {
 
     }
     [Plugin("WK1001")]
-    [PluginUserInterface("Muggle.TeklaPlugins.WK1001.FormWK1001")]
+    [PluginUserInterface("Muggle.TeklaPlugins.WK1001.Views.MainWindow")]
     [SecondaryType(SecondaryType.SECONDARYTYPE_MULTIPLE)]
     public class WK1001 : ConnectionBase {
         #region Fields
         private Model _model;
         private PluginData _data;
 
-        private string _prfStr_Tube;
+        private string _prfStr_Pipe;
         private double _thick_TEndplate;
         private double _thick_BEndplate;
         private double _diam_BEndplate;
@@ -127,7 +127,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
 
         #region PrivateMethods
         private void GetValuesFromDialog() {
-            _prfStr_Tube = _data.prfStr_Tube;
+            _prfStr_Pipe = _data.prfStr_Pipe;
             _thick_TEndplate = _data.thick_TEndplate;
             _thick_BEndplate = _data.thick_BEndplate;
             _diam_BEndplate = _data.diam_BEndplate;
@@ -273,8 +273,8 @@ namespace Muggle.TeklaPlugins.WK1001 {
             var chamferArcPoint = new Chamfer(0, 0, Chamfer.ChamferTypeEnum.CHAMFER_ARC_POINT);
 
             #region 创建连接筒
-            if (_prfStr_Tube != string.Empty)
-                goto Skip_prfStr_Tube;
+            if (_prfStr_Pipe != string.Empty)
+                goto Skip_prfStr_Pipe;
 
             var maxWidth = (from prf in profiles select prf.b1).Max();
             var minAngle = angles.Min();
@@ -303,23 +303,23 @@ namespace Muggle.TeklaPlugins.WK1001 {
                 thickness = Math.Ceiling(thickness / 2) * 2;
             }
 
-            _prfStr_Tube = $"O{diameter}*{thickness}";
+            _prfStr_Pipe = $"O{diameter}*{thickness}";
 
-        Skip_prfStr_Tube:;
-            var prfTube = new ProfileCircular_Perfect(_prfStr_Tube);
+        Skip_prfStr_Pipe:;
+            var prfPipe = new ProfileCircular_Perfect(_prfStr_Pipe);
             var maxHeight = (from prf in profiles select prf.h1).Max();
             point1 = new Point(0, 0, maxHeight * 0.5 + _extLenght_T);
             point2 = new Point(0, 0, -maxHeight * 0.5 - _extLength_B + (typeA ? 0 : _thick_BEndplate));
-            var tube = ModelOperation.CreatBeam(
+            var pipe = ModelOperation.CreatBeam(
                 point1, point2,
-                profileStr: _prfStr_Tube,
+                profileStr: _prfStr_Pipe,
                 materialStr: _materialStr,
                 partPrefix: "O");
             #endregion
 
             #region 创建端板
             point1 = new Point(point1);
-            point1.X = (prfTube.d1 - prfTube.t * 2) * 0.5 - 2;
+            point1.X = (prfPipe.d1 - prfPipe.t * 2) * 0.5 - 2;
             point2 = new Point(0, point1.X, point1.Z);
             point3 = new Point(-point1.X, 0, point1.Z);
             point4 = new Point(0, -point1.X, point1.Z);
@@ -335,7 +335,7 @@ namespace Muggle.TeklaPlugins.WK1001 {
             point2 = new Point(point2);
             point3 = new Point(point3);
             point4 = new Point(point4);
-            point1.Z = typeA ? tube.EndPoint.Z : tube.EndPoint.Z - _thick_BEndplate;
+            point1.Z = typeA ? pipe.EndPoint.Z : pipe.EndPoint.Z - _thick_BEndplate;
             point2.Z = point1.Z;
             point3.Z = point1.Z;
             point4.Z = point1.Z;
@@ -353,24 +353,24 @@ namespace Muggle.TeklaPlugins.WK1001 {
             #endregion
 
             #region 创建加劲肋
-            point1 = new Point(tube.StartPoint);
+            point1 = new Point(pipe.StartPoint);
             point1.Z -= _thick_TEndplate;
-            point2 = new Point(tube.EndPoint);
+            point2 = new Point(pipe.EndPoint);
             point2.Z += typeA ? _thick_BEndplate : 0;
             var stif1 = ModelOperation.CreatBeam(
                 point1, point2,
-                profileStr: $"PL{_thick_Stiffneer}*{prfTube.d1 - prfTube.t * 2 - 4}",
+                profileStr: $"PL{_thick_Stiffneer}*{prfPipe.d1 - prfPipe.t * 2 - 4}",
                 materialStr: _materialStr);
             var stif2 = ModelOperation.CreatBeam(
                 point1, point2,
-                profileStr: $"PL{_thick_Stiffneer}*{prfTube.d1 * 0.5 - prfTube.t - _thick_Stiffneer * 0.5 - 2}",
+                profileStr: $"PL{_thick_Stiffneer}*{prfPipe.d1 * 0.5 - prfPipe.t - _thick_Stiffneer * 0.5 - 2}",
                 materialStr: _materialStr,
                 depthEnum: Position.DepthEnum.FRONT,
                 depthOffset: _thick_Stiffneer * 0.5,
                 rotationEnum: Position.RotationEnum.TOP);
             var stif3 = ModelOperation.CreatBeam(
                 point1, point2,
-                profileStr: $"PL{_thick_Stiffneer}*{prfTube.d1 * 0.5 - prfTube.t - _thick_Stiffneer * 0.5 - 2}",
+                profileStr: $"PL{_thick_Stiffneer}*{prfPipe.d1 * 0.5 - prfPipe.t - _thick_Stiffneer * 0.5 - 2}",
                 materialStr: _materialStr,
                 depthEnum: Position.DepthEnum.BEHIND,
                 depthOffset: _thick_Stiffneer * 0.5,
@@ -379,28 +379,28 @@ namespace Muggle.TeklaPlugins.WK1001 {
             #endregion
 
             #region 切割、焊接
-            point1 = new Point(tube.StartPoint);
-            point2 = new Point(tube.EndPoint);
+            point1 = new Point(pipe.StartPoint);
+            point2 = new Point(pipe.EndPoint);
             point1.Z += 100;
             point2.Z -= 100;
-            var booleanPart = ModelOperation.CreatBeam(point1, point2, profileStr: $"D{prfTube.d1}", @class: BooleanPart.BooleanOperativeClassName);
+            var booleanPart = ModelOperation.CreatBeam(point1, point2, profileStr: $"D{prfPipe.d1}", @class: BooleanPart.BooleanOperativeClassName);
             foreach (var part in parts) {
                 ModelOperation.ApplyBooleanOperation(part, booleanPart);
-                ModelOperation.CreatWeld(part, tube, position: Weld.WeldPositionEnum.WELD_POSITION_PLUS_Z);
+                ModelOperation.CreatWeld(part, pipe, position: Weld.WeldPositionEnum.WELD_POSITION_PLUS_Z);
             }
             booleanPart.Delete();
 
             ModelOperation.CreatWeld(
-                tube, tEndPlate,
+                pipe, tEndPlate,
                 typeAbove: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeAbove: 6,
                 typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
             var weld = ModelOperation.CreatWeld(
-                tube, bEndPlate,
+                pipe, bEndPlate,
                 typeAbove: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeAbove: 6,
                 typeBelow: BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, sizeBelow: 6);
-            ModelOperation.CreatWeld(tube, stif1);
-            ModelOperation.CreatWeld(tube, stif2);
-            ModelOperation.CreatWeld(tube, stif3);
+            ModelOperation.CreatWeld(pipe, stif1);
+            ModelOperation.CreatWeld(pipe, stif2);
+            ModelOperation.CreatWeld(pipe, stif3);
             ModelOperation.CreatWeld(tEndPlate, stif1);
             ModelOperation.CreatWeld(tEndPlate, stif2);
             ModelOperation.CreatWeld(tEndPlate, stif3);

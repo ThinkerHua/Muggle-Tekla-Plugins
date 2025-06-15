@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tekla.Structures.Model;
 
-namespace Muggle.TeklaPlugins.Common.Model
-{
+namespace Muggle.TeklaPlugins.Common.Model {
     /// <summary>
     /// <see cref="Tekla.Structures.Model"/>.<see cref="Offset"/> 的扩展。
     /// </summary>
-    public static class OffsetExtension
-    {
+    public static class OffsetExtension {
         /// <summary>
         /// 克隆一个实例。
         /// </summary>

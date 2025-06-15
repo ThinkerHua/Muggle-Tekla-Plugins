@@ -208,9 +208,8 @@ namespace Muggle.TeklaPlugins.MJ5001 {
                         concreteInput = new InputDefinition(obj.Identifier);
                     }
                 }
-            } catch (Exception e) {
-                if (e.Message != "User interrupt")
-                    MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            } catch (Exception e) when (e.Message != "User interrupt") {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 return new List<InputDefinition>();
             }
