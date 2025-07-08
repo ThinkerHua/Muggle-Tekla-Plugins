@@ -244,7 +244,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
 
                 return true;
             } catch (Exception e) {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(e.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }

@@ -144,7 +144,7 @@ namespace Muggle.TeklaPlugins.MG1002 {
 
                 result = true;
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return result;

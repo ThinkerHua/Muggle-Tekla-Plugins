@@ -177,7 +177,7 @@ namespace Muggle.TeklaPlugins.MJ5001 {
             } catch (UnAcceptableProfileException) {
                 MessageBox.Show("Only H-Beam is supported.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             } catch (Exception e) {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(e.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return false;
         }
@@ -209,7 +209,7 @@ namespace Muggle.TeklaPlugins.MJ5001 {
                     }
                 }
             } catch (Exception e) when (e.Message != "User interrupt") {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(e.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 return new List<InputDefinition>();
             }

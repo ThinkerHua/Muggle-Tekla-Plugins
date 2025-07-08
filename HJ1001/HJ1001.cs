@@ -134,7 +134,7 @@ namespace Muggle.TeklaPlugins.HJ1001 {
 
                 CreatConnection();
             } catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
