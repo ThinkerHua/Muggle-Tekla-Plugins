@@ -55,6 +55,17 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         }
 
         [RelayCommand]
+        private void RepeatRunPlugin(string pluginName) {
+            try {
+                while (true) {
+                    RunPlugin(pluginName);
+                }
+            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+
+            }
+        }
+
+        [RelayCommand]
         private void RunPlugin(string pluginName) {
 
             if (pluginName == "WK1001") {
@@ -136,7 +147,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                 }
 
             } catch (Exception e) when (e.Message == USER_INTERRUPT) {
-
+                throw;
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());
             } finally {

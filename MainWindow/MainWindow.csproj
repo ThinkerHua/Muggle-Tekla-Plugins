@@ -11,7 +11,12 @@
     <Copyright>Copyright © 2024 thinkerhua@hotmail.com. All rights reserved.</Copyright>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\et_element_HJ1001.bmp" />
+    <None Remove="Resources\et_element_KJ1001.bmp" />
     <None Remove="Resources\et_element_KJ2001.bmp" />
+    <None Remove="Resources\et_element_MG1001.bmp" />
+    <None Remove="Resources\et_element_MG1002.bmp" />
+    <None Remove="Resources\et_element_MJ5001.bmp" />
     <None Remove="Resources\et_element_WK1001.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -34,7 +39,12 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\et_element_HJ1001.bmp" />
+    <Resource Include="Resources\et_element_KJ1001.bmp" />
     <Resource Include="Resources\et_element_KJ2001.bmp" />
+    <Resource Include="Resources\et_element_MG1001.bmp" />
+    <Resource Include="Resources\et_element_MG1002.bmp" />
+    <Resource Include="Resources\et_element_MJ5001.bmp" />
     <Resource Include="Resources\et_element_WK1001.bmp" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

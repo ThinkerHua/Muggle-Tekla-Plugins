@@ -15,59 +15,77 @@
 <Page x:Class="Muggle.TeklaPlugins.MainWindow.Views.Plugins"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Muggle.TeklaPlugins.MainWindow.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:vm="clr-namespace:Muggle.TeklaPlugins.MainWindow.ViewModels"
       Title="Plugins"
-      d:DesignHeight="200"
-      d:DesignWidth="300"
       d:Background="AliceBlue"
       d:DataContext="{d:DesignInstance Type=vm:PluginsViewModel}"
+      d:DesignHeight="200"
+      d:DesignWidth="300"
       mc:Ignorable="d">
 
 	<Page.Resources>
 		<ResourceDictionary>
+			<sys:Double x:Key="pluginCardWidth">64</sys:Double>
 			<Style TargetType="Button">
 				<Setter Property="Background" Value="Transparent" />
 				<Setter Property="BorderBrush" Value="Transparent" />
 				<Setter Property="BorderThickness" Value="0" />
 			</Style>
 			<DataTemplate x:Key="pluginCardView">
-				<Grid>
+				<Grid Margin="2">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />
 						<RowDefinition Height="auto" />
 					</Grid.RowDefinitions>
 
-					<Image Grid.Row="0" Margin="2" Stretch="Uniform" Source="{Binding PluginName, Converter={StaticResource pluginNameToIcon}}" />
-					<TextBlock Grid.Row="1" Margin="2" Text="{Binding PluginName}" />
+					<Image Grid.Row="0"
+					       Width="{StaticResource pluginCardWidth}"
+					       Height="{StaticResource pluginCardWidth}"
+					       Margin="2"
+					       HorizontalAlignment="Center"
+					       VerticalAlignment="Center"
+					       Source="{Binding PluginName, Converter={StaticResource pluginNameToIcon}}"
+					       Stretch="Uniform" />
+					<TextBlock Grid.Row="1"
+					           Margin="2"
+					           HorizontalAlignment="Center"
+					           VerticalAlignment="Center"
+					           Text="{Binding PluginName}" />
 				</Grid>
 			</DataTemplate>
 		</ResourceDictionary>
 	</Page.Resources>
 
-	<UniformGrid>
-		<UniformGrid.Columns>
-			<Binding RelativeSource="{x:Static RelativeSource.Self}" Path="ActualWidth" Converter="{StaticResource multiples}">
-				<Binding.ConverterParameter>
-					<sys:Double>64</sys:Double>
-				</Binding.ConverterParameter>
-			</Binding>
-		</UniformGrid.Columns>
-		<UniformGrid.Rows>
-			<Binding RelativeSource="{x:Static RelativeSource.Self}" Path="ActualHeight" Converter="{StaticResource multiples}">
-				<Binding.ConverterParameter>
-					<sys:Double>64</sys:Double>
-				</Binding.ConverterParameter>
-			</Binding>
-		</UniformGrid.Rows>
-		<Button ContentTemplate="{StaticResource pluginCardView}" Command="{Binding RunPluginCommand}" CommandParameter="KJ2001">
-			<vm:PluginCard PluginName="KJ2001" />
-		</Button>
-		<Button ContentTemplate="{StaticResource pluginCardView}" Command="{Binding RunPluginCommand}" CommandParameter="WK1001">
-			<vm:PluginCard PluginName="WK1001" />
-		</Button>
-	</UniformGrid>
+	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+		<WrapPanel Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ScrollViewer}}">
+			<Button Command="{Binding RepeatRunPluginCommand}" CommandParameter="HJ1001" ContentTemplate="{StaticResource pluginCardView}">
+				<vm:PluginCard PluginName="HJ1001" />
+			</Button>
+			<Button Command="{Binding RepeatRunPluginCommand}" CommandParameter="KJ1001" ContentTemplate="{StaticResource pluginCardView}">
+				<vm:PluginCard PluginName="KJ1001" />
+			</Button>
+			<Button Command="{Binding RepeatRunPluginCommand}" CommandParameter="KJ1002" ContentTemplate="{StaticResource pluginCardView}">
+				<vm:PluginCard PluginName="KJ1002" />
+			</Button>
+			<Button Command="{Binding RepeatRunPluginCommand}" CommandParameter="KJ2001" ContentTemplate="{StaticResource pluginCardView}">
+				<vm:PluginCard PluginName="KJ2001" />
+			</Button>
+			<Button Command="{Binding RepeatRunPluginCommand}" CommandParameter="MG1001" ContentTemplate="{StaticResource pluginCardView}">
+				<vm:PluginCard PluginName="MG1001" />
+			</Button>
+			<Button Command="{Binding RepeatRunPluginCommand}" CommandParameter="MG1002" ContentTemplate="{StaticResource pluginCardView}">
+				<vm:PluginCard PluginName="MG1002" />
+			</Button>
+			<Button Command="{Binding RepeatRunPluginCommand}" CommandParameter="MJ5001" ContentTemplate="{StaticResource pluginCardView}">
+				<vm:PluginCard PluginName="MJ5001" />
+			</Button>
+			<Button Command="{Binding RepeatRunPluginCommand}" CommandParameter="WK1001" ContentTemplate="{StaticResource pluginCardView}">
+				<vm:PluginCard PluginName="WK1001" />
+			</Button>
+		</WrapPanel>
+	</ScrollViewer>
 </Page>

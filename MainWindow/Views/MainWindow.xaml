@@ -23,6 +23,8 @@
         Title="MainWindow"
         Width="500"
         Height="300"
+        MinWidth="300"
+        MinHeight="300"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
@@ -36,17 +38,17 @@
 				<Setter Property="Height" Value="30" />
 			</Style>
 			<Style TargetType="Expander" BasedOn="{StaticResource element}">
-				<Setter Property="Padding" Value="2" />
 				<Setter Property="BorderBrush" Value="LightGray" />
+				<Setter Property="Padding" Value="2" />
 			</Style>
 		</ResourceDictionary>
 	</Window.Resources>
 
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="160" />
-			<ColumnDefinition Width="auto" />
-			<ColumnDefinition />
+			<ColumnDefinition Width="auto" MinWidth="128" />
+			<ColumnDefinition Width="4" />
+			<ColumnDefinition Width="1*" MinWidth="128" />
 		</Grid.ColumnDefinitions>
 
 		<ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
@@ -78,7 +80,7 @@
 			</StackPanel>
 		</ScrollViewer>
 
-		<GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" ShowsPreview="True" />
+		<GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext" />
 
 		<Frame x:Name="frame" Grid.Column="2" NavigationUIVisibility="Hidden" Source="NormalTools.xaml" />
 	</Grid>
