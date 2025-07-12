@@ -57,15 +57,20 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         [RelayCommand]
         private void RepeatRunPlugin(string pluginName) {
             try {
+                if (!plugins.ContainsKey(pluginName)) ReloadPlugins();
+                if (!plugins.ContainsKey(pluginName))
+                    throw new Exception(string.Format("Failed to run plugin \"{0}\", which may not exist.", pluginName));
+
                 while (true) {
                     RunPlugin(pluginName);
                 }
             } catch (Exception e) when (e.Message == USER_INTERRUPT) {
 
+            } catch (Exception e) {
+                messageBoxService.ShowError(e.ToString());
             }
         }
 
-        [RelayCommand]
         private void RunPlugin(string pluginName) {
 
             if (pluginName == "WK1001") {
@@ -75,10 +80,6 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
 
             BaseComponent baseComponent = null;
             try {
-                if (!plugins.ContainsKey(pluginName)) ReloadPlugins();
-                if (!plugins.ContainsKey(pluginName))
-                    throw new Exception(string.Format("Failed to run plugin \"{0}\", which may not exist.", pluginName));
-
                 var assembly = Assembly.LoadFile(plugins[pluginName]);
                 var pluginType = assembly.GetTypes().First(type => {
                     var attr = type.GetCustomAttribute<PluginAttribute>();
