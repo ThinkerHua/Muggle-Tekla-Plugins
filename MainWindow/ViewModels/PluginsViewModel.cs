@@ -54,6 +54,29 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
             this.messageBoxService = messageBoxService;
         }
 
+        private void ReloadPlugins() {
+            string XSDATADIR = string.Empty;
+            try {
+                TeklaStructuresSettings.GetAdvancedOption("XSDATADIR", ref XSDATADIR);
+            } catch {
+                throw new Exception("Tekla structures not running.");
+            }
+
+            plugins.Clear();
+            var extensionsPath = Path.Combine(XSDATADIR, "Environments\\common\\extensions\\MuggleTeklaPlugins");
+            var dlls = Directory.GetFiles(extensionsPath, "*.dll", SearchOption.TopDirectoryOnly);
+            foreach (var dll in dlls) {
+                var assembly = Assembly.LoadFile(dll);
+                var types = assembly.GetTypes();
+                foreach (var type in types) {
+                    var attribute = type.GetCustomAttribute<PluginAttribute>();
+                    if (attribute == null) continue;
+
+                    plugins[attribute.Name] = dll;
+                }
+            }
+        }
+
         [RelayCommand]
         private void RepeatRunPlugin(string pluginName) {
             try {
@@ -155,29 +178,6 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                 if (baseComponent != null) {
                     uiSelector.Select(new ArrayList { baseComponent });
                     model.CommitChanges();
-                }
-            }
-        }
-
-        private void ReloadPlugins() {
-            string XSDATADIR = string.Empty;
-            try {
-                TeklaStructuresSettings.GetAdvancedOption("XSDATADIR", ref XSDATADIR);
-            } catch {
-                throw new Exception("Tekla structures not running.");
-            }
-
-            plugins.Clear();
-            var extensionsPath = Path.Combine(XSDATADIR, "Environments\\common\\extensions");
-            var dlls = Directory.GetFiles(extensionsPath, "*.dll", SearchOption.AllDirectories);
-            foreach (var dll in dlls) {
-                var assembly = Assembly.LoadFile(dll);
-                var types = assembly.GetTypes();
-                foreach (var type in types) {
-                    var attribute = type.GetCustomAttribute<PluginAttribute>();
-                    if (attribute == null) continue;
-
-                    plugins[attribute.Name] = dll;
                 }
             }
         }
