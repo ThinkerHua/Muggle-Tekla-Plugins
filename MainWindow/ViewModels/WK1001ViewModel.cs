@@ -55,7 +55,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                 uiSelector.Select(modelObjects);
                 model.CommitChanges();
             } catch (Exception e) when (e.Message == USER_INTERRUPT) {
-
+                throw;
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());
             }
