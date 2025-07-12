@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.Input;
 using Muggle.TeklaPlugins.MainWindow.Services;
@@ -162,7 +163,10 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                     baseComponent = CreatCustomPart(pluginName, customPartInputType);
                 } else if (baseType.Equals(typeof(PluginBase))) {
                     //  Component
-                    var instance = pluginType.Assembly.CreateInstance(pluginType.FullName) as PluginBase;
+
+                    //Assembly.CreatInstance 不适用于没有无参数构造函数的类
+                    //var instance = pluginType.Assembly.CreateInstance(pluginType.FullName) as PluginBase;
+                    var instance = FormatterServices.GetUninitializedObject(pluginType) as PluginBase;
                     var inputDefinitions = instance.DefineInput();
 
                     baseComponent = CreatComponent(pluginName, inputDefinitions);
