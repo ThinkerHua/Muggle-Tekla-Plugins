@@ -13,16 +13,18 @@
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
-using System.Windows;
 using Muggle.TeklaPlugins.Common.Geometry3d;
+using Muggle.TeklaPlugins.Common.Internal;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
 using Tekla.Structures.Datatype;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Tekla.Structures.Plugins;
+using MessageBox = System.Windows.MessageBox;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxImage = System.Windows.MessageBoxImage;
 using TSD = Tekla.Structures.Datatype;
-using TSG = Tekla.Structures.Geometry3d;
 
 namespace Muggle.TeklaPlugins.KJ2001 {
     public class PluginData {
@@ -180,7 +182,9 @@ namespace Muggle.TeklaPlugins.KJ2001 {
                 if (originTP == null) {
                     originTP = Model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
                 }
-
+#if DEBUG
+                //Internal.ShowTransformationPlane(originTP);
+#endif
                 if (workTP == null) {
                     workTP = GetWorkTransformationPlane();
                 }
@@ -325,26 +329,35 @@ namespace Muggle.TeklaPlugins.KJ2001 {
 
         private TransformationPlane GetWorkTransformationPlane() {
             var primPart = Model.SelectModelObject(Primary) as Part;
-            var partCS = primPart.GetCoordinateSystem();
+            var solid = primPart.GetSolid(Solid.SolidCreationTypeEnum.RAW);
+            var centerPoint = (solid.MinimumPoint + solid.MaximumPoint).Multiply(0.5);
 
-            var axisY = new TSG.Vector(0.0, 1000.0, 0.0);
-            var axisZ = new TSG.Vector(0.0, 0.0, 1000.0);
-            axisY = axisY.TransformFrom(partCS);
-            axisZ = axisZ.TransformFrom(partCS);
+            var axisX = new Vector(0.0, 1000.0, 0.0);
+            var axisZ = centerPoint.IsZero() ? new Vector(1000.0, 0.0, 0.0) : new Vector(centerPoint);
+            var axisY = axisZ.Cross(axisX);
 
-            return new TransformationPlane(new TSG.Point(), axisY, axisZ);
+            return new TransformationPlane(new Point(), axisX, axisY);
         }
 
         private void CreatDetail() {
             var primPart = Model.SelectModelObject(Primary) as Part;
-            var origin = new TSG.Point(0.0, 0.0, 0.0);
-            var axisX = new TSG.Vector(1000.0, 0.0, 0.0);
-            var axisY = new TSG.Vector(0.0, 1000.0, 0.0);
-            var axisZ = new TSG.Vector(0.0, 0.0, 1000.0);
+            var origin = new Point(0.0, 0.0, 0.0);
+            var axisX = new Vector(1000.0, 0.0, 0.0);
+            var axisY = new Vector(0.0, 1000.0, 0.0);
+            var axisZ = new Vector(0.0, 0.0, 1000.0);
+
+            #region 末端对齐
+            var plane = new Plane { AxisX = axisX.GetNormal(10), AxisY = axisY.GetNormal(10), Origin = origin };
+            var fitting = new Fitting {
+                Father = primPart,
+                Plane = plane
+            };
+            fitting.Insert();
+            #endregion
 
             #region 创建底板、开孔
-            var point1 = new TSG.Point(basePlate_length * 0.5, 0.0, 0.0);
-            var point2 = new TSG.Point(-basePlate_length * 0.5, 0.0, 0.0);
+            var point1 = new Point(basePlate_length * 0.5, 0.0, 0.0);
+            var point2 = new Point(-basePlate_length * 0.5, 0.0, 0.0);
             var basePlate = ModelOperation.CreatBeam(
                 point1, point2, "BASEPLATE",
                 $"PL{basePlate_thickness}*{basePlate_width}", basePlate_material,
@@ -375,7 +388,7 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             #region 创建锚栓
             var assembly = primPart.GetAssembly();
             var matrix = MatrixFactoryExtension.Rotate(new Line(origin, axisZ), Math.PI);
-            point1 = new TSG.Point(basePlate_length * 0.5 - anchorRod_distance_to_edge, 0.0, -basePlate_thickness);
+            point1 = new Point(basePlate_length * 0.5 - anchorRod_distance_to_edge, 0.0, -basePlate_thickness);
             point2 = point1 - axisZ;
             var anchorRods = ModelOperation.CreatAnchorRod(
                 point1, point2,
@@ -398,7 +411,7 @@ namespace Muggle.TeklaPlugins.KJ2001 {
                 assembly.Add(obj);
             }
 
-            point1 = new TSG.Point(0.0, basePlate_width * 0.5 - anchorRod_distance_to_edge, -basePlate_thickness);
+            point1 = new Point(0.0, basePlate_width * 0.5 - anchorRod_distance_to_edge, -basePlate_thickness);
             point2 = point1 - axisZ;
             anchorRods = ModelOperation.CreatAnchorRod(
                 point1, point2,
@@ -425,8 +438,8 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             #endregion
 
             #region 创建栓钉
-            point1 = new TSG.Point(primaryPartProfile.b1 * 0.5, 0.0, 0.0);
-            point2 = new TSG.Point(primaryPartProfile.b1 * 0.5, 0.0, 1000.0);
+            point1 = new Point(primaryPartProfile.h1 * 0.5, 0.0, 0.0);
+            point2 = new Point(primaryPartProfile.h1 * 0.5, 0.0, 1000.0);
             var stud1 = ModelOperation.CreatBoltArray(
                 primPart, primPart, null,
                 point1, point2,
@@ -437,8 +450,8 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             stud1.Length = stud_length;
             stud1.Modify();
 
-            point1 = new TSG.Point(-primaryPartProfile.b1 * 0.5, 0.0, 0.0);
-            point2 = new TSG.Point(-primaryPartProfile.b1 * 0.5, 0.0, 1000.0);
+            point1 = new Point(-primaryPartProfile.h1 * 0.5, 0.0, 0.0);
+            point2 = new Point(-primaryPartProfile.h1 * 0.5, 0.0, 1000.0);
             var stud2 = ModelOperation.CreatBoltArray(
                 primPart, primPart, null,
                 point1, point2,
@@ -449,8 +462,8 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             stud2.Length = stud_length;
             stud2.Modify();
 
-            point1 = new TSG.Point(0.0, primaryPartProfile.h1 * 0.5, 0.0);
-            point2 = new TSG.Point(0.0, primaryPartProfile.h1 * 0.5, 1000.0);
+            point1 = new Point(0.0, primaryPartProfile.b1 * 0.5, 0.0);
+            point2 = new Point(0.0, primaryPartProfile.b1 * 0.5, 1000.0);
             var stud3 = ModelOperation.CreatBoltArray(
                 primPart, primPart, null,
                 point1, point2,
@@ -461,8 +474,8 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             stud3.Length = stud_length;
             stud3.Modify();
 
-            point1 = new TSG.Point(0.0, -primaryPartProfile.h1 * 0.5, 0.0);
-            point2 = new TSG.Point(0.0, -primaryPartProfile.h1 * 0.5, 1000.0);
+            point1 = new Point(0.0, -primaryPartProfile.b1 * 0.5, 0.0);
+            point2 = new Point(0.0, -primaryPartProfile.b1 * 0.5, 1000.0);
             var stud4 = ModelOperation.CreatBoltArray(
                 primPart, primPart, null,
                 point1, point2,
@@ -475,33 +488,33 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             #endregion
 
             #region 创建内部加劲板
-            point1 = new TSG.Point(
-                primaryPartProfile.b1 * 0.5 - primaryPartProfile.s,
+            point1 = new Point(
                 primaryPartProfile.h1 * 0.5 - primaryPartProfile.t,
+                primaryPartProfile.b1 * 0.5 - primaryPartProfile.s,
                 innerStiffener_distance_to_Base);
-            point2 = new TSG.Point(point1.X, -point1.Y, point1.Z);
+            point2 = new Point(point1.X, -point1.Y, point1.Z);
             var liner1 = ModelOperation.CreatBeam(
                 point1, point2, "LINER", $"PL10*30", innerStiffener_material,
                 @class: group_no.ToString(), planeEnum: Position.PlaneEnum.RIGHT,
                 depthEnum: Position.DepthEnum.BEHIND, depthOffset: innerStiffener_thickness);
-            point1 = new TSG.Point(
-                -primaryPartProfile.b1 * 0.5 + primaryPartProfile.s,
-                primaryPartProfile.h1 * 0.5 - primaryPartProfile.t,
+            point1 = new Point(
+                -primaryPartProfile.h1 * 0.5 + primaryPartProfile.t,
+                primaryPartProfile.b1 * 0.5 - primaryPartProfile.s,
                 innerStiffener_distance_to_Base);
-            point2 = new TSG.Point(point1.X, -point1.Y, point1.Z);
+            point2 = new Point(point1.X, -point1.Y, point1.Z);
             var liner2 = ModelOperation.CreatBeam(
                 point1, point2, "LINER", $"PL10*30", innerStiffener_material,
                 @class: group_no.ToString(), planeEnum: Position.PlaneEnum.LEFT,
                 depthEnum: Position.DepthEnum.BEHIND, depthOffset: innerStiffener_thickness);
 
-            point1 = new TSG.Point(
-                primaryPartProfile.b1 * 0.5 - primaryPartProfile.s,
+            point1 = new Point(
+                primaryPartProfile.h1 * 0.5 - primaryPartProfile.t,
                 0.0,
                 innerStiffener_distance_to_Base);
-            point2 = new TSG.Point(-point1.X, point1.Y, point1.Z);
+            point2 = new Point(-point1.X, point1.Y, point1.Z);
             var innerStiffener = ModelOperation.CreatBeam(
                 point1, point2, "INNERSTIFFENER",
-                $"PL{innerStiffener_thickness}*{primaryPartProfile.h1 - 2 * primaryPartProfile.t}",
+                $"PL{innerStiffener_thickness}*{primaryPartProfile.b1 - 2 * primaryPartProfile.s}",
                 innerStiffener_material, @class: group_no.ToString(),
                 depthEnum: Position.DepthEnum.BEHIND);
 
@@ -511,8 +524,8 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             #endregion
 
             #region 开浇筑孔、排气孔
-            point1 = new TSG.Point(0.0, 0.0, innerStiffener_distance_to_Base);
-            point2 = new TSG.Point(0.0, 0.0, innerStiffener_distance_to_Base - innerStiffener_thickness);
+            point1 = new Point(0.0, 0.0, innerStiffener_distance_to_Base);
+            point2 = new Point(0.0, 0.0, innerStiffener_distance_to_Base - innerStiffener_thickness);
             var pourintHole = ModelOperation.CreatBeam(
                 point1, point2,
                 "POURINGHOLE",
@@ -521,35 +534,35 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             ModelOperation.ApplyBooleanOperation(innerStiffener, pourintHole);
             pourintHole.Delete();
 
-            point1 = new TSG.Point(
-                primaryPartProfile.b1 * 0.5 - primaryPartProfile.s - exhaustHole_position_X,
-                primaryPartProfile.h1 * 0.5 - primaryPartProfile.t - exhaustHole_position_Y,
+            point1 = new Point(
+                primaryPartProfile.h1 * 0.5 - primaryPartProfile.t - exhaustHole_position_X,
+                primaryPartProfile.b1 * 0.5 - primaryPartProfile.s - exhaustHole_position_Y,
                 innerStiffener_distance_to_Base);
-            point2 = new TSG.Point(point1.X, point1.Y, point1.Z - innerStiffener_thickness);
+            point2 = new Point(point1.X, point1.Y, point1.Z - innerStiffener_thickness);
             var exhaustHole1 = ModelOperation.CreatBeam(
                 point1, point2,
                 "EXHAUSTHOLE",
                 $"D{exhaustHole_diameter}",
                 innerStiffener_material);
 
-            point1 = new TSG.Point(-point1.X, point1.Y, point1.Z);
-            point2 = new TSG.Point(point1.X, point1.Y, point1.Z - innerStiffener_thickness);
+            point1 = new Point(-point1.X, point1.Y, point1.Z);
+            point2 = new Point(point1.X, point1.Y, point1.Z - innerStiffener_thickness);
             var exhaustHole2 = ModelOperation.CreatBeam(
                 point1, point2,
                 "EXHAUSTHOLE",
                 $"D{exhaustHole_diameter}",
                 innerStiffener_material);
 
-            point1 = new TSG.Point(point1.X, -point1.Y, point1.Z);
-            point2 = new TSG.Point(point1.X, point1.Y, point1.Z - innerStiffener_thickness);
+            point1 = new Point(point1.X, -point1.Y, point1.Z);
+            point2 = new Point(point1.X, point1.Y, point1.Z - innerStiffener_thickness);
             var exhaustHole3 = ModelOperation.CreatBeam(
                 point1, point2,
                 "EXHAUSTHOLE",
                 $"D{exhaustHole_diameter}",
                 innerStiffener_material);
 
-            point1 = new TSG.Point(-point1.X, point1.Y, point1.Z);
-            point2 = new TSG.Point(point1.X, point1.Y, point1.Z - innerStiffener_thickness);
+            point1 = new Point(-point1.X, point1.Y, point1.Z);
+            point2 = new Point(point1.X, point1.Y, point1.Z - innerStiffener_thickness);
             var exhaustHole4 = ModelOperation.CreatBeam(
                 point1, point2,
                 "EXHAUSTHOLE",
