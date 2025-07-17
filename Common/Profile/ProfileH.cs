@@ -25,24 +25,25 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// <br/><see cref="PatternCollection.H_7"/>：<inheritdoc cref="PatternCollection.H_7"/>
     /// </summary>
     public class ProfileH : ProfileBase {
+
         /// <summary>
         /// 
         /// </summary>
         public double h1, h2, b1, b2, s, t1, t2;
+
         /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
-        public ProfileH() {
-            ProfileTextChanging += SetFieldsValue;
-        }
+        public ProfileH() { }
+
         /// <summary>
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
         public ProfileH(string profileText) {
-            ProfileTextChanging += SetFieldsValue;
             ProfileText = profileText;
         }
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>

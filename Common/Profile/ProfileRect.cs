@@ -27,24 +27,25 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// <br/><see cref="PatternCollection.RECT_5"/>：<inheritdoc cref="PatternCollection.RECT_5"/>
     /// </summary>
     public class ProfileRect : ProfileBase {
+
         /// <summary>
         /// 
         /// </summary>
         public double h1, h2, b1, b2, s, t;
+
         /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
-        public ProfileRect() {
-            ProfileTextChanging += SetFieldsValue;
-        }
+        public ProfileRect() { }
+
         /// <summary>
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
         public ProfileRect(string profileText) {
-            ProfileTextChanging += SetFieldsValue;
             ProfileText = profileText;
         }
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>

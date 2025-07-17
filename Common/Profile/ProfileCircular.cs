@@ -28,20 +28,20 @@ namespace Muggle.TeklaPlugins.Common.Profile {
         /// 
         /// </summary>
         public double d1, r1, d2, r2, t;
+
         /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
-        public ProfileCircular() {
-            ProfileTextChanging += SetFieldsValue;
-        }
+        public ProfileCircular() { }
+
         /// <summary>
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
         public ProfileCircular(string profileText) {
-            ProfileTextChanging += SetFieldsValue;
             ProfileText = profileText;
         }
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>

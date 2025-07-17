@@ -20,24 +20,25 @@ namespace Muggle.TeklaPlugins.Common.Profile {
     /// <br/><see cref="PatternCollection.PL_1"/>：<inheritdoc cref="PatternCollection.PL_1"/>
     /// </summary>
     public class ProfilePlate : ProfileBase {
+
         /// <summary>
         /// 
         /// </summary>
         public double t, b, l;
+
         /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
-        public ProfilePlate() {
-            ProfileTextChanging += SetFieldsValue;
-        }
+        public ProfilePlate() { }
+
         /// <summary>
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
         public ProfilePlate(string profileText) {
-            ProfileTextChanging += SetFieldsValue;
             ProfileText = profileText;
         }
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>

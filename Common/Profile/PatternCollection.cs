@@ -105,5 +105,17 @@ namespace Muggle.TeklaPlugins.Common.Profile {
         /// 前置标识符为 B_VAR_A 或 B_VAR_B 或 B_VAR_C，后续参数形式为 h1-h2*s[*b1[-b2]]。b1, b2 值均忽略。
         /// </summary>
         public static string RECT_5 => @"^B_VAR_[ABC](?<h1>\d+\.?\d*)-(?<h2>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(\d+\.?\d*)-(\d+\.?\d*)$";
+        /// <summary>
+        /// 前置标识符为 L，后续参数形式为 h*s。
+        /// </summary>
+        public static string L_1 => @"^L(?<h>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
+        /// <summary>
+        /// 前置标识符为 BLL 或 CLL 或 L，后续参数形式为 h*b*s。
+        /// </summary>
+        public static string L_2 => @"^(([BC]L)?L(?<h>\d+\.?\d*)\*(?<b>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
+        /// <summary>
+        /// 前置标识符为 L，后续参数形式为 h*b*s*t。
+        /// </summary>
+        public static string L_3 => @"^L(?<h>\d+\.?\d*)\*(?<b>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
     }
 }

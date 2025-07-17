@@ -403,24 +403,25 @@ namespace Muggle.TeklaPlugins.Common.Profile {
             new ProfileCircular_Perfect{ ProfileText = "PIP630*15"},
             new ProfileCircular_Perfect{ ProfileText = "PIP630*16"},
         };
+
         /// <summary>
         /// 常用规格
         /// </summary>
         public static ProfileCircular_Perfect[] CommonlyUsed => _commonlyUsed;
+
         /// <summary>
         /// 创建各字段值均为 0.0 的实例。
         /// </summary>
-        public ProfileCircular_Perfect() {
-            ProfileTextChanging += SetFieldsValue;
-        }
+        public ProfileCircular_Perfect() { }
+
         /// <summary>
         /// 根据给定截面文本创建实例，同时为字段赋值。
         /// </summary>
         /// <param name="profileText">给定截面文本</param>
         public ProfileCircular_Perfect(string profileText) {
-            ProfileTextChanging += SetFieldsValue;
             ProfileText = profileText;
         }
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
