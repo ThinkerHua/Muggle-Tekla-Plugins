@@ -179,20 +179,13 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <paramref name="assemblyPrefix"/>、<paramref name="partPrefix"/>、<paramref name="class"/>为 null 或 <see cref="string.Empty"/>
         /// 时引发。</exception>
         public static Beam CreatBeam(
-            Point startPoint,
-            Point endPoint,
-            string name = "BEAM",
-            string profileStr = "HM244*175*7*11",
-            string materialStr = "Q345B",
-            string assemblyPrefix = "GL-", int assemblyStartNumber = 1,
-            string partPrefix = "P", int partStartNumber = 1,
+            Point startPoint, Point endPoint,
+            string name = "BEAM", string profileStr = "HM244*175*7*11", string materialStr = "Q345B",
+            string assemblyPrefix = "GL-", int assemblyStartNumber = 1, string partPrefix = "P", int partStartNumber = 1,
             string @class = "99",
-            Position.PlaneEnum planeEnum = Position.PlaneEnum.MIDDLE,
-            double planeOffset = 0.0,
-            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE,
-            double depthOffset = 0.0,
-            Position.RotationEnum rotationEnum = Position.RotationEnum.FRONT,
-            double rotationOffset = 0.0) {
+            Position.PlaneEnum planeEnum = Position.PlaneEnum.MIDDLE, double planeOffset = 0.0,
+            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE, double depthOffset = 0.0,
+            Position.RotationEnum rotationEnum = Position.RotationEnum.FRONT, double rotationOffset = 0.0) {
 
             if (startPoint is null) {
                 throw new ArgumentNullException(nameof(startPoint));
@@ -272,18 +265,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// 时引发。</exception>
         public static PolyBeam CreatPolyBeam(
             Contour contour,
-            string name = "BEAM",
-            string profileStr = "HM244*175*7*11",
-            string materialStr = "Q345B",
-            string assemblyPrefix = "GL-", int assemblyStartNumber = 1,
-            string partPrefix = "P", int partStartNumber = 1,
+            string name = "BEAM", string profileStr = "HM244*175*7*11", string materialStr = "Q345B",
+            string assemblyPrefix = "GL-", int assemblyStartNumber = 1, string partPrefix = "P", int partStartNumber = 1,
             string @class = "99",
-            Position.PlaneEnum planeEnum = Position.PlaneEnum.MIDDLE,
-            double planeOffset = 0.0,
-            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE,
-            double depthOffset = 0.0,
-            Position.RotationEnum rotationEnum = Position.RotationEnum.FRONT,
-            double rotationOffset = 0.0) {
+            Position.PlaneEnum planeEnum = Position.PlaneEnum.MIDDLE, double planeOffset = 0.0,
+            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE, double depthOffset = 0.0,
+            Position.RotationEnum rotationEnum = Position.RotationEnum.FRONT, double rotationOffset = 0.0) {
 
             if (contour is null) {
                 throw new ArgumentNullException(nameof(contour));
@@ -358,18 +345,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// 时引发。</exception>
         public static PolyBeam CreatPolyBeam(
             IEnumerable<Point> points,
-            string name = "BEAM",
-            string profileStr = "HM244*175*7*11",
-            string materialStr = "Q345B",
-            string assemblyPrefix = "GL-", int assemblyStartNumber = 1,
-            string partPrefix = "P", int partStartNumber = 1,
+            string name = "BEAM", string profileStr = "HM244*175*7*11", string materialStr = "Q345B",
+            string assemblyPrefix = "GL-", int assemblyStartNumber = 1, string partPrefix = "P", int partStartNumber = 1,
             string @class = "99",
-            Position.PlaneEnum planeEnum = Position.PlaneEnum.MIDDLE,
-            double planeOffset = 0.0,
-            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE,
-            double depthOffset = 0.0,
-            Position.RotationEnum rotationEnum = Position.RotationEnum.FRONT,
-            double rotationOffset = 0.0) {
+            Position.PlaneEnum planeEnum = Position.PlaneEnum.MIDDLE, double planeOffset = 0.0,
+            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE, double depthOffset = 0.0,
+            Position.RotationEnum rotationEnum = Position.RotationEnum.FRONT, double rotationOffset = 0.0) {
 
             if (points is null) {
                 throw new ArgumentNullException(nameof(points));
@@ -445,16 +426,10 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// 时引发。</exception>
         public static ContourPlate CreatContourPlate(
             ArrayList contourPoints,
-            string name = "PLATE",
-            string profileStr = "PL10",
-            string materialStr = "Q345B",
-            string assemblyPrefix = "PLATE",
-            int assemblyStartNumber = 1,
-            string partPrefix = "P",
-            int partStartNumber = 1,
+            string name = "PLATE", string profileStr = "PL10", string materialStr = "Q345B",
+            string assemblyPrefix = "PLATE", int assemblyStartNumber = 1, string partPrefix = "P", int partStartNumber = 1,
             string @class = "99",
-            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE,
-            double depthOffset = 0.0) {
+            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE, double depthOffset = 0.0) {
 
             if (contourPoints is null) {
                 throw new ArgumentNullException(nameof(contourPoints));
@@ -525,16 +500,10 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// 时引发。</exception>
         public static ContourPlate CreatContourPlate(
             IEnumerable<Point> points,
-            string name = "PLATE",
-            string profileStr = "PL10",
-            string materialStr = "Q345B",
-            string assemblyPrefix = "PLATE",
-            int assemblyStartNumber = 1,
-            string partPrefix = "P",
-            int partStartNumber = 1,
+            string name = "PLATE", string profileStr = "PL10", string materialStr = "Q345B",
+            string assemblyPrefix = "PLATE", int assemblyStartNumber = 1, string partPrefix = "P", int partStartNumber = 1,
             string @class = "99",
-            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE,
-            double depthOffset = 0.0) {
+            Position.DepthEnum depthEnum = Position.DepthEnum.MIDDLE, double depthOffset = 0.0) {
 
             if (points is null) {
                 throw new ArgumentNullException(nameof(points));
@@ -608,18 +577,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <returns>创建的焊缝</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static Weld CreatWeld(
-            ModelObject mainObject,
-            ModelObject secondaryObject,
-            bool arroundWeld = true, 
-            bool shopWeld = true,
+            ModelObject mainObject, ModelObject secondaryObject,
+            bool arroundWeld = true, bool shopWeld = true,
             Weld.WeldPositionEnum position = Weld.WeldPositionEnum.WELD_POSITION_PLUS_X,
             BaseWeld.WeldPreparationTypeEnum preparation = BaseWeld.WeldPreparationTypeEnum.PREPARATION_NONE,
-            Weld.WeldTypeEnum typeAbove = BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET,
-            double sizeAbove = 6.0,
-            double angleAbove = 0.0,
-            Weld.WeldTypeEnum typeBelow = BaseWeld.WeldTypeEnum.WELD_TYPE_NONE,
-            double sizeBelow = 0.0, 
-            double angleBelow = 0.0) {
+            Weld.WeldTypeEnum typeAbove = BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, double sizeAbove = 6.0, double angleAbove = 0.0,
+            Weld.WeldTypeEnum typeBelow = BaseWeld.WeldTypeEnum.WELD_TYPE_NONE, double sizeBelow = 0.0, double angleBelow = 0.0) {
 
             if (mainObject is null) {
                 throw new ArgumentNullException(nameof(mainObject));
@@ -666,18 +629,11 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="angleBelow">下焊缝角度，默认值 0.0</param>
         /// <returns>创建的多边形焊缝</returns>
         public static PolygonWeld CreatPolygonWeld(
-            ModelObject mainObject,
-            ModelObject secondaryObject,
-            Polygon polygon,
-            bool arroundWeld = false,
-            bool shopWeld = true,
+            ModelObject mainObject, ModelObject secondaryObject, Polygon polygon,
+            bool arroundWeld = false, bool shopWeld = true,
             BaseWeld.WeldPreparationTypeEnum preparation = BaseWeld.WeldPreparationTypeEnum.PREPARATION_NONE,
-            Weld.WeldTypeEnum typeAbove = BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET,
-            double sizeAbove = 6.0,
-            double angleAbove = 0.0,
-            Weld.WeldTypeEnum typeBelow = BaseWeld.WeldTypeEnum.WELD_TYPE_NONE,
-            double sizeBelow = 0.0,
-            double angleBelow = 0.0) {
+            Weld.WeldTypeEnum typeAbove = BaseWeld.WeldTypeEnum.WELD_TYPE_FILLET, double sizeAbove = 6.0, double angleAbove = 0.0,
+            Weld.WeldTypeEnum typeBelow = BaseWeld.WeldTypeEnum.WELD_TYPE_NONE, double sizeBelow = 0.0, double angleBelow = 0.0) {
 
             if (mainObject is null) {
                 throw new ArgumentNullException(nameof(mainObject));
@@ -739,26 +695,13 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <exception cref="ArgumentException"><paramref name="bolt_dist_X"/> 或 <paramref name="bolt_dist_Y"/>
         /// 中元素数量少于 1 时引发。</exception>
         public static BoltArray CreatBoltArray(
-            Part boltTo,
-            Part beBolted,
-            IEnumerable<Part> otherBeBolted,
-            Point firstPosition,
-            Point secondPosition,
-            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_X,
-            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_Y,
-            Position position = default,
-            Offset startOffset = default,
-            Offset endOffset = default,
-            string bolt_standard = "HS10.9",
-            double bolt_size = 20.0,
+            Part boltTo, Part beBolted, IEnumerable<Part> otherBeBolted, Point firstPosition, Point secondPosition,
+            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_X, IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_Y,
+            Position position = default, Offset startOffset = default, Offset endOffset = default,
+            string bolt_standard = "HS10.9", double bolt_size = 20.0,
             BoltGroup.BoltTypeEnum bolttype = BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE,
             double tolerance = 2.0,
-            bool bolt = true,
-            bool washer1 = true,
-            bool washer2 = true,
-            bool washer3 = true,
-            bool nut1 = true,
-            bool nut2 = true) {
+            bool bolt = true, bool washer1 = true, bool washer2 = true, bool washer3 = true, bool nut1 = true, bool nut2 = true) {
 
             if (boltTo is null) {
                 throw new ArgumentNullException(nameof(boltTo));
@@ -847,24 +790,12 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <returns>创建的环形螺栓组。</returns>
         /// <exception cref="ArgumentNullException"></exception>
         public static BoltCircle CreatBoltCircle(
-            Part boltTo,
-            Part beBolted,
-            IEnumerable<Part> otherBeBolted,
-            Point firstPosition,
-            Point secondPosition,
-            int num = 8,
-            double diameter = 200.0,
-            Position position = default,
-            string bolt_standard = "HS10.9",
-            double bolt_size = 20.0,
+            Part boltTo, Part beBolted, IEnumerable<Part> otherBeBolted, Point firstPosition, Point secondPosition,
+            int num = 8, double diameter = 200.0, Position position = default,
+            string bolt_standard = "HS10.9", double bolt_size = 20.0,
             BoltGroup.BoltTypeEnum bolttype = BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE,
             double tolerance = 2.0,
-            bool bolt = true,
-            bool washer1 = true,
-            bool washer2 = true,
-            bool washer3 = true,
-            bool nut1 = true,
-            bool nut2 = true) {
+            bool bolt = true, bool washer1 = true, bool washer2 = true, bool washer3 = true, bool nut1 = true, bool nut2 = true) {
 
             if (boltTo is null) {
                 throw new ArgumentNullException(nameof(boltTo));
@@ -940,26 +871,13 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <exception cref="ArgumentException"><paramref name="bolt_dist_X"/> 或 <paramref name="bolt_dist_Y"/>
         /// 中元素数量少于 1 时引发。</exception>
         public static BoltXYList CreatBoltXYList(
-            Part boltTo,
-            Part beBolted,
-            IEnumerable<Part> otherBeBolted,
-            Point firstPosition,
-            Point secondPosition,
-            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_X,
-            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_Y,
-            Position position = default,
-            Offset startOffset = default,
-            Offset endOffset = default,
-            string bolt_standard = "HS10.9",
-            double bolt_size = 20.0,
+            Part boltTo, Part beBolted, IEnumerable<Part> otherBeBolted, Point firstPosition, Point secondPosition,
+            IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_X, IEnumerable<Tekla.Structures.Datatype.Distance> bolt_dist_Y,
+            Position position = default, Offset startOffset = default, Offset endOffset = default,
+            string bolt_standard = "HS10.9", double bolt_size = 20.0,
             BoltGroup.BoltTypeEnum bolttype = BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE,
             double tolerance = 2.0,
-            bool bolt = true,
-            bool washer1 = true,
-            bool washer2 = true,
-            bool washer3 = true,
-            bool nut1 = true,
-            bool nut2 = true) {
+            bool bolt = true, bool washer1 = true, bool washer2 = true, bool washer3 = true, bool nut1 = true, bool nut2 = true) {
 
             if (boltTo is null) {
                 throw new ArgumentNullException(nameof(boltTo));
@@ -1054,31 +972,16 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// <param name="useNut2">是否使用螺母2，默认值 true</param>
         /// <param name="useNut3">是否使用螺母3，默认值 true</param>
         /// <returns>创建的锚杆。</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public static List<Part> CreatAnchorRod(
-            Point firstPosition,
-            Point secondPosition,
-            double length1,
-            double length2,
-            double length3,
-            double length4 = 0.0,
-            double length5 = 0.0,
-            Vector hookDirection = null,
-            double bendRadiusFactor = 3.5,
-            string material = "Q235B",
-            double size = 20.0,
-            double tolerance = 2.0,
-            string @class = "0",
-            bool useWasherPlate = true,
-            double washerPlateThickness = 10.0,
-            double washerPlateWidth = 70.0,
-            double washerPlatePosition = 20.0,
-            double washerPlateHoleDiameter = 26.0,
-            bool useWasher1 = true,
-            bool useWasher2 = true,
-            bool useWasher3 = true,
-            bool useNut1 = true,
-            bool useNut2 = true,
-            bool useNut3 = true) {
+            Point firstPosition, Point secondPosition,
+            double length1, double length2, double length3, double length4 = 0.0, double length5 = 0.0,
+            Vector hookDirection = null, double bendRadiusFactor = 3.5,
+            string material = "Q235B", double size = 20.0, double tolerance = 2.0, string @class = "0",
+            bool useWasherPlate = true, double washerPlateThickness = 10.0, double washerPlateWidth = 70.0,
+            double washerPlatePosition = 20.0, double washerPlateHoleDiameter = 26.0,
+            bool useWasher1 = true, bool useWasher2 = true, bool useWasher3 = true, bool useNut1 = true, bool useNut2 = true, bool useNut3 = true) {
 
             #region 参数检查
             if (firstPosition is null) {
