@@ -13,13 +13,16 @@
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
+using System.Collections;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.ModelUI;
 using Tekla.Structures;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
+using Tekla.Structures.Model.Operations;
 using Tekla.Structures.Model.UI;
 
 namespace Muggle.TeklaPlugins.Test {
@@ -34,6 +37,8 @@ namespace Muggle.TeklaPlugins.Test {
             Console.WriteLine("[1] Position of triangle on lines");
             Console.WriteLine("[2] Tekla structures infomation");
             Console.WriteLine("[3] Get model object type");
+            Console.WriteLine("[4] Select model object with bounding box");
+            Console.WriteLine("[5] Solid.IntersectAllFaces(Point, Point, Point)");
             Console.WriteLine("[0] 结束运行");
             int CASE;
             while (true) {
@@ -57,6 +62,13 @@ namespace Muggle.TeklaPlugins.Test {
             case 3:
                 GetModelObjectType();
                 Console.WriteLine();
+                goto Start;
+            case 4:
+                SelectModelObjectWithBoundingBox();
+                Console.WriteLine();
+                goto Start;
+            case 5:
+                TestSolidIntersectAllFaces();
                 goto Start;
             default:
                 Console.WriteLine("没有此选项，请重新选择。");
@@ -175,6 +187,87 @@ namespace Muggle.TeklaPlugins.Test {
                 }
             } catch (Exception e) when (e.Message == USER_INTERRUPT) {
 
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private static void SelectModelObjectWithBoundingBox() {
+            var columnNames = new string[] { "column", "柱" };
+            var model = new Model();
+            var picker = new Picker();
+            var selector = model.GetModelObjectSelector();
+            try {
+                while (true) {
+                    var p = picker.PickPoint();
+                    var minPoint = new Point(p.X - 10, p.Y - 10, p.Z - 10);
+                    var maxPoint = new Point(p.X + 10, p.Y + 10, p.Z + 10);
+                    var objEnumerator = selector.GetObjectsByBoundingBox(minPoint, maxPoint);
+                    Console.WriteLine($"Found {objEnumerator.GetSize()} model object(s).");
+                    foreach (ModelObject obj in objEnumerator) {
+                        Console.WriteLine($"Found a {obj.GetType()}");
+
+                        if (!(obj is Beam beam) || !columnNames.Any(item => beam.Name.ToLower().Contains(item)))
+                            continue;
+
+                        Console.WriteLine($"Found a column - identifier is: {beam.Identifier}, GUID is: {beam.Identifier.GUID}");
+                    }
+                }
+            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private static void TestSolidIntersectAllFaces() {
+            var model = new Model();
+            if (!model.GetConnectionStatus()) {
+                Console.WriteLine(NOTRUNNING_MESSAGE);
+                return;
+            }
+
+            try {
+                var picker = new Picker();
+                var part = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART) as Part;
+                var points = new Point[3];
+                var totalNum = 3;
+                for (int i = 0; i < totalNum; i++) {
+                    var referencePoint = i == 0 ? null : points[i - 1];
+                    points[i] = picker.PickPoint($"Pick {totalNum} points to form a plane ({i}/{totalNum} completed).", referencePoint);
+                }
+                Operation.DisplayPrompt(string.Empty);
+
+                var drawer = new GraphicsDrawer();
+                var solid = part.GetSolid(Solid.SolidCreationTypeEnum.RAW);
+                var faceEnum = solid.IntersectAllFaces(points[0], points[1], points[2]);
+                var faceIndex = -1;
+                while (faceEnum.MoveNext()) {
+                    ++faceIndex;
+
+                    var face = faceEnum.Current as ArrayList;
+                    var loopEnum = face.GetEnumerator();
+                    var loopIndex = -1;
+                    while (loopEnum.MoveNext()) {
+                        ++loopIndex;
+
+                        var vertices = loopEnum.Current as ArrayList;
+                        var vertexEnum = vertices.GetEnumerator();
+                        var vertexIndex = -1;
+                        while (vertexEnum.MoveNext()) {
+                            ++vertexIndex;
+
+                            var v = vertexEnum.Current as Point;
+
+                            drawer.DrawText(v, $"F{faceIndex}L{loopIndex}V{vertexIndex}", ColorExtension.DarkBlue);
+                        }
+                    }
+                }
+
+                model.CommitChanges();
+
+            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+                Console.WriteLine(USER_INTERRUPT);
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
             }
