@@ -19,6 +19,7 @@ using System.Linq;
 using CommunityToolkit.Mvvm.Input;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Internal;
+using Muggle.TeklaPlugins.Common.ModelUI;
 using Muggle.TeklaPlugins.MainWindow.Services;
 using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
@@ -113,6 +114,33 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
             plate.Contour.ContourPoints = new ArrayList(newContour);
             plate.Modify();
             model.CommitChanges();
+        }
+
+        [RelayCommand]
+        private void ShowContourOrder() {
+            ContourPlate plate;
+            try {
+                if (!model.GetConnectionStatus()) throw new InvalidOperationException(NOT_CONNECTED);
+
+                plate = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select a contour plate:") as ContourPlate;
+            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+                return;
+            } catch (Exception e) {
+                messageBoxService.ShowError(e.ToString());
+                return;
+            }
+
+            if (plate == null) {
+                Operation.DisplayPrompt("No contour plate selected.");
+                return;
+            }
+
+            var drawer = new GraphicsDrawer();
+            var cnt = -1;
+            foreach (ContourPoint p in plate.Contour.ContourPoints) {
+                ++cnt;
+                drawer.DrawText(p, cnt.ToString(), ColorExtension.DarkRed);
+            }
         }
 
         [RelayCommand]

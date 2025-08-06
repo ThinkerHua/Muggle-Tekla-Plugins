@@ -39,6 +39,7 @@
 		<Button Content="ShowModelObjectCoordinateSystem" Command="{Binding ShowModelObjectCoordinateSystemCommand}" />
 		<Button Content="SelectWeldedObjects" Command="{Binding SelectWeldedObjectsCommand}" />
 		<Button Content="ReorderContourPoints" Command="{Binding ReorderContourPointsCommand}" />
+		<Button Content="ShowContourOrder" Command="{Binding ShowContourOrderCommand}" />
 		<Button Content="CopyWithDirection" Command="{Binding CopyWithDirectionCommand}" />
 
 	</StackPanel>
