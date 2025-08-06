@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Resources\et_element_HJ1001.bmp" />
     <None Remove="Resources\et_element_KJ1001.bmp" />
+    <None Remove="Resources\et_element_KJ1002.bmp" />
     <None Remove="Resources\et_element_KJ2001.bmp" />
     <None Remove="Resources\et_element_MG1001.bmp" />
     <None Remove="Resources\et_element_MG1002.bmp" />
@@ -41,6 +42,7 @@
   <ItemGroup>
     <Resource Include="Resources\et_element_HJ1001.bmp" />
     <Resource Include="Resources\et_element_KJ1001.bmp" />
+    <Resource Include="Resources\et_element_KJ1002.bmp" />
     <Resource Include="Resources\et_element_KJ2001.bmp" />
     <Resource Include="Resources\et_element_MG1001.bmp" />
     <Resource Include="Resources\et_element_MG1002.bmp" />

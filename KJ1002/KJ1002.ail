@@ -1,0 +1,119 @@
+﻿string_utf8 albl_KJ1002_title {
+	entry = ("enu", "KJ1002 - Sideway restraint of beam flange");
+	entry = ("chs", "KJ1002 - 钢梁翼缘侧向约束");
+};
+
+string_utf8 albl_parameters {
+	entry = ("enu", "Parameters");
+	entry = ("chs", "参数");
+};
+
+string_utf8 albl_section_length {
+	entry = ("enu", "Section length");
+	entry = ("chs", "节长");
+};
+
+string_utf8 albl_section_length_tooltip {
+	entry = ("enu", "Keep it default or enter a negative value to calculate automatically (0.15 times the beam span and not less than the beam height)");
+	entry = ("chs", "不填或输入负值以自动计算（0.15倍梁跨且不小于梁高）");
+};
+
+string_utf8 albl_brace_profile {
+	entry = ("enu", "Brace profile");
+	entry = ("chs", "支撑截面/规格/型号");
+};
+
+string_utf8 albl_stiffener_thickness {
+	entry = ("enu", "Stiffener thickness");
+	entry = ("chs", "加劲板厚度");
+};
+
+string_utf8 albl_gusset_thickness {
+	entry = ("enu", "Gusset thickness");
+	entry = ("chs", "连接板厚度");
+};
+
+string_utf8 albl_clearance {
+	entry = ("enu", "Clearance");
+	entry = ("chs", "净距");
+};
+
+string_utf8 albl_extended_distance {
+	entry = ("enu", "Extended distance");
+	entry = ("chs", "外扩距离");
+};
+
+string_utf8 albl_bolt_standard {
+	entry = ("enu", "Bolt standard");
+	entry = ("chs", "螺栓标准/等级");
+};
+
+string_utf8 albl_bolt_size {
+	entry = ("enu", "Bolt size");
+	entry = ("chs", "螺栓尺寸");
+};
+
+string_utf8 albl_bolt_positions {
+	entry = ("enu", "Bolt positions");
+	entry = ("chs", "螺栓定位");
+};
+
+string_utf8 albl_creat_upper_splices {
+	entry = ("enu", "Creat upper splice");
+	entry = ("chs", "创建上翼缘约束");
+};
+
+string_utf8 albl_material {
+	entry = ("enu", "Material");
+	entry = ("chs", "材质");
+};
+
+string_utf8 albl_general {
+	entry = ("enu", "General");
+	entry = ("chs", "通用");
+};
+
+string_utf8 albl_up_direction {
+	entry = ("enu", "Up direction");
+	entry = ("chs", "向上方向");
+};
+
+string_utf8 albl_auto {
+	entry = ("enu", "Auto");
+	entry = ("chs", "自动");
+};
+
+string_utf8 albl_locked {
+	entry = ("enu", "Locked");
+	entry = ("chs", "锁定");
+};
+
+string_utf8 albl_no {
+	entry = ("enu", "No");
+	entry = ("chs", "否");
+};
+
+string_utf8 albl_yes {
+	entry = ("enu", "Yes");
+	entry = ("chs", "是");
+};
+
+string_utf8 albl_class {
+	entry = ("enu", "Class");
+	entry = ("chs", "等级");
+};
+
+string_utf8 albl_connection_code {
+	entry = ("enu", "Connection code");
+	entry = ("chs", "节点号");
+};
+
+string_utf8 albl_auto_defaults_rule_group {
+	entry = ("enu", "AutoDefaults rule group");
+	entry = ("chs", "自动默认值规则组");
+};
+
+string_utf8 albl_auto_connection_rule_group {
+	entry = ("enu", "AutoConnection rule group");
+	entry = ("chs", "自动连接规则组");
+};
