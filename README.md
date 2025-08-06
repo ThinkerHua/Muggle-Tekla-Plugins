@@ -17,6 +17,7 @@
 - [SelectBooleans (选择布尔操作对象)](#selectbooleans-选择布尔操作对象)
 - [SelectWeldedModelObjects (选择焊缝的焊接对象)](#selectweldedmodelobjects-选择焊缝的焊接对象)
 - [ReorderContourPoints (重排多边形板轮廓点顺序)](#reordercontourpoints-重排多边形板轮廓点顺序)
+- [ShowContourOrder (显示轮廓点顺序)](#showcontourorder-显示轮廓点顺序)
 - [CopyWithDirection (带基点和方向复制)](#copywithdirection-带基点和方向复制)
 
 >组件
@@ -70,6 +71,9 @@
 某些情况下顺序很重要时，则可以使用此工具指定顺序。
 
 ![ReorderContourPoints](Resources/Introduction_ReorderContourPoints.gif)
+
+## ShowContourOrder (显示轮廓点顺序)
+显示轮廓点顺序。
 
 ## CopyWithDirection (带基点和方向复制)
 适用于需要批量复制且带有旋转的情形，避免先复制再一个个旋转角度的繁琐操作。
