@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+	<Thickness x:Key="UniformMargin">2</Thickness>
+
+	<CornerRadius x:Key="UniformCornerRadius">4</CornerRadius>
+
+	<SolidColorBrush x:Key="Static.Background" Color="#FFDDDDDD" />
+	<SolidColorBrush x:Key="Static.Border" Color="#FF707070" />
+	<SolidColorBrush x:Key="Static.Glyph" Color="#FF212121" />
+	<SolidColorBrush x:Key="MouseOver.Background" Color="#FFBED4FD" />
+	<SolidColorBrush x:Key="MouseOver.Border" Color="#FF3C7FB1" />
+	<SolidColorBrush x:Key="MouseOver.Glyph" Color="#FF212121" />
+	<SolidColorBrush x:Key="Pressed.Background" Color="#FFC4E5F6" />
+	<SolidColorBrush x:Key="Pressed.Border" Color="#FF2C628B" />
+	<SolidColorBrush x:Key="Pressed.Glyph" Color="#FF212121" />
+	<SolidColorBrush x:Key="Disabled.Foreground" Color="#FF838383" />
+	<SolidColorBrush x:Key="Disabled.Background" Color="#FFF4F4F4" />
+	<SolidColorBrush x:Key="Disabled.Border" Color="#FFADB2B5" />
+	<SolidColorBrush x:Key="Disabled.Glyph" Color="#FF707070" />
+
+</ResourceDictionary>

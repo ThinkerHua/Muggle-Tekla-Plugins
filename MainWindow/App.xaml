@@ -5,11 +5,22 @@
              xmlns:local="clr-namespace:Muggle.TeklaPlugins.MainWindow"
              xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
              xmlns:views="clr-namespace:Muggle.TeklaPlugins.MainWindow.Views"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              Startup="Application_Startup">
 	<Application.Resources>
-		<cvt:EnumToBoolValueConverter x:Key="enumToBool" />
-		<cvt:MultiplesValueConverter x:Key="multiples" />
-		<cvt:PluginNameToIconValueConverter x:Key="pluginNameToIcon" />
-		<cvt:RoundDownValueConverter x:Key="roundDown" />
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Styles/ExpanderStyle1.xaml" />
+				<ResourceDictionary Source="/Styles/MenuButtonStyle1.xaml" />
+				<ResourceDictionary Source="/Styles/ButtonStyle1.xaml" />
+				<ResourceDictionary Source="/Styles/Uniform.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+
+			<cvt:EnumToBoolValueConverter x:Key="enumToBool" />
+			<cvt:MultiplesValueConverter x:Key="multiples" />
+			<cvt:PluginNameToIconValueConverter x:Key="pluginNameToIcon" />
+			<cvt:RoundDownValueConverter x:Key="roundDown" />
+
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>

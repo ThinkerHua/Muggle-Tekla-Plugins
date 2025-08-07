@@ -29,6 +29,7 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<Style TargetType="Button">
+				<Setter Property="Template" Value="{StaticResource ButtonStyle1}" />
 				<Setter Property="Margin" Value="2" />
 				<Setter Property="Height" Value="30" />
 			</Style>
