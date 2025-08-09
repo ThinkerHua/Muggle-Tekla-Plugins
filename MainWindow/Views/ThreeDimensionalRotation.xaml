@@ -36,7 +36,9 @@
 				<Setter Property="Padding" Value="2" />
 			</Style>
 			<Style TargetType="RadioButton" BasedOn="{StaticResource element}" />
-			<Style TargetType="Button" BasedOn="{StaticResource element}" />
+			<Style TargetType="Button" BasedOn="{StaticResource element}">
+				<Setter Property="Template" Value="{StaticResource ButtonStyle1}" />
+			</Style>
 			<Style TargetType="TextBox" BasedOn="{StaticResource element}">
 				<Setter Property="Height" Value="20" />
 			</Style>

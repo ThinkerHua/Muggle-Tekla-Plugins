@@ -21,62 +21,60 @@
         xmlns:vm="clr-namespace:Muggle.TeklaPlugins.MainWindow.ViewModels"
         xmlns:svs="clr-namespace:Muggle.TeklaPlugins.MainWindow.Services"
         Title="MainWindow"
-        Width="500"
+        Width="480"
         Height="300"
-        MinWidth="300"
+        MinWidth="340"
         MinHeight="300"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         WindowStartupLocation="CenterScreen"
+        Background="#FFFFFFFF"
         mc:Ignorable="d">
 
 	<Window.Resources>
 		<ResourceDictionary>
-			<Style x:Key="element" TargetType="FrameworkElement">
-				<Setter Property="Margin" Value="2" />
+			<Style TargetType="Expander" BasedOn="{StaticResource ExpanderStyle1}">
+				<Setter Property="Margin" Value="4,4,4,0" />
 			</Style>
-			<Style TargetType="Button" BasedOn="{StaticResource element}">
+			<Style TargetType="RadioButton" BasedOn="{StaticResource MenuButtonStyle1}">
 				<Setter Property="Height" Value="30" />
-			</Style>
-			<Style TargetType="Expander" BasedOn="{StaticResource element}">
-				<Setter Property="BorderBrush" Value="LightGray" />
-				<Setter Property="Padding" Value="2" />
+				<Setter Property="Margin" Value="0,8,0,0" />
 			</Style>
 		</ResourceDictionary>
 	</Window.Resources>
 
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="auto" MinWidth="128" />
+			<ColumnDefinition Width="128" MinWidth="128" />
 			<ColumnDefinition Width="4" />
 			<ColumnDefinition Width="1*" MinWidth="128" />
 		</Grid.ColumnDefinitions>
 
 		<ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
 			<StackPanel>
-				<Expander Header="Tools" IsExpanded="True">
+				<Expander Header="Modeling Tools" IsExpanded="True">
 					<StackPanel>
-						<Button Content="Normal" Command="{Binding NavigateCommand}">
-							<Button.CommandParameter>
+						<RadioButton IsChecked="True" Content="Normal" GroupName="menuBtn" Command="{Binding NavigateCommand}">
+							<RadioButton.CommandParameter>
 								<local:NormalTools />
-							</Button.CommandParameter>
-						</Button>
-						<Button Content="SelectBooleans" Command="{Binding NavigateCommand}">
-							<Button.CommandParameter>
+							</RadioButton.CommandParameter>
+						</RadioButton>
+						<RadioButton Content="SelectBooleans" GroupName="menuBtn" Command="{Binding NavigateCommand}">
+							<RadioButton.CommandParameter>
 								<local:SelectBooleans />
-							</Button.CommandParameter>
-						</Button>
-						<Button Content="ThreeDimensionalRotation" Command="{Binding NavigateCommand}">
-							<Button.CommandParameter>
+							</RadioButton.CommandParameter>
+						</RadioButton>
+						<RadioButton Content="3DRotation" GroupName="menuBtn" Command="{Binding NavigateCommand}">
+							<RadioButton.CommandParameter>
 								<local:ThreeDimensionalRotation />
-							</Button.CommandParameter>
-						</Button>
+							</RadioButton.CommandParameter>
+						</RadioButton>
 					</StackPanel>
 				</Expander>
-				<Button Content="Plugins" Command="{Binding NavigateCommand}">
-					<Button.CommandParameter>
+				<RadioButton Margin="4,8,4,0" Content="Plugins" GroupName="menuBtn" Command="{Binding NavigateCommand}">
+					<RadioButton.CommandParameter>
 						<local:Plugins />
-					</Button.CommandParameter>
-				</Button>
+					</RadioButton.CommandParameter>
+				</RadioButton>
 			</StackPanel>
 		</ScrollViewer>
 

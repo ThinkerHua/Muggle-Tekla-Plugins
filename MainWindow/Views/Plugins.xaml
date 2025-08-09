@@ -23,17 +23,16 @@
       Title="Plugins"
       d:Background="AliceBlue"
       d:DataContext="{d:DesignInstance Type=vm:PluginsViewModel}"
-      d:DesignHeight="200"
-      d:DesignWidth="300"
+      d:DesignHeight="240"
+      d:DesignWidth="360"
       mc:Ignorable="d">
 
 	<Page.Resources>
 		<ResourceDictionary>
 			<sys:Double x:Key="pluginCardWidth">64</sys:Double>
 			<Style TargetType="Button">
-				<Setter Property="Background" Value="Transparent" />
-				<Setter Property="BorderBrush" Value="Transparent" />
-				<Setter Property="BorderThickness" Value="0" />
+				<Setter Property="Template" Value="{StaticResource PluginCardButtonStyle1}" />
+				<Setter Property="Margin" Value="{StaticResource UniformMargin}" />
 			</Style>
 			<DataTemplate x:Key="pluginCardView">
 				<Grid Margin="2">
@@ -60,7 +59,7 @@
 		</ResourceDictionary>
 	</Page.Resources>
 
-	<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+	<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 		<WrapPanel Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ScrollViewer}}">
 			<Button Command="{Binding RepeatRunPluginCommand}" CommandParameter="HJ1001" ContentTemplate="{StaticResource pluginCardView}">
 				<vm:PluginCard PluginName="HJ1001" />
