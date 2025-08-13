@@ -21,10 +21,10 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:tsd="clr-namespace:Tekla.Structures.Dialog;assembly=Tekla.Structures.Dialog"
                       Title="{tsd:Loc albl_MJ5001_title}"
+                      d:Width="800"
                       ResizeMode="NoResize"
                       SizeToContent="WidthAndHeight"
-                      mc:Ignorable="d"
-                      d:Width="800">
+                      mc:Ignorable="d">
 	<d:UserControl.DataContext>
 		<local:MainWindowViewModel />
 	</d:UserControl.DataContext>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using RenderData;
+﻿using System.Text.RegularExpressions;
 
 namespace Muggle.TeklaPlugins.Common.Profile {
     /// <summary>
@@ -46,9 +40,9 @@ namespace Muggle.TeklaPlugins.Common.Profile {
                 Match match = Regex.Match(e.NewText, PatternCollection.L_1);
                 if (!match.Success)
                     match = Regex.Match(e.NewText, PatternCollection.L_2);
-                if (!match.Success) 
+                if (!match.Success)
                     match = Regex.Match(e.NewText, PatternCollection.L_3);
-                if (!match.Success) 
+                if (!match.Success)
                     throw new UnAcceptableProfileException(e.NewText);
 
                 double.TryParse(match.Groups["h"].Value, out h);
