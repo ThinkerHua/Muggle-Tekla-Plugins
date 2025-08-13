@@ -661,7 +661,7 @@ namespace Muggle.TeklaPlugins.KJ1002 {
             var currentTP = model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
             model.GetWorkPlaneHandler().SetCurrentTransformationPlane(new TransformationPlane(cs));
             foreach (var id in weldIDs) {
-                var weld = model.SelectModelObject(id) as Weld ?? 
+                var weld = model.SelectModelObject(id) as Weld ??
                     throw new ArgumentException($"Object with identifier {id} is not a Weld.", nameof(weldIDs));
 
                 if (weld.Position == Weld.WeldPositionEnum.WELD_POSITION_PLUS_Z || weld.Position == Weld.WeldPositionEnum.WELD_POSITION_MINUS_Z) {

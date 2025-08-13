@@ -20,6 +20,7 @@ using Tekla.Structures.Dialog.UIControls;
 
 namespace Muggle.TeklaPlugins.KJ1002.Views {
     public partial class MainWindow : PluginWindowBase {
+
         public MainWindowViewModel dataModel;
 
         public MainWindow(MainWindowViewModel DataModel) {
