@@ -183,12 +183,12 @@ string_utf8 albl_exhaustHole_diameter {
 	entry = ("chs", "排气孔直径");
 };
 
-string_utf8 albl_exhaustHole_distance_X {
+string_utf8 albl_exhaustHole_position_X {
 	entry = ("enu", "Exhaust hole's position at X direction");
 	entry = ("chs", "排气孔X向定位");
 };
 
-string_utf8 albl_exhaustHole_distance_Y {
+string_utf8 albl_exhaustHole_position_Y {
 	entry = ("enu", "Exhaust hole's position at Y direction");
 	entry = ("chs", "排气孔Y向定位");
 };

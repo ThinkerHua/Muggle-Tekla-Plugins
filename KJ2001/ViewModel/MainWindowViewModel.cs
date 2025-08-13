@@ -146,7 +146,7 @@ namespace Muggle.TeklaPlugins.KJ2001.ViewModel {
         [StructuresDialog("stud_STD", typeof(TD.String))]
         public string StudStandard {
             get { return stud_standard; }
-            set { stud_standard = value; OnPropertyChanged("StudStandard"); OnPropertyChanged("StudLengths"); }
+            set { stud_standard = value == string.Empty ? "STUD" : value; OnPropertyChanged("StudStandard"); OnPropertyChanged("StudLengths"); }
         }
 
         private TD.Distance stud_size;

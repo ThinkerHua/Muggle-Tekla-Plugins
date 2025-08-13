@@ -14,7 +14,6 @@
  *==============================================================================*/
 using System;
 using Muggle.TeklaPlugins.Common.Geometry3d;
-using Muggle.TeklaPlugins.Common.Internal;
 using Muggle.TeklaPlugins.Common.Model;
 using Muggle.TeklaPlugins.Common.Profile;
 using Tekla.Structures.Datatype;
