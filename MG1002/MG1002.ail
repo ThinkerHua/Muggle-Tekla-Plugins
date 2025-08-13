@@ -1,131 +1,175 @@
-string_utf8 albl_MG1002_title
+ï»¿string_utf8 albl_MG1002_title
 {
 	entry = ("enu", "MG1002 - Horizontal connection between middle column and two beams");
-	entry = ("chs", "MG1002 - ÖĞÖùÓëÁººáÏòÁ¬½Ó");
+	entry = ("chs", "MG1002 - ä¸­æŸ±ä¸æ¢æ¨ªå‘è¿æ¥");
 };
 
 string_utf8 albl_parameters_1
 {
 	entry = ("enu", "Parameters 1");
-	entry = ("chs", "²ÎÊı1");
+	entry = ("chs", "å‚æ•°1");
 };
 
 string_utf8 albl_parameters_2
 {
 	entry = ("enu", "Parameters 2");
-	entry = ("chs", "²ÎÊı2");
+	entry = ("chs", "å‚æ•°2");
 };
 
 string_utf8 albl_vertical_plate_profile
 {
 	entry = ("enu", "Vertical plate's profile");
-	entry = ("chs", "Êú°å¹æ¸ñ");
+	entry = ("chs", "ç«–æ¿è§„æ ¼");
 };
 
 string_utf8 albl_diagonal_plate_profile
 {
 	entry = ("enu", "Diagonal plate's profile");
-	entry = ("chs", "¶Ô½Ç°å¹æ¸ñ");
+	entry = ("chs", "å¯¹è§’æ¿è§„æ ¼");
 };
 
 string_utf8 albl_diagonal_plate_position_1
 {
 	entry = ("enu", "Diagonal plate's position 1");
-	entry = ("chs", "¶Ô½Ç°å¶¨Î»1");
+	entry = ("chs", "å¯¹è§’æ¿å®šä½1");
 };
 
 string_utf8 albl_diagonal_plate_position_2
 {
 	entry = ("enu", "Diagonal plate's position 2");
-	entry = ("chs", "¶Ô½Ç°å¶¨Î»2");
+	entry = ("chs", "å¯¹è§’æ¿å®šä½2");
 };
 
 string_utf8 albl_web_splicing_plate_thickness
 {
 	entry = ("enu", "Web splicing plate's thickness");
-	entry = ("chs", "¸¹°åÆ´½Ó°åºñ¶È");
+	entry = ("chs", "è…¹æ¿æ‹¼æ¥æ¿åšåº¦");
 };
 
 string_utf8 albl_distance_between_web_seam_and_flange_seam
 {
 	entry = ("enu", "Distance between web seam and flange seam");
-	entry = ("chs", "¸¹°åÆ´·ìÓëÒíÔµÆ´·ì¾àÀë");
+	entry = ("chs", "è…¹æ¿æ‹¼ç¼ä¸ç¿¼ç¼˜æ‹¼ç¼è·ç¦»");
 };
 
 string_utf8 albl_end_plate_profile
 {
 	entry = ("enu", "End plate's profile");
-	entry = ("chs", "¶Ë°å¹æ¸ñ");
+	entry = ("chs", "ç«¯æ¿è§„æ ¼");
 };
 
 string_utf8 albl_flange_stiffener_profile
 {
 	entry = ("enu", "Flange stiffener's profile");
-	entry = ("chs", "ÒíÔµ¼Ó¾¢Àß¹æ¸ñ");
+	entry = ("chs", "ç¿¼ç¼˜åŠ åŠ²è‚‹è§„æ ¼");
 };
 
 string_utf8 albl_web_stiffener_type
 {
 	entry = ("enu", "Web stiffener's type");
-	entry = ("chs", "¸¹°å¼Ó¾¢ÀßÀàĞÍ");
+	entry = ("chs", "è…¹æ¿åŠ åŠ²è‚‹ç±»å‹");
 };
 
 string_utf8 albl_web_stiffener_profile
 {
 	entry = ("enu", "Web stiffener's profile");
-	entry = ("chs", "¸¹°å¼Ó¾¢Àß¹æ¸ñ");
+	entry = ("chs", "è…¹æ¿åŠ åŠ²è‚‹è§„æ ¼");
 };
 
 string_utf8 albl_web_stiffeners_distance_list
 {
 	entry = ("enu", "Distance list of web stiffeners");
-	entry = ("chs", "¸¹°å¼Ó¾¢Àß¾àÀëÁĞ");
+	entry = ("chs", "è…¹æ¿åŠ åŠ²è‚‹è·ç¦»åˆ—");
 };
 
 string_utf8 albl_inside_chamfer_size
 {
 	entry = ("enu", "Inside chamfer size");
-	entry = ("chs", "ÄÚµ¹½Ç³ß´ç");
+	entry = ("chs", "å†…å€’è§’å°ºå¯¸");
 };
 
 string_utf8 albl_outside_chamfer_size
 {
 	entry = ("enu", "Outside chamfer size");
-	entry = ("chs", "Íâµ¹½Ç³ß´ç");
+	entry = ("chs", "å¤–å€’è§’å°ºå¯¸");
 };
 
 string_utf8 albl_bolt_standard
 {
 	entry = ("enu", "Bolt standard");
-	entry = ("chs", "ÂİË¨µÈ¼¶");
+	entry = ("chs", "èºæ “ç­‰çº§");
 };
 
 string_utf8 albl_bolt_size
 {
 	entry = ("enu", "Bolt size");
-	entry = ("chs", "ÂİË¨³ß´ç");
+	entry = ("chs", "èºæ “å°ºå¯¸");
 };
 
 string_utf8 albl_bolt_distance_list_x
 {
 	entry = ("enu", "Bolt distance list X");
-	entry = ("chs", "ÂİË¨XÏò¾àÀëÁĞ");
+	entry = ("chs", "èºæ “Xå‘è·ç¦»åˆ—");
 };
 
 string_utf8 albl_bolt_distance_list_y
 {
 	entry = ("enu", "Bolt distance list Y");
-	entry = ("chs", "ÂİË¨YÏò¾àÀëÁĞ");
+	entry = ("chs", "èºæ “Yå‘è·ç¦»åˆ—");
 };
 
 string_utf8 albl_material
 {
 	entry = ("enu", "Material");
-	entry = ("chs", "²ÄÖÊ");
+	entry = ("chs", "æè´¨");
 };
 
-string_utf8 albl_group_no
-{
+string_utf8 albl_general {
+	entry = ("enu", "General");
+	entry = ("chs", "é€šç”¨");
+};
+
+string_utf8 albl_up_direction {
+	entry = ("enu", "Up direction");
+	entry = ("chs", "å‘ä¸Šæ–¹å‘");
+};
+
+string_utf8 albl_auto {
+	entry = ("enu", "Auto");
+	entry = ("chs", "è‡ªåŠ¨");
+};
+
+string_utf8 albl_locked {
+	entry = ("enu", "Locked");
+	entry = ("chs", "é”å®š");
+};
+
+string_utf8 albl_no {
+	entry = ("enu", "No");
+	entry = ("chs", "å¦");
+};
+
+string_utf8 albl_yes {
+	entry = ("enu", "Yes");
+	entry = ("chs", "æ˜¯");
+};
+
+string_utf8 albl_class {
 	entry = ("enu", "Class");
-	entry = ("chs", "µÈ¼¶");
+	entry = ("chs", "ç­‰çº§");
+};
+
+string_utf8 albl_connection_code {
+	entry = ("enu", "Connection code");
+	entry = ("chs", "èŠ‚ç‚¹å·");
+};
+
+string_utf8 albl_auto_defaults_rule_group {
+	entry = ("enu", "AutoDefaults rule group");
+	entry = ("chs", "è‡ªåŠ¨é»˜è®¤å€¼è§„åˆ™ç»„");
+};
+
+string_utf8 albl_auto_connection_rule_group {
+	entry = ("enu", "AutoConnection rule group");
+	entry = ("chs", "è‡ªåŠ¨è¿æ¥è§„åˆ™ç»„");
 };

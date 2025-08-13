@@ -22,16 +22,16 @@ string_utf8 albl_end_plate_diameter
 	entry = ("chs", "端板直径");
 };
 
-string_utf8 albl_whether_to_creat_primary_stiffeners
+string_utf8 albl_creat_primary_stiffeners
 {
-	entry = ("enu", "Whether to creat primary stiffeners or not");
-	entry = ("chs", "是否创建主零件加劲肋");
+	entry = ("enu", "Creat primary stiffeners");
+	entry = ("chs", "创建主零件加劲肋");
 };
 
-string_utf8 albl_whether_to_creat_secondary_stiffeners
+string_utf8 albl_creat_secondary_stiffeners
 {
-	entry = ("enu", "Whether to creat secondary stiffeners or not");
-	entry = ("chs", "是否创建次零件加劲肋");
+	entry = ("enu", "Creat secondary stiffeners");
+	entry = ("chs", "创建次零件加劲肋");
 };
 
 string_utf8 albl_stiffener_thickness
@@ -70,10 +70,10 @@ string_utf8 albl_quantity
 	entry = ("chs", "数量");
 };
 
-string_utf8 albl_whether_to_creat_bolt
+string_utf8 albl_creat_bolt
 {
-	entry = ("enu", "Whether to creat bolt or not");
-	entry = ("chs", "是否创建螺栓");
+	entry = ("enu", "Creat bolt");
+	entry = ("chs", "创建螺栓");
 };
 
 string_utf8 albl_bolt_standard
@@ -100,8 +100,52 @@ string_utf8 albl_material
 	entry = ("chs", "材质");
 };
 
-string_utf8 albl_group_no
-{
+string_utf8 albl_general {
+	entry = ("enu", "General");
+	entry = ("chs", "通用");
+};
+
+string_utf8 albl_up_direction {
+	entry = ("enu", "Up direction");
+	entry = ("chs", "向上方向");
+};
+
+string_utf8 albl_auto {
+	entry = ("enu", "Auto");
+	entry = ("chs", "自动");
+};
+
+string_utf8 albl_locked {
+	entry = ("enu", "Locked");
+	entry = ("chs", "锁定");
+};
+
+string_utf8 albl_no {
+	entry = ("enu", "No");
+	entry = ("chs", "否");
+};
+
+string_utf8 albl_yes {
+	entry = ("enu", "Yes");
+	entry = ("chs", "是");
+};
+
+string_utf8 albl_class {
 	entry = ("enu", "Class");
 	entry = ("chs", "等级");
+};
+
+string_utf8 albl_connection_code {
+	entry = ("enu", "Connection code");
+	entry = ("chs", "节点号");
+};
+
+string_utf8 albl_auto_defaults_rule_group {
+	entry = ("enu", "AutoDefaults rule group");
+	entry = ("chs", "自动默认值规则组");
+};
+
+string_utf8 albl_auto_connection_rule_group {
+	entry = ("enu", "AutoConnection rule group");
+	entry = ("chs", "自动连接规则组");
 };
