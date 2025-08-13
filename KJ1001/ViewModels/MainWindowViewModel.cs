@@ -22,7 +22,7 @@ namespace Muggle.TeklaPlugins.KJ1001.ViewModels {
         [StructuresDialog("type", typeof(TD.Integer))]
         public int Type {
             get { return type; }
-            set { type = value; OnPropertyChanged("Type"); }
+            set { type = value < 0 || value > 2 ? 0 : value; OnPropertyChanged("Type"); }
         }
 
         private double innerStiffener_thickness;
@@ -162,7 +162,7 @@ namespace Muggle.TeklaPlugins.KJ1001.ViewModels {
         [StructuresDialog("webCNXPL_enum", typeof(TD.Integer))]
         public int WebConnectionPlateCreationEnum {
             get { return webConnectionPlate_creationEnum; }
-            set { webConnectionPlate_creationEnum = value; OnPropertyChanged("WebConnectionPlateCreationEnum"); }
+            set { webConnectionPlate_creationEnum = value < 0 || value > 2 ? 0 : value; OnPropertyChanged("WebConnectionPlateCreationEnum"); }
         }
 
         private double webConnectionPlate_thickness;

@@ -37,7 +37,7 @@ namespace Muggle.TeklaPlugins.MG1002.ViewModels {
         [StructuresDialog("type_STIF_WEB", typeof(TD.Integer))]
         public int WebStiffenerType {
             get { return webStiffener_type; }
-            set { webStiffener_type = value; OnPropertyChanged("WebStiffenerType"); }
+            set { webStiffener_type = value == 1 ? 1 : 0; OnPropertyChanged("WebStiffenerType"); }
         }
 
         private string webStiffener_profile = "PL10*225*225";

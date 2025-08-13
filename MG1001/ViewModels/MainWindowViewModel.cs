@@ -25,11 +25,11 @@ namespace Muggle.TeklaPlugins.MG1001.ViewModels {
             set { prfStr_top = value; OnPropertyChanged("TopPlateProfileString"); }
         }
 
-        private bool horizontal_top = true;
+        private int horizontal_top = 1;
         [StructuresDialog("bol_TOPHOR", typeof(TD.Integer))]
-        public bool TopPlateHorizontal {
+        public int TopPlateHorizontal {
             get { return horizontal_top; }
-            set { horizontal_top = value; OnPropertyChanged("TopPlateHorizontal"); }
+            set { horizontal_top = value == 0 ? 0 : 1; OnPropertyChanged("TopPlateHorizontal"); }
         }
 
         private string prfStr_diag = string.Empty;
@@ -169,7 +169,7 @@ namespace Muggle.TeklaPlugins.MG1001.ViewModels {
         [StructuresDialog("type_STIF_Web", typeof(TD.Integer))]
         public int WebStiffenerType {
             get { return type_stif_web; }
-            set { type_stif_web = value; OnPropertyChanged("WebStiffenerType"); }
+            set { type_stif_web = value == 1 ? 1 : 0; OnPropertyChanged("WebStiffenerType"); }
         }
 
         private double chamfer_stif_out = 25.0;

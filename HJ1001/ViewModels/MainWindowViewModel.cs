@@ -32,18 +32,18 @@ namespace Muggle.TeklaPlugins.HJ1001.ViewModels {
             set { endplate_diameter = value; OnPropertyChanged("EndPlateDiameter"); }
         }
 
-        private bool creatPrimStif = true;
+        private int creatPrimStif = 1;
         [StructuresDialog("creatPrimStif", typeof(TD.Integer))]
-        public bool CreatPrimaryStiffeners {
+        public int CreatPrimaryStiffeners {
             get { return creatPrimStif; }
-            set { creatPrimStif = value; OnPropertyChanged("CreatPrimaryStiffeners"); }
+            set { creatPrimStif = value == 0 ? 0 : 1; OnPropertyChanged("CreatPrimaryStiffeners"); }
         }
 
-        private bool creatSecStif = true;
+        private int creatSecStif = 1;
         [StructuresDialog("creatSecStif", typeof(TD.Integer))]
-        public bool CreatSecondaryStiffeners {
+        public int CreatSecondaryStiffeners {
             get { return creatSecStif; }
-            set { creatSecStif = value; OnPropertyChanged("CreatSecondaryStiffeners"); }
+            set { creatSecStif = value == 0 ? 0 : 1; OnPropertyChanged("CreatSecondaryStiffeners"); }
         }
 
         private double stifTHK = 10.0;
@@ -88,11 +88,11 @@ namespace Muggle.TeklaPlugins.HJ1001.ViewModels {
             set { quantity = value; OnPropertyChanged("Quantity"); }
         }
 
-        private bool creatBolt = true;
+        private int creatBolt = 1;
         [StructuresDialog("creatBolt", typeof(TD.Integer))]
-        public bool CreatBolt {
+        public int CreatBolt {
             get { return creatBolt; }
-            set { creatBolt = value; OnPropertyChanged("CreatBolt"); }
+            set { creatBolt = value == 0 ? 0 : 1; OnPropertyChanged("CreatBolt"); }
         }
 
         private string boltStandard = "HS10.0";
