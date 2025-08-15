@@ -196,11 +196,12 @@
 				</DockPanel>
 			</TabItem>
 			<TabItem Header="{tsd:Loc albl_general}">
-				<Grid HorizontalAlignment="Left">
+				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1*" />
 						<ColumnDefinition Width="22" />
 						<ColumnDefinition Width="100" />
+						<ColumnDefinition Width="30" />
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="30" />
