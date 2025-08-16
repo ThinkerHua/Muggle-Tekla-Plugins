@@ -93,8 +93,6 @@ namespace Muggle.TeklaPlugins.KJ2001 {
         public double exhaustHole_position_X;
         [StructuresField("exhaustHole_POS_Y")]
         public double exhaustHole_position_Y;
-        [StructuresField("group_no")]
-        public int group_no;
     }
 
     [Plugin("KJ2001")]
@@ -141,7 +139,6 @@ namespace Muggle.TeklaPlugins.KJ2001 {
         private double exhaustHole_diameter;
         private double exhaustHole_position_X;
         private double exhaustHole_position_Y;
-        private int group_no;
 
         private DistanceList stud_distanceList_X;
         private DistanceList stud_distanceList_Y;
@@ -237,7 +234,6 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             exhaustHole_diameter = Data.exhaustHole_diameter;
             exhaustHole_position_X = Data.exhaustHole_position_X;
             exhaustHole_position_Y = Data.exhaustHole_position_Y;
-            group_no = Data.group_no;
 
             if (IsDefaultValue(basePlate_material))
                 basePlate_material = "Q355";
@@ -305,8 +301,6 @@ namespace Muggle.TeklaPlugins.KJ2001 {
                 exhaustHole_position_X = 100.0;
             if (IsDefaultValue(exhaustHole_position_Y))
                 exhaustHole_position_Y = 100.0;
-            if (IsDefaultValue(group_no))
-                group_no = 99;
 
             stud_distanceList_X = DistanceList.Parse(
                 stud_distanceListStr_X,
@@ -360,7 +354,7 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             var basePlate = ModelOperation.CreatBeam(
                 point1, point2, "BASEPLATE",
                 $"PL{basePlate_thickness}*{basePlate_width}", basePlate_material,
-                @class: group_no.ToString(), depthEnum: Position.DepthEnum.BEHIND);
+                depthEnum: Position.DepthEnum.BEHIND);
 
             ModelOperation.CreatWeld(primPart, basePlate);
 
@@ -494,7 +488,7 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             point2 = new Point(point1.X, -point1.Y, point1.Z);
             var liner1 = ModelOperation.CreatBeam(
                 point1, point2, "LINER", $"PL10*30", innerStiffener_material,
-                @class: group_no.ToString(), planeEnum: Position.PlaneEnum.RIGHT,
+                planeEnum: Position.PlaneEnum.RIGHT,
                 depthEnum: Position.DepthEnum.BEHIND, depthOffset: innerStiffener_thickness);
             point1 = new Point(
                 -primaryPartProfile.h1 * 0.5 + primaryPartProfile.t,
@@ -503,7 +497,7 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             point2 = new Point(point1.X, -point1.Y, point1.Z);
             var liner2 = ModelOperation.CreatBeam(
                 point1, point2, "LINER", $"PL10*30", innerStiffener_material,
-                @class: group_no.ToString(), planeEnum: Position.PlaneEnum.LEFT,
+                planeEnum: Position.PlaneEnum.LEFT,
                 depthEnum: Position.DepthEnum.BEHIND, depthOffset: innerStiffener_thickness);
 
             point1 = new Point(
@@ -514,8 +508,7 @@ namespace Muggle.TeklaPlugins.KJ2001 {
             var innerStiffener = ModelOperation.CreatBeam(
                 point1, point2, "INNERSTIFFENER",
                 $"PL{innerStiffener_thickness}*{primaryPartProfile.b1 - 2 * primaryPartProfile.s}",
-                innerStiffener_material, @class: group_no.ToString(),
-                depthEnum: Position.DepthEnum.BEHIND);
+                innerStiffener_material, depthEnum: Position.DepthEnum.BEHIND);
 
             ModelOperation.CreatWeld(primPart, liner1);
             ModelOperation.CreatWeld(primPart, liner2);
