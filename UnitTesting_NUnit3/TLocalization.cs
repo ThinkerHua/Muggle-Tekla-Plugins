@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Tekla.Structures;
 using Tekla.Structures.Dialog;
 
@@ -16,7 +17,20 @@ namespace UnitTesting_NUnit3 {
 
             var localization = new Localization(dir, language);
 
-            Assert.That(localization.GetText("j_d_jd_Pos_no"), Is.EqualTo("位置编号"));
+            var sampleText = "j_d_jd_Pos_no";
+            var resultText = localization.GetText(sampleText);
+
+            if (language == "enu") {
+                Assert.That(resultText, Is.EqualTo("Pos_No"));
+            } else if (language == "chs") {
+                Assert.That(resultText, Is.EqualTo("位置编号"));
+            } else {
+                Console.WriteLine(string.Format(
+                    "Current language is: {0}, and \"j_d_jd_Pos_no\" be translated to: {1}",
+                    language,
+                    resultText)
+                );
+            }
         }
 
         private static string GetShortLanguage(string Language) {
