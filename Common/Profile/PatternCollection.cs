@@ -74,25 +74,29 @@ namespace Muggle.TeklaPlugins.Common.Profile {
         public static string CIRC_5 => @"^((CFCHS)|(CHS)|(EPD)|O|(PD)|(TUBE))(?<d1>\d+\.?\d*)\*(?<r1>\d+\.?\d*)"
                                         + @"\*(?<d2>\d+\.?\d*)\*(?<r2>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
         /// <summary>
-        /// 前置标识符为 F 或 J 或 P 或 TUB 或 RHS 或 SHS 或 CFRHS，后续参数形式为 h1*s。
+        /// 前置标识符为 P 或 TUB 或 RHS 或 SHS 或 CFRHS，后续参数形式为 h1*s。
         /// </summary>
-        public static string CFH_J_1 => @"^(F|J|P|(TUB)|(RHS)|(SHS)|(CFRHS))(?<h1>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
+        public static string CFH_J_1 => @"^(P|(TUB)|(RHS)|(SHS)|(CFRHS))(?<h1>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
         /// <summary>
-        /// 前置标识符为 F 或 J 或 P 或 RHS 或 SHS 或 CFRHS，后续参数形式为 h1*b1*s。
+        /// 前置标识符为 P 或 RHS 或 SHS 或 CFRHS，后续参数形式为 h1*b1*s。
         /// </summary>
-        public static string CFH_J_2 => @"^(F|J|P|(RHS)|(SHS)|(CFRHS))(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
+        public static string CFH_J_2 => @"^(P|(RHS)|(SHS)|(CFRHS))(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
         /// <summary>
         /// 前置标识符为 P 或 RHS 或 SHS 或 CFRHS，后续参数形式为 h1*b1-h2*b2*s。
         /// </summary>
         public static string CFH_J_3 => @"^(P|(RHS)|(SHS)|(CFRHS))(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)-(?<h2>\d+\.?\d*)\*(?<b2>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
         /// <summary>
+        /// 前置标识符为 F，后续参数形式为 h1Xb1Xs。
+        /// </summary>
+        public static string CFH_J_4 => @"^F(?<h1>\d+\.?\d*)X(?<b1>\d+\.?\d*)X(?<s>\d+\.?\d*)$";
+        /// <summary>
         /// 前置标识符为 B_WLD_F，后续参数形式为 h1*b1*s。
         /// </summary>
         public static string RECT_1 => @"^B_WLD_F(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)$";
         /// <summary>
-        /// 前置标识符为 RECT 或 B_WLD_F 或 B_BUILT，后续参数形式为 h1*b1*s*t。
+        /// 前置标识符为 B_WLD_F 或 B_BUILT，后续参数形式为 h1*b1*s*t。
         /// </summary>
-        public static string RECT_2 => @"^((RECT)|(B_WLD_F)|(B_BUILT))(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
+        public static string RECT_2 => @"^((B_WLD_F)|(B_BUILT))(?<h1>\d+\.?\d*)\*(?<b1>\d+\.?\d*)\*(?<s>\d+\.?\d*)\*(?<t>\d+\.?\d*)$";
         /// <summary>
         /// 前置标识符为 R，后续参数形式为 h1~h2*b1*s*t。
         /// </summary>
