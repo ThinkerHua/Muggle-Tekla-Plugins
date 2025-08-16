@@ -22,119 +22,170 @@ namespace Muggle.TeklaPlugins.WK1001.ViewModels {
         [StructuresDialog("prfStr_Pipe", typeof(TD.String))]
         public string PipeProfile {
             get { return pipe_profile; }
-            set { pipe_profile = value; OnPropertyChanged("PipeProfile"); }
+            set {
+                pipe_profile = value ?? string.Empty;
+                OnPropertyChanged("PipeProfile");
+            }
         }
 
         private double topEndPlate_thickness = 40.0;
         [StructuresDialog("thick_TEndplate", typeof(TD.Double))]
         public double TopEndPlateThickness {
             get { return topEndPlate_thickness; }
-            set { topEndPlate_thickness = value; OnPropertyChanged("TopEndPlateThickness"); }
+            set {
+                topEndPlate_thickness = value == int.MinValue ? 40.0 : value;
+                OnPropertyChanged("TopEndPlateThickness");
+            }
         }
 
         private double bottomEndPlate_thickness = 40.0;
         [StructuresDialog("thick_BEndplate", typeof(TD.Double))]
         public double BottomEndPlateThickness {
             get { return bottomEndPlate_thickness; }
-            set { bottomEndPlate_thickness = value; OnPropertyChanged("BottomEndPlateThickness"); }
+            set {
+                bottomEndPlate_thickness = value == int.MinValue ? 40.0 : value;
+                OnPropertyChanged("BottomEndPlateThickness");
+            }
         }
 
         private double bottomEndPlate_diameter = 0.0;
         [StructuresDialog("diam_BEndplate", typeof(TD.Double))]
         public double BottomEndPlateDiameter {
             get { return bottomEndPlate_diameter; }
-            set { bottomEndPlate_diameter = value; OnPropertyChanged("BottomEndPlateDiameter"); }
+            set {
+                bottomEndPlate_diameter = value == int.MinValue ? 0.0 : value;
+                OnPropertyChanged("BottomEndPlateDiameter");
+            }
         }
 
         private double stiffener_thickness = 25.0;
         [StructuresDialog("thick_Stiffener", typeof(TD.Double))]
         public double StiffenerThickness {
             get { return stiffener_thickness; }
-            set { stiffener_thickness = value; OnPropertyChanged("StiffenerThickness"); }
+            set {
+                stiffener_thickness = value == int.MinValue ? 25.0 : value;
+                OnPropertyChanged("StiffenerThickness");
+            }
         }
 
         private double min_distance = 50.0;
         [StructuresDialog("minDis", typeof(TD.Double))]
         public double MinimumDistance {
             get { return min_distance; }
-            set { min_distance = value; OnPropertyChanged("MinimumDistance"); }
+            set {
+                min_distance = value == int.MinValue ? 50.0 : value;
+                OnPropertyChanged("MinimumDistance");
+            }
         }
 
         private double top_extended_length = 20.0;
         [StructuresDialog("extLength_T", typeof(TD.Double))]
         public double TopExtendedLength {
             get { return top_extended_length; }
-            set { top_extended_length = value; OnPropertyChanged("TopExtendedLength"); }
+            set {
+                top_extended_length = value == int.MinValue ? 20.0 : value;
+                OnPropertyChanged("TopExtendedLength");
+            }
         }
 
         private double bottom_extended_length = 20.0;
         [StructuresDialog("extLength_B", typeof(TD.Double))]
         public double BottomExtendedLength {
             get { return bottom_extended_length; }
-            set { bottom_extended_length = value; OnPropertyChanged("BottomExtendedLength"); }
+            set {
+                bottom_extended_length = value == int.MinValue ? 20.0 : value;
+                OnPropertyChanged("BottomExtendedLength");
+            }
         }
 
         private string material = "Q345B";
         [StructuresDialog("materialStr", typeof(TD.String))]
         public string Material {
             get { return material; }
-            set { material = value; OnPropertyChanged("Material"); }
+            set {
+                material = string.IsNullOrEmpty(value) ? "Q345B" : value;
+                OnPropertyChanged("Material");
+            }
         }
 
         private int upDirection = 7;
         [StructuresDialog("zsuunta", typeof(TD.Integer))]
         public int UpDirection {
             get { return upDirection; }
-            set { upDirection = value <= 0 || value > 7 ? 7 : value; OnPropertyChanged("UpDirection"); }
+            set {
+                upDirection = value <= 0 || value > 7 ? 7 : value;
+                OnPropertyChanged("UpDirection");
+            }
         }
 
         private double rotationAngleY = 0.0;
         [StructuresDialog("zang1", typeof(TD.Double))]
         public double RotationAngleY {
             get { return rotationAngleY; }
-            set { rotationAngleY = value; OnPropertyChanged("RotationAngleY"); }
+            set {
+                rotationAngleY = value == int.MinValue ? 0.0 : value;
+                OnPropertyChanged("RotationAngleY");
+            }
         }
 
         private double rotationAngleX = 0.0;
         [StructuresDialog("zang2", typeof(TD.Double))]
         public double RotationAngleX {
             get { return rotationAngleX; }
-            set { rotationAngleX = value; OnPropertyChanged("RotationAngleX"); }
+            set {
+                rotationAngleX = value == int.MinValue ? 0.0 : value;
+                OnPropertyChanged("RotationAngleX");
+            }
         }
 
         private int locked = 0;
         [StructuresDialog("OBJECT_LOCKED", typeof(TD.Integer))]
         public int Locked {
             get { return locked; }
-            set { locked = value == 1 ? 1 : 0; OnPropertyChanged("Locked"); }
+            set {
+                locked = value == 1 ? 1 : 0;
+                OnPropertyChanged("Locked");
+            }
         }
 
         private int @class = -1;
         [StructuresDialog("group_no", typeof(TD.Integer))]
         public int Class {
             get { return @class; }
-            set { @class = value; OnPropertyChanged("Class"); }
+            set {
+                @class = value == int.MinValue ? 0 : value;
+                OnPropertyChanged("Class");
+            }
         }
 
         private string connectionCode = string.Empty;
         [StructuresDialog("joint_code", typeof(TD.String))]
         public string ConnectionCode {
             get { return connectionCode; }
-            set { connectionCode = value; OnPropertyChanged("ConnectionCode"); }
+            set {
+                connectionCode = value ?? string.Empty;
+                OnPropertyChanged("ConnectionCode");
+            }
         }
 
-        private string autoDefaults;
+        private string autoDefaults = string.Empty;
         [StructuresDialog("ad_root", typeof(TD.String))]
         public string AutoDefaults {
             get { return autoDefaults; }
-            set { autoDefaults = value; OnPropertyChanged("AutoDefaults"); }
+            set {
+                autoDefaults = value ?? string.Empty;
+                OnPropertyChanged("AutoDefaults");
+            }
         }
 
-        private string autoConnection;
+        private string autoConnection = string.Empty;
         [StructuresDialog("ac_root", typeof(TD.String))]
         public string AutoConnection {
             get { return autoConnection; }
-            set { autoConnection = value; OnPropertyChanged("AutoConnection"); }
+            set {
+                autoConnection = value ?? string.Empty;
+                OnPropertyChanged("AutoConnection");
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

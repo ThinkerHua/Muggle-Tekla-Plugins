@@ -299,7 +299,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             if (type != 0 && type != 1 && type != 2) {
                 throw new ArgumentException($"Unknow connection type: {type}");
             }
-            if (IsDefaultValue(innerStiffener_thickness)) {
+            if (innerStiffener_thickness < 0.0) {
                 innerStiffener_thickness = prfSec.t1;
             }
             if (IsDefaultValue(innerStiffener_chamferSize)) {
@@ -370,32 +370,32 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             }
             if (IsDefaultValue(webPosition_distanceListStr_X)) {
                 switch (type) {
-                case 0:
-                    webPosition_distanceListStr_X = "40 70 40";
-                    break;
-                case 1:
-                    webPosition_distanceListStr_X = "50 3*70 110 3*70 50";
-                    break;
-                case 2:
-                    webPosition_distanceListStr_X = "40 70 90 70 40";
-                    break;
-                default:
-                    break;
+                    case 0:
+                        webPosition_distanceListStr_X = "40 70 40";
+                        break;
+                    case 1:
+                        webPosition_distanceListStr_X = "50 3*70 110 3*70 50";
+                        break;
+                    case 2:
+                        webPosition_distanceListStr_X = "40 70 90 70 40";
+                        break;
+                    default:
+                        break;
                 }
             }
             if (IsDefaultValue(webPosition_distanceListStr_Y)) {
                 switch (type) {
-                case 0:
-                    webPosition_distanceListStr_Y = "61 59 8*70 59";
-                    break;
-                case 1:
-                    webPosition_distanceListStr_Y = "77 84 11*80 84";
-                    break;
-                case 2:
-                    webPosition_distanceListStr_Y = "55 50 7*70 50";
-                    break;
-                default:
-                    break;
+                    case 0:
+                        webPosition_distanceListStr_Y = "61 59 8*70 59";
+                        break;
+                    case 1:
+                        webPosition_distanceListStr_Y = "77 84 11*80 84";
+                        break;
+                    case 2:
+                        webPosition_distanceListStr_Y = "55 50 7*70 50";
+                        break;
+                    default:
+                        break;
                 }
             }
             if (IsDefaultValue(shortBeamLength)) {
@@ -609,7 +609,7 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             var chamferLine = new Chamfer(innerStiffener_chamferSize, innerStiffener_chamferSize, Chamfer.ChamferTypeEnum.CHAMFER_LINE);
             var chamferArcPoint = new Chamfer { Type = Chamfer.ChamferTypeEnum.CHAMFER_ARC_POINT };
 
-            if (innerStiffener_thickness <= 0.0) goto Skip_InnerSfiffener;
+            if (innerStiffener_thickness == 0.0) goto Skip_InnerSfiffener;
 
             static ContourPlate CreatAndWeldInnerStiffener(
                 Part prim, Part thickenedStiffener1, Part thickenedStiffener2,

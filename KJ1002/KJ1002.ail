@@ -14,8 +14,8 @@ string_utf8 albl_section_length {
 };
 
 string_utf8 albl_section_length_tooltip {
-	entry = ("enu", "Keep it default or enter a negative value to calculate automatically (0.15 times the beam span and not less than the beam height)");
-	entry = ("chs", "不填或输入负值以自动计算（0.15倍梁跨且不小于梁高）");
+	entry = ("enu", "Keep the default value or enter a value less than or equal to 0 to automatically calculate (0.15 times the beam span and not less than the beam height)");
+	entry = ("chs", "保持默认值或输入小于等于0的值以自动计算（0.15倍梁跨且不小于梁高）");
 };
 
 string_utf8 albl_brace_profile {

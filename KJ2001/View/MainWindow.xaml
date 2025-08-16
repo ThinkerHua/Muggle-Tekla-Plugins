@@ -45,12 +45,12 @@
 
             <Style x:Key="element" TargetType="FrameworkElement">
                 <Setter Property="Margin" Value="3" />
-                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style BasedOn="{StaticResource element}" TargetType="TextBlock">
                 <Setter Property="HorizontalAlignment" Value="Right" />
             </Style>
-            <Style BasedOn="{StaticResource element}" TargetType="TextBox"/>
+            <Style BasedOn="{StaticResource element}" TargetType="TextBox" />
             <Style BasedOn="{StaticResource element}" TargetType="ComboBox" />
             <Style BasedOn="{StaticResource element}" TargetType="CheckBox">
                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -58,9 +58,9 @@
             <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfFilterCheckBox">
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
-            <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfBoltCatalogStandard"/>
-            <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfBoltCatalogSize"/>
-            <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfMaterialCatalog"/>
+            <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfBoltCatalogStandard" />
+            <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfBoltCatalogSize" />
+            <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfMaterialCatalog" />
         </ResourceDictionary>
     </tsd:PluginWindowBase.Resources>
 

@@ -65,6 +65,12 @@ string_utf8 albl_inner_stiffener_thickness
 	entry = ("chs", "内部加劲板厚度");
 };
 
+string_utf8 albl_inner_stiffener_thickness_tooltip
+{
+	entry = ("enu", "Keep the default value or enter a negative value to determine based on the flange thickness of the secondary part; If 0 is enterd, the inner stiffener plate will not be created; If a positive value is entered, it is created as the input value.");
+	entry = ("chs", "保持默认值或输入负值，以根据次零件翼缘厚度确定；输入0，则不创建内部加劲板；输入正值，则按输入值创建。");
+};
+
 string_utf8 albl_inner_stiffener_chamfer_size
 {
 	entry = ("enu", "Size of inner stiffener's chamfer");
