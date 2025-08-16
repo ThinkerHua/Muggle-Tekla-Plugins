@@ -44,7 +44,7 @@
             <cvc:UpDirectionToSelectedIndexValueConverter x:Key="upDirectionToSelectedIndex" />
 
             <Style x:Key="element" TargetType="FrameworkElement">
-                <Setter Property="Margin" Value="3" />
+                <Setter Property="Margin" Value="2" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style BasedOn="{StaticResource element}" TargetType="TextBlock">
@@ -52,15 +52,15 @@
             </Style>
             <Style BasedOn="{StaticResource element}" TargetType="TextBox" />
             <Style BasedOn="{StaticResource element}" TargetType="ComboBox" />
-            <Style BasedOn="{StaticResource element}" TargetType="CheckBox">
-                <Setter Property="HorizontalAlignment" Value="Center" />
-            </Style>
+            <Style BasedOn="{StaticResource element}" TargetType="CheckBox" />
             <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfFilterCheckBox">
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
             <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfBoltCatalogStandard" />
             <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfBoltCatalogSize" />
-            <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfMaterialCatalog" />
+            <Style BasedOn="{StaticResource element}" TargetType="uiCtrls:WpfMaterialCatalog">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
         </ResourceDictionary>
     </tsd:PluginWindowBase.Resources>
 
@@ -98,10 +98,10 @@
                             <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{tsd:Loc albl_basePlate_material}" />
@@ -160,19 +160,19 @@
                             <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{tsd:Loc albl_anchorRod_material}" />
@@ -275,16 +275,16 @@
                             <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{tsd:Loc albl_stud_standard}" />
@@ -356,14 +356,14 @@
                             <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="30" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{tsd:Loc albl_innerStiffener_material}" />
@@ -416,23 +416,23 @@
                         <ColumnDefinition Width="30" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{tsd:Loc albl_up_direction}" />
@@ -471,8 +471,8 @@
                     <Canvas Grid.Row="4"
                             Grid.RowSpan="3"
                             Grid.Column="2"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
+                            Width="100"
+                            Height="90">
                         <Path Canvas.Left="3"
                               Canvas.Top="33"
                               Data="M 0,0 H 94 V 24 H 0 Z"
@@ -486,7 +486,7 @@
                               Stroke="Red"
                               StrokeThickness="1"
                               Fill="White" />
-                        <Path Canvas.Left="39"
+                        <Path Canvas.Left="37"
                               Canvas.Top="43.5"
                               Data="M 0,0 H 3 V 3 H 0 Z"
                               Stroke="Red"
@@ -521,52 +521,52 @@
                     <Canvas Grid.Row="7"
                             Grid.RowSpan="3"
                             Grid.Column="2"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
+                            Width="100"
+                            Height="100">
                         <Path Canvas.Left="25"
-                              Canvas.Top="20"
+                              Canvas.Top="25"
                               Stroke="Black"
                               StrokeThickness="1.5"
                               Fill="#FF808080"
                               Data="M 0,0 H 50 V 10 H 30 V 40 H 50 V 50 H 0 V 40 H 20 V 10 H 0 Z" />
-                        <Path Canvas.Left="46" Canvas.Top="30" Fill="Black" Data="M 4,0 L 8,4 L 5.2,3.5 V 10 H 2.8 V 3.5 L 0,4 H 0 Z" />
-                        <Path Canvas.Left="65" Canvas.Top="41" Fill="Black" Data="M 4,0 L 8,4 L 5.2,3.5 V 10 H 2.8 V 3.5 L 0,4 H 0 Z">
+                        <Path Canvas.Left="46" Canvas.Top="35" Fill="Black" Data="M 4,0 L 8,4 L 5.2,3.5 V 10 H 2.8 V 3.5 L 0,4 H 0 Z" />
+                        <Path Canvas.Left="65" Canvas.Top="46" Fill="Black" Data="M 4,0 L 8,4 L 5.2,3.5 V 10 H 2.8 V 3.5 L 0,4 H 0 Z">
                             <Path.RenderTransform>
                                 <RotateTransform Angle="90" />
                             </Path.RenderTransform>
                         </Path>
                         <Path Canvas.Left="22"
-                              Canvas.Top="17"
+                              Canvas.Top="22"
                               Data="M 0,0 H 3 V 3 H 0 Z"
                               Stroke="Red"
                               StrokeThickness="1" />
                         <Path Canvas.Left="48.5"
-                              Canvas.Top="17"
+                              Canvas.Top="22"
                               Data="M 0,0 H 3 V 3 H 0 Z"
                               Stroke="Red"
                               StrokeThickness="1" />
                         <Path Canvas.Left="75"
-                              Canvas.Top="17"
+                              Canvas.Top="22"
                               Data="M 0,0 H 3 V 3 H 0 Z"
                               Stroke="Red"
                               StrokeThickness="1" />
-                        <Path Canvas.Left="40"
-                              Canvas.Top="43.5"
+                        <Path Canvas.Left="37"
+                              Canvas.Top="48.5"
                               Data="M 0,0 H 3 V 3 H 0 Z"
                               Stroke="Red"
                               StrokeThickness="1" />
                         <Path Canvas.Left="22"
-                              Canvas.Top="70"
+                              Canvas.Top="75"
                               Data="M 0,0 H 3 V 3 H 0 Z"
                               Stroke="Red"
                               StrokeThickness="1" />
                         <Path Canvas.Left="48.5"
-                              Canvas.Top="70"
+                              Canvas.Top="75"
                               Data="M 0,0 H 3 V 3 H 0 Z"
                               Stroke="Red"
                               StrokeThickness="1" />
                         <Path Canvas.Left="75"
-                              Canvas.Top="70"
+                              Canvas.Top="75"
                               Data="M 0,0 H 3 V 3 H 0 Z"
                               Stroke="Red"
                               StrokeThickness="1" />
