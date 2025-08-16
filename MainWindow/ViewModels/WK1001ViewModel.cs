@@ -163,7 +163,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                 if (childrenEnum == null) continue;
 
                 foreach (ModelObject child in childrenEnum) {
-                    if (child.GetType() != typeof(Beam) || ((Beam) child).PartNumber.Prefix != "O")
+                    if (child.GetType() != typeof(Beam) || ((Beam)child).PartNumber.Prefix != "O")
                         continue;
 
                     var tube = child as Beam;

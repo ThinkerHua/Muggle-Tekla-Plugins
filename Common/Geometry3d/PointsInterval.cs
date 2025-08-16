@@ -349,8 +349,8 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             }
 
 
-            var num_Left = (value - num * dis) > _start ? num : (int) ((value - _start) / dis);
-            var num_Right = (value + num * dis) < _end ? num : (int) ((_end - value) / dis);
+            var num_Left = (value - num * dis) > _start ? num : (int)((value - _start) / dis);
+            var num_Right = (value + num * dis) < _end ? num : (int)((_end - value) / dis);
             value -= dis * num_Left;
             for (int i = 0; i <= num_Left + num_Right; i++) {
                 yield return value + i * dis;
@@ -415,8 +415,8 @@ namespace Muggle.TeklaPlugins.Common.Geometry3d {
             }
 
 
-            var num_Left = (value - num * dis) > _start ? num : (int) ((value - _start) / dis);
-            var num_Right = (value + num * dis) < _end ? num : (int) ((_end - value) / dis);
+            var num_Left = (value - num * dis) > _start ? num : (int)((value - _start) / dis);
+            var num_Right = (value + num * dis) < _end ? num : (int)((_end - value) / dis);
             value -= dis * num_Left;
             for (int i = 0; i <= num_Left + num_Right; i++) {
                 yield return GetPoint(value + i * dis);

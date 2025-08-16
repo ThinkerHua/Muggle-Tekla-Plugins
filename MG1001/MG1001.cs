@@ -332,8 +332,8 @@ namespace Muggle.TeklaPlugins.MG1001 {
             }
         }
         private TransformationPlane SetWorkTransformationPlane() {
-            Beam PRIMPart = (Beam) _model.SelectModelObject(Primary);
-            Beam SECPart = (Beam) _model.SelectModelObject(Secondaries[0]);
+            Beam PRIMPart = (Beam)_model.SelectModelObject(Primary);
+            Beam SECPart = (Beam)_model.SelectModelObject(Secondaries[0]);
             Point point1, point2, point3, point4;
             Point origin;
             Vector axisX, axisY, axisZ;
@@ -372,7 +372,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 return;
             }
 
-            Beam PRIMPart = (Beam) _model.SelectModelObject(Primary);
+            Beam PRIMPart = (Beam)_model.SelectModelObject(Primary);
             Point point1, point2, point3, point4, point5;
             Point origin;
             Line line;
@@ -1119,7 +1119,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 }
 
                 if (!Point.AreEqual(cp2,
-                    (ContourPoint) thkedPlate.Contour.ContourPoints[thkedPlate.Contour.ContourPoints.Count - 2])) {
+                    (ContourPoint)thkedPlate.Contour.ContourPoints[thkedPlate.Contour.ContourPoints.Count - 2])) {
                     contourPoints.Add(cp2);
                 }
                 contourPoints.Add(cp3);
@@ -1173,10 +1173,10 @@ namespace Muggle.TeklaPlugins.MG1001 {
             if (thk_THKED > prf_PRIM.s) {
                 //CreatWeld(PRIMPart, thkedPlate);//有时会不起作用，改用PolygonWeld
                 Polygon polygon = new Polygon();
-                point1 = new Point((Point) thkedPlate.Contour.ContourPoints[0]);
-                point2 = new Point((Point) thkedPlate.Contour.ContourPoints[1]);
+                point1 = new Point((Point)thkedPlate.Contour.ContourPoints[0]);
+                point2 = new Point((Point)thkedPlate.Contour.ContourPoints[1]);
                 point3 = new Point(point2);
-                point4 = new Point((Point) thkedPlate.Contour.ContourPoints[2]);
+                point4 = new Point((Point)thkedPlate.Contour.ContourPoints[2]);
                 point1.Z = thk_THKED * 0.5;
                 point2.Z = point1.Z;
                 point3.Z = prf_PRIM.s * 0.5;
@@ -1188,7 +1188,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 polygon.Points.Add(point4);
                 if (thkedPlate.Contour.ContourPoints.Count == 5) {
                     polygon.Points.Add(new Point(point4.X, point4.Y, thk_THKED * 0.5));
-                    point5 = new Point((Point) thkedPlate.Contour.ContourPoints[3]);
+                    point5 = new Point((Point)thkedPlate.Contour.ContourPoints[3]);
                     point5.Z = point1.Z;
                     polygon.Points.Add(point5);
                 }

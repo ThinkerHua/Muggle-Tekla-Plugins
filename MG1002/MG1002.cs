@@ -125,9 +125,9 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 if (Primary == null || Secondaries == null || Secondaries.Count != 2)
                     throw new Exception("需要一个主零件，两个次零件！");
 
-                var PRIMPart = (Beam) _model.SelectModelObject(Primary);
-                var SECPart1 = (Beam) _model.SelectModelObject(Secondaries[0]);
-                var SECPart2 = (Beam) _model.SelectModelObject(Secondaries[1]);
+                var PRIMPart = (Beam)_model.SelectModelObject(Primary);
+                var SECPart1 = (Beam)_model.SelectModelObject(Secondaries[0]);
+                var SECPart2 = (Beam)_model.SelectModelObject(Secondaries[1]);
 
                 CheckIfAcceptableProfile();
 
@@ -325,8 +325,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
-            point1 = (Point) centerline[0];
-            point2 = (Point) centerline[1];
+            point1 = (Point)centerline[0];
+            point2 = (Point)centerline[1];
             prim_CLine = new Line(point1, point2);
 
             point3 = point1.TransformTo(primCS);
@@ -356,8 +356,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
-            point1 = ((Point) centerline[0]).TransformTo(secLCS);
-            point2 = ((Point) centerline[1]).TransformTo(secLCS);
+            point1 = ((Point)centerline[0]).TransformTo(secLCS);
+            point2 = ((Point)centerline[1]).TransformTo(secLCS);
             point3 = new Point(point1);
             point4 = new Point(point2);
 
@@ -384,8 +384,8 @@ namespace Muggle.TeklaPlugins.MG1002 {
             foreach (Point point in centerline) {
                 if (Math.Abs(point.Z) < GeometryConstants.DISTANCE_EPSILON) point.Z = 0;
             }
-            point1 = ((Point) centerline[0]).TransformTo(secRCS);
-            point2 = ((Point) centerline[1]).TransformTo(secRCS);
+            point1 = ((Point)centerline[0]).TransformTo(secRCS);
+            point2 = ((Point)centerline[1]).TransformTo(secRCS);
             point3 = new Point(point1);
             point4 = new Point(point2);
 

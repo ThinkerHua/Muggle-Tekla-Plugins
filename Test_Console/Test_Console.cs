@@ -49,30 +49,30 @@ namespace Muggle.TeklaPlugins.Test {
                 }
             }
             switch (CASE) {
-            case 0:
-                break;
-            case 1:
-                TestPositionOfTriangleOnLines();
-                Console.WriteLine();
-                goto Start;
-            case 2:
-                TSInfo();
-                Console.WriteLine();
-                goto Start;
-            case 3:
-                GetModelObjectType();
-                Console.WriteLine();
-                goto Start;
-            case 4:
-                SelectModelObjectWithBoundingBox();
-                Console.WriteLine();
-                goto Start;
-            case 5:
-                TestSolidIntersectAllFaces();
-                goto Start;
-            default:
-                Console.WriteLine("没有此选项，请重新选择。");
-                goto Start;
+                case 0:
+                    break;
+                case 1:
+                    TestPositionOfTriangleOnLines();
+                    Console.WriteLine();
+                    goto Start;
+                case 2:
+                    TSInfo();
+                    Console.WriteLine();
+                    goto Start;
+                case 3:
+                    GetModelObjectType();
+                    Console.WriteLine();
+                    goto Start;
+                case 4:
+                    SelectModelObjectWithBoundingBox();
+                    Console.WriteLine();
+                    goto Start;
+                case 5:
+                    TestSolidIntersectAllFaces();
+                    goto Start;
+                default:
+                    Console.WriteLine("没有此选项，请重新选择。");
+                    goto Start;
             }
         }
 

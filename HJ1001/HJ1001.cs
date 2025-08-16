@@ -203,8 +203,8 @@ namespace Muggle.TeklaPlugins.HJ1001 {
         /// 目前仅支持圆钢或圆管的正圆形式（含变截面情形），不支持椭圆形式。
         /// </summary>
         private void CheckIfAcceptableProfile() {
-            var prim = (Part) Model.SelectModelObject(Primary);
-            var sec = (Part) Model.SelectModelObject(Secondaries[0]);
+            var prim = (Part)Model.SelectModelObject(Primary);
+            var sec = (Part)Model.SelectModelObject(Secondaries[0]);
             try {
                 primProfile = new ProfileCircular_Perfect(prim.Profile.ProfileString);
                 secProfile = new ProfileCircular_Perfect(sec.Profile.ProfileString);
@@ -218,15 +218,15 @@ namespace Muggle.TeklaPlugins.HJ1001 {
 
             originTP = Model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
 
-            var prim = (Part) Model.SelectModelObject(Primary);
-            var sec = (Part) Model.SelectModelObject(Secondaries[0]);
+            var prim = (Part)Model.SelectModelObject(Primary);
+            var sec = (Part)Model.SelectModelObject(Secondaries[0]);
 
             var primCenterline = prim.GetCenterLine(false);
             var secCenterline = sec.GetCenterLine(false);
-            var primStartPoint = (Point) primCenterline[0];
-            var primEndPoint = (Point) primCenterline[primCenterline.Count - 1];
-            var secStartPoint = (Point) secCenterline[0];
-            var secEndPoint = (Point) secCenterline[secCenterline.Count - 1];
+            var primStartPoint = (Point)primCenterline[0];
+            var primEndPoint = (Point)primCenterline[primCenterline.Count - 1];
+            var secStartPoint = (Point)secCenterline[0];
+            var secEndPoint = (Point)secCenterline[secCenterline.Count - 1];
 
             var dis1 = Math.Min(
                 TSG.Distance.PointToPoint(primStartPoint, secStartPoint),
@@ -239,23 +239,23 @@ namespace Muggle.TeklaPlugins.HJ1001 {
 
             var beamType = prim.GetType();
             switch (beamType.Name) {
-            case nameof(Beam):
-                if (primCenterline.Count == 2)
-                    isCurve = false;
-                else
-                    isCurve = true;
-                break;
-            case nameof(PolyBeam):
-                var contourPoints = ((PolyBeam) prim).Contour.ContourPoints;
-                var secondOrPenultimateIndex = dis1 < dis2 ? 1 : contourPoints.Count - 2;
-                var chamfer = ((ContourPoint) contourPoints[secondOrPenultimateIndex]).Chamfer;
-                if (chamfer.Type == Chamfer.ChamferTypeEnum.CHAMFER_ARC_POINT)
-                    isCurve = true;
-                else
-                    isCurve = false;
-                break;
-            default:
-                break;
+                case nameof(Beam):
+                    if (primCenterline.Count == 2)
+                        isCurve = false;
+                    else
+                        isCurve = true;
+                    break;
+                case nameof(PolyBeam):
+                    var contourPoints = ((PolyBeam)prim).Contour.ContourPoints;
+                    var secondOrPenultimateIndex = dis1 < dis2 ? 1 : contourPoints.Count - 2;
+                    var chamfer = ((ContourPoint)contourPoints[secondOrPenultimateIndex]).Chamfer;
+                    if (chamfer.Type == Chamfer.ChamferTypeEnum.CHAMFER_ARC_POINT)
+                        isCurve = true;
+                    else
+                        isCurve = false;
+                    break;
+                default:
+                    break;
             }
 
             var origin = dis1 < dis2 ? new Point(primStartPoint) : new Point(primEndPoint);
@@ -264,11 +264,11 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             int index = dis1 < dis2 ? 0 : primCenterline.Count - 1;
             int step = dis1 < dis2 ? 1 : -1;
             Point p1, p2, p3;
-            p1 = (Point) primCenterline[index];
-            p2 = (Point) primCenterline[index + step];
+            p1 = (Point)primCenterline[index];
+            p2 = (Point)primCenterline[index + step];
 
             if (isCurve) {
-                p3 = (Point) primCenterline[index + step + step];
+                p3 = (Point)primCenterline[index + step + step];
                 var arc = new Arc(p1, p3, p2);
                 axisX = arc.StartTangent;
                 axisY = arc.StartDirection;
@@ -295,15 +295,15 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             var axisY = new Vector(0, 1, 0);
             var axisZ = new Vector(0, 0, 1);
 
-            var prim = (Part) Model.SelectModelObject(Primary);
-            var sec = (Part) Model.SelectModelObject(Secondaries[0]);
+            var prim = (Part)Model.SelectModelObject(Primary);
+            var sec = (Part)Model.SelectModelObject(Secondaries[0]);
 
             var primCenterline = prim.GetCenterLine(false);
             var secCenterline = sec.GetCenterLine(false);
-            var primStartPoint = (Point) primCenterline[0];
-            var primEndPoint = (Point) primCenterline[primCenterline.Count - 1];
-            var secStartPoint = (Point) secCenterline[0];
-            var secEndPoint = (Point) secCenterline[secCenterline.Count - 1];
+            var primStartPoint = (Point)primCenterline[0];
+            var primEndPoint = (Point)primCenterline[primCenterline.Count - 1];
+            var secStartPoint = (Point)secCenterline[0];
+            var secEndPoint = (Point)secCenterline[secCenterline.Count - 1];
 
             var dis1 = TSG.Distance.PointToPoint(origin, primStartPoint);
             var dis2 = TSG.Distance.PointToPoint(origin, primEndPoint);

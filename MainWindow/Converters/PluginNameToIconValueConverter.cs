@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 namespace Muggle.TeklaPlugins.MainWindow.Converters {
     public class PluginNameToIconValueConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            var uriStr = string.Format("/Resources/et_element_{0}.bmp", (string) value);
+            var uriStr = string.Format("/Resources/et_element_{0}.bmp", (string)value);
             return new BitmapImage(new Uri(uriStr, UriKind.Relative));
         }
 
