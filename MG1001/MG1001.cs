@@ -329,7 +329,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
 
             var primCS = PRIMPart.GetCoordinateSystem();
             var secCS = SECPart.GetCoordinateSystem();
-            
+
             var primCenterLine = PRIMPart.GetCenterLine(false);
             var secCenterLine = SECPart.GetCenterLine(false);
             var p1 = primCenterLine[0] as Point;
@@ -337,21 +337,29 @@ namespace Muggle.TeklaPlugins.MG1001 {
             var p3 = secCenterLine[0] as Point;
             var p4 = secCenterLine[secCenterLine.Count - 1] as Point;
 
-            var v1 = new Vector(0, -prf_PRIM.h2 * 0.5, 0);
-            var v2 = new Vector(0, -prf_SEC.h2 * 0.5, 0);
+            var primApproximateDirection = new Vector(p2).GetLength() > new Vector(p1).GetLength()
+                ? new Vector(p2 - p1) : new Vector(p1 - p2);
+            var secApproximateDirection = new Vector(p4).GetLength() > new Vector(p3).GetLength()
+                ? new Vector(p4 - p3) : new Vector(p3 - p4);
+
+            var primTranslateVector = new Vector(0, prf_PRIM.h2 * 0.5, 0)
+                * (primCS.AxisY.Dot(secApproximateDirection) > 0 ? -1 : 1);
+            var secTranslateVector = new Vector(0, prf_SEC.h2 * 0.5, 0)
+                * (secCS.AxisY.Dot(primApproximateDirection) > 0 ? -1 : 1);
+
             var primLeftLine = new Line(
-                (p1.TransformTo(primCS) + v1).TransformFrom(primCS),
-                (p2.TransformTo(primCS) + v1).TransformFrom(primCS));
+                (p1.TransformTo(primCS) + primTranslateVector).TransformFrom(primCS),
+                (p2.TransformTo(primCS) + primTranslateVector).TransformFrom(primCS));
             var secTopLine = new Line(
-                (p3.TransformTo(secCS) + v2).TransformFrom(secCS),
-                (p4.TransformTo(secCS) + v2).TransformFrom(secCS));
+                (p3.TransformTo(secCS) + secTranslateVector).TransformFrom(secCS),
+                (p4.TransformTo(secCS) + secTranslateVector).TransformFrom(secCS));
 
             var origin = IntersectionExtension.LineToLine(primLeftLine, secTopLine)?.StartPoint;
-            if (TSG3d.Distance.PointToPoint(origin, p1) 
+            if (TSG3d.Distance.PointToPoint(origin, p1)
                 > TSG3d.Distance.PointToPoint(origin, p2)) {
                 primLeftLine.Direction *= -1;
             }//  统一为从节点近端指向远端
-            if (TSG3d.Distance.PointToPoint(origin, p3) 
+            if (TSG3d.Distance.PointToPoint(origin, p3)
                 > TSG3d.Distance.PointToPoint(origin, p4)) {
                 secTopLine.Direction *= -1;
             }//  统一为从节点近端指向远端
