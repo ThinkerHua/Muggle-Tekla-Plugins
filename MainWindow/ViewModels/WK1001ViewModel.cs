@@ -14,7 +14,6 @@
  *==============================================================================*/
 using System;
 using System.Collections;
-using CommunityToolkit.Mvvm.Input;
 using Muggle.TeklaPlugins.Common.Geometry3d;
 using Muggle.TeklaPlugins.Common.Model;
 using Tekla.Structures.Geometry3d;
@@ -23,11 +22,8 @@ using Tekla.Structures.Model.UI;
 
 namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
     public partial class PluginsViewModel {
-        [RelayCommand]
         private void RunWK1001() {
             try {
-                if (!model.GetConnectionStatus()) throw new Exception("Tekla Structures not running.");
-
                 var partEnum = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_PARTS);
                 var parts = new ArrayList();
                 foreach (Beam part in partEnum) {
@@ -44,6 +40,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                     Number = BaseComponent.PLUGIN_OBJECT_NUMBER,
                     Class = -1,
                 };
+                wk1001.LoadAttributesFromFile("standard");
                 wk1001.SetPrimaryObject(parts[0] as ModelObject);
                 parts.RemoveAt(0);
                 wk1001.SetSecondaryObjects(parts);
@@ -54,10 +51,8 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                 var modelObjects = new ArrayList { wk1001 };
                 uiSelector.Select(modelObjects);
                 model.CommitChanges();
-            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+            } catch {
                 throw;
-            } catch (Exception e) {
-                messageBoxService.ShowError(e.ToString());
             }
         }
 
