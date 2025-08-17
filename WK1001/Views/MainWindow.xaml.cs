@@ -69,5 +69,21 @@ namespace Muggle.TeklaPlugins.WK1001.Views {
             var catalog = sender as WpfMaterialCatalog;
             _viewModel.Material = catalog.SelectedMaterial;
         }
+
+        private void WpfProfileCatalog_SelectClicked(object sender, EventArgs e) {
+            while (!(sender is WpfProfileCatalog)) {
+                sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
+            }
+            var catalog = sender as WpfProfileCatalog;
+            catalog.SelectedProfile = _viewModel.PipeProfile;
+        }
+
+        private void WpfProfileCatalog_SelectionDone(object sender, EventArgs e) {
+            while (!(sender is WpfProfileCatalog)) {
+                sender = LogicalTreeHelper.GetParent(sender as DependencyObject);
+            }
+            var catalog = sender as WpfProfileCatalog;
+            _viewModel.PipeProfile = catalog.SelectedProfile;
+        }
     }
 }

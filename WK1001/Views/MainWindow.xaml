@@ -123,6 +123,7 @@
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="a" />
                         <uiCtrls:WpfFilterCheckBox Grid.Row="0" Grid.Column="2" AttributeName="prfStr_Pipe" />
                         <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding PipeProfile, Mode=TwoWay}" />
+                        <uiCtrls:WpfProfileCatalog Grid.Row="0" Grid.Column="4" SelectClicked="WpfProfileCatalog_SelectClicked" SelectionDone="WpfProfileCatalog_SelectionDone" />
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{tsd:Loc albl_top_end_plate_thickness}" />
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="b" />

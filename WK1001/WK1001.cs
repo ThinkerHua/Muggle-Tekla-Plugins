@@ -180,17 +180,30 @@ namespace Muggle.TeklaPlugins.WK1001 {
             Vector normal;
 
             //根据前三个选择的杆件求共同法向（此时零件尚未排序）
-            var origin = Math.Min(Distance.PointToPoint(parts[0].StartPoint, parts[1].StartPoint),
-                                    Distance.PointToPoint(parts[0].StartPoint, parts[1].EndPoint))
-                        < Math.Min(Distance.PointToPoint(parts[0].EndPoint, parts[1].StartPoint),
-                                    Distance.PointToPoint(parts[0].EndPoint, parts[1].EndPoint)) ?
-                parts[0].StartPoint : parts[0].EndPoint;
-            var p0 = Distance.PointToPoint(origin, parts[0].StartPoint) > Distance.PointToPoint(origin, parts[0].EndPoint) ?
-                parts[0].StartPoint : parts[0].EndPoint;
-            var p1 = Distance.PointToPoint(origin, parts[1].StartPoint) > Distance.PointToPoint(origin, parts[1].EndPoint) ?
-                parts[1].StartPoint : parts[1].EndPoint;
-            var p2 = Distance.PointToPoint(origin, parts[2].StartPoint) > Distance.PointToPoint(origin, parts[2].EndPoint) ?
-                parts[2].StartPoint : parts[2].EndPoint;
+            var part0 = parts[0];
+            var part1 = parts[1];
+            var part2 = parts[2];
+
+            var part0_centerLine = part0.GetCenterLine(false).Cast<Point>();
+            var part1_centerLine = part1.GetCenterLine(false).Cast<Point>();
+            var part2_centerLine = part2.GetCenterLine(false).Cast<Point>();
+
+            var part0Line = new Line(part0_centerLine.First(), part0_centerLine.Last());
+            var part1Line = new Line(part1_centerLine.First(), part1_centerLine.Last());
+            var part2Line = new Line(part2_centerLine.First(), part2_centerLine.Last());
+
+            var origin = (IntersectionExtension.LineToLine(part0Line, part1Line)?.StartPoint)
+                ?? throw new InvalidOperationException("存在平行杆件，无法安装节点。");
+
+            var p0 = Distance.PointToPoint(origin, part0_centerLine.First())
+                > Distance.PointToPoint(origin, part0_centerLine.Last())
+                ? part0_centerLine.First() : part0_centerLine.Last();
+            var p1 = Distance.PointToPoint(origin, part1_centerLine.First())
+                > Distance.PointToPoint(origin, part1_centerLine.Last())
+                ? part1_centerLine.First() : part1_centerLine.Last();
+            var p2 = Distance.PointToPoint(origin, part2_centerLine.First())
+                > Distance.PointToPoint(origin, part2_centerLine.Last())
+                ? part2_centerLine.First() : part2_centerLine.Last();
 
             var v0 = new Vector(p0 - origin).GetNormal(500);
             var v1 = new Vector(p1 - origin).GetNormal(500);
