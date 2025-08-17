@@ -44,8 +44,6 @@ namespace Muggle.TeklaPlugins.WK1001 {
         public double extLength_B;
         [StructuresField("materialStr")]
         public string materialStr;
-        [StructuresField("group_no")]
-        public int group_no;
 
     }
     [Plugin("WK1001")]
@@ -65,7 +63,6 @@ namespace Muggle.TeklaPlugins.WK1001 {
         private double _extLenght_T;
         private double _extLength_B;
         private string _materialStr;
-        private int _group_no;
 
         private List<Beam> parts;
         private List<ProfileRect_Invariant> profiles;
@@ -136,7 +133,6 @@ namespace Muggle.TeklaPlugins.WK1001 {
             _extLenght_T = _data.extLenght_T;
             _extLength_B = _data.extLength_B;
             _materialStr = _data.materialStr;
-            _group_no = _data.group_no;
 
             if (IsDefaultValue(_thick_TEndplate))
                 _thick_TEndplate = 40;
@@ -152,8 +148,6 @@ namespace Muggle.TeklaPlugins.WK1001 {
                 _extLength_B = 20;
             if (IsDefaultValue(_materialStr))
                 _materialStr = "Q345B";
-            if (IsDefaultValue(_group_no))
-                _group_no = -1;
         }
         private void GetParts() {
 

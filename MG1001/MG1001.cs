@@ -61,7 +61,6 @@ namespace Muggle.TeklaPlugins.MG1001 {
     /// <para>bolt_Standard:螺栓标准</para>
     /// <para>bolt_Size:螺栓尺寸</para>
     /// <para>materialStr:节点零件材质</para>
-    /// <para>grou_no:节点等级</para>
     /// </summary>
     public class MG1001Data {
         [StructuresField("prfStr_TOP")]
@@ -122,8 +121,6 @@ namespace Muggle.TeklaPlugins.MG1001 {
         public double bolt_Size;
         [StructuresField("materialStr")]
         public string materialStr;
-        [StructuresField("grou_no")]
-        public int @class;
     }
 
     [Plugin("MG1001")]
@@ -171,7 +168,6 @@ namespace Muggle.TeklaPlugins.MG1001 {
         private string bolt_Standard;
         private double bolt_Size;
         private string materialStr;
-        private int @class;
 
         private TransformationPlane originTP, workTP;
         private double slope;
@@ -243,7 +239,6 @@ namespace Muggle.TeklaPlugins.MG1001 {
             bolt_Standard = _data.bolt_Standard;
             bolt_Size = _data.bolt_Size;
             materialStr = _data.materialStr;
-            @class = _data.@class;
 
             if (IsDefaultValue(prfStr_TOP))
                 prfStr_TOP = string.Empty;
@@ -303,8 +298,6 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 bolt_Size = 20;
             if (IsDefaultValue(materialStr) || materialStr == string.Empty)
                 materialStr = "Q345B";
-            if (IsDefaultValue(@class))
-                @class = 99;
 
             disLst_STIF_Web = DistanceList.Parse(disLstStr_STIF_Web, System.Globalization.CultureInfo.InvariantCulture, TSDatatype.Distance.CurrentUnitType);
             disLst_Bolt_X = DistanceList.Parse(disLstStr_Bolt_X, System.Globalization.CultureInfo.InvariantCulture, TSDatatype.Distance.CurrentUnitType);
@@ -336,7 +329,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
 
             var primCS = PRIMPart.GetCoordinateSystem();
             var secCS = SECPart.GetCoordinateSystem();
-
+            
             var primCenterLine = PRIMPart.GetCenterLine(false);
             var secCenterLine = SECPart.GetCenterLine(false);
             var p1 = primCenterLine[0] as Point;

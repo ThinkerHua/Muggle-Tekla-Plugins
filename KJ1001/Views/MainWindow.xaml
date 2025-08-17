@@ -12,7 +12,7 @@
  *  MainWindow.xaml: user interface for the plugin KJ1001
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================-->
-<tsd:PluginWindowBase x:Class="Muggle.TeklaPlugins.KJ1001.MainWindow"
+<tsd:PluginWindowBase x:Class="Muggle.TeklaPlugins.KJ1001.Views.MainWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:uiCtrls="clr-namespace:Tekla.Structures.Dialog.UIControls;assembly=Tekla.Structures.Dialog"

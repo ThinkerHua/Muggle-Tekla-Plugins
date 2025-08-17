@@ -121,13 +121,10 @@ namespace Muggle.TeklaPlugins.KJ1001 {
         public string flangePosition_distanceListStr_X;
         [StructuresField("FLNGPOS_Y")]
         public string flangePosition_distanceListStr_Y;
-
-        [StructuresField("group_no")]
-        public int group_no;
     }
 
     [Plugin("KJ1001")]
-    [PluginUserInterface("Muggle.TeklaPlugins.KJ1001.MainWindow")]
+    [PluginUserInterface("Muggle.TeklaPlugins.KJ1001.Views.MainWindow")]
     [SecondaryType(SecondaryType.SECONDARYTYPE_ONE)]
     [PositionType(PositionTypeEnum.MIDDLE_PLANE)]
     public class KJ1001 : ConnectionBase {
@@ -173,8 +170,6 @@ namespace Muggle.TeklaPlugins.KJ1001 {
         private double flangeBolt_size;
         private string flangePosition_distanceListStr_X;
         private string flangePosition_distanceListStr_Y;
-
-        private int group_no;
 
         private DistanceList moreInnerStiffeners_distanceList;
         private DistanceList webPosition_distanceList_X;
@@ -291,7 +286,6 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             flangeBolt_size = _Data.flangeBolt_size;
             flangePosition_distanceListStr_X = _Data.flangePosition_distanceListStr_X;
             flangePosition_distanceListStr_Y = _Data.flangePosition_distanceListStr_Y;
-            group_no = _Data.group_no;
 
             if (IsDefaultValue(type)) {
                 type = 0;
@@ -424,9 +418,6 @@ namespace Muggle.TeklaPlugins.KJ1001 {
             }
             if (IsDefaultValue(flangePosition_distanceListStr_Y)) {
                 flangePosition_distanceListStr_Y = "55 70";
-            }
-            if (IsDefaultValue(group_no)) {
-                group_no = 99;
             }
 
             moreInnerStiffeners_distanceList = DistanceList.Parse(

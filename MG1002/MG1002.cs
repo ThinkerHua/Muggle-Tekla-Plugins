@@ -67,8 +67,6 @@ namespace Muggle.TeklaPlugins.MG1002 {
         public string disListStr_bolt_Y;
         [StructuresField("materialStr")]
         public string materialStr;
-        [StructuresField("group_no")]
-        public int group_no;
     }
 
     [Plugin("MG1002")]
@@ -102,7 +100,6 @@ namespace Muggle.TeklaPlugins.MG1002 {
         private DistanceList disList_bolt_Y;
         private Offset bolt_startOffset;
         private string materialStr;
-        private int group_no;
 
         private ProfileH_Symmetrical prfPrim;
         private ProfileH prfSecL, prfSecR;
@@ -171,7 +168,6 @@ namespace Muggle.TeklaPlugins.MG1002 {
             disListStr_bolt_X = _data.disListStr_bolt_X;
             disListStr_bolt_Y = _data.disListStr_bolt_Y;
             materialStr = _data.materialStr;
-            group_no = _data.group_no;
 
             if (IsDefaultValue(prfStr_EndPlate) || prfStr_EndPlate == string.Empty)
                 prfStr_EndPlate = "PL30*460*1093";
@@ -234,8 +230,6 @@ namespace Muggle.TeklaPlugins.MG1002 {
                 disListStr_bolt_Y = "220";
             if (IsDefaultValue(materialStr) || materialStr == string.Empty)
                 materialStr = "Q345B";
-            if (IsDefaultValue(group_no))
-                group_no = -1;
 
             disList_STIF_WEB = DistanceList.Parse(disListStr_STIF_WEB, System.Globalization.CultureInfo.InvariantCulture, Tekla.Structures.Datatype.Distance.CurrentUnitType);
             disList_bolt_X = DistanceList.Parse(disListStr_bolt_X, System.Globalization.CultureInfo.InvariantCulture, Tekla.Structures.Datatype.Distance.CurrentUnitType);

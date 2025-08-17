@@ -96,7 +96,7 @@ namespace Muggle.TeklaPlugins.KJ2001 {
     }
 
     [Plugin("KJ2001")]
-    [PluginUserInterface("Muggle.TeklaPlugins.KJ2001.View.MainWindow")]
+    [PluginUserInterface("Muggle.TeklaPlugins.KJ2001.Views.MainWindow")]
     [SecondaryType(SecondaryType.SECONDARYTYPE_ZERO)]
     [AutoDirectionType(Tekla.Structures.AutoDirectionTypeEnum.AUTODIR_DETAIL)]
     [DetailType(Tekla.Structures.DetailTypeEnum.END)]

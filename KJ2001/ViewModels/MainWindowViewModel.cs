@@ -18,7 +18,7 @@ using Tekla.Structures.Catalogs;
 using Tekla.Structures.Dialog;
 using TD = Tekla.Structures.Datatype;
 
-namespace Muggle.TeklaPlugins.KJ2001.ViewModel {
+namespace Muggle.TeklaPlugins.KJ2001.ViewModels {
     /// <summary>
     /// Data logic for MainWindow
     /// </summary>

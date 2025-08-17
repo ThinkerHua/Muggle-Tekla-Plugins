@@ -59,8 +59,6 @@ namespace Muggle.TeklaPlugins.HJ1001 {
         public double boltCircleDiameter;
         [StructuresField("material")]
         public string material;
-        [StructuresField("group_no")]
-        public int group_no;
         #endregion
     }
 
@@ -89,7 +87,6 @@ namespace Muggle.TeklaPlugins.HJ1001 {
         private double boltSize;
         private double boltCircleDiameter;
         private string material;
-        private int group_no;
 
         private ProfileCircular_Perfect primProfile;
         private ProfileCircular_Perfect secProfile;
@@ -163,7 +160,6 @@ namespace Muggle.TeklaPlugins.HJ1001 {
             boltSize = _Data.boltSize;
             boltCircleDiameter = _Data.boltCircleDiameter;
             material = _Data.material;
-            group_no = _Data.group_no;
 
             if (IsDefaultValue(endPlateTHK))
                 endPlateTHK = 20;
@@ -195,8 +191,6 @@ namespace Muggle.TeklaPlugins.HJ1001 {
                 boltCircleDiameter = 466;
             if (IsDefaultValue(material))
                 material = "Q345B";
-            if (IsDefaultValue(group_no))
-                group_no = 99;
 
         }
         /// <summary>

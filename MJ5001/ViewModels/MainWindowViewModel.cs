@@ -16,7 +16,7 @@ using System.ComponentModel;
 using Tekla.Structures.Dialog;
 using TD = Tekla.Structures.Datatype;
 
-namespace Muggle.TeklaPlugins.MJ5001 {
+namespace Muggle.TeklaPlugins.MJ5001.ViewModels {
     /// <summary>
     /// Data logic for MainWindow
     /// </summary>

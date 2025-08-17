@@ -88,14 +88,11 @@ namespace Muggle.TeklaPlugins.MJ5001 {
 
         [StructuresField("bolt_disList_Y")]
         public string bolt_distListStr_Y;
-
-        [StructuresField("group_no")]
-        public int group_no;
         #endregion
     }
 
     [Plugin("MJ5001")]
-    [PluginUserInterface("Muggle.TeklaPlugins.MJ5001.MainWindow")]
+    [PluginUserInterface("Muggle.TeklaPlugins.MJ5001.Views.MainWindow")]
     [InputObjectDependency(InputObjectDependency.DEPENDENT)]
     public class MJ5001 : PluginBase {
         #region Fields
@@ -121,7 +118,6 @@ namespace Muggle.TeklaPlugins.MJ5001 {
         private double bolt_size;
         private string bolt_disListStr_X;
         private string bolt_distListStr_Y;
-        private int group_no;
 
         private DistanceList anchorRod_disList_X;
         private DistanceList anchorRod_disList_Y;
@@ -242,7 +238,6 @@ namespace Muggle.TeklaPlugins.MJ5001 {
             bolt_size = Data.bolt_size;
             bolt_disListStr_X = Data.bolt_disListStr_X;
             bolt_distListStr_Y = Data.bolt_distListStr_Y;
-            group_no = Data.group_no;
 
             if (IsDefaultValue(gap))
                 gap = 15.0;
@@ -282,8 +277,6 @@ namespace Muggle.TeklaPlugins.MJ5001 {
                 bolt_disListStr_X = "40 7*70";
             if (IsDefaultValue(bolt_distListStr_Y))
                 bolt_distListStr_Y = "0";
-            if (IsDefaultValue(group_no))
-                group_no = 99;
 
             anchorRod_disList_X = DistanceList.Parse(
                 anchorRod_disListStr_X,
