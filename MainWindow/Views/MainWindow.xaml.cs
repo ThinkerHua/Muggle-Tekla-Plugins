@@ -12,15 +12,15 @@
  *  MainWindow.xaml.cs: code behind for the view of all tools and plugins.
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
-using System.Windows;
 using Muggle.TeklaPlugins.MainWindow.Services;
 using Muggle.TeklaPlugins.MainWindow.ViewModels;
+using Tekla.Structures.Dialog;
 
 namespace Muggle.TeklaPlugins.MainWindow.Views {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow : WindowBase {
         public MainWindow(MainWindowViewModel mainWindowViewModel, NavigationService navigationService) {
             InitializeComponent();
 

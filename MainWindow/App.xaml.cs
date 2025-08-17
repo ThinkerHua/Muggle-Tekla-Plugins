@@ -42,8 +42,25 @@ namespace Muggle.TeklaPlugins.MainWindow {
         }
 
         private void Application_Startup(object sender, StartupEventArgs e) {
-            var mainWindow = Services.GetRequiredService<Views.MainWindow>();
-            mainWindow.Show();
+            IMessageBoxService messageBoxService;
+            Views.MainWindow mainWindow;
+
+            try {
+                messageBoxService = Services.GetRequiredService<IMessageBoxService>();
+            } catch {
+                Current.Shutdown();
+                return;
+            }
+
+            try {
+                mainWindow = Services.GetRequiredService<Views.MainWindow>();
+            } catch (Exception ex) {
+                messageBoxService?.ShowError(ex.ToString());
+                Current.Shutdown();
+                return;
+            }
+
+            mainWindow?.Show();
         }
     }
 }

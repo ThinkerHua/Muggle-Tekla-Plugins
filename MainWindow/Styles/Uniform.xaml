@@ -2,28 +2,28 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-	<Thickness x:Key="UniformMargin">4</Thickness>
+    <Thickness x:Key="UniformMargin">4</Thickness>
 
-	<CornerRadius x:Key="UniformCornerRadius">4</CornerRadius>
+    <CornerRadius x:Key="UniformCornerRadius">4</CornerRadius>
 
-	<SolidColorBrush x:Key="Static.Background" Color="#FFEEEEEE" />
-	<SolidColorBrush x:Key="Static.Border" Color="#FF707070" />
-	<SolidColorBrush x:Key="Static.Glyph" Color="#FF212121" />
-	<SolidColorBrush x:Key="MouseOver.Background" Color="#FFd3f0ff" />
-	<SolidColorBrush x:Key="MouseOver.Border" Color="#FF3C7FB1" />
-	<SolidColorBrush x:Key="MouseOver.Glyph" Color="#FF212121" />
-	<SolidColorBrush x:Key="Pressed.Background" Color="#FFD9E6FE" />
-	<SolidColorBrush x:Key="Pressed.Border" Color="#FF2C628B" />
-	<SolidColorBrush x:Key="Pressed.Glyph" Color="#FF212121" />
-	<SolidColorBrush x:Key="Disabled.Foreground" Color="#FF838383" />
-	<SolidColorBrush x:Key="Disabled.Background" Color="#FFF4F4F4" />
-	<SolidColorBrush x:Key="Disabled.Border" Color="#FFADB2B5" />
-	<SolidColorBrush x:Key="Disabled.Glyph" Color="#FF707070" />
+    <SolidColorBrush x:Key="Static.Background" Color="#FFEEEEEE" />
+    <SolidColorBrush x:Key="Static.Border" Color="#FF707070" />
+    <SolidColorBrush x:Key="Static.Glyph" Color="#FF212121" />
+    <SolidColorBrush x:Key="MouseOver.Background" Color="#FFd3f0ff" />
+    <SolidColorBrush x:Key="MouseOver.Border" Color="#FF3C7FB1" />
+    <SolidColorBrush x:Key="MouseOver.Glyph" Color="#FF212121" />
+    <SolidColorBrush x:Key="Pressed.Background" Color="#FFD9E6FE" />
+    <SolidColorBrush x:Key="Pressed.Border" Color="#FF2C628B" />
+    <SolidColorBrush x:Key="Pressed.Glyph" Color="#FF212121" />
+    <SolidColorBrush x:Key="Disabled.Foreground" Color="#FF838383" />
+    <SolidColorBrush x:Key="Disabled.Background" Color="#FFF4F4F4" />
+    <SolidColorBrush x:Key="Disabled.Border" Color="#FFADB2B5" />
+    <SolidColorBrush x:Key="Disabled.Glyph" Color="#FF707070" />
 
-	<DropShadowEffect x:Key="ControlDropShadowEffect"
-	                  BlurRadius="10"
-	                  ShadowDepth="0"
-	                  Opacity="0.5"
-	                  Color="#FF000000" />
+    <DropShadowEffect x:Key="ControlDropShadowEffect"
+                      BlurRadius="10"
+                      ShadowDepth="0"
+                      Opacity="0.5"
+                      Color="#FF000000" />
 
 </ResourceDictionary>

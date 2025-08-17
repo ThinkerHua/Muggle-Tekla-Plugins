@@ -40,27 +40,60 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
     public partial class PluginsViewModel : ViewModelBase {
 
         private const string USER_INTERRUPT = "User interrupt";
-        private readonly Localization localization = new Localization();
+        private readonly string XSDATADIR = string.Empty;
         private readonly Model model = new Model();
         private readonly Picker picker = new Picker();
         private readonly TSMUI.ModelObjectSelector uiSelector = new TSMUI.ModelObjectSelector();
         /// <summary>
-        /// key - plugin name, value - plugin dll path
+        /// key - plugin name, value - plugin assembly
         /// </summary>
-        private readonly Dictionary<string, string> plugins = new Dictionary<string, string>();
+        private readonly Dictionary<string, Assembly> plugins = new Dictionary<string, Assembly>();
 
         private readonly IMessageBoxService messageBoxService;
 
+        private readonly Localization localization;
+
         public PluginsViewModel(IMessageBoxService messageBoxService) {
             this.messageBoxService = messageBoxService;
+
+            try {
+                var language = string.Empty;
+                TeklaStructuresSettings.GetAdvancedOption("XS_LANGUAGE", ref language);
+                language = GetShortLanguage(language);
+
+                TeklaStructuresSettings.GetAdvancedOption("XSDATADIR", ref XSDATADIR);
+                var promptsAilFilePath = Path.Combine(XSDATADIR, @"messages\prompts.ail");
+
+                localization = new Localization(promptsAilFilePath, language);
+                localization.LoadAilFile(promptsAilFilePath);
+            } catch {
+                localization = new Localization();
+            }
+        }
+
+        private static string GetShortLanguage(string Language) {
+            return Language switch {
+                "ENGLISH" => "enu",
+                "DUTCH" => "nld",
+                "FRENCH" => "fra",
+                "GERMAN" => "deu",
+                "ITALIAN" => "ita",
+                "SPANISH" => "esp",
+                "JAPANESE" => "jpn",
+                "CHINESE SIMPLIFIED" => "chs",
+                "CHINESE TRADITIONAL" => "cht",
+                "CZECH" => "csy",
+                "PORTUGUESE BRAZILIAN" => "ptb",
+                "HUNGARIAN" => "hun",
+                "POLISH" => "plk",
+                "RUSSIAN" => "rus",
+                _ => "enu",
+            };
         }
 
         private void ReloadPlugins() {
-            string XSDATADIR = string.Empty;
-            try {
-                TeklaStructuresSettings.GetAdvancedOption("XSDATADIR", ref XSDATADIR);
-            } catch {
-                throw new Exception("Tekla structures not running.");
+            if (XSDATADIR == string.Empty) {
+                throw new Exception("Failed to load plugins, XSDATADIR has not be setted yet.");
             }
 
             plugins.Clear();
@@ -73,7 +106,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                     var attribute = type.GetCustomAttribute<PluginAttribute>();
                     if (attribute == null) continue;
 
-                    plugins[attribute.Name] = dll;
+                    plugins[attribute.Name] = assembly;
                 }
             }
         }
@@ -104,41 +137,41 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
 
             BaseComponent baseComponent = null;
             try {
-                var assembly = Assembly.LoadFile(plugins[pluginName]);
+                var assembly = plugins[pluginName];
                 var pluginType = assembly.GetTypes().First(type => {
                     var attr = type.GetCustomAttribute<PluginAttribute>();
                     return attr != null && attr.Name == pluginName;
                 });
+
                 Attribute attribute;
 
-                //var inputObjectType = ConnectionBase.InputObjectType.INPUTOBJECT_PART;
                 var secondaryType = ConnectionBase.SecondaryType.SECONDARYTYPE_ONE;
-                var positionType = PositionTypeEnum.COLLISION_PLANE;
                 var autoDirectionType = AutoDirectionTypeEnum.AUTODIR_DETAIL;
+                var positionType = PositionTypeEnum.COLLISION_PLANE;
                 var detailType = DetailTypeEnum.END;
                 var seamInputType = ConnectionBase.SeamInputType.INPUT_POLYGON;
                 var customPartInputType = CustomPartBase.CustomPartInputType.INPUT_1_POINT;
                 //var customPartPositioningType = CustomPartBase.CustomPartPositioningType.POSITIONING_BY_CENTER_OF_BOUNDING_BOX;
+                //var inputObjectDependency = PluginBase.InputObjectDependency.NOT_DEPENDENT;
                 //var pluginCoordinateSystem = PluginBase.CoordinateSystemType.FROM_FIRST_POINT_AND_GLOBAL;
                 //var pluginSymbolVisibility = PluginBase.SymbolVisibility.DRAW_SYMBOL;
-                //PluginBase.InputObjectDependency inputObjectDependency;
                 var baseType = pluginType.BaseType;
                 if (baseType.Equals(typeof(ConnectionBase))) {
                     attribute = pluginType.GetCustomAttribute<SecondaryTypeAttribute>();
                     if (attribute != null) secondaryType = ((SecondaryTypeAttribute)attribute).Type;
 
-                    attribute = pluginType.GetCustomAttribute<PositionTypeAttribute>();
-                    if (attribute != null) positionType = ((PositionTypeAttribute)attribute).Type;
-
                     attribute = pluginType.GetCustomAttribute<AutoDirectionTypeAttribute>();
                     if (attribute != null) autoDirectionType = ((AutoDirectionTypeAttribute)attribute).Type;
+
+                    attribute = pluginType.GetCustomAttribute<PositionTypeAttribute>();
+                    if (attribute != null) positionType = ((PositionTypeAttribute)attribute).Type;
 
                     if (secondaryType == ConnectionBase.SecondaryType.SECONDARYTYPE_ZERO) {
                         //  Detail
                         attribute = pluginType.GetCustomAttribute<DetailTypeAttribute>();
                         if (attribute != null) detailType = ((DetailTypeAttribute)attribute).Type;
 
-                        baseComponent = CreatDetail(pluginName, positionType, autoDirectionType, detailType);
+                        baseComponent = CreatDetail(pluginName, autoDirectionType, detailType);
                     } else {
                         attribute = pluginType.GetCustomAttribute<SeamInputTypeAttribute>();
                         if (attribute != null) {
@@ -149,7 +182,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                         } else {
                             //  Connection
 
-                            baseComponent = CreatConnection(pluginName, secondaryType, positionType, autoDirectionType);
+                            baseComponent = CreatConnection(pluginName, secondaryType, autoDirectionType, positionType);
                         }
                     }
                 } else if (baseType.Equals(typeof(CustomPartBase))) {
@@ -174,10 +207,8 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                     throw new Exception(string.Format("Unsupported type: \"{0}\"", baseType));
                 }
 
-            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+            } catch {
                 throw;
-            } catch (Exception e) {
-                messageBoxService.ShowError(e.ToString());
             } finally {
                 if (baseComponent != null) {
                     uiSelector.Select(new ArrayList { baseComponent });
@@ -186,17 +217,17 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
             }
         }
 
-        private Detail CreatDetail(string pluginName, PositionTypeEnum positionType, AutoDirectionTypeEnum autoDirectionType, DetailTypeEnum detailType) {
+        private Detail CreatDetail(string pluginName, AutoDirectionTypeEnum autoDirectionType, DetailTypeEnum detailType) {
             var mo = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, localization.GetText("prompt_Pick_main_part"));
             var p = picker.PickPoint(localization.GetText("prompt_Pick_position"));
             var detail = new Detail {
                 Name = pluginName,
                 Number = BaseComponent.PLUGIN_OBJECT_NUMBER,
-                PositionType = positionType,
                 AutoDirectionType = autoDirectionType,
                 DetailType = detailType,
                 Class = -1
             };
+            detail.LoadAttributesFromFile("standard");
             detail.SetPrimaryObject(mo);
             detail.SetReferencePoint(p);
 
@@ -216,6 +247,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                 AutoPosition = true,
                 Class = -1
             };
+            seam.LoadAttributesFromFile("standard");
 
             var primPart = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, localization.GetText("prompt_Pick_main_part"));
             seam.SetPrimaryObject(primPart);
@@ -225,7 +257,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
             switch (secondaryType) {
                 case ConnectionBase.SecondaryType.SECONDARYTYPE_ONE:
                     secondaryPart = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, localization.GetText("prompt_Pick_secondary_part"));
-                    seam.SetPrimaryObject(secondaryPart);
+                    seam.SetSecondaryObject(secondaryPart);
                     break;
                 case ConnectionBase.SecondaryType.SECONDARYTYPE_TWO:
                     for (int i = 0; i < 2; i++) {
@@ -267,14 +299,15 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
             }
         }
 
-        private Connection CreatConnection(string pluginName, ConnectionBase.SecondaryType secondaryType, PositionTypeEnum positionType, AutoDirectionTypeEnum autoDirectionType) {
+        private Connection CreatConnection(string pluginName, ConnectionBase.SecondaryType secondaryType, AutoDirectionTypeEnum autoDirectionType, PositionTypeEnum positionType) {
             var connection = new Connection {
                 Name = pluginName,
                 Number = BaseComponent.PLUGIN_OBJECT_NUMBER,
-                PositionType = positionType,
                 AutoDirectionType = autoDirectionType,
+                PositionType = positionType,
                 Class = -1
             };
+            connection.LoadAttributesFromFile("standard");
 
             var primPart = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, localization.GetText("prompt_Pick_main_part"));
             connection.SetPrimaryObject(primPart);
@@ -317,6 +350,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                 Name = pluginName,
                 Number = BaseComponent.PLUGIN_OBJECT_NUMBER
             };
+            customPart.LoadAttributesFromFile("standard");
 
             Point p1, p2;
             switch (customPartInputType) {
@@ -327,7 +361,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                     break;
                 case CustomPartBase.CustomPartInputType.INPUT_1_POINT:
                     p1 = picker.PickPoint(localization.GetText("prompt_Pick_position"));
-                    customPart.SetInputPositions(p1, null);
+                    customPart.SetInputPositions(p1, p1);
                     break;
                 default:
                     break;
@@ -386,6 +420,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                 Name = name,
                 Number = BaseComponent.PLUGIN_OBJECT_NUMBER
             };
+            component.LoadAttributesFromFile("standard");
             component.SetComponentInput(input);
 
             try {
