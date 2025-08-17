@@ -194,13 +194,13 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 PRIMPart = _model.SelectModelObject(Primary) as Beam;
                 SECPart = _model.SelectModelObject(Secondaries[0]) as Beam;
 
-                CheckIfAcceptableProfile(PRIMPart, SECPart);
+                CheckIfAcceptableProfile(PRIMPart, SECPart, out ProfileH prf_PRIM, out ProfileH prf_SEC);
 
                 if (originTP == null) {
                     originTP = _model.GetWorkPlaneHandler().GetCurrentTransformationPlane();
                 }
                 if (workTP == null) {
-                    workTP = SetWorkTransformationPlane();//And get slope at the same time;
+                    workTP = SetWorkTransformationPlane(prf_PRIM, prf_SEC);//And get slope at the same time;
                 }
 
                 result = CreatConnection(PRIMPart, SECPart);
@@ -317,8 +317,7 @@ namespace Muggle.TeklaPlugins.MG1001 {
         /// </summary>
         /// <param name="primPart"></param>
         /// <param name="secPart"></param>
-        private void CheckIfAcceptableProfile(Beam primPart, Beam secPart) {
-            ProfileH prf_PRIM, prf_SEC;
+        private void CheckIfAcceptableProfile(Beam primPart, Beam secPart, out ProfileH prf_PRIM, out ProfileH prf_SEC) {
             try {
                 prf_PRIM = new ProfileH(primPart.Profile.ProfileString);
                 prf_SEC = new ProfileH(secPart.Profile.ProfileString);
@@ -331,39 +330,46 @@ namespace Muggle.TeklaPlugins.MG1001 {
                 throw;
             }
         }
-        private TransformationPlane SetWorkTransformationPlane() {
-            Beam PRIMPart = (Beam)_model.SelectModelObject(Primary);
-            Beam SECPart = (Beam)_model.SelectModelObject(Secondaries[0]);
-            Point point1, point2, point3, point4;
-            Point origin;
-            Vector axisX, axisY, axisZ;
-            Line PRIMLine, SECLine;
-            TransformationPlane workTP;
+        private TransformationPlane SetWorkTransformationPlane(ProfileH prf_PRIM, ProfileH prf_SEC) {
+            var PRIMPart = _model.SelectModelObject(Primary) as Beam;
+            var SECPart = _model.SelectModelObject(Secondaries[0]) as Beam;
 
-            point1 = new Point(PRIMPart.StartPoint);
-            point2 = new Point(PRIMPart.EndPoint);
-            point3 = new Point(SECPart.StartPoint);
-            point4 = new Point(SECPart.EndPoint);
+            var primCS = PRIMPart.GetCoordinateSystem();
+            var secCS = SECPart.GetCoordinateSystem();
 
-            PRIMLine = new Line(point1, point2);
-            SECLine = new Line(point3, point4);
+            var primCenterLine = PRIMPart.GetCenterLine(false);
+            var secCenterLine = SECPart.GetCenterLine(false);
+            var p1 = primCenterLine[0] as Point;
+            var p2 = primCenterLine[primCenterLine.Count - 1] as Point;
+            var p3 = secCenterLine[0] as Point;
+            var p4 = secCenterLine[secCenterLine.Count - 1] as Point;
 
-            origin = TSG3d.Intersection.LineToLine(PRIMLine, SECLine).StartPoint;
-            if (TSG3d.Distance.PointToPoint(origin, point1) > TSG3d.Distance.PointToPoint(origin, point2)) {
-                PRIMLine.Direction *= -1;
-            }
-            if (TSG3d.Distance.PointToPoint(origin, point3) > TSG3d.Distance.PointToPoint(origin, point4)) {
-                SECLine.Direction *= -1;
-            }
+            var v1 = new Vector(0, -prf_PRIM.h2 * 0.5, 0);
+            var v2 = new Vector(0, -prf_SEC.h2 * 0.5, 0);
+            var primLeftLine = new Line(
+                (p1.TransformTo(primCS) + v1).TransformFrom(primCS),
+                (p2.TransformTo(primCS) + v1).TransformFrom(primCS));
+            var secTopLine = new Line(
+                (p3.TransformTo(secCS) + v2).TransformFrom(secCS),
+                (p4.TransformTo(secCS) + v2).TransformFrom(secCS));
 
+            var origin = IntersectionExtension.LineToLine(primLeftLine, secTopLine)?.StartPoint;
+            if (TSG3d.Distance.PointToPoint(origin, p1) 
+                > TSG3d.Distance.PointToPoint(origin, p2)) {
+                primLeftLine.Direction *= -1;
+            }//  统一为从节点近端指向远端
+            if (TSG3d.Distance.PointToPoint(origin, p3) 
+                > TSG3d.Distance.PointToPoint(origin, p4)) {
+                secTopLine.Direction *= -1;
+            }//  统一为从节点近端指向远端
 
-            axisZ = PRIMLine.Direction.Cross(SECLine.Direction);
-            axisX = axisZ.Cross(PRIMLine.Direction);
-            axisY = axisZ.Cross(axisX);
+            var axisZ = primLeftLine.Direction.Cross(secTopLine.Direction);
+            var axisX = axisZ.Cross(primLeftLine.Direction);
+            var axisY = axisZ.Cross(axisX);
 
             workTP = new TransformationPlane(origin, axisX, axisY);
 
-            slope = Math.Abs(Math.Tan(axisX.GetAngleBetween(SECLine.Direction)));
+            slope = Math.Abs(Math.Tan(axisX.GetAngleBetween(secTopLine.Direction)));
 
             return workTP;
         }
