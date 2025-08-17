@@ -98,9 +98,8 @@ namespace Muggle.TeklaPlugins.KJ2001 {
     [Plugin("KJ2001")]
     [PluginUserInterface("Muggle.TeklaPlugins.KJ2001.View.MainWindow")]
     [SecondaryType(SecondaryType.SECONDARYTYPE_ZERO)]
-    [DetailType(Tekla.Structures.DetailTypeEnum.END)]
-    [PositionType(Tekla.Structures.PositionTypeEnum.END_END_PLANE)]
     [AutoDirectionType(Tekla.Structures.AutoDirectionTypeEnum.AUTODIR_DETAIL)]
+    [DetailType(Tekla.Structures.DetailTypeEnum.END)]
     public class KJ2001 : ConnectionBase {
         #region Fields
         private Model _Model;
