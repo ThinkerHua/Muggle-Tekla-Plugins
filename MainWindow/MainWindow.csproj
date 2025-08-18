@@ -50,6 +50,6 @@
     <Resource Include="Resources\et_element_WK1001.bmp" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)$(TargetName).exe&quot; &quot;D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTeklaPlugins\&quot; /Y /C /Q /R" />
+		<Exec Command="xcopy &quot;$(TargetDir)$(TargetName).exe&quot; &quot;D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTSExtensions\&quot; /Y /C /Q /R" />
   </Target>
 </Project>

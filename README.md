@@ -1,4 +1,4 @@
-# Muggle Tekla-Plugins
+# Muggle TeklaStructures Extensions
 
 用于 Tekla Structures 的工具和插件。请遵守[开源协议](LICENSE)使用。
 
