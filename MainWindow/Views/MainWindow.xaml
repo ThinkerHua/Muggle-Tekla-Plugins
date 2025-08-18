@@ -30,6 +30,7 @@
                    ShowInTaskbar="True"
                    WindowStartupLocation="CenterScreen"
                    Background="#FFFFFFFF"
+                   Icon="/Resources/logo.ico"
                    mc:Ignorable="d">
 
     <dialog:WindowBase.Resources>

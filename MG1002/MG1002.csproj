@@ -1,37 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
-    <LangVersion>8.0</LangVersion>
+		<LangVersion>8.0</LangVersion>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>Muggle.TeklaPlugins.MG1002</RootNamespace>
 		<AssemblyName>MG1002</AssemblyName>
 		<Authors>thinkerhua@hotmail.com</Authors>
 		<Copyright>Copyright © 2024 thinkerhua@hotmail.com. All rights reserved.</Copyright>
-		<OutputPath>bin\$(Configuration)\</OutputPath>
-		<OutputPath>Installer/BuildDrop</OutputPath>
+		<OutputPath>../TSEP/binaries</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Resources\3.png" />
-	  <None Remove="Resources\4.png" />
+		<None Remove="Resources\3.png" />
+		<None Remove="Resources\4.png" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Tekla.Structures" Version="2021.0.0" ExcludeAssets="runtime" />
-	  <PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" ExcludeAssets="runtime" />
-	  <PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" ExcludeAssets="runtime" />
-	  <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" ExcludeAssets="runtime" />
-	  <PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" ExcludeAssets="runtime" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Common.WPF\Common.WPF.csproj" private="false" />
-	  <ProjectReference Include="..\Common\Common.csproj" private="false" />
+		<ProjectReference Include="..\Common.WPF\Common.WPF.csproj" private="false" />
+		<ProjectReference Include="..\Common\Common.csproj" private="false" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Properties\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Resource Include="Resources\3.png" />
-	  <Resource Include="Resources\4.png" />
-	  <Resource Include="Resources\Up direction.png" />
+		<Resource Include="Resources\3.png" />
+		<Resource Include="Resources\4.png" />
+		<Resource Include="Resources\Up direction.png" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="xcopy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTSExtensions\&quot; /Y /C /Q /R" />

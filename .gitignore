@@ -361,13 +361,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/WK1001/Installer/BuildDrop/net48
-/HJ1001/Installer/BuildDrop/net48
-/MG1001/Installer/BuildDrop/net48
-/MG1002/Installer/BuildDrop/net48
-/MJ1001/Installer/BuildDrop/net48
-/KJ2001/Installer
-/MJ5001/Installer/BuildDrop/net48
-/KJ1001/Installer
+
+# Rider
 /.idea/.idea.Muggle Tekla-Plugins/.idea
-/KJ1002/Installer
+
+# TSEP
+/TSEP/binaries/*
+/TSEP/installer/output/*

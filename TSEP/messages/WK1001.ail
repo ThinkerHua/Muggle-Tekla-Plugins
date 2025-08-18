@@ -1,0 +1,128 @@
+﻿string_utf8 albl_WK1001_title
+{
+	entry = ("enu", "WK1001 - Connections of tubes");
+	entry = ("chs", "WK1001 - 方管杆件连接");
+};
+
+string_utf8 albl_parameters
+{
+	entry = ("enu", "Parameters");
+	entry = ("chs", "参数");
+};
+
+
+string_utf8 albl_pipe_profile
+{
+	entry = ("enu", "Pipe's profile");
+	entry = ("chs", "圆筒规格");
+};
+
+string_utf8 albl_pipe_profile_tooltip
+{
+	entry = ("enu", "Keep it blank to automatically determine the profile based on the minimum distance between tubes.");
+	entry = ("chs", "留空以根据杆件间最小净间距自动确定规格。");
+};
+
+string_utf8 albl_top_end_plate_thickness
+{
+	entry = ("enu", "Top end plate's thickness");
+	entry = ("chs", "上端板厚度");
+};
+
+string_utf8 albl_bottom_end_plate_thickness
+{
+	entry = ("enu", "Bottom end plate's thickness");
+	entry = ("chs", "下端板厚度");
+};
+
+string_utf8 albl_bottom_end_plate_diameter
+{
+	entry = ("enu", "Bottom end plate's diameter");
+	entry = ("chs", "下端板直径");
+};
+
+string_utf8 albl_bottom_end_plate_diameter_tooltip
+{
+    entry = ("enu", "Enter 0 for type A, otherwise for type B.");
+	entry = ("chs", "输入0表示类型A，否则为类型B。");
+};
+
+string_utf8 albl_stiffener_thickness
+{
+	entry = ("enu", "Stiffener's thickness");
+	entry = ("chs", "加劲板厚度");
+};
+
+string_utf8 albl_minimum_distance_between_tubes
+{
+	entry = ("enu", "Minimum distance between tubes");
+	entry = ("chs", "杆件间最小净间距");
+};
+
+string_utf8 albl_top_extended_length
+{
+	entry = ("enu", "Top extended length");
+	entry = ("chs", "上延伸长度");
+};
+
+string_utf8 albl_bottom_extended_length
+{
+	entry = ("enu", "Bottom extended length");
+	entry = ("chs", "下延伸长度");
+};
+
+string_utf8 albl_material
+{
+	entry = ("enu", "Material");
+	entry = ("chs", "材质");
+};
+
+string_utf8 albl_general {
+	entry = ("enu", "General");
+	entry = ("chs", "通用");
+};
+
+string_utf8 albl_up_direction {
+	entry = ("enu", "Up direction");
+	entry = ("chs", "向上方向");
+};
+
+string_utf8 albl_auto {
+	entry = ("enu", "Auto");
+	entry = ("chs", "自动");
+};
+
+string_utf8 albl_locked {
+	entry = ("enu", "Locked");
+	entry = ("chs", "锁定");
+};
+
+string_utf8 albl_no {
+	entry = ("enu", "No");
+	entry = ("chs", "否");
+};
+
+string_utf8 albl_yes {
+	entry = ("enu", "Yes");
+	entry = ("chs", "是");
+};
+
+string_utf8 albl_class {
+	entry = ("enu", "Class");
+	entry = ("chs", "等级");
+};
+
+string_utf8 albl_connection_code {
+	entry = ("enu", "Connection code");
+	entry = ("chs", "节点号");
+};
+
+string_utf8 albl_auto_defaults_rule_group {
+	entry = ("enu", "AutoDefaults rule group");
+	entry = ("chs", "自动默认值规则组");
+};
+
+string_utf8 albl_auto_connection_rule_group {
+	entry = ("enu", "AutoConnection rule group");
+	entry = ("chs", "自动连接规则组");
+};

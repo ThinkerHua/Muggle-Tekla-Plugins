@@ -1,0 +1,151 @@
+﻿string_utf8 albl_HJ1001_title
+{
+	entry = ("enu", "HJ1001 - Round tube butting");
+	entry = ("chs", "HJ1001 - 圆管对接");
+};
+
+string_utf8 albl_parameters
+{
+	entry = ("enu", "Parameters");
+	entry = ("chs", "参数");
+};
+
+string_utf8 albl_end_plate_thickness
+{
+	entry = ("enu", "End plate's thickness");
+	entry = ("chs", "端板厚度");
+};
+
+string_utf8 albl_end_plate_diameter
+{
+	entry = ("enu", "End plate's diameter");
+	entry = ("chs", "端板直径");
+};
+
+string_utf8 albl_creat_primary_stiffeners
+{
+	entry = ("enu", "Creat primary stiffeners");
+	entry = ("chs", "创建主零件加劲肋");
+};
+
+string_utf8 albl_creat_secondary_stiffeners
+{
+	entry = ("enu", "Creat secondary stiffeners");
+	entry = ("chs", "创建次零件加劲肋");
+};
+
+string_utf8 albl_stiffener_thickness
+{
+	entry = ("enu", "Stiffener's thickness");
+	entry = ("chs", "加劲肋厚度");
+};
+
+string_utf8 albl_stiffener_width
+{
+	entry = ("enu", "Stiffener's width");
+	entry = ("chs", "加劲肋宽度");
+};
+
+string_utf8 albl_chamfer_size_X
+{
+	entry = ("enu", "Chamfer's size X");
+	entry = ("chs", "倒角尺寸X");
+};
+
+string_utf8 albl_chamfer_size_Y
+{
+	entry = ("enu", "Chamfer's size Y");
+	entry = ("chs", "倒角尺寸Y");
+};
+
+string_utf8 albl_distance_to_edge
+{
+	entry = ("enu", "Distance to edge");
+	entry = ("chs", "加劲肋到端板边缘距离");
+};
+
+string_utf8 albl_quantity
+{
+	entry = ("enu", "Quantity");
+	entry = ("chs", "数量");
+};
+
+string_utf8 albl_creat_bolt
+{
+	entry = ("enu", "Creat bolt");
+	entry = ("chs", "创建螺栓");
+};
+
+string_utf8 albl_bolt_standard
+{
+	entry = ("enu", "Bolt's standard");
+	entry = ("chs", "螺栓等级");
+};
+
+string_utf8 albl_bolt_size
+{
+	entry = ("enu", "Bolt's size");
+	entry = ("chs", "螺栓尺寸");
+};
+
+string_utf8 albl_bolt_circle_diameter
+{
+	entry = ("enu", "Bolt circle's diameter");
+	entry = ("chs", "环形螺栓直径");
+};
+
+string_utf8 albl_material
+{
+	entry = ("enu", "Material");
+	entry = ("chs", "材质");
+};
+
+string_utf8 albl_general {
+	entry = ("enu", "General");
+	entry = ("chs", "通用");
+};
+
+string_utf8 albl_up_direction {
+	entry = ("enu", "Up direction");
+	entry = ("chs", "向上方向");
+};
+
+string_utf8 albl_auto {
+	entry = ("enu", "Auto");
+	entry = ("chs", "自动");
+};
+
+string_utf8 albl_locked {
+	entry = ("enu", "Locked");
+	entry = ("chs", "锁定");
+};
+
+string_utf8 albl_no {
+	entry = ("enu", "No");
+	entry = ("chs", "否");
+};
+
+string_utf8 albl_yes {
+	entry = ("enu", "Yes");
+	entry = ("chs", "是");
+};
+
+string_utf8 albl_class {
+	entry = ("enu", "Class");
+	entry = ("chs", "等级");
+};
+
+string_utf8 albl_connection_code {
+	entry = ("enu", "Connection code");
+	entry = ("chs", "节点号");
+};
+
+string_utf8 albl_auto_defaults_rule_group {
+	entry = ("enu", "AutoDefaults rule group");
+	entry = ("chs", "自动默认值规则组");
+};
+
+string_utf8 albl_auto_connection_rule_group {
+	entry = ("enu", "AutoConnection rule group");
+	entry = ("chs", "自动连接规则组");
+};

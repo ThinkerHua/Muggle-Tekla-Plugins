@@ -1,55 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>8.0</LangVersion>
-    <OutputType>WinExe</OutputType>
-    <UseWPF>true</UseWPF>
-    <AssemblyName>MuggleTeklaPlugins</AssemblyName>
-    <RootNamespace>Muggle.TeklaPlugins.MainWindow</RootNamespace>
-    <Authors>thinkerhua@hotmail.com</Authors>
-    <Copyright>Copyright © 2024 thinkerhua@hotmail.com. All rights reserved.</Copyright>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Resources\et_element_HJ1001.bmp" />
-    <None Remove="Resources\et_element_KJ1001.bmp" />
-    <None Remove="Resources\et_element_KJ1002.bmp" />
-    <None Remove="Resources\et_element_KJ2001.bmp" />
-    <None Remove="Resources\et_element_MG1001.bmp" />
-    <None Remove="Resources\et_element_MG1002.bmp" />
-    <None Remove="Resources\et_element_MJ5001.bmp" />
-    <None Remove="Resources\et_element_WK1001.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
-    <PackageReference Include="Tekla.Structures" Version="2021.0.0" ExcludeAssets="runtime" />
-    <PackageReference Include="Tekla.Structures.Catalogs" Version="2021.0.0" ExcludeAssets="runtime" />
-    <PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" ExcludeAssets="runtime" />
-    <PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" ExcludeAssets="runtime" />
-    <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" ExcludeAssets="runtime" />
-    <PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" ExcludeAssets="runtime" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="PresentationFramework.Aero2" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" private="false" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\et_element_HJ1001.bmp" />
-    <Resource Include="Resources\et_element_KJ1001.bmp" />
-    <Resource Include="Resources\et_element_KJ1002.bmp" />
-    <Resource Include="Resources\et_element_KJ2001.bmp" />
-    <Resource Include="Resources\et_element_MG1001.bmp" />
-    <Resource Include="Resources\et_element_MG1002.bmp" />
-    <Resource Include="Resources\et_element_MJ5001.bmp" />
-    <Resource Include="Resources\et_element_WK1001.bmp" />
-  </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<LangVersion>8.0</LangVersion>
+		<OutputType>WinExe</OutputType>
+		<UseWPF>true</UseWPF>
+		<AssemblyName>MuggleTSExtensions</AssemblyName>
+		<RootNamespace>Muggle.TeklaPlugins.MainWindow</RootNamespace>
+		<Authors>thinkerhua@hotmail.com</Authors>
+		<Copyright>Copyright © 2024 thinkerhua@hotmail.com. All rights reserved.</Copyright>
+		<OutputPath>../TSEP/binaries</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Resources\logo.ico" />
+	  <None Remove="Resources\logo.jpg" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
+		<PackageReference Include="Tekla.Structures" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Catalogs" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" ExcludeAssets="runtime" />
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="PresentationFramework.Aero2" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Common\Common.csproj" private="false" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="Resources\logo.ico" />
+	</ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="xcopy &quot;$(TargetDir)$(TargetName).exe&quot; &quot;D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTSExtensions\&quot; /Y /C /Q /R" />
-  </Target>
+	</Target>
 </Project>
