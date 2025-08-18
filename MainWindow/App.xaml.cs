@@ -3,11 +3,28 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Muggle.TeklaPlugins.MainWindow.Services;
 using Muggle.TeklaPlugins.MainWindow.ViewModels;
+using Events = Tekla.Structures.Model.Events;
+using Model = Tekla.Structures.Model.Model;
 
 namespace Muggle.TeklaPlugins.MainWindow {
     public partial class App : Application {
+        private readonly Model model;
+        private readonly Events events;
 
         public App() {
+            try {
+                model = new Model();
+                if (!model.GetConnectionStatus()) Shutdown();
+
+                events = new Events();
+            } catch {
+                Shutdown();
+                return;
+            }
+
+            events.TeklaStructuresExit += ExitApp;
+            events.Register();
+
             Services = ConfigureServices();
         }
 
@@ -20,8 +37,6 @@ namespace Muggle.TeklaPlugins.MainWindow {
 
             services.AddSingleton<IMessageBoxService, MessageBoxService>();
             services.AddSingleton<INavigationService, NavigationService>();
-
-            services.AddSingleton<NavigationService>();
 
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<Views.MainWindow>();
@@ -61,6 +76,16 @@ namespace Muggle.TeklaPlugins.MainWindow {
             }
 
             mainWindow?.Show();
+        }
+
+        private void ExitApp() {
+            events.UnRegister();
+            Dispatcher.Invoke(() => {
+                Current.Shutdown();
+            });
+            /*new Thread(() => {
+                Environment.Exit(0);
+            }).Start();*/
         }
     }
 }

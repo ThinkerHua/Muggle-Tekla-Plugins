@@ -21,7 +21,7 @@ namespace Muggle.TeklaPlugins.MainWindow.Views {
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : WindowBase {
-        public MainWindow(MainWindowViewModel mainWindowViewModel, NavigationService navigationService) {
+        public MainWindow(MainWindowViewModel mainWindowViewModel, INavigationService navigationService) {
             InitializeComponent();
 
             navigationService.SetFrame(frame);

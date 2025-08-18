@@ -21,9 +21,9 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
     public partial class MainWindowViewModel : ViewModelBase {
 
         private readonly IMessageBoxService messageBoxService;
-        private readonly NavigationService navigationService;
+        private readonly INavigationService navigationService;
 
-        public MainWindowViewModel(IMessageBoxService messageBoxService, NavigationService navigationService) {
+        public MainWindowViewModel(IMessageBoxService messageBoxService, INavigationService navigationService) {
             this.messageBoxService = messageBoxService;
             this.navigationService = navigationService;
         }
