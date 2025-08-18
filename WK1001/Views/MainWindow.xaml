@@ -122,7 +122,7 @@
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{tsd:Loc albl_pipe_profile}" />
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="a" />
                         <uiCtrls:WpfFilterCheckBox Grid.Row="0" Grid.Column="2" AttributeName="prfStr_Pipe" />
-                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding PipeProfile, Mode=TwoWay}" />
+                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding PipeProfile, Mode=TwoWay}" ToolTip="{tsd:Loc albl_pipe_profile_tooltip}" />
                         <uiCtrls:WpfProfileCatalog Grid.Row="0" Grid.Column="4" SelectClicked="WpfProfileCatalog_SelectClicked" SelectionDone="WpfProfileCatalog_SelectionDone" />
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{tsd:Loc albl_top_end_plate_thickness}" />
@@ -138,7 +138,7 @@
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="{tsd:Loc albl_bottom_end_plate_diameter}" />
                         <TextBlock Grid.Row="3" Grid.Column="1" Text="d" />
                         <uiCtrls:WpfFilterCheckBox Grid.Row="3" Grid.Column="2" AttributeName="diam_BEndplate" />
-                        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding BottomEndPlateDiameter, Mode=TwoWay}" />
+                        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding BottomEndPlateDiameter, Mode=TwoWay}" ToolTip="{tsd:Loc albl_bottom_end_plate_diameter_tooltip}" />
 
                         <TextBlock Grid.Row="4" Grid.Column="0" Text="{tsd:Loc albl_stiffener_thickness}" />
                         <TextBlock Grid.Row="4" Grid.Column="1" Text="e" />

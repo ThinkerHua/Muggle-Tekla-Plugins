@@ -17,6 +17,12 @@ string_utf8 albl_pipe_profile
 	entry = ("chs", "圆筒规格");
 };
 
+string_utf8 albl_pipe_profile_tooltip
+{
+	entry = ("enu", "Keep it blank to automatically determine the profile based on the minimum distance between tubes.");
+	entry = ("chs", "留空以根据杆件间最小净间距自动确定规格。");
+};
+
 string_utf8 albl_top_end_plate_thickness
 {
 	entry = ("enu", "Top end plate's thickness");
@@ -33,6 +39,12 @@ string_utf8 albl_bottom_end_plate_diameter
 {
 	entry = ("enu", "Bottom end plate's diameter");
 	entry = ("chs", "下端板直径");
+};
+
+string_utf8 albl_bottom_end_plate_diameter_tooltip
+{
+    entry = ("enu", "Enter 0 for type A, otherwise for type B.");
+	entry = ("chs", "输入0表示类型A，否则为类型B。");
 };
 
 string_utf8 albl_stiffener_thickness
