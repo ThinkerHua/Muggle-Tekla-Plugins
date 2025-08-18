@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
-    <LangVersion>8.0</LangVersion>
-    <UseWPF>true</UseWPF>
+		<LangVersion>8.0</LangVersion>
+		<UseWPF>true</UseWPF>
 		<AssemblyName>HJ1001</AssemblyName>
 		<RootNamespace>Muggle.TeklaPlugins.HJ1001</RootNamespace>
 		<Authors>thinkerhua@hotmail.com</Authors>
@@ -11,26 +11,26 @@
 		<OutputPath>Installer/BuildDrop</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Resources\Up direction.png" />
+		<None Remove="Resources\Up direction.png" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Tekla.Structures" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" />
+		<PackageReference Include="Tekla.Structures" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" ExcludeAssets="runtime" />
+		<PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" ExcludeAssets="runtime" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Common.WPF\Common.WPF.csproj" />
-	  <ProjectReference Include="..\Common\Common.csproj" />
+		<ProjectReference Include="..\Common.WPF\Common.WPF.csproj" private="false" />
+		<ProjectReference Include="..\Common\Common.csproj" private="false"/>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Properties\" />
+		<Folder Include="Properties\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Resource Include="Resources\Up direction.png" />
+		<Resource Include="Resources\Up direction.png" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="xcopy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTeklaPlugins\&quot; /Y /C /Q /R" />
+		<Exec Command="xcopy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;D:\Program Files\Tekla Structures\2021.0\Environments\common\extensions\MuggleTeklaPlugins\&quot; /Y /C /Q /R" />
 	</Target>
 </Project>

@@ -11,15 +11,15 @@
 		<OutputPath>Installer/BuildDrop</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="Tekla.Structures" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" />
+	  <PackageReference Include="Tekla.Structures" Version="2021.0.0" ExcludeAssets="runtime" />
+	  <PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" ExcludeAssets="runtime" />
+	  <PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" ExcludeAssets="runtime" />
+	  <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" ExcludeAssets="runtime" />
+	  <PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" ExcludeAssets="runtime" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Common.WPF\Common.WPF.csproj" />
-	  <ProjectReference Include="..\Common\Common.csproj" />
+	  <ProjectReference Include="..\Common.WPF\Common.WPF.csproj" private="false" />
+	  <ProjectReference Include="..\Common\Common.csproj" private="false" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Properties\" />
