@@ -801,7 +801,8 @@ namespace Muggle.TeklaPlugins.KJ1002 {
             p1 -= direction * coincidentLength;
             p2 += direction * coincidentLength;
 
-            var brace = ModelOperation.CreatBeam(p2, p1, "BRACE", profile, material,
+            var brace = ModelOperation.CreatBeam(
+                isLower ? p2 : p1, isLower ? p1 : p2, "BRACE", profile, material,
                 depthEnum: isLower ? Position.DepthEnum.FRONT : Position.DepthEnum.BEHIND,
                 depthOffset: gussetThickness,
                 rotationEnum: isLower ? Position.RotationEnum.FRONT : Position.RotationEnum.BACK);
