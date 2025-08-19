@@ -92,12 +92,8 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         }
 
         private void ReloadPlugins() {
-            if (XSDATADIR == string.Empty) {
-                throw new Exception("Failed to load plugins, XSDATADIR has not be setted yet.");
-            }
-
             plugins.Clear();
-            var extensionsPath = Path.Combine(XSDATADIR, "Environments\\common\\extensions\\MuggleTeklaPlugins");
+            var extensionsPath = AppDomain.CurrentDomain.BaseDirectory;
             var dlls = Directory.GetFiles(extensionsPath, "*.dll", SearchOption.TopDirectoryOnly);
             foreach (var dll in dlls) {
                 var assembly = Assembly.LoadFile(dll);
