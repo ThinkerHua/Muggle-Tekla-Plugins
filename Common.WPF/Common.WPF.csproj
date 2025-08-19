@@ -8,6 +8,7 @@
 		<RootNamespace>Muggle.TeklaPlugins.Common.WPF</RootNamespace>
 		<Authors>thinkerhua@hotmail.com</Authors>
 		<Copyright>Copyright © 2025 thinkerhua@hotmail.com. All rights reserved.</Copyright>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<OutputPath>../TSEP/binaries</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
