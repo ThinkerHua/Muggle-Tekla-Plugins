@@ -107,7 +107,7 @@
 		<File Id="System.Threading.Tasks.Extensions" Source="%BinariesFolder%\System.Threading.Tasks.Extensions.dll" Target="%BinariesDirectory%"/>
 	</Component>
 
-	<Feature Id="MuggleTSExtension" Title="Muggle TeklaStructures Extension">
+	<Feature Id="MuggleTSExtensions" Title="Muggle TeklaStructures Extensions">
 		<ComponentRef ReferenceId="Common" />
 		<ComponentRef ReferenceId="Common.WPF" />
 		<ComponentRef ReferenceId="HJ1001" />
