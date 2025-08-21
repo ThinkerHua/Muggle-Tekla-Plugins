@@ -3,7 +3,7 @@ using Tekla.Structures.Model;
 
 namespace Muggle.TeklaPlugins.Common.Model {
     /// <summary>
-    /// <see cref="Tekla.Structures.Model.ModelObject"/> 的扩展。
+    /// <see cref="Tekla.Structures.Model"/>.<see cref="ModelObject"/> 的扩展。
     /// </summary>
     public static class ModelObjectExtension {
         /// <summary>
