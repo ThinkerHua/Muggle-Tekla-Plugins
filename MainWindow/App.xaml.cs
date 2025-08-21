@@ -1,16 +1,26 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Muggle.TeklaPlugins.MainWindow.Services;
 using Muggle.TeklaPlugins.MainWindow.ViewModels;
+using Tekla.Structures;
+using Tekla.Structures.Dialog;
 using Events = Tekla.Structures.Model.Events;
 using Model = Tekla.Structures.Model.Model;
+using TSDialog = Tekla.Structures.Dialog;
 
 namespace Muggle.TeklaPlugins.MainWindow {
     public partial class App : Application {
+        internal static string USER_INTERRUPT = "User interrupt";
+        internal static string NOT_CONNECTED = "Not connected to a model.";
+
         private readonly Model model;
         private readonly Events events;
 
+        private readonly string XSDATADIR = string.Empty;
+
+        internal TSDialog.Localization Localization { get; }
         public App() {
             try {
                 model = new Model();
@@ -20,6 +30,20 @@ namespace Muggle.TeklaPlugins.MainWindow {
             } catch {
                 Shutdown();
                 return;
+            }
+
+            try {
+                var language = string.Empty;
+                TeklaStructuresSettings.GetAdvancedOption("XS_LANGUAGE", ref language);
+                language = GetShortLanguage(language);
+
+                TeklaStructuresSettings.GetAdvancedOption("XSDATADIR", ref XSDATADIR);
+                var promptsAilFilePath = Path.Combine(XSDATADIR, @"messages\prompts.ail");
+
+                Localization = new TSDialog.Localization(promptsAilFilePath, language);
+                Localization.LoadAilFile(promptsAilFilePath);
+            } catch {
+                Localization = new TSDialog.Localization();
             }
 
             events.TeklaStructuresExit += ExitApp;
@@ -86,6 +110,26 @@ namespace Muggle.TeklaPlugins.MainWindow {
             /*new Thread(() => {
                 Environment.Exit(0);
             }).Start();*/
+        }
+
+        private static string GetShortLanguage(string Language) {
+            return Language switch {
+                "ENGLISH" => "enu",
+                "DUTCH" => "nld",
+                "FRENCH" => "fra",
+                "GERMAN" => "deu",
+                "ITALIAN" => "ita",
+                "SPANISH" => "esp",
+                "JAPANESE" => "jpn",
+                "CHINESE SIMPLIFIED" => "chs",
+                "CHINESE TRADITIONAL" => "cht",
+                "CZECH" => "csy",
+                "PORTUGUESE BRAZILIAN" => "ptb",
+                "HUNGARIAN" => "hun",
+                "POLISH" => "plk",
+                "RUSSIAN" => "rus",
+                _ => "enu",
+            };
         }
     }
 }

@@ -40,17 +40,11 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
             ManualSelect,
         }
 
-        private const string USER_INTERRUPT = "User interrupt";
-        private const string NOT_CONNECTED = "Not connected to a model.";
         private readonly Model model = new Model();
         private readonly Picker picker = new Picker();
         private readonly TSMUI.ModelObjectSelector uiSelector = new TSMUI.ModelObjectSelector();
 
         private readonly IMessageBoxService messageBoxService;
-
-        public ThreeDimensionalRotationViewModel(IMessageBoxService messageBoxService) {
-            this.messageBoxService = messageBoxService;
-        }
 
         [ObservableProperty]
         private AxisEnum axis = AxisEnum.PartCS_AxisX;
@@ -64,13 +58,17 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         [ObservableProperty]
         private bool targetDirectionIsNormalOfPlane = true;
 
+        public ThreeDimensionalRotationViewModel(IMessageBoxService messageBoxService) {
+            this.messageBoxService = messageBoxService;
+        }
+
         [RelayCommand]
         private void ThreeDimensionalRotation() {
             try {
                 while (true) {
                     Action(Axis, Angle, Degrees, TargetDirectionIsNormalOfPlane);
                 }
-            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+            } catch (Exception e) when (e.Message == App.USER_INTERRUPT) {
 
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());
@@ -78,7 +76,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         }
 
         private void Action(AxisEnum axisEnum, AngleEnum angleEnum, double degrees, bool targetDirectionIsNormalOfPlane) {
-            if (!model.GetConnectionStatus()) throw new InvalidOperationException(NOT_CONNECTED);
+            if (!model.GetConnectionStatus()) throw new InvalidOperationException(App.NOT_CONNECTED);
 
             var selectedObjects = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_OBJECTS, "选择要旋转的对象。");
             if (selectedObjects == null || selectedObjects.GetSize() == 0) {

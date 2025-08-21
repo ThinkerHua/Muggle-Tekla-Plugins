@@ -36,25 +36,11 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
             ALL = -1
         }
 
-        private const string USER_INTERRUPT = "User interrupt";
-        private const string NOT_CONNECTED = "Not connected to a model.";
         private readonly Model model = new Model();
         private readonly Picker picker = new Picker();
         private readonly TSMUI.ModelObjectSelector uiSelector = new TSMUI.ModelObjectSelector();
 
         private readonly IMessageBoxService messageBoxService;
-
-        public SelectBooleansViewModel(IMessageBoxService messageBoxService) {
-            this.messageBoxService = messageBoxService;
-        }
-
-        public BooleanTypeEnum BooleanType => BooleanTypeEnum.None |
-                (MatchBooleanAdd ? BooleanTypeEnum.Add : BooleanTypeEnum.None) |
-                (MatchBooleanCut ? BooleanTypeEnum.Cut : BooleanTypeEnum.None) |
-                (MatchWeldPrep ? BooleanTypeEnum.WELDPREP : BooleanTypeEnum.None) |
-                (MatchCutPlane ? BooleanTypeEnum.CUTPLANE : BooleanTypeEnum.None) |
-                (MatchEdgeChamfer ? BooleanTypeEnum.EDGECHAMFER : BooleanTypeEnum.None) |
-                (MatchFitting ? BooleanTypeEnum.FITTING : BooleanTypeEnum.None);
 
         [ObservableProperty]
         private bool matchBooleanAdd = false;
@@ -74,15 +60,27 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         [ObservableProperty]
         private bool matchFitting = false;
 
+        public BooleanTypeEnum BooleanType => BooleanTypeEnum.None |
+                (MatchBooleanAdd ? BooleanTypeEnum.Add : BooleanTypeEnum.None) |
+                (MatchBooleanCut ? BooleanTypeEnum.Cut : BooleanTypeEnum.None) |
+                (MatchWeldPrep ? BooleanTypeEnum.WELDPREP : BooleanTypeEnum.None) |
+                (MatchCutPlane ? BooleanTypeEnum.CUTPLANE : BooleanTypeEnum.None) |
+                (MatchEdgeChamfer ? BooleanTypeEnum.EDGECHAMFER : BooleanTypeEnum.None) |
+                (MatchFitting ? BooleanTypeEnum.FITTING : BooleanTypeEnum.None);
+
+        public SelectBooleansViewModel(IMessageBoxService messageBoxService) {
+            this.messageBoxService = messageBoxService;
+        }
+
         [RelayCommand]
         private void SelectBooleans() {
 
             Part part;
             try {
-                if (!model.GetConnectionStatus()) throw new InvalidOperationException(NOT_CONNECTED);
+                if (!model.GetConnectionStatus()) throw new InvalidOperationException(App.NOT_CONNECTED);
 
                 part = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART) as Part;
-            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+            } catch (Exception e) when (e.Message == App.USER_INTERRUPT) {
                 return;
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());

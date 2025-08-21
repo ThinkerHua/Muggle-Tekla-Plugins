@@ -29,8 +29,6 @@ using TSMUI = Tekla.Structures.Model.UI;
 
 namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
     public partial class NormalToolsViewModel : ViewModelBase {
-        private const string USER_INTERRUPT = "User interrupt";
-        private const string NOT_CONNECTED = "Not connected to a model.";
         private readonly Model model = new Model();
         private readonly Picker picker = new Picker();
         private readonly TSMUI.ModelObjectSelector uiSelector = new TSMUI.ModelObjectSelector();
@@ -45,7 +43,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         private void ShowModelObjectCoordinateSystem() {
             ModelObject obj;
             try {
-                if (!model.GetConnectionStatus()) throw new InvalidOperationException(NOT_CONNECTED);
+                if (!model.GetConnectionStatus()) throw new InvalidOperationException(App.NOT_CONNECTED);
 
                 while (true) {
                     obj = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT);
@@ -58,7 +56,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                         Internal.ShowCoordinateSystem(obj.GetCoordinateSystem());
                     }
                 }
-            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+            } catch (Exception e) when (e.Message == App.USER_INTERRUPT) {
 
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());
@@ -68,7 +66,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         [RelayCommand]
         private void SelectWeldedObjects() {
             try {
-                if (!model.GetConnectionStatus()) throw new InvalidOperationException(NOT_CONNECTED);
+                if (!model.GetConnectionStatus()) throw new InvalidOperationException(App.NOT_CONNECTED);
 
                 var weld = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_WELD) as BaseWeld;
                 var parts = new ArrayList {
@@ -78,7 +76,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
 
                 uiSelector.Select(parts, false);
                 model.CommitChanges();
-            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+            } catch (Exception e) when (e.Message == App.USER_INTERRUPT) {
 
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());
@@ -89,10 +87,10 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         private void ReorderContourPoints() {
             ContourPlate plate;
             try {
-                if (!model.GetConnectionStatus()) throw new InvalidOperationException(NOT_CONNECTED);
+                if (!model.GetConnectionStatus()) throw new InvalidOperationException(App.NOT_CONNECTED);
 
                 plate = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select a contour plate:") as ContourPlate;
-            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+            } catch (Exception e) when (e.Message == App.USER_INTERRUPT) {
                 return;
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());
@@ -120,10 +118,10 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         private void ShowContourOrder() {
             ContourPlate plate;
             try {
-                if (!model.GetConnectionStatus()) throw new InvalidOperationException(NOT_CONNECTED);
+                if (!model.GetConnectionStatus()) throw new InvalidOperationException(App.NOT_CONNECTED);
 
                 plate = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select a contour plate:") as ContourPlate;
-            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+            } catch (Exception e) when (e.Message == App.USER_INTERRUPT) {
                 return;
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());
@@ -146,7 +144,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         [RelayCommand]
         private void CopyWithDirection() {
             try {
-                if (!model.GetConnectionStatus()) throw new InvalidOperationException(NOT_CONNECTED);
+                if (!model.GetConnectionStatus()) throw new InvalidOperationException(App.NOT_CONNECTED);
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());
                 return;

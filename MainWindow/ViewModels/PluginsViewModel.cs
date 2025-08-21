@@ -38,9 +38,6 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
     }
 
     public partial class PluginsViewModel : ViewModelBase {
-
-        private const string USER_INTERRUPT = "User interrupt";
-        private readonly string XSDATADIR = string.Empty;
         private readonly Model model = new Model();
         private readonly Picker picker = new Picker();
         private readonly TSMUI.ModelObjectSelector uiSelector = new TSMUI.ModelObjectSelector();
@@ -51,44 +48,10 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
 
         private readonly IMessageBoxService messageBoxService;
 
-        private readonly Localization localization;
+        private readonly Localization localization = App.Current.Localization;
 
         public PluginsViewModel(IMessageBoxService messageBoxService) {
             this.messageBoxService = messageBoxService;
-
-            try {
-                var language = string.Empty;
-                TeklaStructuresSettings.GetAdvancedOption("XS_LANGUAGE", ref language);
-                language = GetShortLanguage(language);
-
-                TeklaStructuresSettings.GetAdvancedOption("XSDATADIR", ref XSDATADIR);
-                var promptsAilFilePath = Path.Combine(XSDATADIR, @"messages\prompts.ail");
-
-                localization = new Localization(promptsAilFilePath, language);
-                localization.LoadAilFile(promptsAilFilePath);
-            } catch {
-                localization = new Localization();
-            }
-        }
-
-        private static string GetShortLanguage(string Language) {
-            return Language switch {
-                "ENGLISH" => "enu",
-                "DUTCH" => "nld",
-                "FRENCH" => "fra",
-                "GERMAN" => "deu",
-                "ITALIAN" => "ita",
-                "SPANISH" => "esp",
-                "JAPANESE" => "jpn",
-                "CHINESE SIMPLIFIED" => "chs",
-                "CHINESE TRADITIONAL" => "cht",
-                "CZECH" => "csy",
-                "PORTUGUESE BRAZILIAN" => "ptb",
-                "HUNGARIAN" => "hun",
-                "POLISH" => "plk",
-                "RUSSIAN" => "rus",
-                _ => "enu",
-            };
         }
 
         private void ReloadPlugins() {
@@ -117,7 +80,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                 while (true) {
                     RunPlugin(pluginName);
                 }
-            } catch (Exception e) when (e.Message == USER_INTERRUPT) {
+            } catch (Exception e) when (e.Message == App.USER_INTERRUPT) {
 
             } catch (Exception e) {
                 messageBoxService.ShowError(e.ToString());
