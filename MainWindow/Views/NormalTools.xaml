@@ -26,22 +26,23 @@
       d:Background="AliceBlue"
       mc:Ignorable="d">
 
-	<Page.Resources>
-		<ResourceDictionary>
-			<Style TargetType="Button">
-				<Setter Property="Template" Value="{StaticResource ButtonStyle1}" />
-				<Setter Property="Margin" Value="{StaticResource UniformMargin}" />
-				<Setter Property="Height" Value="30" />
-			</Style>
-		</ResourceDictionary>
-	</Page.Resources>
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="Template" Value="{StaticResource ButtonStyle1}" />
+                <Setter Property="Margin" Value="{StaticResource UniformMargin}" />
+                <Setter Property="Padding" Value="4 2 4 2" />
+                <Setter Property="Height" Value="30" />
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
 
-	<StackPanel Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-		<Button Content="ShowModelObjectCoordinateSystem" Command="{Binding ShowModelObjectCoordinateSystemCommand}" />
-		<Button Content="SelectWeldedObjects" Command="{Binding SelectWeldedObjectsCommand}" />
-		<Button Content="ReorderContourPoints" Command="{Binding ReorderContourPointsCommand}" />
-		<Button Content="ShowContourOrder" Command="{Binding ShowContourOrderCommand}" />
-		<Button Content="CopyWithDirection" Command="{Binding CopyWithDirectionCommand}" />
+    <StackPanel Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Button Content="ShowModelObjectCoordinateSystem" Command="{Binding ShowModelObjectCoordinateSystemCommand}" />
+        <Button Content="SelectWeldedObjects" Command="{Binding SelectWeldedObjectsCommand}" />
+        <Button Content="ReorderContourPoints" Command="{Binding ReorderContourPointsCommand}" />
+        <Button Content="ShowContourOrder" Command="{Binding ShowContourOrderCommand}" />
+        <Button Content="CopyWithDirection" Command="{Binding CopyWithDirectionCommand}" />
 
-	</StackPanel>
+    </StackPanel>
 </Page>

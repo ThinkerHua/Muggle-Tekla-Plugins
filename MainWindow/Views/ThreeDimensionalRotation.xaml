@@ -68,7 +68,7 @@
 				</Grid.RowDefinitions>
 
 				<RadioButton Grid.Row="0" Grid.Column="0" Content="Angle value" IsChecked="{Binding Angle, Converter={StaticResource enumToBool}, ConverterParameter={x:Static vm:ThreeDimensionalRotationViewModel+AngleEnum.AngleValue}}" />
-				<TextBox Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" Text="{Binding Degrees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				<TextBox Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Degrees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 				<RadioButton Grid.Row="1"
 				             Grid.Column="0"
 				             Grid.ColumnSpan="2"
