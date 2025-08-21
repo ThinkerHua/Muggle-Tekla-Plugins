@@ -9,7 +9,7 @@
  *  You should have received a copy of the GNU General Public License 
  *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
  *==============================================================================
- *  PluginsViewModel.xaml.cs: view model for the plugins.
+ *  PluginsViewModel.cs: view model for the plugins.
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;

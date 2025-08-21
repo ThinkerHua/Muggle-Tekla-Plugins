@@ -9,7 +9,7 @@
  *  You should have received a copy of the GNU General Public License 
  *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
  *==============================================================================
- *  NormalToolsViewModel.xaml.cs: view model for the normal tools.
+ *  NormalToolsViewModel.cs: view model for the normal tools.
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;

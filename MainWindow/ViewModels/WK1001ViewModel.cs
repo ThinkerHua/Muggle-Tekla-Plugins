@@ -9,7 +9,7 @@
  *  You should have received a copy of the GNU General Public License 
  *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
  *==============================================================================
- *  WK1001ViewModel.xaml.cs: view model for the WK1001 connection plugin
+ *  WK1001ViewModel.cs: view model for the WK1001 connection plugin
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;

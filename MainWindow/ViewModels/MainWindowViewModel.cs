@@ -9,7 +9,7 @@
  *  You should have received a copy of the GNU General Public License 
  *  along with this program. If not, see <http://www.gnu.org/licenses/>. 
  *==============================================================================
- *  MainWindowViewModel.xaml.cs: view model for all tools and plugins.
+ *  MainWindowViewModel.cs: view model for all tools and plugins.
  *  written by Huang YongXing - thinkerhua@hotmail.com
  *==============================================================================*/
 using System;
