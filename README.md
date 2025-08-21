@@ -20,6 +20,7 @@
 - [ReorderContourPoints (重排多边形板轮廓点顺序)](#reordercontourpoints-重排多边形板轮廓点顺序)
 - [ShowContourOrder (显示轮廓点顺序)](#showcontourorder-显示轮廓点顺序)
 - [CopyWithDirection (带基点和方向复制)](#copywithdirection-带基点和方向复制)
+- [MoveToElevatio (移动到指定标高)](#movetoelevation-移动到指定标高)
 
 >组件
 
@@ -87,6 +88,13 @@
 适用于需要批量复制且带有旋转的情形，避免先复制再一个个旋转角度的繁琐操作。
 
 ![CopyWithDirection](Resources/Introduction_CopyWithDirection.gif)
+
+## MoveToElevation (移动到指定标高)
+
+便捷地移动模型对象到指定标高，可指定目标标高是顶标高、中心标高或底标高，还可指定是全局标高或相对标高。
+可以先启动命名，再选择模型对象；也可先选择模型对象，再启动命令。
+
+![MoveToElevation](Resources/Introduction_MoveToElevation.png)
 
 ## MG1001 (门刚系列节点 - 门刚边柱与梁竖向连接)
 

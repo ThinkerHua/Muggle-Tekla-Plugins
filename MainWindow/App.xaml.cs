@@ -77,6 +77,9 @@ namespace Muggle.TeklaPlugins.MainWindow {
             services.AddTransient<PluginsViewModel>();
             services.AddTransient<Views.Plugins>();
 
+            services.AddTransient<MoveToElevationViewModel>();
+            services.AddTransient<Views.MoveToElevation>();
+
             return services.BuildServiceProvider();
         }
 

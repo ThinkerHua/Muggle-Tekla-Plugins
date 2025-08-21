@@ -19,6 +19,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <cvc:EnumToBoolValueConverter x:Key="enumToBool" />
+            <cvc:BoolInverterValueConverter x:Key="boolInverter" />
             <cvt:MultiplesValueConverter x:Key="multiples" />
             <cvt:PluginNameToIconValueConverter x:Key="pluginNameToIcon" />
             <cvt:RoundDownValueConverter x:Key="roundDown" />
