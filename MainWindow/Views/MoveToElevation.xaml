@@ -30,11 +30,13 @@
         <ResourceDictionary>
             <Style x:Key="element" TargetType="FrameworkElement">
                 <Setter Property="Margin" Value="{StaticResource UniformMargin}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style TargetType="TextBlock" BasedOn="{StaticResource element}" />
             <Style TargetType="TextBox" BasedOn="{StaticResource element}">
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Height" Value="20" />
             </Style>
             <Style TargetType="Button" BasedOn="{StaticResource element}">
                 <Setter Property="Template" Value="{StaticResource ButtonStyle1}" />
@@ -66,14 +68,14 @@
                      HorizontalAlignment="Left"
                      GroupName="absolutely"
                      Content="Absolutely"
-                     IsChecked="{Binding Absolutely, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                     IsChecked="{Binding IsAbsolutely, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <RadioButton Grid.Row="1"
                      Grid.Column="0"
                      Grid.ColumnSpan="2"
                      HorizontalAlignment="Right"
                      GroupName="absolutely"
                      Content="Relative"
-                     IsChecked="{Binding Absolutely, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource boolInverter}}" />
+                     IsChecked="{Binding IsAbsolutely, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource boolInverter}}" />
 
         <Separator Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
 

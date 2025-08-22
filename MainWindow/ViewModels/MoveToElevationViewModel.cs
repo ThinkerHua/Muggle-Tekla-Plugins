@@ -45,7 +45,7 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
         private double targetElevation = 0.0;
 
         [ObservableProperty]
-        private bool absolutely = true;
+        private bool isAbsolutely = true;
 
         [ObservableProperty]
         private ElevationTypeEnum elevationType = ElevationTypeEnum.Top;
@@ -76,15 +76,15 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
             foreach (ModelObject obj in mobjects) {
                 switch (ElevationType) {
                     case ElevationTypeEnum.Top:
-                        if (!obj.GetLevel(Absolutely, true, out elevation)) continue;
+                        if (!obj.GetLevel(IsAbsolutely, true, out elevation)) continue;
                         break;
                     case ElevationTypeEnum.Bottom:
-                        if (!obj.GetLevel(Absolutely, false, out elevation)) continue;
+                        if (!obj.GetLevel(IsAbsolutely, false, out elevation)) continue;
                         break;
                     case ElevationTypeEnum.Middle:
-                        if (!obj.GetLevel(Absolutely, true, out elevation)) continue;
+                        if (!obj.GetLevel(IsAbsolutely, true, out elevation)) continue;
                         var bottomElevation = 0.0;
-                        if (!obj.GetLevel(Absolutely, false, out bottomElevation)) continue;
+                        if (!obj.GetLevel(IsAbsolutely, false, out bottomElevation)) continue;
 
                         elevation = (elevation + bottomElevation) * 0.5;
                         break;
@@ -92,24 +92,12 @@ namespace Muggle.TeklaPlugins.MainWindow.ViewModels {
                         break;
                 }
 
-                var vector = new Vector(0.0, 0.0, TargetElevation - elevation).TransformFrom(globalTP);
+                var vector = new Vector(0.0, 0.0, TargetElevation - elevation);
+                if (IsAbsolutely) vector = vector.TransformFrom(globalTP);
                 Operation.MoveObject(obj, vector);
             }
 
             model.CommitChanges();
-        }
-
-        [RelayCommand]
-        private void CreateViewOnElevation() {
-            if (!model.GetConnectionStatus()) throw new InvalidOperationException(App.NOT_CONNECTED);
-
-            var view = new View {
-                Name = string.Format("EL - {0,F3}", TargetElevation * 0.001),
-                ViewCoordinateSystem = new CoordinateSystem(),
-                ViewDepthDown = 1000.0,
-                ViewDepthUp = 1000.0
-            };
-            view.Insert();
         }
     }
 }

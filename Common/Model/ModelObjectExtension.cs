@@ -10,18 +10,18 @@ namespace Muggle.TeklaPlugins.Common.Model {
         /// 获取模型对象的标高，单位 mm。
         /// </summary>
         /// <param name="modelObject">当前模型对象</param>
-        /// <param name="absolutely">true 则获取绝对标高（全局工作平面），false 则获取相对标高（当前工作平面）</param>
-        /// <param name="topLevel">true 则获取顶标高，false 则获取底标高</param>
+        /// <param name="isAbsolutely">true 则获取绝对标高（全局工作平面），false 则获取相对标高（当前工作平面）</param>
+        /// <param name="isTopLevel">true 则获取顶标高，false 则获取底标高</param>
         /// <param name="level">获取到的标高值，获取失败时其值为 <see cref="double.MinValue"/></param>
         /// <returns>获取成功返回 true，失败返回 false。</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static bool GetLevel(this ModelObject modelObject, bool absolutely, bool topLevel, out double level) {
+        public static bool GetLevel(this ModelObject modelObject, bool isAbsolutely, bool isTopLevel, out double level) {
             if (modelObject is null) {
                 throw new ArgumentNullException(nameof(modelObject));
             }
 
-            var levelName = topLevel ? "TOP_LEVEL" : "BOTTOM_LEVEL";
-            if (absolutely) levelName = string.Concat(levelName, "_GLOBAL");
+            var levelName = isTopLevel ? "TOP_LEVEL" : "BOTTOM_LEVEL";
+            if (isAbsolutely) levelName = string.Concat(levelName, "_GLOBAL");
 
             var levelStr = string.Empty;
             level = double.MinValue;
