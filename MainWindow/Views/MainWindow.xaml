@@ -88,6 +88,16 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext" />
 
-        <Frame x:Name="frame" Grid.Column="2" NavigationUIVisibility="Hidden" Source="NormalTools.xaml" />
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Frame x:Name="frame" Grid.Row="0" NavigationUIVisibility="Hidden" Source="NormalTools.xaml" />
+            <TextBlock Grid.Row="1" Margin="{StaticResource UniformMargin}" DockPanel.Dock="Bottom" TextWrapping="Wrap">
+                <Run>Author: Huang YongXing -</Run>
+                <Hyperlink NavigateUri="mailto:thinkerhua@hotmail.com">thinkerhua@hotmail.com</Hyperlink>
+            </TextBlock>
+        </Grid>
     </Grid>
 </dialog:WindowBase>

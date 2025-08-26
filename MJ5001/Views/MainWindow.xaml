@@ -66,6 +66,11 @@
                                                    ModifyClicked="WPFOkApplyModifyGetOnOffCancel_ModifyClicked"
                                                    OkClicked="WPFOkApplyModifyGetOnOffCancel_OkClicked"
                                                    OnOffClicked="WPFOkApplyModifyGetOnOffCancel_OnOffClicked" />
+        <TextBlock Margin="4" DockPanel.Dock="Bottom" TextWrapping="Wrap">
+            <Run>Huang YongXing -</Run>
+            <Hyperlink NavigateUri="mailto:thinkerhua@hotmail.com">thinkerhua@hotmail.com</Hyperlink>
+        </TextBlock>
+
         <Canvas Width="400" DockPanel.Dock="Left">
             <Image Width="400">
                 <Image.Source>

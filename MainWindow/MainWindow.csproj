@@ -28,7 +28,7 @@
 		<Reference Include="PresentationFramework.Aero2" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Common.WPF\Common.WPF.csproj" />
+		<ProjectReference Include="..\Common.WPF\Common.WPF.csproj" private="false" />
 		<ProjectReference Include="..\Common\Common.csproj" private="false" />
 	</ItemGroup>
 	<ItemGroup>
